@@ -3,8 +3,12 @@ package edu.upc.prop.clusterxx;
 import com.google.gson.Gson;
 
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
+    inout term = new inout();
+    term.write("aaaaaaaa");
     System.out.println("Hello world!");
+    String entrada = term.readline();
+    term.write(entrada);
     new Gson();
 
     Main divisioner = new Main();
