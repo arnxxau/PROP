@@ -1,4 +1,4 @@
 package edu.upc.prop.clusterxx;
 
-public class Teclat {
+public class Keyboard {
 }

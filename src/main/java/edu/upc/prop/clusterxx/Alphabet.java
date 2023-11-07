@@ -1,4 +1,4 @@
 package edu.upc.prop.clusterxx;
 
-public class Freqüència {
+public class Alphabet {
 }
