@@ -5,9 +5,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+
 public class Grid {
     private ArrayList<Pair> grid = new ArrayList<Pair>();
 
+    //pre: mat not null
     //post: Construiex l'arraylist de Posicions on l'usuari ha escollit que es poden posar lletres de l'alfabet.
     public Grid(boolean[][] mat) { //crea un grid buit
         for(int i=0;i< mat.length;i++){
@@ -18,6 +20,11 @@ public class Grid {
                 }
             }
         }
+    }
+    //pre: p not null
+    //post: construeix l'objecte Grid copiant p en grid.
+    public Grid(ArrayList<Pair> p){
+        for(int i=1; i <= p.size(); i++)grid.add(p.get(i));
     }
 
     public Grid(){}
@@ -32,6 +39,7 @@ public class Grid {
         return grid;
     }
 
+    //el puntero cambia
     public void setGrid(ArrayList<Pair> pares) {
         this.grid = pares;
     }
