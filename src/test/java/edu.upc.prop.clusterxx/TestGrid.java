@@ -69,4 +69,12 @@ public class TestGrid {
 
         assertEquals(g1,g2);
     }
+    public void Test2ndconstructor(){
+        Grid g2 = new Grid();//constructora buida
+        g2.setGrid(l3);//setter senzill (no comprobaré si funciona)
+
+        Grid g1 = new Grid(l3);//constructora per veure si funciona
+
+        assertEquals(g1,g2);
+    }
 }
