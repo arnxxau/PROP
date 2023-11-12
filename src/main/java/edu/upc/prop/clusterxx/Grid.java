@@ -29,9 +29,7 @@ public class Grid {
 
     public Grid(){}
 
-    public double distance(int i1,int i2)throws Exception{
-        if(i1==0 || i2==0 || i1 > grid.size()|| i2> grid.size())
-            throw new Exception("Error: Els indexos del array van de 1 a size()");
+    public double distance(int i1,int i2)throws IndexOutOfBoundsException{
         return Math.sqrt(Math.pow(grid.get(i1).x-grid.get(i2).x,2)+Math.pow(grid.get(i1).y-grid.get(i2).y,2));
     }
 

@@ -27,7 +27,7 @@ public class TestGridDistance {
         try{
             d2 = g.distance(1,2);
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Error: Els indexos del array van de 1 a size()");
             e.printStackTrace();
         }
         assertEquals(d1,d2,0.01);
@@ -40,7 +40,7 @@ public class TestGridDistance {
         try {
             d2 = g.distance(2, 3);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Error: Els indexos del array van de 1 a size()");
             e.printStackTrace();
         }
         assertEquals(d1,d2,0.01);
@@ -51,13 +51,18 @@ public class TestGridDistance {
         double d2=0;
         try {
             d2 = g.distance(2, 2);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        }catch (Exception e) {
+            System.out.println("Error: Els indexos del array van de 1 a size()");
             e.printStackTrace();
         }
         assertEquals(d1,d2,0.01);
     }
     private double distance(Pair p1,Pair p2){
         return Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2)); //això dona resultat correcte 100%
+    }
+    @Test (expected=IndexOutOfBoundsException.class)
+    public void empty() {
+        Grid g = new Grid();
+        g.distance(0,0);
     }
 }
