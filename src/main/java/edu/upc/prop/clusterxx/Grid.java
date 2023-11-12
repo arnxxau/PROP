@@ -3,9 +3,10 @@ package edu.upc.prop.clusterxx;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Grid {
-    private ArrayList<Pair> pares = new ArrayList<Pair>();
+    private ArrayList<Pair> grid = new ArrayList<Pair>();
 
     //post: Construiex l'arraylist de Posicions on l'usuari ha escollit que es poden posar lletres de l'alfabet.
     public Grid(boolean[][] mat) { //crea un grid buit
@@ -13,22 +14,26 @@ public class Grid {
             for(int j=0;j<mat[i].length;j++){
                 if(mat[i][j]){
                     Pair par = new Pair(i,j);
-                    pares.add(par);
+                    grid.add(par);
                 }
             }
         }
     }
+
     public Grid(){}
-    public double distance(Pair p1,Pair p2){
-        return Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2));
+
+    public double distance(int i1,int i2)throws Exception{
+        if(i1==0 || i2==0 || i1 > grid.size()|| i2> grid.size())
+            throw new Exception("Error: Els indexos del array van de 1 a size()");
+        return Math.sqrt(Math.pow(grid.get(i1).x-grid.get(i2).x,2)+Math.pow(grid.get(i1).y-grid.get(i2).y,2));
     }
 
-    public ArrayList<Pair> getPares() {
-        return pares;
+    public ArrayList<Pair> getGrid() {
+        return grid;
     }
 
-    public void setPares(ArrayList<Pair> pares) {
-        this.pares = pares;
+    public void setGrid(ArrayList<Pair> pares) {
+        this.grid = pares;
     }
 
 }
