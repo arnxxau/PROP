@@ -61,8 +61,7 @@ public class TestGridDistance {
         return Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2)); //això dona resultat correcte 100%
     }
     @Test (expected=IndexOutOfBoundsException.class)
-    public void empty() {
-        Grid g = new Grid();
-        g.distance(0,0);
+    public void OutOfBonds() {
+        g.distance(4,3);
     }
 }

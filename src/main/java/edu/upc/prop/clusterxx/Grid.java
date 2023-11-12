@@ -24,7 +24,7 @@ public class Grid {
     //pre: p not null
     //post: construeix l'objecte Grid copiant p en grid.
     public Grid(ArrayList<Pair> p){
-        for(int i=1; i <= p.size(); i++)grid.add(p.get(i));
+        for (Pair pair : p) grid.add(pair);
     }
 
     public Grid(){}
