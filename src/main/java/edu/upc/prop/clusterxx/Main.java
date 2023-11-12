@@ -12,8 +12,12 @@ public class Main {
     //Main divisioner = new Main();
     //System.out.println("Dividing 10 by 2 is " + divisioner.division(10,2));
 
-    Frequency freq = new Frequency("test", "/Users/arnxxau/FIB/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/test.txt", 0);
-    freq.printFrequencies();
+    //Frequency freq = new Frequency("test", "/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/raw.freq", 0);
+    //freq.printFrequencies();
+
+
+    Frequency freq2 = new Frequency("test", "/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/text.freq", Frequency.TEXT_MODE);
+    freq2.printFrequencies();
   }
 
   public float division(int a, int b) throws ArithmeticException {
