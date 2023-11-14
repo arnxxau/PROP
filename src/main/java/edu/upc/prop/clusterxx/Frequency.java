@@ -1,25 +1,30 @@
 package edu.upc.prop.clusterxx;
 
 import java.io.FileNotFoundException;
-import java.sql.Time;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Scanner;
 import java.io.File;
 import java.util.HashMap;
+
 public class Frequency {
 
     final static int FREQ_MODE = 0;
     final static int TEXT_MODE = 1;
 
+    final static int WORD_MODE = 4;
+
+
+
     final static int REPLACE = 2;
     final static int ADD = 3;
 
     private String name;
-    private String [] words;
     private Instant creationDate;
     private Instant lastModifiedTime;
     private File f;
+
+    int MODE;
 
     private Integer frequencyWeight;
 
@@ -37,14 +42,11 @@ public class Frequency {
         if (freq.containsKey(first)) {
             HashMap<Character, Integer> innerHashMap = freq.get(first);
 
-            if (mode == REPLACE) {
-                innerHashMap.put(second, frequency);
-            } else if (mode == ADD){
-                if (innerHashMap.containsKey(second)) {
+            if (mode == REPLACE) innerHashMap.put(second, frequency);
+            else if (mode == ADD) {
+                if (innerHashMap.containsKey(second))
                     innerHashMap.put(second, innerHashMap.get(second) + frequency);
-                } else {
-                    innerHashMap.put(second, frequency);
-                }
+                else innerHashMap.put(second, frequency);
             }
         } else {
             HashMap<Character, Integer> innerHashMap = new HashMap<>();
@@ -54,35 +56,41 @@ public class Frequency {
     }
 
 
-    public Frequency(String name, String [] words) {
-
+    public Frequency(String name, String[] words) {
+        this.name = name;
+        this.MODE = WORD_MODE;
+        freq = new HashMap<>();
+        extractFrequenciesFromWords(words);
     }
 
     public Frequency(String name, String filePath, int fileMode) throws FileNotFoundException {
+        this.MODE = fileMode;
         this.name = name;
-        f = new File(filePath);
-        freq = new HashMap<>();
-        frequencyWeight = 0;
-
-        if (fileMode == FREQ_MODE) extractRawFrequenciesFromFile();
-        else if (fileMode == TEXT_MODE) extractTextFrequenciesFromFile();
-
+        try {
+            freq = new HashMap<>();
+            frequencyWeight = 0;
+            if (fileMode == FREQ_MODE) extractRawFrequenciesFromFile();
+            else if (fileMode == TEXT_MODE) extractTextFrequenciesFromFile();
+            f = new File(filePath);
+        } catch (NullPointerException e) {
+            System.out.println("Wrong file path.");
+        }
 
         creationDate = Instant.now();
     }
 
     /*
     file structure ->
-    a c 0.2
-    a v 0.1
-    a x 0.6
+    600
+    a c 11
+    a v 15
+    a x 99
      */
     private void extractRawFrequenciesFromFile() throws FileNotFoundException {
         Scanner scanner = new Scanner(f);
         frequencyWeight = Integer.parseInt(scanner.nextLine());
         while (scanner.hasNextLine()) {
             String str = scanner.nextLine();
-            //System.out.println(str);
             String[] line = str.split(" ");
             Character first = line[0].charAt(0);
             Character second = line[1].charAt(0);
@@ -106,13 +114,31 @@ public class Frequency {
             String str = scanner.next();
 
             String[] line = str.split(" ");
-
-            frequencyWeight += line.length;
-
-            for (int i = 0; i < line.length; ++i) processWord(line[i]);
+            for (String s : line) {
+                processWord(s);
+                frequencyWeight += s.length();
+            }
         }
     }
 
+    private void extractFrequenciesFromWords(String[] words) {
+        for (String word : words) {processWord(word); frequencyWeight += word.length();}
+    }
+
+
+
+    public double getNumberOfAppearances(Character first, Character second) {
+        try {
+            return (double) freq.get(first).get(second);
+        } catch (Exception e) {
+            System.out.println("The frequency combination doesn't exist.");
+            return -1.0;
+        }
+    }
+
+    public double getFrequency(Character first, Character second) {
+        return getNumberOfAppearances(first, second) / frequencyWeight;
+    }
 
 
     public void printFrequencies() {
@@ -135,12 +161,9 @@ public class Frequency {
             System.out.println("}");
         }
     }
+
     public String getName() {
         return name;
-    }
-
-    public String [] words() {
-        return words;
     }
 
     public Instant getCreationDate() {
@@ -150,7 +173,5 @@ public class Frequency {
     public Instant getLastModifiedTime() {
         return lastModifiedTime;
     }
-
-
 
 }
