@@ -8,55 +8,27 @@ import java.io.File;
 import java.util.HashMap;
 
 public class Frequency {
+    // main data
+    private Integer frequencyWeight;
+    private HashMap<Character, HashMap<Character, Integer>> freq;
 
+    // read modes
+    private int MODE;
     final static int FREQ_MODE = 0;
     final static int TEXT_MODE = 1;
+    final static int WORD_MODE = 2;
+    // insertion modes
+    private final static int REPLACE = 3, ADD = 4;
 
-    final static int WORD_MODE = 4;
-
-
-
-    final static int REPLACE = 2;
-    final static int ADD = 3;
-
+    // general info
     private String name;
-    private Instant creationDate;
-    private Instant lastModifiedTime;
+    private Instant creationDate, lastModifiedTime;
     private File f;
-
-    int MODE;
-
-    private Integer frequencyWeight;
-
-    HashMap<Character, HashMap<Character, Integer>> freq;
-
-    private boolean verifyCharacter(Character c) {
-        return true;
-    }
-
-    private boolean checkFreqIntegrity() {
-        return true;
-    }
-
-    private void insertNewFreq(Character first, Character second, Integer frequency, int mode) {
-        if (freq.containsKey(first)) {
-            HashMap<Character, Integer> innerHashMap = freq.get(first);
-
-            if (mode == REPLACE) innerHashMap.put(second, frequency);
-            else if (mode == ADD) {
-                if (innerHashMap.containsKey(second))
-                    innerHashMap.put(second, innerHashMap.get(second) + frequency);
-                else innerHashMap.put(second, frequency);
-            }
-        } else {
-            HashMap<Character, Integer> innerHashMap = new HashMap<>();
-            innerHashMap.put(second, frequency);
-            freq.put(first, innerHashMap);
-        }
-    }
+    private fAlphabet alphabet;
 
 
-    public Frequency(String name, String[] words) {
+    // constructors
+    public Frequency(String name, String[] words, fAlphabet alphabet) {
         this.name = name;
         this.MODE = WORD_MODE;
         freq = new HashMap<>();
@@ -77,6 +49,15 @@ public class Frequency {
         }
 
         creationDate = Instant.now();
+    }
+
+
+    // extractors
+    private void extractFrequenciesFromWords(String[] words) {
+        for (String word : words) {
+            processWord(word);
+            frequencyWeight += word.length();
+        }
     }
 
     /*
@@ -100,20 +81,12 @@ public class Frequency {
         }
     }
 
-    private void processWord(String w) {
-        for (int i = 0; i < w.length() - 1; ++i) {
-            insertNewFreq(w.charAt(i), w.charAt(i + 1), 1, ADD);
-            insertNewFreq(w.charAt(i + 1), w.charAt(i), 1, ADD);
-        }
-        return;
-    }
-
     private void extractTextFrequenciesFromFile() throws FileNotFoundException {
         Scanner scanner = new Scanner(f);
         while (scanner.hasNextLine()) {
             String str = scanner.next();
-
             String[] line = str.split(" ");
+
             for (String s : line) {
                 processWord(s);
                 frequencyWeight += s.length();
@@ -121,25 +94,31 @@ public class Frequency {
         }
     }
 
-    private void extractFrequenciesFromWords(String[] words) {
-        for (String word : words) {processWord(word); frequencyWeight += word.length();}
-    }
 
-
-
-    public double getNumberOfAppearances(Character first, Character second) {
-        try {
-            return (double) freq.get(first).get(second);
-        } catch (Exception e) {
-            System.out.println("The frequency combination doesn't exist.");
-            return -1.0;
+    // utils
+    private void processWord(String w) {
+        for (int i = 0; i < w.length() - 1; ++i) {
+            insertNewFreq(w.charAt(i), w.charAt(i + 1), 1, ADD);
+            insertNewFreq(w.charAt(i + 1), w.charAt(i), 1, ADD);
         }
     }
 
-    public double getFrequency(Character first, Character second) {
-        return getNumberOfAppearances(first, second) / frequencyWeight;
-    }
+    private void insertNewFreq(Character first, Character second, Integer frequency, int mode) {
+        if (freq.containsKey(first)) {
+            HashMap<Character, Integer> innerHashMap = freq.get(first);
 
+            if (mode == REPLACE) innerHashMap.put(second, frequency);
+            else if (mode == ADD) {
+                if (innerHashMap.containsKey(second))
+                    innerHashMap.put(second, innerHashMap.get(second) + frequency);
+                else innerHashMap.put(second, frequency);
+            }
+        } else {
+            HashMap<Character, Integer> innerHashMap = new HashMap<>();
+            innerHashMap.put(second, frequency);
+            freq.put(first, innerHashMap);
+        }
+    }
 
     public void printFrequencies() {
         System.out.println("Freq weight = " + frequencyWeight);
@@ -162,6 +141,13 @@ public class Frequency {
         }
     }
 
+
+    // integrity checkers
+    private boolean checkFreqIntegrity() {
+        return true;
+    }
+
+    // public getters
     public String getName() {
         return name;
     }
@@ -172,6 +158,19 @@ public class Frequency {
 
     public Instant getLastModifiedTime() {
         return lastModifiedTime;
+    }
+
+    public double getNumberOfAppearances(Character first, Character second) {
+        try {
+            return (double) freq.get(first).get(second);
+        } catch (Exception e) {
+            System.out.println("The character combination doesn't exist.");
+            return -1.0;
+        }
+    }
+
+    public double getFrequency(Character first, Character second) {
+        return getNumberOfAppearances(first, second) / frequencyWeight;
     }
 
 }
