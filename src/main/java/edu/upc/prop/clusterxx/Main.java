@@ -16,8 +16,9 @@ public class Main {
     //freq.printFrequencies();
 
 
-    Frequency freq2 = new Frequency("test", "/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/text.freq", Frequency.TEXT_MODE);
+    Frequency freq2 = new Frequency("test", "/Users/arnxxau/FIB/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/text.freq", Frequency.TEXT_MODE);
     freq2.printFrequencies();
+    System.out.println(freq2.getFrequency('a', 'c'));
   }
 
   public float division(int a, int b) throws ArithmeticException {
