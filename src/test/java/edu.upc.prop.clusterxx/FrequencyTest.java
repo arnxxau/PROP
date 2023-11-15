@@ -1,7 +1,7 @@
 package edu.upc.prop.clusterxx;
 
 
-import static org.mockito.Mockito.*;
+//import static org.mockito.Mockito.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

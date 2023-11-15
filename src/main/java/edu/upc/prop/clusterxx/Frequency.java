@@ -167,7 +167,7 @@ public class Frequency {
                     Character c2 = it2.next();
 
 
-                    if (freqcopy1.containsKey(c1))
+                    if (freqcopy1.containsKey(c1));
                 }
 
             }
