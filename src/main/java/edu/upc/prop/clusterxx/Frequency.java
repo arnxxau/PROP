@@ -120,6 +120,27 @@ public class Frequency {
         }
     }
 
+    public void fusion(Frequency f) {
+        try {
+            if (f.alphabet != this.alphabet)
+                throw new Exception("The frequency cannot be merged, the alphabet is different.");
+
+            for (Map.Entry<Character, HashMap<Character, Integer>> outerEntry : freq.entrySet()) {
+                char outerKey = outerEntry.getKey();
+
+                HashMap<Character, Integer> innerMap = outerEntry.getValue();
+                for (Map.Entry<Character, Integer> innerEntry : innerMap.entrySet()) {
+                    char innerKey = innerEntry.getKey();
+                    double innerValue = innerEntry.getValue();
+                }
+
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
     public void printFrequencies() {
         System.out.println("Freq weight = " + frequencyWeight);
         for (Map.Entry<Character, HashMap<Character, Integer>> outerEntry : freq.entrySet()) {
@@ -171,6 +192,11 @@ public class Frequency {
 
     public double getFrequency(Character first, Character second) {
         return getNumberOfAppearances(first, second) / frequencyWeight;
+    }
+
+    // public setters
+    public void changeName(String name) {
+        this.name = name;
     }
 
 }
