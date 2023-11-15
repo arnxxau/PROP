@@ -2,6 +2,7 @@ package edu.upc.prop.clusterxx;
 
 import java.io.FileNotFoundException;
 import java.time.Instant;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.io.File;
@@ -20,11 +21,18 @@ public class Frequency {
     // insertion modes
     private final static int REPLACE = 3, ADD = 4;
 
+    // error messages
+    private final static String EXTRACTION_ERROR = "An error occurred, the frequency couldn't be extracted";
+    private final static String WRONG_FILE_PATH_ERROR = "Wrong file path.";
+
+    private final static String ALPHABET_ERROR = "The alphabet is not compatible with this frequency.";
+    private final static String NON_EXISTING_FREQUENCY = "The character combination doesn't exist.";
+
     // general info
     private String name;
     private Instant creationDate, lastModifiedTime;
     private File f;
-    private fAlphabet alphabet;
+    private Alphabet alphabet;
 
 
     // constructors
@@ -45,7 +53,7 @@ public class Frequency {
             else if (fileMode == TEXT_MODE) extractTextFrequenciesFromFile();
             f = new File(filePath);
         } catch (NullPointerException e) {
-            System.out.println("Wrong file path.");
+            System.out.println(WRONG_FILE_PATH_ERROR);
         }
 
         creationDate = Instant.now();
@@ -54,10 +62,15 @@ public class Frequency {
 
     // extractors
     private void extractFrequenciesFromWords(String[] words) {
-        for (String word : words) {
-            processWord(word);
-            frequencyWeight += word.length();
+        try {
+            for (String word : words) {
+                processWord(word);
+                frequencyWeight += word.length();
+            }
+        } catch (Exception e) {
+            System.out.println(EXTRACTION_ERROR);
         }
+
     }
 
     /*
@@ -67,17 +80,25 @@ public class Frequency {
     a v 15
     a x 99
      */
-    private void extractRawFrequenciesFromFile() throws FileNotFoundException {
-        Scanner scanner = new Scanner(f);
-        frequencyWeight = Integer.parseInt(scanner.nextLine());
-        while (scanner.hasNextLine()) {
-            String str = scanner.nextLine();
-            String[] line = str.split(" ");
-            Character first = line[0].charAt(0);
-            Character second = line[1].charAt(0);
-            Integer d_freq = Integer.parseInt(line[2]);
+    private void extractRawFrequenciesFromFile() {
+        try {
+            Scanner scanner = new Scanner(f);
+            frequencyWeight = Integer.parseInt(scanner.nextLine());
+            while (scanner.hasNextLine()) {
+                String str = scanner.nextLine();
+                String[] line = str.split(" ");
+                Character first = line[0].charAt(0);
+                Character second = line[1].charAt(0);
+                checkFreqIntegrity(first);
+                checkFreqIntegrity(second);
 
-            insertNewFreq(first, second, d_freq, REPLACE);
+                Integer d_freq = Integer.parseInt(line[2]);
+
+                insertNewFreq(first, second, d_freq, REPLACE);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(EXTRACTION_ERROR);
         }
     }
 
@@ -86,18 +107,23 @@ public class Frequency {
         while (scanner.hasNextLine()) {
             String str = scanner.next();
             String[] line = str.split(" ");
-
-            for (String s : line) {
-                processWord(s);
-                frequencyWeight += s.length();
+            try {
+                for (String s : line) {
+                    processWord(s);
+                    frequencyWeight += s.length();
+                }
+            } catch (Exception e) {
+                System.out.println(EXTRACTION_ERROR);
             }
         }
     }
 
 
     // utils
-    private void processWord(String w) {
+    private void processWord(String w) throws Exception{
         for (int i = 0; i < w.length() - 1; ++i) {
+            checkFreqIntegrity(w.charAt(i));
+            checkFreqIntegrity(w.charAt(i + 1));
             insertNewFreq(w.charAt(i), w.charAt(i + 1), 1, ADD);
             insertNewFreq(w.charAt(i + 1), w.charAt(i), 1, ADD);
         }
@@ -121,9 +147,33 @@ public class Frequency {
     }
 
     public void fusion(Frequency f) {
+
+
         try {
             if (f.alphabet != this.alphabet)
-                throw new Exception("The frequency cannot be merged, the alphabet is different.");
+                throw new Exception(ALPHABET_ERROR);
+
+
+
+            Iterator<Character> it1 = alphabet.getCharacters().iterator();
+            Iterator<Character> it2 = alphabet.getCharacters().iterator();
+            HashMap<Character, HashMap<Character, Integer>> freqcopy1 = new HashMap<>(freq);
+            HashMap<Character, HashMap<Character, Integer>> freqcopy2 = new HashMap<>(freq);
+            freq = new HashMap<>();
+
+            while (it1.hasNext()) {
+                Character c1 = it1.next();
+                while (it2.hasNext()) {
+                    Character c2 = it2.next();
+
+
+                    if (freqcopy1.containsKey(c1))
+                }
+
+            }
+
+
+
 
             for (Map.Entry<Character, HashMap<Character, Integer>> outerEntry : freq.entrySet()) {
                 char outerKey = outerEntry.getKey();
@@ -135,8 +185,11 @@ public class Frequency {
                 }
 
             }
-        } catch (Exception e) {
 
+
+
+        } catch (Exception e) {
+            System.out.println(ALPHABET_ERROR);
         }
 
     }
@@ -164,8 +217,9 @@ public class Frequency {
 
 
     // integrity checkers
-    private boolean checkFreqIntegrity() {
-        return true;
+    private void checkFreqIntegrity(Character c) throws Exception {
+        if (!alphabet.existsCharacter(c))
+            throw new Exception(ALPHABET_ERROR);
     }
 
     // public getters
@@ -185,7 +239,7 @@ public class Frequency {
         try {
             return (double) freq.get(first).get(second);
         } catch (Exception e) {
-            System.out.println("The character combination doesn't exist.");
+            System.out.println(NON_EXISTING_FREQUENCY);
             return -1.0;
         }
     }
