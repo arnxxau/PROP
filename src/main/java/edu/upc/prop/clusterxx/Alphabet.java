@@ -74,22 +74,5 @@ public class Alphabet {
     public void setName(String nom) {
         this.nom = nom;
     }
-/*
-    public void setCrDate(Instant crDate) {
-        this.crDate = crDate;
-    }
-
-    public void setUltMod(Instant ultMod) {
-        this.ultMod = ultMod;
-    }
-
-    public void setCharacters(HashSet<Character> caracters) {
-        this.caracters = caracters;
-    }
-
-    public void setFrequencies(ArrayList<Frequency> frequencies) {
-        this.frequencies = frequencies;
-    }
-*/
 }
 
