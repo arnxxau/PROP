@@ -2,13 +2,18 @@ package edu.upc.prop.clusterxx;
 
 public class CtrlPresentacio {
     CtrlDomini cd;
-    CtrlDominiMantFreq cdmf;
-    CtrlDominiMantAlph cdma;
+    CtrlDominiMantGen cdma;//domini manteniment alfabet
+    CtrlDominiMantGen cdmf;//domini manteniment freqüencies
 
-    CtrlPresentacioMantFreq cpmf;
-    CtrlPresentacioMantAlph cpma;
+    CtrlDominiMantGen cdmt;//domini manteniment freqüencies
+    CtrlPresentacioMantGen cpma;//manteniment alfabet
+    CtrlPresentacioMantGen cpmf;//manteniment freqüencies
+
+    CtrlPresentacioMantGen cpmt;//manteniment freqüencies
     VistaMantFreq vmf;
     VistaMantAlphabet vma;
+
+    VistaMantKeyB vmt;
 
     VistaMant vm;
 
@@ -16,27 +21,42 @@ public class CtrlPresentacio {
         /*cd = new CtrlDomini();
         cdmf = cd.getCtrlDominiMantFreq();
         cdma = cd.getCtrlDominiMantAlph();*/
+        vma = new VistaMantAlphabet();
+        vmf = new VistaMantFreq();
+        vmt = new VistaMantKeyB();
+        /*cdma =
+        cdmf=*/
     }
     public void iniciarCtrlDomini(){
-
+    }
+    private void iniciarmantenimentAlph(){
+        cpma = new CtrlPresentacioMantAlph("Alfabet",vma,cdma);
+        cpma.manteniment();
+    }
+    private void iniciarmantenimentFreq(){
+        cpmf = new CtrlPresentacioMantFreq("Frequencia",vmf,cdmf);
+        cpmf.manteniment();
+    }
+    private void iniciarmantenimentKeyB(){
+        cpmt = new CtrlPresentacioMantKeyB("Teclat",vmt,cdmt);
+        cpmt.manteniment();
     }
 
     public void iniciarmanteniment(){
-        cpmf= new CtrlPresentacioMantFreq();//passar cdmf com a paràmetre
-        cpma = new CtrlPresentacioMantAlph(cdma);
         vm = new VistaMant();
         int opt = -1;
         while(opt!=0) {
             opt = vm.obteniropciomanteniment();
             switch (opt) {
                 case 1:
+                    iniciarmantenimentKeyB();
                     break;
                 case 2:
-                    cpma.manteniment_alfabet();
+                    iniciarmantenimentAlph();
                     break;
-                /* case 3:
-                    cpmf.manteniment_freq();
-                    break;*/
+                 case 3:
+                    iniciarmantenimentFreq();
+                    break;
             }
         }
     }

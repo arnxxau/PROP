@@ -1,10 +1,9 @@
 package edu.upc.prop.clusterxx;
 
-public class CtrlPresentacioMantFreq extends CtrlPresentacioMantGen {
-    CtrlPresentacioMantFreq(String nc, VistaMantGen vm, CtrlDominiMantGen cdg) {
-        super(nc, vm, cdg);
+public class CtrlPresentacioMantKeyB extends CtrlPresentacioMantGen {
+    public CtrlPresentacioMantKeyB(String teclat, VistaMantGen vmt, CtrlDominiMantGen cdmt) {
+        super(teclat,vmt,cdmt);
     }
-
     @Override
     public void manteniment() {
         int opt = -1;
@@ -12,13 +11,13 @@ public class CtrlPresentacioMantFreq extends CtrlPresentacioMantGen {
             opt = vmg.obteniropcio();
             switch (opt) {
                 case 1:
-                    System.out.println("hola1");
+                    System.out.println("hola2");
                     break;
                 case 2:
-                    System.out.println("adeu1");
+                    System.out.println("adeu2");
                     break;
                 case 3:
-                    System.out.println("siuuu1");
+                    System.out.println("siuuu2");
                     break;
             }
         }
