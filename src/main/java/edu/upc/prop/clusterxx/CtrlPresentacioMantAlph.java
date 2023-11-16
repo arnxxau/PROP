@@ -1,29 +1,43 @@
 package edu.upc.prop.clusterxx;
 
-public class CtrlPresentacioMantAlph {
-    private VistaMantAlphabet vma;
-    private CtrlDominiMantAlph cdma;
+public class CtrlPresentacioMantAlph extends CtrlPresentacioMantGen {
 
-    CtrlPresentacioMantAlph(CtrlDominiMantAlph cdma1) {
-        vma = new VistaMantAlphabet();
-        cdma = cdma1;
+
+    CtrlPresentacioMantAlph(String nc, VistaMantGen vm, CtrlDominiMantGen cdg) {
+        super(nc, vm, cdg);
     }
 
-    public void manteniment_alfabet() {
+    @Override
+    public void manteniment() {
         int opt = -1;
         while (opt != 0) {
-            opt = vma.obteniropcio();
+            opt = vmg.obteniropcio();
             switch (opt) {
                 case 1:
-                    System.out.println("1");
+                    System.out.println("hola");
                     break;
                 case 2:
-                    System.out.println("2");
+                    System.out.println("adeu");
                     break;
                 case 3:
-                    System.out.println("3");
+                    System.out.println("siuuu");
                     break;
             }
         }
+    }
+
+    @Override
+    public void consulta() {
+
+    }
+
+    @Override
+    public void afegir() {
+
+    }
+
+    @Override
+    public void esborrar() {
+
     }
 }
