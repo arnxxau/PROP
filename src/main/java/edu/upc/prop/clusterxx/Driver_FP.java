@@ -115,119 +115,161 @@ public class Driver_FP {
     //pre : nomclase ha de ser el nom d'una classe de model que existeixi
     //se puede hacer mejor esta funcion.(se repiten acciones entre clases. con nomclase y tal)
     private void Opcions_de_Clase(String nomclase,int option){
-        if(option!=0){
-            switch (nomclase){
-                case "Teclat":
-                    switch (option){
-                        case 1:
-                            System.out.println("Afegint Teclat");
-                            llistar_alfabets(cd.Consultar_Alfabets());
-                            String s = Demanar_Nom("Alfabet");
-                            llistar_frequencies(cd.Consultar_Freqs(s));
-                            String f = Demanar_Nom("Freqüència");
-                            llistar_grids(cd.Consultar_Grids());
-                            int idG = Demanar_ID("Graella");
-                            int ret = cd.Afegir_Teclat(s,h);
-                            if(ret==1)System.out.println("El Teclat amb aquest nom ja existeix");
-                            else System.out.println("Teclat afegit");
-                            System.out.println();
-                            break;
-                        case 2:
-                            System.out.println("Esborrant Teclat");
-                            String s1 = Demanar_Nom("Teclat");
-                            ret = cd.Esborrar_Teclat(s1);
-                            if(ret==1)System.out.println("El teclat amb aquest nom NO existeix");
-                            else System.out.println("Teclat Esborrat");
-                            System.out.println();
-                            break;
-                        case 3:
-                            System.out.println("Canviant nom Teclat");
-                            String s2 = Demanar_Nom("Teclat");
-                            String s3 = Demanar_Nom("nou Teclat");
-                            ret = cd.CanviarNom_Teclat(s2,s3);
-                            if(ret==1)System.out.println("El Teclat amb nom " + s2 + " NO existeix");
-                            else if(ret==2)System.out.println("El Teclat amb nom " + s3 + " JA existeix");
-                            else System.out.println("Teclat " + s2 + " ha canviat de nom a " + s3);
-                            System.out.println();
-                            break;
-                        case 4:
-                            System.out.println("Llistant Teclats: ");
-                            System.out.println();
-                            llistar_alfabets(cd.Consultar_Teclats());
-                            break;
-                    }
-                    break;
-                case "Frequencia":
-                    switch (option){
-                        case 1:
-                            System.out.println("Afegint Frequencia");
-                            break;
-                        case 2:
-                            System.out.println("Esborrant Frequencia");
-                            break;
-                        case 3:
-                            System.out.println("Modificar Frequencia");
-                            break;
+        try {
+            if (option != 0) {
+                switch (nomclase) {
+                    case "Teclat":
+                        switch (option) {
+                            case 1:
+                                io.writeln("Afegint Teclat");
+                                llistar_alfabets(cd.Consultar_Alfabets());
+                                String nomT = Demanar_Nom("Teclat");
+                                String nomA = Demanar_Nom("Alfabet");
+                                llistar_frequencies(cd.Consultar_Freqs(nomA));
+                                String nomF = Demanar_Nom("Freqüència");
+                                llistar_grids(cd.Consultar_Grids());
+                                int idG = Demanar_ID("Graella");
+                                int ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+                                switch (ret) {
+                                    case -1:
+                                        io.writeln("El teclat " + nomT + " ja existeix");
+                                        break;
+                                    case -2:
+                                        io.writeln("L'alfabet " + nomA + " no existeix");
+                                        break;
+                                    case -3:
+                                        io.writeln("La freqüència " + nomF + " no existeix o no pertany a l'alfabet " + nomA);
+                                        break;
+                                    case -4:
+                                        io.writeln("La graella número " + idG + " no eisteix");
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                io.writeln("Esborrant Teclat");
+                                String nomT1 = Demanar_Nom("Teclat");
+                                ret = cd.Esborrar_Teclat(nomT1);
+                                if (ret == -1) io.writeln("El teclat amb aquest nom NO existeix");
+                                else io.writeln("Teclat Esborrat");
+                                break;
+                            case 3:
+                                io.writeln("Canviant nom Teclat");
+                                String nomT3 = Demanar_Nom("Teclat");
+                                String newNom = Demanar_Nom("nou Teclat");
+                                ret = cd.CanviarNom_Teclat(nomT3, newNom);
+                                if (ret == -1) io.writeln("El Teclat amb nom " + nomT3 + " NO existeix");
+                                else if (ret == -2) io.writeln("El Teclat amb nom " + newNom + " JA existeix");
+                                else io.writeln("Teclat " + nomT3 + " ha canviat de nom a " + newNom);
+                                break;
+                            case 4:
+                                io.writeln("Llistant Teclats: ");
+                                llistar_Teclats(cd.Consultar_Teclats());
+                                break;
+                        }
+                        break;
+                    case "Frequencia":
+                        switch (option) {
+                            case 1:
+                                io.writeln("Afegint Frequencia");
+                                break;
+                            case 2:
+                                io.writeln("Esborrant Frequencia");
+                                break;
+                            case 3:
+                                io.writeln("Modificar Frequencia");
+                                break;
 
-                    }
-                    break;
-                case "Alfabet":
-                    switch (option){
-                        case 1:
-                            System.out.println("Afegint Alfabet");
-                            String s = Demanar_Nom("Alfabet");
-                            HashSet<Character> h = Demanar_chars_Alfabet();
-                            int ret = cd.Afegir_Alfabet(s,h);
-                            if(ret==1)System.out.println("L'Alfabet amb aquest nom ja existeix");
-                            else System.out.println("Alfabet Afegit");
-                            System.out.println();
-                            //llistar_alfabets(cd.Consultar_Alfabets()); aqui aniria mostrar_alfabet
-                            break;
-                        case 2:
-                            System.out.println("Esborrant Alfabet");
-                            String s1 = Demanar_Nom("Alfabet");
-                            ret = cd.Esborrar_Alfabet(s1);
-                            if(ret==1)System.out.println("L'Alfabet amb aquest nom NO existeix");
-                            else System.out.println("Alfabet Esborrat");
-                            System.out.println();
-                            break;
-                        case 3:
-                            System.out.println("Canviant nom Alfabet");
-                            String s2 = Demanar_Nom("Alfabet");
-                            String s3 = Demanar_Nom("nou Alfabet");
-                            ret = cd.CanviarNom_Alfabet(s2,s3);
-                            if(ret==1)System.out.println("L'Alfabet el nom " + s2 + " NO existeix");
-                            else if(ret==2)System.out.println("L'Alfabet el nom " + s3 + " JA existeix");
-                            else System.out.println("Alfabet " + s2 + " ha canviat de nom a " + s3);
-                            System.out.println();
-                            break;
-                        case 4:
-                            System.out.println("Llistant Alfabets: ");
-                            System.out.println();
-                            llistar_alfabets(cd.Consultar_Alfabets());
-                            break;
-                    }
-                    break;
-                case "Grid":
-                    switch (option){
-                        case 1:
-                            System.out.println("Afegint Grid");
-                            break;
-                        case 2:
-                            System.out.println("Esborrant Grid");
-                            break;
-                    }
-                    break;
+                        }
+                        break;
+                    case "Alfabet":
+                        switch (option) {
+                            case 1:
+                                io.writeln("Afegint Alfabet");
+                                String s = Demanar_Nom("Alfabet");
+                                HashSet<Character> h = Demanar_chars_Alfabet();
+                                int ret = cd.Afegir_Alfabet(s, h);
+                                if (ret == 1) io.writeln("L'Alfabet amb aquest nom ja existeix");
+                                else io.writeln("Alfabet Afegit");
+                                //llistar_alfabets(cd.Consultar_Alfabets()); aqui aniria mostrar_alfabet
+                                break;
+                            case 2:
+                                io.writeln("Esborrant Alfabet");
+                                String s1 = Demanar_Nom("Alfabet");
+                                ret = cd.Esborrar_Alfabet(s1);
+                                if (ret == 1) io.writeln("L'Alfabet amb aquest nom NO existeix");
+                                else io.writeln("Alfabet Esborrat");
+
+                                break;
+                            case 3:
+                                io.writeln("Canviant nom Alfabet");
+                                String s2 = Demanar_Nom("Alfabet");
+                                String s3 = Demanar_Nom("nou Alfabet");
+                                ret = cd.CanviarNom_Alfabet(s2, s3);
+                                if (ret == 1) io.writeln("L'Alfabet el nom " + s2 + " NO existeix");
+                                else if (ret == 2) io.writeln("L'Alfabet el nom " + s3 + " JA existeix");
+                                else io.writeln("Alfabet " + s2 + " ha canviat de nom a " + s3);
+
+                                break;
+                            case 4:
+                                io.writeln("Llistant Alfabets: ");
+
+                                llistar_alfabets(cd.Consultar_Alfabets());
+                                break;
+                        }
+                        break;
+                    case "Grid":
+                        switch (option) {
+                            case 1:
+                                io.writeln("Afegint Grid");
+                                break;
+                            case 2:
+                                io.writeln("Esborrant Grid");
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void llistar_Teclats(Vector<Vector<String>> vvs) {
+        for(Vector<String> vs : vvs){
+            try {
+                io.writeln("NOM: " + vs.get(0));
+                io.writeln("ALFABET: " + vs.get(1));
+                io.writeln("FREQÜÈNCIA: " + vs.get(2));
+                io.writeln("GRAELLA: " + vs.get(3));
+                io.writeln("");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
-
     private void llistar_alfabets(Vector<Vector<String>> vvs){
         for(Vector<String> vs : vvs){
-            System.out.println("NOM: " + vs.get(0));
-            System.out.println("CARACTERS: " + vs.get(1));
-            System.out.println();
+            try {
+                io.writeln("NOM: " + vs.get(0));
+                io.writeln("CARACTERS: " + vs.get(1));
+                io.writeln("");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
+    }
+    private Integer Demanar_ID(String nomclase) {
+        int x = -1;
+        try{
+            io.writeln("Necessito la ID del " + nomclase);
+            x = io.readint();//nombre del alfabeto
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return x;
     }
 
     private String Demanar_Nom(String nomclase){
