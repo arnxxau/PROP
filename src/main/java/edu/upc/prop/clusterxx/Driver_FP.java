@@ -174,11 +174,15 @@ public class Driver_FP {
                                 break;
                             case 2:
                                 io.writeln("Esborrant Frequencia");
+                                String nomF = Demanar_Nom("Freqüència");
+                                int ret = cd.Esborrar_Frequencia(nomF);
+                                if (ret == -1) io.writeln("La freqüència " + nomF + "no existeix");
+                                else io.writeln("Freqüència esborrada");
                                 break;
                             case 3:
-                                io.writeln("Modificar Frequencia");
+                                io.writeln("Modificant Frequencia");
+                                io.writeln("funcionalitat en desenvolupament...");
                                 break;
-
                         }
                         break;
                     case "Alfabet":
@@ -190,7 +194,6 @@ public class Driver_FP {
                                 int ret = cd.Afegir_Alfabet(s, h);
                                 if (ret == 1) io.writeln("L'Alfabet amb aquest nom ja existeix");
                                 else io.writeln("Alfabet Afegit");
-                                //llistar_alfabets(cd.Consultar_Alfabets()); aqui aniria mostrar_alfabet
                                 break;
                             case 2:
                                 io.writeln("Esborrant Alfabet");

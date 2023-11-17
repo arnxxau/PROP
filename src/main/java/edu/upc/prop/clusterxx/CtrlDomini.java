@@ -84,4 +84,9 @@ public class CtrlDomini {
         }
         return vvs;
     }
+    public int Esborrar_Frequencia (String nomF) {
+        if (!FQ.containsKey(nomF)) return -1;
+        FQ.remove(nomF);
+        return 0;
+    }
 }
