@@ -1,13 +1,18 @@
 package edu.upc.prop.clusterxx;
 
+import java.util.HashSet;
+
 public class Driver_FP {
     inout io = new inout();
 
+    CtrlDomini cd = new CtrlDomini();
     static final int MENUGENERAL=0;
     static final int MENUTECLAT=1;
     static final int MENUFREQUENCIA=2;
     static final int MENUALFABET=3;
     static final int MENUGRID=4;
+
+    public Driver_FP(){}
 
     private void Vista_General(){
         try{io.writeln("Menu General: ");
@@ -103,6 +108,7 @@ public class Driver_FP {
     }
 
     //pre : nomclase ha de ser el nom d'una classe de model que existeixi
+    //se puede hacer mejor esta funcion.(se repiten acciones entre clases. con nomclase y tal)
     private void Opcions_de_Clase(String nomclase,int option){
         if(option!=0){
             switch (nomclase){
@@ -110,6 +116,7 @@ public class Driver_FP {
                     switch (option){
                         case 1:
                             System.out.println("Afegint Teclat");
+                            //cd.Afegir_Teclat()
                             break;
                         case 2:
                             System.out.println("Esborrant Teclat");
@@ -140,6 +147,8 @@ public class Driver_FP {
                     switch (option){
                         case 1:
                             System.out.println("Afegint Alfabet");
+                            //s i h es transformen en les el nom i el hashset del nou alfabet.
+                            //cd.Afegir_Alfabet();
                             break;
                         case 2:
                             System.out.println("Esborrant Alfabet");
@@ -163,10 +172,39 @@ public class Driver_FP {
         }
     }
 
+    private String Demanar_Nom(){
+        String s1="";
+        try{
+            io.writeln("Necesito el nom del nou alfabet que vols crear");
+            s1 = io.readline();//nombre del alfabeto
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return s1;
+    }
+
+    private HashSet<Character> Demanar_chars_Alfabet(){
+        String s2="";
+        HashSet<Character> car = new HashSet<>();
+        try{
+            io.writeln("Necesito un conjunt de caracters per l'alfabet");
+            s2 = io.readline();//caracteres del alfabeto
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        for(int i=0;i<s2.length();i++){
+            car.add(s2.charAt(i));
+        }
+        return car;
+    }
+
     public void Next_Step_from_Menu_General(){
         int opt=-1;
-        int option=-1;
         while(opt!=0){
+            int option=-1;
             opt = Obtenir_Opcions(4,MENUGENERAL);
             switch(opt){
                 case 0:
