@@ -5,19 +5,7 @@ import com.google.gson.Gson;
 public class Main {
   public static void main(String[] args) throws Exception {
     inout term = new inout();
-    term.write("aaaaaaaa");
-    System.out.println("Hello world!");
-    /*String entrada = term.readline();
-    term.write(entrada);*/
-    new Gson();
-
-    Main divisioner = new Main();
-    System.out.println("Dividing 10 by 2 is " + divisioner.division(10,2));
     Driver_FP df = new Driver_FP();
     df.Next_Step_from_Menu_General();
-  }
-
-  public float division(int a, int b) throws ArithmeticException {
-    return a/b;
   }
 }

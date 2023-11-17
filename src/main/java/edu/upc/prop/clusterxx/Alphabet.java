@@ -42,7 +42,7 @@ public class Alphabet {
         }
     }
     public boolean hasFrequency(String nomF) { return frequencies.containsKey(nomF);}
-
+/*
     public boolean addFrequency(Frequency frequencia) {
         return frequencies.put(frequencia.getName(), frequencia);
     }
@@ -50,7 +50,7 @@ public class Alphabet {
     public boolean deleteFrequency(Frequency frequencia) {
         return frequencies.remove(frequencia.getName());
     }
-
+*/
     // Getters
     public String getName() {
         return nom;

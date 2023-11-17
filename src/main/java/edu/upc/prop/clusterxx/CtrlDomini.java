@@ -6,7 +6,6 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 public class CtrlDomini {
-
     TreeMap<String,Alphabet> AP = new TreeMap<>();
     TreeMap<String,Frequency> FQ = new TreeMap<>();
     TreeMap<String,Keyboard> KB = new TreeMap<>();
@@ -37,23 +36,24 @@ public class CtrlDomini {
         k.setNom(newNom);
         return 0;
     }
-    public int Actualitzar_Teclat(String nomT) {
+    public int Actualitzar_Teclat(String nomT) {/*
         if (!KB.containsKey(nomT)) return -1;
         Keyboard k = KB.get(nomT);
-        k.update();
+        k.update();*/
         return 0;
     }
-    public Vector<Vector<String>> Consultar_Teclats(){
+    public Vector<Vector<String>> Consultar_Teclats(){/*
         Vector<Vector<String>> vvs = new Vector<>();
         for (Keyboard valor : KB.values()) {
             Vector<String> vs = new Vector<>();
             vs.add(valor.getName());
             vs.add(valor.getAlphabet().getName());
             vs.add(valor.getFrequency().getName());
-            vs.add(valor.getGrid().getID().toString());
+            vs.add(((Integer)valor.getGrid().getID()).toString());
             vvs.add(vs);
         }
-        return vvs;
+        return vvs;*/
+        return null;
     }
     public int Afegir_Alfabet(String s, HashSet<Character> h){
         Alphabet a = new Alphabet(s,h);
@@ -94,5 +94,28 @@ public class CtrlDomini {
         if (!FQ.containsKey(nomF)) return -1;
         FQ.remove(nomF);
         return 0;
+    }
+    public int Afegir_Grid (int x, boolean[][] pos) {
+        if (GD.containsKey(x)) return -1;
+        Grid g = new Grid(x,pos);
+        GD.put(x,g);
+        return 0;
+    }
+    public int Esborrar_Grid (Integer idG) {
+        if (GD.containsKey(idG)) {
+            GD.remove(idG);
+            return 0;
+        }
+        return -1;
+    }
+    public Vector<Vector<String>> Consultar_Grids() {
+        Vector<Vector<String>> vvs = new Vector<>();
+        for (Grid valor : GD.values()) {
+            Vector<String> vs = new Vector<>();
+            vs.add(((Integer)valor.getID()).toString());
+            vs.add(valor.toString());
+            vvs.add(vs);
+        }
+        return vvs;
     }
 }
