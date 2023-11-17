@@ -37,6 +37,12 @@ public class CtrlDomini {
         k.setNom(newNom);
         return 0;
     }
+    public int Actualitzar_Teclat(String nomT) {
+        if (!KB.containsKey(nomT)) return -1;
+        Keyboard k = KB.get(nomT);
+        k.update();
+        return 0;
+    }
     public Vector<Vector<String>> Consultar_Teclats(){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Keyboard valor : KB.values()) {

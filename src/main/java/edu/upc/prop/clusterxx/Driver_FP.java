@@ -36,8 +36,8 @@ public class Driver_FP {
             io.writeln("2 - Esborrar Teclat ");
             io.writeln("3 - Canviar Nom Teclat ");
             io.writeln("4 - Actualitzar Teclat ");
-            //io.writeln("5 - Gestionar Alfabet ");
-             }
+            io.writeln("5 - Llistar Teclats ");
+        }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -49,7 +49,7 @@ public class Driver_FP {
             io.writeln("1 - Afegir Frequencia ");
             io.writeln("2 - Esborrar Frequencia ");
             io.writeln("3 - Modificar Frequencia ");
-            //io.writeln("4 - Actualitzar Frequencia ");
+            io.writeln("4 - Llistar Frequencia ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -63,7 +63,6 @@ public class Driver_FP {
             io.writeln("2 - Esborrar Alfabet");
             io.writeln("3 - Canviar Nom Alfabet ");
             io.writeln("4 - Llistar Alfabets ");
-            //io.writeln("4 - Gestionar Frequencies ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -76,6 +75,7 @@ public class Driver_FP {
             io.writeln("0 - Sortir ");
             io.writeln("1 - Afegir Grid ");
             io.writeln("2 - Esborrar Grid ");
+            io.writeln("3 - Llistar Grids ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -149,7 +149,7 @@ public class Driver_FP {
                                 io.writeln("Esborrant Teclat");
                                 String nomT1 = Demanar_Nom("Teclat");
                                 ret = cd.Esborrar_Teclat(nomT1);
-                                if (ret == -1) io.writeln("El teclat amb aquest nom NO existeix");
+                                if (ret == -1) io.writeln("El teclat " + nomT1 + " NO existeix");
                                 else io.writeln("Teclat Esborrat");
                                 break;
                             case 3:
@@ -157,11 +157,17 @@ public class Driver_FP {
                                 String nomT3 = Demanar_Nom("Teclat");
                                 String newNom = Demanar_Nom("nou Teclat");
                                 ret = cd.CanviarNom_Teclat(nomT3, newNom);
-                                if (ret == -1) io.writeln("El Teclat amb nom " + nomT3 + " NO existeix");
-                                else if (ret == -2) io.writeln("El Teclat amb nom " + newNom + " JA existeix");
+                                if (ret == -1) io.writeln("El Teclat " + nomT3 + " NO existeix");
+                                else if (ret == -2) io.writeln("El Teclat " + newNom + " JA existeix");
                                 else io.writeln("Teclat " + nomT3 + " ha canviat de nom a " + newNom);
                                 break;
                             case 4:
+                                io.writeln("Actualitzant teclat");
+                                String nomT4 = Demanar_Nom("Teclat");
+                                ret = cd.Actualitzar_Teclat(nomT4);
+                                if (ret == -1) io.writeln("El Teclat " + nomT4 + " NO existeix");
+                                else io.writeln("Teclat actualitzat");
+                            case 5:
                                 io.writeln("Llistant Teclats: ");
                                 llistar_Teclats(cd.Consultar_Teclats());
                                 break;
@@ -183,6 +189,10 @@ public class Driver_FP {
                                 io.writeln("Modificant Frequencia");
                                 io.writeln("funcionalitat en desenvolupament...");
                                 break;
+                            case 4:
+                                io.writeln("llistant Freqüències");
+                                String nomA = Demanar_Nom("Alfabet");
+                                llistar_frequencies(cd.Consultar_Freqs(nomA));
                         }
                         break;
                     case "Alfabet":
@@ -215,7 +225,6 @@ public class Driver_FP {
                                 break;
                             case 4:
                                 io.writeln("Llistant Alfabets: ");
-
                                 llistar_alfabets(cd.Consultar_Alfabets());
                                 break;
                         }
@@ -227,6 +236,9 @@ public class Driver_FP {
                                 break;
                             case 2:
                                 io.writeln("Esborrant Grid");
+                                break;
+                            case 3:
+                                io.writeln("llistant grids");
                                 break;
                         }
                         break;
