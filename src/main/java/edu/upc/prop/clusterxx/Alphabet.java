@@ -3,13 +3,14 @@ package edu.upc.prop.clusterxx;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.TreeMap;
 
 public class Alphabet {
     private String nom;
     private Instant crDate;
     private Instant ultMod;
     private HashSet<Character> caracters;
-    private ArrayList<Frequency> frequencies;
+    private TreeMap<String, Frequency> frequencies;
 
     // Constructor
     public Alphabet(String nom, HashSet<Character> cars) {
@@ -17,9 +18,9 @@ public class Alphabet {
         this.caracters = cars;
         this.crDate = Instant.now();
         this.ultMod = Instant.now();
-        this.frequencies = new ArrayList<Frequency>();
+        this.frequencies = new TreeMap<String,Frequency>();
     }
-
+    public int size() { return caracters.size(); }
     public boolean existsCharacter(char caracter) {
         return caracters.contains(caracter);
     }
@@ -40,15 +41,16 @@ public class Alphabet {
             return false;
         }
     }
-
+    public boolean hasFrequency(String nomF) { return frequencies.containsKey(nomF);}
+/*
     public boolean addFrequency(Frequency frequencia) {
-        return frequencies.add(frequencia);
+        return frequencies.put(frequencia.getName(), frequencia);
     }
 
     public boolean deleteFrequency(Frequency frequencia) {
-        return frequencies.remove(frequencia);
+        return frequencies.remove(frequencia.getName());
     }
-
+*/
     // Getters
     public String getName() {
         return nom;
@@ -66,7 +68,7 @@ public class Alphabet {
         return new HashSet<>(caracters);
     }
 
-    public ArrayList<Frequency> getFrequencies() {
+    public TreeMap<String, Frequency> getFrequencies() {
         return frequencies;
     }
 

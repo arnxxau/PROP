@@ -121,16 +121,39 @@ public class Driver_FP {
                     switch (option){
                         case 1:
                             System.out.println("Afegint Teclat");
-                            //cd.Afegir_Teclat()
+                            llistar_alfabets(cd.Consultar_Alfabets());
+                            String s = Demanar_Nom("Alfabet");
+                            llistar_frequencies(cd.Consultar_Freqs(s));
+                            String f = Demanar_Nom("Freqüència");
+                            llistar_grids(cd.Consultar_Grids());
+                            int idG = Demanar_ID("Graella");
+                            int ret = cd.Afegir_Teclat(s,h);
+                            if(ret==1)System.out.println("El Teclat amb aquest nom ja existeix");
+                            else System.out.println("Teclat afegit");
+                            System.out.println();
                             break;
                         case 2:
                             System.out.println("Esborrant Teclat");
+                            String s1 = Demanar_Nom("Teclat");
+                            ret = cd.Esborrar_Teclat(s1);
+                            if(ret==1)System.out.println("El teclat amb aquest nom NO existeix");
+                            else System.out.println("Teclat Esborrat");
+                            System.out.println();
                             break;
                         case 3:
                             System.out.println("Canviant nom Teclat");
+                            String s2 = Demanar_Nom("Teclat");
+                            String s3 = Demanar_Nom("nou Teclat");
+                            ret = cd.CanviarNom_Teclat(s2,s3);
+                            if(ret==1)System.out.println("El Teclat amb nom " + s2 + " NO existeix");
+                            else if(ret==2)System.out.println("El Teclat amb nom " + s3 + " JA existeix");
+                            else System.out.println("Teclat " + s2 + " ha canviat de nom a " + s3);
+                            System.out.println();
                             break;
                         case 4:
-                            System.out.println("Actualitzant Teclat");
+                            System.out.println("Llistant Teclats: ");
+                            System.out.println();
+                            llistar_alfabets(cd.Consultar_Teclats());
                             break;
                     }
                     break;

@@ -8,6 +8,9 @@ import java.util.Vector;
 public class CtrlDomini {
 
     TreeMap<String,Alphabet> AP = new TreeMap<>();
+    TreeMap<String,Frequency> FQ = new TreeMap<>();
+    TreeMap<String,Keyboard> KD = new TreeMap<>();
+    TreeMap<String,Grid> GD = new TreeMap<>();
     public CtrlDomini(){}
 
     public int Afegir_Alfabet(String s, HashSet<Character> h){
