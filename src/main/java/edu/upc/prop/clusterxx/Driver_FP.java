@@ -1,9 +1,13 @@
 package edu.upc.prop.clusterxx;
 
 import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Vector;
 
 public class Driver_FP {
     inout io = new inout();
+
+    Scanner s = new Scanner(System.in);
 
     CtrlDomini cd = new CtrlDomini();
     static final int MENUGENERAL=0;
@@ -58,6 +62,7 @@ public class Driver_FP {
             io.writeln("1 - Afegir Alfabet ");
             io.writeln("2 - Esborrar Alfabet");
             io.writeln("3 - Canviar Nom Alfabet ");
+            io.writeln("4 - Llistar Alfabets ");
             //io.writeln("4 - Gestionar Frequencies ");
             }
         catch (Exception e){
@@ -147,14 +152,36 @@ public class Driver_FP {
                     switch (option){
                         case 1:
                             System.out.println("Afegint Alfabet");
-                            //s i h es transformen en les el nom i el hashset del nou alfabet.
-                            //cd.Afegir_Alfabet();
+                            String s = Demanar_Nom("Alfabet");
+                            HashSet<Character> h = Demanar_chars_Alfabet();
+                            int ret = cd.Afegir_Alfabet(s,h);
+                            if(ret==1)System.out.println("L'Alfabet amb aquest nom ja existeix");
+                            else System.out.println("Alfabet Afegit");
+                            System.out.println();
+                            //llistar_alfabets(cd.Consultar_Alfabets()); aqui aniria mostrar_alfabet
                             break;
                         case 2:
                             System.out.println("Esborrant Alfabet");
+                            String s1 = Demanar_Nom("Alfabet");
+                            ret = cd.Esborrar_Alfabet(s1);
+                            if(ret==1)System.out.println("L'Alfabet amb aquest nom NO existeix");
+                            else System.out.println("Alfabet Esborrat");
+                            System.out.println();
                             break;
                         case 3:
                             System.out.println("Canviant nom Alfabet");
+                            String s2 = Demanar_Nom("Alfabet");
+                            String s3 = Demanar_Nom("nou Alfabet");
+                            ret = cd.CanviarNom_Alfabet(s2,s3);
+                            if(ret==1)System.out.println("L'Alfabet el nom " + s2 + " NO existeix");
+                            else if(ret==2)System.out.println("L'Alfabet el nom " + s3 + " JA existeix");
+                            else System.out.println("Alfabet " + s2 + " ha canviat de nom a " + s3);
+                            System.out.println();
+                            break;
+                        case 4:
+                            System.out.println("Llistant Alfabets: ");
+                            System.out.println();
+                            llistar_alfabets(cd.Consultar_Alfabets());
                             break;
                     }
                     break;
@@ -172,12 +199,19 @@ public class Driver_FP {
         }
     }
 
-    private String Demanar_Nom(){
+    private void llistar_alfabets(Vector<Vector<String>> vvs){
+        for(Vector<String> vs : vvs){
+            System.out.println("NOM: " + vs.get(0));
+            System.out.println("CARACTERS: " + vs.get(1));
+            System.out.println();
+        }
+    }
+
+    private String Demanar_Nom(String nomclase){
         String s1="";
         try{
-            io.writeln("Necesito el nom del nou alfabet que vols crear");
-            s1 = io.readline();//nombre del alfabeto
-
+            io.writeln("Necessito el nom del " + nomclase);
+            s1 = s.nextLine();//nombre del alfabeto
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -190,7 +224,7 @@ public class Driver_FP {
         HashSet<Character> car = new HashSet<>();
         try{
             io.writeln("Necesito un conjunt de caracters per l'alfabet");
-            s2 = io.readline();//caracteres del alfabeto
+            s2 = s.nextLine();//caracteres del alfabeto
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -223,7 +257,7 @@ public class Driver_FP {
                     break;
                 case 3:
                     while(option!=0){
-                        option = Obtenir_Opcions(3,MENUALFABET);
+                        option = Obtenir_Opcions(4,MENUALFABET);
                         Opcions_de_Clase("Alfabet",option);
                     }
                     break;
