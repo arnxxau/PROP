@@ -50,7 +50,7 @@ public class AlphabetTest {
         when(frequencyMock.getValue()).thenReturn(5);
 
         assertTrue(alphabet.addFrequency(frequencyMock));
-        assertTrue(alphabet.getFrequencies().contains(frequencyMock));
+        assertTrue(alphabet.getFrequencies().containsValue(frequencyMock));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class AlphabetTest {
         alphabet.addFrequency(frequencyMock);
 
         assertTrue(alphabet.deleteFrequency(frequencyMock));
-        assertFalse(alphabet.getFrequencies().contains(frequencyMock));
+        assertFalse(alphabet.getFrequencies().containsValue(frequencyMock));
 
         // Verify that the deleteFrequency method was called with the correct parameter
         verify(alphabet).deleteFrequency(frequencyMock);
@@ -75,7 +75,7 @@ public class AlphabetTest {
     public void testGetters() {
         assertEquals("TestAlphabet", alphabet.getName());
         assertNotNull(alphabet.getCrDate());
-        assertNotNull(alphabet.getUltMod());
+        assertNotNull(alphabet.getLastMod());
         assertEquals(2, alphabet.getCharacters().size());
         assertEquals(0, alphabet.getFrequencies().size());
     }

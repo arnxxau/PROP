@@ -341,7 +341,6 @@ public class Driver_FP {
                 io.writeln("GRID: " + vs.get(3));
                 io.writeln("LAYOUT: ");
                 io.writeln(vs.get(4));
-                io.writeln("");
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -353,7 +352,6 @@ public class Driver_FP {
             try {
                 io.writeln("NOM: " + vs.get(0));
                 io.writeln("CARÀCTERS: " + vs.get(1));
-                io.writeln("");
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());

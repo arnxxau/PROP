@@ -37,6 +37,8 @@ public class CtrlDomini {
         if (KB.containsKey(newNom)) return -2;
         Keyboard k = KB.get(nomT);
         k.setNom(newNom);
+        KB.remove(nomT);
+        KB.put(newNom,k);
         return 0;
     }
     public int Actualitzar_Teclat(String nomT) {
