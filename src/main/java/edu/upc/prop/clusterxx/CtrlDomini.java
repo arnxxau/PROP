@@ -92,7 +92,7 @@ public class CtrlDomini {
             };
 
             f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
-            a.afegir_freq(f);  //a l'alfabet li afegim la freq.
+            a.addFrequency(f);  //a l'alfabet li afegim la freq.
             FQ.put(nomF,f); //afegim la frequencia
 
         }catch (Exception e){
