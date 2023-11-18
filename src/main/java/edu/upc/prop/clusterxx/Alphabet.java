@@ -74,6 +74,7 @@ public class Alphabet {
     public void setName(String nom) {
         this.nom = nom;
     }
+
 /*
     public void setCrDate(Instant crDate) {
         this.crDate = crDate;

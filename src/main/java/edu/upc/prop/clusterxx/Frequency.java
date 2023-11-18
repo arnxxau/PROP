@@ -19,7 +19,7 @@ public class Frequency {
 
     // error messages
     private final static String EXTRACTION_ERROR = "An error occurred, the frequency couldn't be extracted";
-    private final static String  WRONG_FILE_PATH_ERROR = "Wrong file path.";
+    private final static String WRONG_FILE_PATH_ERROR = "Wrong file path.";
 
     private final static String ALPHABET_ERROR = "The alphabet is not compatible with this frequency.";
     private final static String NON_EXISTING_FREQUENCY = "The character combination doesn't exist.";
@@ -27,7 +27,6 @@ public class Frequency {
     // general info
     private String name;
     private final Instant creationDate;
-
 
 
     private Instant lastModifiedTime;
@@ -142,7 +141,7 @@ public class Frequency {
                 if (freqcopy2.containsKey(c1) && freqcopy2.get(c1).containsKey(c2))
                     insertNewFreq(c1, c2, freqcopy2.get(c1).get(c2), ADD);
             }
-
+            it2 = alphabet.getCharacters().iterator();
         }
     }
 
@@ -170,9 +169,8 @@ public class Frequency {
 
     // integrity checkers
     private void checkFreqIntegrity(Character c) throws Exception {
-        //if (!alphabet.existsCharacter(c))
-            return;
-        //throw new Exception(ALPHABET_ERROR);
+        if (!alphabet.existsCharacter(c))
+            throw new Exception(ALPHABET_ERROR);
     }
 
     // public getters

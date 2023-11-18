@@ -20,14 +20,17 @@ public class Main {
     //Frequency freq = new Frequency("test", "/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/raw.freq", 0);
     //freq.printFrequencies();
 
-    List<String> lines = Files.readAllLines(Path.of("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/text.freq"), StandardCharsets.UTF_8);
-    String[] arr = lines.toArray(new String[0]);
-    Alphabet a = null;
+    System.out.println(System.getProperty("user.dir"));
 
 
-    Frequency freq2 = new Frequency("test", arr, Frequency.TEXT_MODE, a);
-    freq2.printFrequencies();
-    System.out.println(freq2.getFrequency('a', 'p'));
+    //List<String> lines = Files.readAllLines(Path.of("src/main/java/edu/upc/prop/clusterxx/text.freq"), StandardCharsets.UTF_8);
+    //String[] arr = lines.toArray(new String[0]);
+    //Alphabet a = null;
+
+
+    //Frequency freq2 = new Frequency("test", arr, Frequency.TEXT_MODE, a);
+    //freq2.printFrequencies();
+    //System.out.println(freq2.getFrequency('a', 'p'));
   }
 
   public float division(int a, int b) throws ArithmeticException {
