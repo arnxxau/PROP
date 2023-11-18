@@ -21,7 +21,7 @@ public class Keyboard {
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
-        this.distribucio = new char[]{'a', 'b', 'c', 'd'}; // CALCULAR DISTRIBUCIÓ AMB QAP
+        this.distribucio = new char[]{'a', 'b', 'e'}; // CALCULAR DISTRIBUCIÓ AMB QAP
     }
     public void update() {
         this.distribucio = null; // RECALCULAR DISTRIBUCIÓ
@@ -37,7 +37,7 @@ public class Keyboard {
         String res = "";
         for (i = 0; i < Grid.getMaxSize().x; ++i) {
             for (int j = 0; j < Grid.getMaxSize().y; ++j) {
-                if (mat[i][j] == '\0') res += ' ' + ' ';
+                if (mat[i][j] == '\0') res += "  ";
                 else res += mat[i][j];
             }
             res += '\n';

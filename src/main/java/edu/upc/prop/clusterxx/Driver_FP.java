@@ -151,8 +151,8 @@ public class Driver_FP {
                         switch (option) {
                             case 1:
                                 io.writeln("Afegint Teclat");
-                                llistar_alfabets(cd.Consultar_Alfabets());
                                 String nomT = Demanar_Nom("Teclat");
+                                llistar_alfabets(cd.Consultar_Alfabets());
                                 String nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
                                 String nomF = Demanar_Nom("Freqüència");
@@ -175,6 +175,7 @@ public class Driver_FP {
                                     case -5:
                                         io.writeln("El grid número " + idG + " no té el mateix nombre de posicions disponibles que caràcters l'alfabet");
                                 }
+                                io.writeln("Teclat afegit");
                                 break;
                             case 2:
                                 io.writeln("Esborrant Teclat");

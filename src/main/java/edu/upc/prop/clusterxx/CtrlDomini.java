@@ -22,6 +22,7 @@ public class CtrlDomini {
         if (g == null) return -4;
         if (g.getSize() != a.size()) return -5;
         Keyboard k = new Keyboard(nomT,a,f,g);
+        KB.put(nomT,k);
         return 0;
     }
     public int Esborrar_Teclat(String nomT) {
@@ -114,7 +115,7 @@ public class CtrlDomini {
 
         FQ.put(nomF,f);
         f.printFrequencies();
-        a.afegir_freq(f);//a l'alfabet se li afegeix la freq
+        a.addFrequency(f);//a l'alfabet se li afegeix la freq
         return 0;
     }
 
