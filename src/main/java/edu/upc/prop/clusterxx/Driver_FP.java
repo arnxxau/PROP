@@ -210,17 +210,18 @@ public class Driver_FP {
                                 int opt2=-1;
                                 while(opt2!=0){
                                     opt2 = Obtenir_Opcions_funcions(3,MENUAFFRQ);
+
                                     if(opt2!=0){
                                         switch (opt2){
-                                            case 1:
-                                                String s = Demanar_Nom("Alfabet");
+                                            case 1: //ESTO HAY QUE ACABARLO HAY QUE TRANSFORMAR EN EL CD UN PATH A STRING[] PARA LA CONSTRUCTORA DE FREQ.
+                                               String s = Demanar_Nom("Alfabet");
                                                 String s2 = Demanar_Nom("nova Freqüència");
                                                 String s3 = Demanar_Fitxer();
-                                                int ret = cd.Afegir_Freqs(s2,s3,s);
+                                                /*int ret = cd.Afegir_Freqs(s2,s3,s);
                                                 if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
                                                 else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
                                                 else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);*/
                                                 break;
                                             case 2:
                                                 //opcio llista d'un fitxer
@@ -232,7 +233,7 @@ public class Driver_FP {
                                                 s = Demanar_Nom("Alfabet");
                                                 s2 = Demanar_Nom("nova Freqüència");
                                                 Vector<String> text = Demanar_text();
-                                                ret = cd.Afegir_FreqText(s,s2,text);
+                                                int ret = cd.Afegir_FreqText(s,s2,text);
                                                 if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
                                                 else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
                                                 else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
@@ -370,7 +371,8 @@ public class Driver_FP {
         String s1="";
         try{
             io.writeln("Necessito el nom del " + nomclase);
-            s1 = s.nextLine();//nombre del alfabeto
+            s1 = io.readword();//nombre del alfabeto
+
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -399,7 +401,7 @@ public class Driver_FP {
         String s1="";
         try{
             io.writeln("Necessito el Path a un fitxer de text del que extraure les Freqüències ");
-            s1 = s.nextLine();//nombre del Path
+            s1 = io.readword();//nombre del Path
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -412,7 +414,7 @@ public class Driver_FP {
         HashSet<Character> car = new HashSet<>();
         try{
             io.writeln("Necesito un conjunt de caracters per l'alfabet");
-            s2 = s.nextLine();//caracteres del alfabeto
+            s2 = io.readword();//caracteres del alfabeto
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -440,7 +442,7 @@ public class Driver_FP {
                     break;
                 case 2:
                     while(option!=0){
-                        option = Obtenir_Opcions(3,MENUFREQUENCIA);
+                        option = Obtenir_Opcions(4,MENUFREQUENCIA);
                         Opcions_de_Clase("Frequencia",option);
                     }
                     break;

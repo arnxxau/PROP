@@ -62,9 +62,9 @@ public class CtrlDomini {
         AP.put(s,a);
         return 0;
     }
-    public int Afegir_Freqs(String nom, String path, String nomAlfabet){
+    /*public int Afegir_Freqs(String nom, String path, String nomAlfabet){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
         try{
-            Frequency f = new Frequency(nom, path, Frequency.TEXT_MODE);
+            //Frequency f = new Frequency(nom, path, Frequency.TEXT_MODE);
             if(FQ.containsKey(nom))return 1;//ja existeix la freq
 
             if(!AP.containsKey(nomAlfabet))return 2; //l'alfabet no existeix
@@ -76,7 +76,7 @@ public class CtrlDomini {
                 for(Character c1 : f.getFreq().get(c).keySet()){
                     if(!a.existsCharacter(c1))return 3;
                 }
-            }*/
+            }
             f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
             a.afegir_freq(f);  //a l'alfabet li afegim la freq.
             FQ.put(nom,f); //afegim la frequencia
@@ -85,7 +85,7 @@ public class CtrlDomini {
             System.out.println(e.getMessage());
         }
         return 0;
-    }
+    }*/
 
     public int Afegir_FreqText(String nomA, String nomF, Vector<String> vs){
         if(FQ.containsKey(nomF))return 1; //la freq ja existeix
@@ -98,14 +98,20 @@ public class CtrlDomini {
 
         Alphabet a = AP.get(nomA);
 
-        for(String s : text){
+       /*for(String s : text){
             for(int i=0;i<s.length();i++){
-                if(!a.existsCharacter(s.charAt(i)))return 3; // A l'alfabet no hi ha la lletra.
+                if(!a.existsCharacter(s.charAt(i)))return 3;
             }
+        }*/
+        Frequency f;
+        try{
+            f = new Frequency(nomF,text,1,a);
         }
+        catch (Exception e){
+            return 3;
+        }// A l'alfabet no hi ha la lletra.
 
-        Frequency f = new Frequency(nomF,text);
-        f.setAlphabet(a);//es crea la freq amb l'alfabet
+        FQ.put(nomF,f);
         f.printFrequencies();
         a.afegir_freq(f);//a l'alfabet se li afegeix la freq
         return 0;
