@@ -36,13 +36,13 @@ public class CtrlDomini {
         k.setNom(newNom);
         return 0;
     }
-    public int Actualitzar_Teclat(String nomT) {/*
+    public int Actualitzar_Teclat(String nomT) {
         if (!KB.containsKey(nomT)) return -1;
         Keyboard k = KB.get(nomT);
-        k.update();*/
+        k.update();
         return 0;
     }
-    public Vector<Vector<String>> Consultar_Teclats(){/*
+    public Vector<Vector<String>> Consultar_Teclats(){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Keyboard valor : KB.values()) {
             Vector<String> vs = new Vector<>();
@@ -50,10 +50,10 @@ public class CtrlDomini {
             vs.add(valor.getAlphabet().getName());
             vs.add(valor.getFrequency().getName());
             vs.add(((Integer)valor.getGrid().getID()).toString());
+            vs.add(valor.getLayout());
             vvs.add(vs);
         }
-        return vvs;*/
-        return null;
+        return vvs;
     }
     public int Afegir_Alfabet(String s, HashSet<Character> h){
         Alphabet a = new Alphabet(s,h);

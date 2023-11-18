@@ -269,6 +269,8 @@ public class Driver_FP {
                 io.writeln("ALFABET: " + vs.get(1));
                 io.writeln("FREQÜÈNCIA: " + vs.get(2));
                 io.writeln("GRID: " + vs.get(3));
+                io.writeln("LAYOUT: ");
+                io.writeln(vs.get(4));
                 io.writeln("");
             }
             catch (Exception e) {

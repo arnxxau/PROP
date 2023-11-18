@@ -42,15 +42,19 @@ public class Alphabet {
         }
     }
     public boolean hasFrequency(String nomF) { return frequencies.containsKey(nomF);}
-/*
+
     public boolean addFrequency(Frequency frequencia) {
-        return frequencies.put(frequencia.getName(), frequencia);
+        if(frequencies.containsKey(frequencia.getName())) return false;
+        frequencies.put(frequencia.getName(), frequencia);
+        return true;
     }
 
     public boolean deleteFrequency(Frequency frequencia) {
-        return frequencies.remove(frequencia.getName());
+        if (!frequencies.containsKey(frequencia.getName())) return false;
+        frequencies.remove(frequencia.getName());
+        return true;
     }
-*/
+
     // Getters
     public String getName() {
         return nom;
@@ -60,7 +64,7 @@ public class Alphabet {
         return crDate;
     }
 
-    public Instant getUltMod() {
+    public Instant getLastMod() {
         return ultMod;
     }
 
