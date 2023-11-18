@@ -1,9 +1,12 @@
 package edu.upc.prop.clusterxx;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 
 public class CtrlDomini {
 
@@ -61,37 +64,52 @@ public class CtrlDomini {
         return vvs;
     }
     public int Afegir_Alfabet(String s, HashSet<Character> h){
+        h.add(' ');
         Alphabet a = new Alphabet(s,h);
         if(AP.containsKey(s))return 1;
         AP.put(s,a);
         return 0;
     }
-    /*public int Afegir_Freqs(String nom, String path, String nomAlfabet){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
         try{
-            //Frequency f = new Frequency(nom, path, Frequency.TEXT_MODE);
-            if(FQ.containsKey(nom))return 1;//ja existeix la freq
 
-            if(!AP.containsKey(nomAlfabet))return 2; //l'alfabet no existeix
+            if(FQ.containsKey(nomF))return 1;//ja existeix la freq
 
-            Alphabet a = AP.get(nomAlfabet);
+            if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
 
-            /*for(Character c : f.getFreq().keySet()){//comprobant si existeix un caracter a la freq i no al alfabet a.
-                if(!a.existsCharacter(c))return 3;
-                for(Character c1 : f.getFreq().get(c).keySet()){
-                    if(!a.existsCharacter(c1))return 3;
-                }
+            Alphabet a = AP.get(nomA);
+
+            String[] text = llegir_archiu_path(path);//pasa del texto del fichero path a string[]
+
+            Frequency f;
+            try{
+                f = new Frequency(nomF, text, mode, a);
             }
+            catch (Exception e){
+                return 3; // NO EXISTEIX LA LLETRA A L'ALFABET
+            };
+
             f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
             a.afegir_freq(f);  //a l'alfabet li afegim la freq.
-            FQ.put(nom,f); //afegim la frequencia
+            FQ.put(nomF,f); //afegim la frequencia
 
-        }catch (FileNotFoundException e){
+        }catch (Exception e){
+            System.out.println(e.getMessage()); // EXCEPCIÓ NO EXISTEIX EL PATH
+        }
+
+        return 0;
+    }
+    private String[] llegir_archiu_path(String path){
+        List<String> lines=new ArrayList<>();
+        try {
+            lines = Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
+        }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return 0;
-    }*/
+        return lines.toArray(new String[0]);
+    }
 
-    public int Afegir_FreqText(String nomA, String nomF, Vector<String> vs){
+    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode){
         if(FQ.containsKey(nomF))return 1; //la freq ja existeix
         if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
 
@@ -102,14 +120,9 @@ public class CtrlDomini {
 
         Alphabet a = AP.get(nomA);
 
-       /*for(String s : text){
-            for(int i=0;i<s.length();i++){
-                if(!a.existsCharacter(s.charAt(i)))return 3;
-            }
-        }*/
         Frequency f;
         try{
-            f = new Frequency(nomF,text,1,a);
+            f = new Frequency(nomF,text,mode,a);
         }
         catch (Exception e){
             return 3;

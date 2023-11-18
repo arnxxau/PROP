@@ -77,7 +77,6 @@ public class Frequency {
     private void extractTextFrequencies(String[] lines) throws Exception {
         for (String s1 : lines) {
             String[] line = s1.split(" ");
-
             for (String s2 : line) {
                 processWord(s2);
                 frequencyWeight += s2.length();
@@ -170,9 +169,7 @@ public class Frequency {
 
     // integrity checkers
     private void checkFreqIntegrity(Character c) throws Exception {
-        //if (!alphabet.existsCharacter(c))
-            return;
-        //throw new Exception(ALPHABET_ERROR);
+        if (!alphabet.existsCharacter(c)) throw new Exception(ALPHABET_ERROR);
     }
 
     // public getters
@@ -238,6 +235,4 @@ public class Frequency {
     public void setAlphabet(Alphabet alphabet) {
         this.alphabet = alphabet;
     }
-
-
 }
