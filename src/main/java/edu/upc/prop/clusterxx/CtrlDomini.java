@@ -64,6 +64,8 @@ public class CtrlDomini {
     }
     public int Esborrar_Alfabet(String s){
         if(!AP.containsKey(s)) return 1;
+        Alphabet a = AP.get(s);
+        for (String nomF : a.getFrequencies().keySet()) FQ.remove(nomF);
         AP.remove(s);
         return 0;
     }
