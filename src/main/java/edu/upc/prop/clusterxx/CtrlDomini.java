@@ -68,26 +68,49 @@ public class CtrlDomini {
             if(FQ.containsKey(nom))return 1;//ja existeix la freq
 
             if(!AP.containsKey(nomAlfabet))return 2; //l'alfabet no existeix
-            else{
-                Alphabet a = AP.get(nomAlfabet);
 
-                for(Character c : f.getFreq().keySet()){//comprobant si existeix un caracter a la freq i no al alfabet a.
-                    if(!a.existsCharacter(c))return 3;
-                    for(Character c1 : f.getFreq().get(c).keySet()){
-                        if(!a.existsCharacter(c1))return 3;
-                    }
+            Alphabet a = AP.get(nomAlfabet);
+
+            /*for(Character c : f.getFreq().keySet()){//comprobant si existeix un caracter a la freq i no al alfabet a.
+                if(!a.existsCharacter(c))return 3;
+                for(Character c1 : f.getFreq().get(c).keySet()){
+                    if(!a.existsCharacter(c1))return 3;
                 }
-                f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
-                a.afegir_freq(f);  //a l'alfabet li afegim la freq.
-
-                FQ.put(nom,f); //afegim la frequencia
-            }
+            }*/
+            f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
+            a.afegir_freq(f);  //a l'alfabet li afegim la freq.
+            FQ.put(nom,f); //afegim la frequencia
 
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }
         return 0;
     }
+
+    public int Afegir_FreqText(String nomA, String nomF, Vector<String> vs){
+        if(FQ.containsKey(nomF))return 1; //la freq ja existeix
+        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
+
+        String[] text = new String[vs.size()];
+        for(int i=0; i < text.length; i++){
+            text[i]=vs.get(i);
+        }
+
+        Alphabet a = AP.get(nomA);
+
+        for(String s : text){
+            for(int i=0;i<s.length();i++){
+                if(!a.existsCharacter(s.charAt(i)))return 3; // A l'alfabet no hi ha la lletra.
+            }
+        }
+
+        Frequency f = new Frequency(nomF,text);
+        f.setAlphabet(a);//es crea la freq amb l'alfabet
+        f.printFrequencies();
+        a.afegir_freq(f);//a l'alfabet se li afegeix la freq
+        return 0;
+    }
+
     public int Esborrar_Alfabet(String s){
         if(!AP.containsKey(s)) return 1;
         AP.remove(s);

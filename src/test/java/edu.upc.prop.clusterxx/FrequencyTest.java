@@ -1,22 +1,34 @@
 package edu.upc.prop.clusterxx;
 
-
-import static org.mockito.Mockito.*;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
+import org.mockito.Mockito;
 public class FrequencyTest {
 
+
     @Test
-    public void getNumberOfAppearances() {
+    public void updateFrequency() {
     }
 
     @Test
-    public void getFrequency() {
+    public void fusion() {
     }
 
     @Test
     public void printFrequencies() {
+    }
+
+    @Test
+    public void getFrequencyWeight() {
+    }
+
+    @Test
+    public void getFreq() {
+    }
+
+    @Test
+    public void getMode() {
     }
 
     @Test
@@ -29,5 +41,41 @@ public class FrequencyTest {
 
     @Test
     public void getLastModifiedTime() {
+    }
+
+    @Test
+    public void getAlphabet() {
+    }
+
+    @Test
+    public void getNumberOfAppearances() {
+    }
+
+    @Test
+    public void getFrequency() {
+    }
+
+    @Test
+    public void setFrequencyWeight() {
+    }
+
+    @Test
+    public void setFreq() {
+    }
+
+    @Test
+    public void setMode() {
+    }
+
+    @Test
+    public void setName() {
+    }
+
+    @Test
+    public void setLastModifiedTime() {
+    }
+
+    @Test
+    public void setAlphabet() {
     }
 }

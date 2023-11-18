@@ -24,7 +24,9 @@ public class Driver_FP {
         try{io.writeln("Com vols Afegir la frequencia");
             io.writeln("0 - Sortir");
             io.writeln("1 - Fitxer Text");
-            io.writeln("2 - Freqüències a mà");}catch (Exception e){
+            io.writeln("2 - Fitxer Llista a través d'un Path");
+            io.writeln("3 - Text a mà");
+        }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
@@ -123,7 +125,7 @@ public class Driver_FP {
         }
         return opt;
     }
-    private int Obtenir_Opcions_funcions(int nopcions, int viewtype) {
+    private int Obtenir_Opcions_funcions(int nopcions, int viewtype) { //viewtype afegirfreq per exemple.
         int opt = -1;
         while(opt<0 || opt>nopcions) {
             switch (viewtype){
@@ -221,9 +223,20 @@ public class Driver_FP {
                                                 else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
                                                 break;
                                             case 2:
+                                                //opcio llista d'un fitxer
+                                                s = Demanar_Nom("nova Freqüència");
 
                                                 break;
                                             case 3:
+                                                //opcio text a mà
+                                                s = Demanar_Nom("Alfabet");
+                                                s2 = Demanar_Nom("nova Freqüència");
+                                                Vector<String> text = Demanar_text();
+                                                ret = cd.Afegir_FreqText(s,s2,text);
+                                                if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
+                                                else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
+                                                else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
                                                 break;
                                         }
                                     }
@@ -363,6 +376,24 @@ public class Driver_FP {
             System.out.println(e.getMessage());
         }
         return s1;
+    }
+    public Vector<String> Demanar_text(){
+        Vector<String> vs = new Vector<>();
+        String s;
+        try{
+            io.writeln("Escriu el text acabat amb un espai i un '.' del que agafarem les frequencies");
+            while(!(s = io.readword()).equals(".")){
+                vs.add(s);
+                System.out.println(s);
+            }
+            vs.remove(".");
+
+            //nombre del alfabeto
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return vs;
     }
     private String Demanar_Fitxer(){
         String s1="";
