@@ -63,7 +63,7 @@ public class Driver_FP {
             io.writeln("1 - Afegir Freqüència ");
             io.writeln("2 - Esborrar Freqüència ");
             io.writeln("3 - Modificar Freqüència ");
-            io.writeln("4 - Llistar Freqüència ");
+            io.writeln("4 - Llistar Freqüències ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
