@@ -1,11 +1,12 @@
 package edu.upc.prop.clusterxx;
-
+import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.Vector;
 
 public class CtrlDomini {
+
     TreeMap<String,Alphabet> AP = new TreeMap<>();
     TreeMap<String,Frequency> FQ = new TreeMap<>();
     TreeMap<String,Keyboard> KB = new TreeMap<>();
@@ -62,6 +63,61 @@ public class CtrlDomini {
         AP.put(s,a);
         return 0;
     }
+    /*public int Afegir_Freqs(String nom, String path, String nomAlfabet){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+        try{
+            //Frequency f = new Frequency(nom, path, Frequency.TEXT_MODE);
+            if(FQ.containsKey(nom))return 1;//ja existeix la freq
+
+            if(!AP.containsKey(nomAlfabet))return 2; //l'alfabet no existeix
+
+            Alphabet a = AP.get(nomAlfabet);
+
+            /*for(Character c : f.getFreq().keySet()){//comprobant si existeix un caracter a la freq i no al alfabet a.
+                if(!a.existsCharacter(c))return 3;
+                for(Character c1 : f.getFreq().get(c).keySet()){
+                    if(!a.existsCharacter(c1))return 3;
+                }
+            }
+            f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
+            a.afegir_freq(f);  //a l'alfabet li afegim la freq.
+            FQ.put(nom,f); //afegim la frequencia
+
+        }catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }*/
+
+    public int Afegir_FreqText(String nomA, String nomF, Vector<String> vs){
+        if(FQ.containsKey(nomF))return 1; //la freq ja existeix
+        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
+
+        String[] text = new String[vs.size()];
+        for(int i=0; i < text.length; i++){
+            text[i]=vs.get(i);
+        }
+
+        Alphabet a = AP.get(nomA);
+
+       /*for(String s : text){
+            for(int i=0;i<s.length();i++){
+                if(!a.existsCharacter(s.charAt(i)))return 3;
+            }
+        }*/
+        Frequency f;
+        try{
+            f = new Frequency(nomF,text,1,a);
+        }
+        catch (Exception e){
+            return 3;
+        }// A l'alfabet no hi ha la lletra.
+
+        FQ.put(nomF,f);
+        f.printFrequencies();
+        a.afegir_freq(f);//a l'alfabet se li afegeix la freq
+        return 0;
+    }
+
     public int Esborrar_Alfabet(String s){
         if(!AP.containsKey(s)) return 1;
         Alphabet a = AP.get(s);
@@ -89,6 +145,34 @@ public class CtrlDomini {
             }
             String resultat = stringBuilder.toString();
             vs.add(resultat);
+            vvs.add(vs);
+        }
+        return vvs;
+    }
+    public Vector<Vector<String>> Consultar_Freqs(String nomA){
+        Vector<Vector<String>> vvs = new Vector<>();
+        for (Frequency valor : FQ.values()) {
+
+            Vector<String> vs = new Vector<>();
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.setLength(0);
+            if(valor.getAlphabet().getName().equals(nomA)){
+                vs.add(valor.getName()); //vs[0] == nom
+
+                stringBuilder.append(valor.getCreationDate());
+                vs.add(stringBuilder.toString());//vs[1] == creationdate.
+                stringBuilder.setLength(0);
+
+                stringBuilder.append(valor.getLastModifiedTime());//
+                vs.add(stringBuilder.toString());//vs[2] == lastmodifieddate
+                stringBuilder.setLength(0);
+
+                stringBuilder.append(valor.getFrequencyWeight());
+                vs.add(stringBuilder.toString());//vs[3] == frequencyweight
+                stringBuilder.setLength(0);
+            }
+
             vvs.add(vs);
         }
         return vvs;
