@@ -143,6 +143,8 @@ public class Driver_FP {
                                     case -4:
                                         io.writeln("La Grid número " + idG + " no eisteix");
                                         break;
+                                    case -5:
+                                        io.writeln("El grid número " + idG + " no té el mateix nombre de posicions disponibles que caràcters l'alfabet");
                                 }
                                 break;
                             case 2:

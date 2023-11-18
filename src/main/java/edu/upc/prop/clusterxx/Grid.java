@@ -40,7 +40,8 @@ public class Grid {
     public ArrayList<Pair> getPositions() {
         return grid;
     }
-    public Pair getSize() { return size; };
+    public Pair getMaxSize() { return size; };
+    public int getSize() { return grid.size(); }
     public int getID() { return id; }
     public String toString() {
         String res = "";

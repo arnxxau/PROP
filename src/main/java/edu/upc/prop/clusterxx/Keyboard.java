@@ -27,7 +27,7 @@ public class Keyboard {
         this.distribucio = null; // RECALCULAR DISTRIBUCIÓ
     }
     public String getLayout() {
-        char[][] mat = new char[Grid.getSize().x][Grid.getSize().y];
+        char[][] mat = new char[Grid.getMaxSize().x][Grid.getMaxSize().y];
         ArrayList<Pair> al = Grid.getPositions();
         int i = 0;
         for (Pair p : al) {
@@ -35,8 +35,8 @@ public class Keyboard {
             ++i;
         }
         String res = "";
-        for (i = 0; i < Grid.getSize().x; ++i) {
-            for (int j = 0; j < Grid.getSize().y; ++j) {
+        for (i = 0; i < Grid.getMaxSize().x; ++i) {
+            for (int j = 0; j < Grid.getMaxSize().y; ++j) {
                 if (mat[i][j] == '\0') res += ' ' + ' ';
                 else res += mat[i][j];
             }

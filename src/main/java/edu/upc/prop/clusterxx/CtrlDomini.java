@@ -19,6 +19,7 @@ public class CtrlDomini {
         if (f == null) return -3;
         Grid g = GD.get(idG);
         if (g == null) return -4;
+        if (g.getSize() != a.size()) return -5;
         Keyboard k = new Keyboard(nomT,a,f,g);
         return 0;
     }
