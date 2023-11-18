@@ -16,7 +16,18 @@ public class Driver_FP {
     static final int MENUALFABET=3;
     static final int MENUGRID=4;
 
+    static final int MENUAFFRQ=0;
+
     public Driver_FP(){}
+
+    private void Vista_af_freq(){
+        try{io.writeln("Com vols Afegir la frequencia");
+            io.writeln("0 - Sortir");
+            io.writeln("1 - Fitxer Text");
+            io.writeln("2 - Freqüències a mà");}catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     private void Vista_General(){
         try{io.writeln("Menu General: ");
@@ -44,7 +55,8 @@ public class Driver_FP {
     }
 
     private void Vista_Frequencies() {
-        try{io.writeln("Menu Teclats: ");
+        try{
+            io.writeln("Menu Frequencies: ");
             io.writeln("0 - Sortir ");
             io.writeln("1 - Afegir Frequencia ");
             io.writeln("2 - Esborrar Frequencia ");
@@ -57,7 +69,7 @@ public class Driver_FP {
     }
 
     private void Vista_Alfabets() {
-        try{io.writeln("Menu Teclats: ");
+        try{io.writeln("Menu Alfabets: ");
             io.writeln("0 - Sortir ");
             io.writeln("1 - Afegir Alfabet ");
             io.writeln("2 - Esborrar Alfabet");
@@ -71,7 +83,7 @@ public class Driver_FP {
     }
 //hem de mirar si has tret un alfabet per exemple, quan accedim al teclat mirar ,que encara que estigui creat, no tingui un alfabet apuntant que no existeix.
     private void Vista_Grids() {
-        try{io.writeln("Menu Teclats: ");
+        try{io.writeln("Menu Grids: ");
             io.writeln("0 - Sortir ");
             io.writeln("1 - Afegir Grid ");
             io.writeln("2 - Esborrar Grid ");
@@ -111,6 +123,22 @@ public class Driver_FP {
         }
         return opt;
     }
+    private int Obtenir_Opcions_funcions(int nopcions, int viewtype) {
+        int opt = -1;
+        while(opt<0 || opt>nopcions) {
+            switch (viewtype){
+                case 0:
+                    Vista_af_freq();
+                    break;
+            }
+            try {
+                opt = io.readint();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return opt;
+    }
 
     //pre : nomclase ha de ser el nom d'una classe de model que existeixi
     //se puede hacer mejor esta funcion.(se repiten acciones entre clases. con nomclase y tal)
@@ -125,9 +153,9 @@ public class Driver_FP {
                                 llistar_alfabets(cd.Consultar_Alfabets());
                                 String nomT = Demanar_Nom("Teclat");
                                 String nomA = Demanar_Nom("Alfabet");
-                                llistar_frequencies(cd.Consultar_Freqs(nomA));
+                              //  llistar_frequencies(cd.Consultar_Freqs(nomA));
                                 String nomF = Demanar_Nom("Freqüència");
-                                llistar_grids(cd.Consultar_Grids());
+                                // llistar_grids(cd.Consultar_Grids());
                                 int idG = Demanar_ID("Graella");
                                 int ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
                                 switch (ret) {
@@ -176,13 +204,36 @@ public class Driver_FP {
                     case "Frequencia":
                         switch (option) {
                             case 1:
-                                io.writeln("Afegint Frequencia");
+                                io.writeln("Afegint Frequencia a un Alfabet");
+                                int opt2=-1;
+                                while(opt2!=0){
+                                    opt2 = Obtenir_Opcions_funcions(3,MENUAFFRQ);
+                                    if(opt2!=0){
+                                        switch (opt2){
+                                            case 1:
+                                                String s = Demanar_Nom("Alfabet");
+                                                String s2 = Demanar_Nom("nova Freqüència");
+                                                String s3 = Demanar_Fitxer();
+                                                int ret = cd.Afegir_Freqs(s2,s3,s);
+                                                if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
+                                                else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
+                                                else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                break;
+                                            case 2:
+
+                                                break;
+                                            case 3:
+                                                break;
+                                        }
+                                    }
+                                }
                                 break;
                             case 2:
-                                io.writeln("Esborrant Frequencia");
+                                io.writeln("Esborrant Freqüència");
                                 String nomF = Demanar_Nom("Freqüència");
                                 int ret = cd.Esborrar_Frequencia(nomF);
-                                if (ret == -1) io.writeln("La freqüència " + nomF + "no existeix");
+                                if (ret == -1) io.writeln("La freqüència " + nomF + " no existeix");
                                 else io.writeln("Freqüència esborrada");
                                 break;
                             case 3:
@@ -190,7 +241,7 @@ public class Driver_FP {
                                 io.writeln("funcionalitat en desenvolupament...");
                                 break;
                             case 4:
-                                io.writeln("llistant Freqüències");
+                                io.writeln("Llistant Freqüències d'un Alfabet");
                                 String nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
                         }
@@ -249,6 +300,8 @@ public class Driver_FP {
             System.out.println(e.getMessage());
         }
     }
+
+
     private void llistar_Teclats(Vector<Vector<String>> vvs) {
         for(Vector<String> vs : vvs){
             try {
@@ -269,6 +322,19 @@ public class Driver_FP {
                 io.writeln("NOM: " + vs.get(0));
                 io.writeln("CARACTERS: " + vs.get(1));
                 io.writeln("");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    private void llistar_frequencies(Vector<Vector<String>> vvs){
+        for(Vector<String> vs : vvs){
+            try {
+                io.writeln("NOM: " + vs.get(0));
+                io.writeln("Data de Creació: " + vs.get(1));
+                io.writeln("Data última modificació: " + vs.get(2));
+                io.writeln("Frequency weight: " + vs.get(3));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -298,6 +364,17 @@ public class Driver_FP {
         }
         return s1;
     }
+    private String Demanar_Fitxer(){
+        String s1="";
+        try{
+            io.writeln("Necessito el Path a un fitxer de text del que extraure les Freqüències ");
+            s1 = s.nextLine();//nombre del Path
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return s1;
+    }
 
     private HashSet<Character> Demanar_chars_Alfabet(){
         String s2="";
@@ -318,6 +395,7 @@ public class Driver_FP {
     public void Next_Step_from_Menu_General(){
         int opt=-1;
         while(opt!=0){
+            System.out.println("hola");
             int option=-1;
             opt = Obtenir_Opcions(4,MENUGENERAL);
             switch(opt){

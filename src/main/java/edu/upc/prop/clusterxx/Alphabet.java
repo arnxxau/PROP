@@ -20,6 +20,15 @@ public class Alphabet {
         this.ultMod = Instant.now();
         this.frequencies = new TreeMap<String,Frequency>();
     }
+
+    public HashSet<Character> getCaracters() {
+        return caracters;
+    }
+
+    public void afegir_freq(Frequency f){
+        frequencies.put(f.getName(),f);
+    }
+
     public int size() { return caracters.size(); }
     public boolean existsCharacter(char caracter) {
         return caracters.contains(caracter);
@@ -43,13 +52,13 @@ public class Alphabet {
     }
     public boolean hasFrequency(String nomF) { return frequencies.containsKey(nomF);}
 
-    public boolean addFrequency(Frequency frequencia) {
+   /* public boolean addFrequency(Frequency frequencia) {
         return frequencies.put(frequencia.getName(), frequencia);
     }
 
     public boolean deleteFrequency(Frequency frequencia) {
         return frequencies.remove(frequencia.getName());
-    }
+    }*/
 
     // Getters
     public String getName() {

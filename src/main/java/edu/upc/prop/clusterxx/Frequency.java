@@ -43,6 +43,18 @@ public class Frequency {
         extractFrequenciesFromWords(words);
     }
 
+    public Integer getFrequencyWeight() {
+        return frequencyWeight;
+    }
+
+    public Alphabet getAlphabet() {
+        return alphabet;
+    }
+
+    public HashMap<Character, HashMap<Character, Integer>> getFreq() {
+        return freq;
+    }
+
     public Frequency(String name, String filePath, int fileMode) throws FileNotFoundException {
         this.MODE = fileMode;
         this.name = name;
@@ -70,7 +82,6 @@ public class Frequency {
         } catch (Exception e) {
             System.out.println(EXTRACTION_ERROR);
         }
-
     }
 
     /*
@@ -146,6 +157,10 @@ public class Frequency {
         }
     }
 
+    public void setAlphabet(Alphabet alphabet) {
+        this.alphabet = alphabet;
+    }
+
     public void fusion(Frequency f) {
 
 
@@ -167,7 +182,7 @@ public class Frequency {
                     Character c2 = it2.next();
 
 
-                    if (freqcopy1.containsKey(c1))
+                    if (freqcopy1.containsKey(c1));
                 }
 
             }
