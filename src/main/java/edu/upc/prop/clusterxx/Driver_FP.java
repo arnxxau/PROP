@@ -26,6 +26,7 @@ public class Driver_FP {
             io.writeln("1 - Fitxer Text");
             io.writeln("2 - Fitxer Llista a través d'un Path");
             io.writeln("3 - Text a mà");
+            io.writeln("4 - Llista a mà");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -209,31 +210,48 @@ public class Driver_FP {
                                 io.writeln("Afegint Frequencia a un Alfabet");
                                 int opt2=-1;
                                 while(opt2!=0){
-                                    opt2 = Obtenir_Opcions_funcions(3,MENUAFFRQ);
-
+                                    opt2 = Obtenir_Opcions_funcions(4,MENUAFFRQ);
                                     if(opt2!=0){
                                         switch (opt2){
-                                            case 1: //ESTO HAY QUE ACABARLO HAY QUE TRANSFORMAR EN EL CD UN PATH A STRING[] PARA LA CONSTRUCTORA DE FREQ.
+                                            case 1: //opcio text d'un fitxer ESTO HAY QUE ACABARLO HAY QUE TRANSFORMAR EN EL CD UN PATH A STRING[] PARA LA CONSTRUCTORA DE FREQ.
                                                String s = Demanar_Nom("Alfabet");
                                                 String s2 = Demanar_Nom("nova Freqüència");
                                                 String s3 = Demanar_Fitxer();
-                                                /*int ret = cd.Afegir_Freqs(s2,s3,s);
+                                                int ret = cd.Afegir_Freq_FromPath(s2,s3,s,1);
                                                 if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
                                                 else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
                                                 else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);*/
+                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
                                                 break;
                                             case 2:
                                                 //opcio llista d'un fitxer
-                                                s = Demanar_Nom("nova Freqüència");
-
+                                                s = Demanar_Nom("Alfabet");
+                                                s2 = Demanar_Nom("nova Freqüència");
+                                                s3 = Demanar_Fitxer(); //path
+                                                ret = cd.Afegir_Freq_FromPath(s2,s3,s,0);
+                                                if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
+                                                else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
+                                                else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
                                                 break;
                                             case 3:
                                                 //opcio text a mà
                                                 s = Demanar_Nom("Alfabet");
                                                 s2 = Demanar_Nom("nova Freqüència");
-                                                Vector<String> text = Demanar_text();
-                                                int ret = cd.Afegir_FreqText(s,s2,text);
+                                                Vector<String> text = Demanar_text(false);//demanar text en forma normal
+                                                ret = cd.Afegir_FreqMa(s,s2,text,1);
+
+                                                if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
+                                                else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
+                                                else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                break;
+                                            case 4:
+                                                //opcio llista a mà
+                                                s = Demanar_Nom("Alfabet");
+                                                s2 = Demanar_Nom("nova Freqüència");
+                                                Vector<String> llista = Demanar_text(true);//text en forma de llista.
+                                                ret = cd.Afegir_FreqMa(s,s2,llista,0);
                                                 if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
                                                 else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
                                                 else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
@@ -379,16 +397,22 @@ public class Driver_FP {
         }
         return s1;
     }
-    public Vector<String> Demanar_text(){
+    public Vector<String> Demanar_text(boolean mode){
         Vector<String> vs = new Vector<>();
         String s;
         try{
-            io.writeln("Escriu el text acabat amb un espai i un '.' del que agafarem les frequencies");
+            if(mode)io.writeln("Escriu una llista de freq de la forma\n " +
+                    " 600\n" +
+                    "    a c 11\n" +
+                    "    a v 15\n" +
+                    "    a x 99\n " + " on 600 és ns la verda i la resta es per cada parell p.e " +
+                    "a c quantes vegades apereix junta, en aquest exemple 11, acabat amb un espai i un '.' del que agafarem les frequencies");
+
+            else io.writeln("Escriu el text acabat amb un espai i un '.' del que agafarem les frequencies");
             while(!(s = io.readword()).equals(".")){
                 vs.add(s);
                 System.out.println(s);
             }
-            vs.remove(".");
 
             //nombre del alfabeto
         }
@@ -397,6 +421,7 @@ public class Driver_FP {
         }
         return vs;
     }
+    //suposem que el fitxer té escrites bé les dades
     private String Demanar_Fitxer(){
         String s1="";
         try{
@@ -428,7 +453,6 @@ public class Driver_FP {
     public void Next_Step_from_Menu_General(){
         int opt=-1;
         while(opt!=0){
-            System.out.println("hola");
             int option=-1;
             opt = Obtenir_Opcions(4,MENUGENERAL);
             switch(opt){
