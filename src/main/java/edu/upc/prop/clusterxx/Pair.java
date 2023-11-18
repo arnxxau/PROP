@@ -10,4 +10,3 @@ public class Pair {
         this.y=y;
     }
 }
-

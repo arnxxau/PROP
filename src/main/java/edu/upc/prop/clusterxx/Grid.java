@@ -41,6 +41,5 @@ public class Grid {
     public void setGrid(ArrayList<Pair> pares) {
         this.grid = pares;
     }
-    public int size() { return grid.size(); }
 
 }
