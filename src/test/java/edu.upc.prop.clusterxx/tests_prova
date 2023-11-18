@@ -8,3 +8,12 @@ CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 0 1 1 t a f 1 5
 +EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)
 3 t teclat 2 t 2 teclat
+
+envez de : abe ae ea eee ba .
+filepath : /src/main/java/edu/upc/prop/clusterxx/text.freq
+
+path correcte:
+3 1 a abe 0 2 1 1 a f src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a
+
+path erroni:
+3 1 a abe 0 2 1 1 a f /main/java/edu/upc/prop/clusterxx/text.freq 0 4 a

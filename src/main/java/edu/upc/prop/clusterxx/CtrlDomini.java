@@ -63,23 +63,25 @@ public class CtrlDomini {
         }
         return vvs;
     }
-    public int Afegir_Alfabet(String s, HashSet<Character> h){
+    public void Afegir_Alfabet(String s, HashSet<Character> h){
         h.add(' ');
         Alphabet a = new Alphabet(s,h);
-        if(AP.containsKey(s))return 1;
         AP.put(s,a);
-        return 0;
     }
+
+    //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
     public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
         try{
 
-            if(FQ.containsKey(nomF))return 1;//ja existeix la freq
+            /*if(FQ.containsKey(nomF))return 1;//ja existeix la freq
 
-            if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
+            if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
 
             Alphabet a = AP.get(nomA);
 
             String[] text = llegir_archiu_path(path);//pasa del texto del fichero path a string[]
+
+            /*if (text==null)return 4; // no existeix o no es troba el fitxer*/
 
             Frequency f;
             try{
@@ -100,18 +102,24 @@ public class CtrlDomini {
         return 0;
     }
     private String[] llegir_archiu_path(String path){
-        List<String> lines=new ArrayList<>();
+
+        List<String> lines = new ArrayList<>();
+
+        /*File f =  new File(path);
+        if(!f.exists())return null;*/
+
         try {
             lines = Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); //inout exception
         }
+
         return lines.toArray(new String[0]);
     }
 
     public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode){
-        if(FQ.containsKey(nomF))return 1; //la freq ja existeix
-        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
+       /* if(FQ.containsKey(nomF))return 1; //la freq ja existeix
+        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
 
         String[] text = new String[vs.size()];
         for(int i=0; i < text.length; i++){
@@ -134,12 +142,9 @@ public class CtrlDomini {
         return 0;
     }
 
-    public int Esborrar_Alfabet(String s){
-        if(!AP.containsKey(s)) return 1;
-        Alphabet a = AP.get(s);
-        for (String nomF : a.getFrequencies().keySet()) FQ.remove(nomF);
+    public void Esborrar_Alfabet(String s){
+        for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
         AP.remove(s);
-        return 0;
     }
     public int CanviarNom_Alfabet(String s,String s2){
         if(!AP.containsKey(s)) return 1;
@@ -197,6 +202,17 @@ public class CtrlDomini {
         if (!FQ.containsKey(nomF)) return -1;
         FQ.remove(nomF);
         return 0;
+    }
+    public boolean ExisteixFreq(String nomf){
+        return FQ.containsKey(nomf);
+    }
+    public boolean ExisteixAlf(String noma){
+        return AP.containsKey(noma);
+    }
+
+    public boolean ExisteixFitxer(String path){
+        File f = new File(path);
+        return f.exists();
     }
     public int Afegir_Grid (int x, boolean[][] pos) {
         if (GD.containsKey(x)) return -1;
