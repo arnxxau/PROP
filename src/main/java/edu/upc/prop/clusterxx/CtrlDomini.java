@@ -23,7 +23,9 @@ public class CtrlDomini {
         if (f == null) return -3;
         Grid g = GD.get(idG);
         if (g == null) return -4;
+        if (g.getSize() != a.size()) return -5;
         Keyboard k = new Keyboard(nomT,a,f,g);
+        KB.put(nomT,k);
         return 0;
     }
     public int Esborrar_Teclat(String nomT) {
@@ -38,22 +40,25 @@ public class CtrlDomini {
         if (KB.containsKey(newNom)) return -2;
         Keyboard k = KB.get(nomT);
         k.setNom(newNom);
+        KB.remove(nomT);
+        KB.put(newNom,k);
         return 0;
     }
     public int Actualitzar_Teclat(String nomT) {
         if (!KB.containsKey(nomT)) return -1;
         Keyboard k = KB.get(nomT);
-        //k.update();
+        k.update();
         return 0;
     }
     public Vector<Vector<String>> Consultar_Teclats(){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Keyboard valor : KB.values()) {
             Vector<String> vs = new Vector<>();
-            /*vs.add(valor.getName());
+            vs.add(valor.getName());
             vs.add(valor.getAlphabet().getName());
             vs.add(valor.getFrequency().getName());
-            vs.add(valor.getGrid().getID().toString());*/
+            vs.add(((Integer)valor.getGrid().getID()).toString());
+            vs.add(valor.getLayout());
             vvs.add(vs);
         }
         return vvs;
@@ -133,7 +138,7 @@ public class CtrlDomini {
 
         FQ.put(nomF,f);
         f.printFrequencies();
-        a.afegir_freq(f);//a l'alfabet se li afegeix la freq
+        a.addFrequency(f);//a l'alfabet se li afegeix la freq
         return 0;
     }
 
@@ -208,5 +213,28 @@ public class CtrlDomini {
     public boolean ExisteixFitxer(String path){
         File f = new File(path);
         return f.exists();
+    }
+    public int Afegir_Grid (int x, boolean[][] pos) {
+        if (GD.containsKey(x)) return -1;
+        Grid g = new Grid(x,pos);
+        GD.put(x,g);
+        return 0;
+    }
+    public int Esborrar_Grid (Integer idG) {
+        if (GD.containsKey(idG)) {
+            GD.remove(idG);
+            return 0;
+        }
+        return -1;
+    }
+    public Vector<Vector<String>> Consultar_Grids() {
+        Vector<Vector<String>> vvs = new Vector<>();
+        for (Grid valor : GD.values()) {
+            Vector<String> vs = new Vector<>();
+            vs.add(((Integer)valor.getID()).toString());
+            vs.add(valor.toString());
+            vvs.add(vs);
+        }
+        return vvs;
     }
 }

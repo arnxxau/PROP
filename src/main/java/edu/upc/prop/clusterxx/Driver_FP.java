@@ -58,13 +58,12 @@ public class Driver_FP {
     }
 
     private void Vista_Frequencies() {
-        try{
-            io.writeln("Menu Frequencies: ");
+        try{io.writeln("Menu Freqüències: ");
             io.writeln("0 - Sortir ");
-            io.writeln("1 - Afegir Frequencia ");
-            io.writeln("2 - Esborrar Frequencia ");
-            io.writeln("3 - Modificar Frequencia ");
-            io.writeln("4 - Llistar Frequencia ");
+            io.writeln("1 - Afegir Freqüència ");
+            io.writeln("2 - Esborrar Freqüència ");
+            io.writeln("3 - Modificar Freqüència ");
+            io.writeln("4 - Llistar Freqüències ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -153,12 +152,12 @@ public class Driver_FP {
                         switch (option) {
                             case 1:
                                 io.writeln("Afegint Teclat");
-                                llistar_alfabets(cd.Consultar_Alfabets());
                                 String nomT = Demanar_Nom("Teclat");
+                                llistar_alfabets(cd.Consultar_Alfabets());
                                 String nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
                                 String nomF = Demanar_Nom("Freqüència");
-                                //llistar_grids(cd.Consultar_Grids());
+                                llistar_grids(cd.Consultar_Grids());
                                 int idG = Demanar_ID("Graella");
                                 int ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
                                 switch (ret) {
@@ -172,9 +171,12 @@ public class Driver_FP {
                                         io.writeln("La freqüència " + nomF + " no existeix o no pertany a l'alfabet " + nomA);
                                         break;
                                     case -4:
-                                        io.writeln("La graella número " + idG + " no eisteix");
+                                        io.writeln("La Grid número " + idG + " no eisteix");
                                         break;
+                                    case -5:
+                                        io.writeln("El grid número " + idG + " no té el mateix nombre de posicions disponibles que caràcters l'alfabet");
                                 }
+                                io.writeln("Teclat afegit");
                                 break;
                             case 2:
                                 io.writeln("Esborrant Teclat");
@@ -379,12 +381,26 @@ public class Driver_FP {
                         switch (option) {
                             case 1:
                                 io.writeln("Afegint Grid");
+                                Integer x = Demanar_ID("Grid");
+                                boolean[][] b = Demanar_mat_Grid();
+                                if (b == null) {
+                                    io.writeln("Format incorrecte");
+                                    break;
+                                }
+                                int ret = cd.Afegir_Grid(x,b);
+                                if (ret == -1) io.writeln("El Grid " + x + " ja existeix");
+                                else io.writeln("Grid afegit");
                                 break;
                             case 2:
                                 io.writeln("Esborrant Grid");
+                                x = Demanar_ID("Grid");
+                                ret = cd.Esborrar_Grid(x);
+                                if (ret == -1) io.writeln("El Grid número " + x.toString() + " no existeix");
+                                else io.writeln("Grid esborrat");
                                 break;
                             case 3:
                                 io.writeln("llistant grids");
+                                llistar_grids(cd.Consultar_Grids());
                                 break;
                         }
                         break;
@@ -403,8 +419,9 @@ public class Driver_FP {
                 io.writeln("NOM: " + vs.get(0));
                 io.writeln("ALFABET: " + vs.get(1));
                 io.writeln("FREQÜÈNCIA: " + vs.get(2));
-                io.writeln("GRAELLA: " + vs.get(3));
-                io.writeln("");
+                io.writeln("GRID: " + vs.get(3));
+                io.writeln("LAYOUT: ");
+                io.writeln(vs.get(4));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -415,8 +432,7 @@ public class Driver_FP {
         for(Vector<String> vs : vvs){
             try {
                 io.writeln("NOM: " + vs.get(0));
-                io.writeln("CARACTERS: " + vs.get(1));
-                io.writeln("");
+                io.writeln("CARÀCTERS: " + vs.get(1));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -430,6 +446,17 @@ public class Driver_FP {
                 io.writeln("Data de Creació: " + vs.get(1));
                 io.writeln("Data última modificació: " + vs.get(2));
                 io.writeln("Frequency weight: " + vs.get(3));
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    private void llistar_grids(Vector<Vector<String>> vvs){
+        for(Vector<String> vs : vvs){
+            try {
+                io.writeln("ID: " + vs.get(0));
+                io.writeln("POSICIONS VÀLIDES:\n" + vs.get(1));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -511,6 +538,29 @@ public class Driver_FP {
         }
         return car;
     }
+    private boolean[][] Demanar_mat_Grid() {
+        boolean[][] res = null;
+        try {
+            io.writeln("Indica l'amplada màxima del Grid:");
+            int x = io.readint();
+            io.writeln("Indica l'alçada màxima del Grid:");
+            int y = io.readint();
+            res = new boolean[x][y];
+            io.writeln("Indica les posicions vàlides (1 = vàlid; 0 = no vàlid; separats per espais)");
+            for (int i = 0; i < x; ++i) {
+                for (int j = 0; j < y; ++j) {
+                    int c = io.readint();
+                    if (c == 1) res[i][j] = true;
+                    else if (c == 0) res[i][j] = false;
+                    else return null;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return res;
+    }
 
     public void Next_Step_from_Menu_General(){
         int opt=-1;
@@ -522,7 +572,7 @@ public class Driver_FP {
                     break;
                 case 1:
                     while(option!=0){
-                        option = Obtenir_Opcions(4,MENUTECLAT);
+                        option = Obtenir_Opcions(5,MENUTECLAT);
                         Opcions_de_Clase("Teclat",option);
                     }
                     break;
@@ -540,7 +590,7 @@ public class Driver_FP {
                     break;
                 case 4:
                     while (option != 0) {
-                        option = Obtenir_Opcions(2,MENUGRID);
+                        option = Obtenir_Opcions(3,MENUGRID);
                         Opcions_de_Clase("Grid",option);
                     }
                     break;
