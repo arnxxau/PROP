@@ -34,15 +34,15 @@ public class Keyboard {
             mat[p.x][p.y] = distribucio[i];
             ++i;
         }
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (i = 0; i < Grid.getMaxSize().x; ++i) {
             for (int j = 0; j < Grid.getMaxSize().y; ++j) {
-                if (mat[i][j] == '\0') res += "  ";
-                else res += mat[i][j];
+                if (mat[i][j] == '\0') res.append("  ");
+                else res.append(mat[i][j]);
             }
-            res += '\n';
+            res.append('\n');
         }
-        return res;
+        return res.toString();
     }
 
     // Getters
