@@ -69,7 +69,7 @@
 <val>(1.0, 0.0, 0.0, 1.0, 751.1606478221859, 403.4453125)</val>
 </matrix>
 <points>
-<val>[(25.048045174597178, 22.93723416297786), (-463.1270292349816, 287.4312744140625)]</val>
+<val>[(25.048045174597178, 22.93723416297786), (-457.9448492831423, 330.7286376953125)]</val>
 </points>
 <head-connection>
 <ref refid="0e888ef7-7db4-11ee-ae42-f5e2f18658ea"/>
@@ -101,7 +101,7 @@
 <val>(1.0, 0.0, 0.0, 1.0, 688.6406555175781, 369.640625)</val>
 </matrix>
 <points>
-<val>[(5.093107236619744, -29.880755701886983), (-265.24607849121094, -56.05479708159339)]</val>
+<val>[(5.093107236619744, -29.880755701886983), (-228.24607849121094, -26.20120057948526)]</val>
 </points>
 <head-connection>
 <ref refid="0e888ef7-7db4-11ee-ae42-f5e2f18658ea"/>
@@ -133,7 +133,7 @@
 <val>(1.0, 0.0, 0.0, 1.0, 633.0, 740.6640625)</val>
 </matrix>
 <points>
-<val>[(-316.0839385986328, 6.161162948602055), (110.39147759794787, 6.188365240715825)]</val>
+<val>[(-310.9017586467935, 49.458526229852055), (37.67590142607287, 49.171275396965825)]</val>
 </points>
 <head-connection>
 <ref refid="1b855766-7db4-11ee-8567-f5e2f18658ea"/>
@@ -165,7 +165,7 @@
 <val>(1.0, 0.0, 0.0, 1.0, 380.8728244237873, 416.97118287515036)</val>
 </matrix>
 <points>
-<val>[(-128.27458307058077, 33.58442317774893), (-142.82948946284978, 273.90540403891214)]</val>
+<val>[(-112.26948147558721, 92.78868642296266), (-137.64730951101046, 317.20276732016214)]</val>
 </points>
 <head-connection>
 <ref refid="0b9ce6df-7db4-11ee-81fe-f5e2f18658ea"/>
@@ -176,7 +176,7 @@
 </AssociationItem>
 <ClassItem id="1b855766-7db4-11ee-8567-f5e2f18658ea">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 177.9160614013672, 690.8765869140625)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 183.0982413532065, 734.1739501953125)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -255,7 +255,7 @@
 </Property>
 <ClassItem id="18f153fb-7db4-11ee-84c7-f5e2f18658ea">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 743.3914775979479, 674.687744140625)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 670.6759014260729, 717.670654296875)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -408,16 +408,16 @@
 </Property>
 <ClassItem id="0b9ce6df-7db4-11ee-81fe-f5e2f18658ea">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 122.39457702636719, 170.5556060528993)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 122.39457702636719, 169.75986929811302)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>301.0</val>
+<val>338.0</val>
 </width>
 <height>
-<val>280.0</val>
+<val>340.0</val>
 </height>
 <diagram>
 <ref refid="034f6126-7db4-11ee-ab5b-f5e2f18658ea"/>
@@ -447,6 +447,9 @@
 <ref refid="32bc6589-7e26-11ee-b15c-27c1223c4e88"/>
 <ref refid="4407079e-7e26-11ee-b794-27c1223c4e88"/>
 <ref refid="62698b2c-7e26-11ee-aae4-27c1223c4e88"/>
+<ref refid="e29208de-8577-11ee-bc8f-692c61e54d7f"/>
+<ref refid="38e9fcf0-8578-11ee-be47-692c61e54d7f"/>
+<ref refid="5620522a-8578-11ee-931d-692c61e54d7f"/>
 </reflist>
 </ownedOperation>
 <package>
@@ -728,7 +731,7 @@
 <ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
 </class_>
 <name>
-<val>+ getNom() String</val>
+<val>+ getName() String</val>
 </name>
 </Operation>
 <Operation id="dd9dbf7e-7e25-11ee-b932-27c1223c4e88">
@@ -736,7 +739,7 @@
 <ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
 </class_>
 <name>
-<val>+ getDataCr() Date</val>
+<val>+ getCrDate() Instant</val>
 </name>
 </Operation>
 <Operation id="ec4894f8-7e25-11ee-86a0-27c1223c4e88">
@@ -744,7 +747,7 @@
 <ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
 </class_>
 <name>
-<val>+ getUltimaMod() Date</val>
+<val>+ getUltiMod() Instant</val>
 </name>
 </Operation>
 <Operation id="f3091b6c-7e25-11ee-8f43-27c1223c4e88">
@@ -752,7 +755,7 @@
 <ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
 </class_>
 <name>
-<val>+ getCaracters() Char[0..*]</val>
+<val>+ getCharacters() HashSet&lt;Caracter&gt;</val>
 </name>
 </Operation>
 <Operation id="32bc6589-7e26-11ee-b15c-27c1223c4e88">
@@ -768,7 +771,7 @@
 <ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
 </class_>
 <name>
-<val>+ setNom(in String) void</val>
+<val>+ setName(in String) void</val>
 </name>
 </Operation>
 <Operation id="62698b2c-7e26-11ee-aae4-27c1223c4e88">
@@ -801,6 +804,33 @@
 </class_>
 <name>
 <val>+ getUltimaMod() Date</val>
+</name>
+</Operation>
+<Operation id="e29208de-8577-11ee-bc8f-692c61e54d7f">
+<class_>
+<ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
+</class_>
+<isAbstract>
+<val>0</val>
+</isAbstract>
+<name>
+<val>+ getFrequencies() TreeMap&lt;String, Frequency&gt;</val>
+</name>
+</Operation>
+<Operation id="38e9fcf0-8578-11ee-be47-692c61e54d7f">
+<class_>
+<ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
+</class_>
+<name>
+<val>+ addFrequency(Frequency) Boolean</val>
+</name>
+</Operation>
+<Operation id="5620522a-8578-11ee-931d-692c61e54d7f">
+<class_>
+<ref refid="0b9ca736-7db4-11ee-acef-f5e2f18658ea"/>
+</class_>
+<name>
+<val>+ deleteFrequency(in String) Boolean</val>
 </name>
 </Operation>
 </gaphor>
