@@ -10,6 +10,8 @@ package edu.upc.prop.clusterxx;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 
 public class Keyboard {
     private String nom;
@@ -37,7 +39,10 @@ public class Keyboard {
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
-        this.distribucio = new char[]{'a', 'b', 'e'}; // CALCULAR DISTRIBUCIÓ AMB QAP
+        System.out.println("ELPEPE\n");
+        this.distribucio = Algorithm2.QAPAlgorithm(alphabet,frequency,grid); // CALCULAR DISTRIBUCIÓ AMB QAP
+        System.out.println("------>"+ Arrays.toString(this.distribucio));
+        System.out.println(getLayout());
     }
 
     /**

@@ -46,32 +46,39 @@ public class hungarian {
 
         }
         //corretigir assignació <------------------------
-        int[] assigment = new int[mat.length];
-        Arrays.fill(assigment, -1);
-        int cont;
-        int pos=0;
-        while(checknegative1(assigment)) {
-            for (int i = 0; i < mat.length; i++) {
-                cont = 0;
+        int [] rows = new int[mat.length];
+        int [] occupiedCols = new int[mat.length];
 
-                for (int l = 0; l < mat.length; l++) {
-                    if (mat[i][l] == 0 & assigment[l] == -1) {
-                        cont += 1;
-                        pos = l;
-                    }
-                }
-                if (cont == 1) assigment[pos] = i;
+        optimitzacio(rows, mat, occupiedCols);
+
+        return getTotal(mat,rows,ini);
+
+    }
+
+    private static double getTotal(double[][] values, int[] rows, double[][] originalValues) {
+        double total = 0;
+        for (int row = 0; row < values.length; row++)
+            total += originalValues[row][rows[row]];
+        return total;
+    }
+    private static boolean optimitzacio(int[] rows, double[][] values, int [] occupiedCols){
+        return optimization(0, rows, values, occupiedCols);
+    }
+
+    private static boolean optimization(int row, int[] rows, double[][] values, int [] occupiedCols) {
+        if (row == rows.length) // If all rows were assigned a cell
+            return true;
+
+        for (int col = 0; col < values.length; col++) { // Try all columns
+            if (values[row][col] == 0 && occupiedCols[col] == 0) { // If the current cell at column `col` has a value of zero, and the column is not reserved by a previous row
+                rows[row] = col; // Assign the current row the current column cell
+                occupiedCols[col] = 1; // Mark the column as reserved
+                if (optimization(row + 1,rows, values, occupiedCols)) // If the next rows were assigned successfully a cell from a unique column, return true
+                    return true;
+                occupiedCols[col] = 0; // If the next rows were not able to get a cell, go back and try for the previous rows another cell from another column
             }
         }
-
-        double resultado=0;
-
-        for(int i=0; i<assigment.length; i++){
-            resultado += ini[assigment[i]][i];
-        }
-
-        return resultado;
-
+        return false; // If no cell were assigned for the current row, return false to go back one row to try to assign to it another cell from another column
     }
 
     private static boolean checknegative1(int[] assigment){

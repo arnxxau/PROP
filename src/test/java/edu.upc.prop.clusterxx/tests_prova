@@ -6,5 +6,40 @@ CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 0 1 0
 0 0 1
 0 1 1 t a f 1 5
+
 +EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)
 3 t teclat 2 t 2 teclat
+3
+
+
+
+
+
+4
+1
+1
+3
+3
+1 1 0
+0 0 0
+0 0 1
+0
+3
+1
+a
+abc
+0
+2
+1
+3
+a
+f
+acacacacacacacacacacacacab .
+0
+0
+1
+1
+pepe
+a
+f
+1

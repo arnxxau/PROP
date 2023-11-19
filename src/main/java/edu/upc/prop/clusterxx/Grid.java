@@ -54,9 +54,9 @@ public class Grid {
     /**
      * Calcula la distància entre dues posicions a la graella.
      *
-     * @param i1 Índex de la primera posició.
-     * @param i2 Índex de la segona posició.
-     * @return La distància entre les dues posicions.
+     * @param i1 Index de la primera posició.
+     * @param i2 Index de la segona posició.
+     * @return La distancia entre les dues posicions.
      * @throws IndexOutOfBoundsException Si un dels índexs està fora dels límits de la graella.
      */
     public double distance(int i1,int i2)throws IndexOutOfBoundsException{
