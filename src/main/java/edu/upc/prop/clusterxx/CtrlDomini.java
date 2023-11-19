@@ -200,12 +200,49 @@ public class CtrlDomini {
     }
     public int Esborrar_Frequencia (String nomF) {
         if (!FQ.containsKey(nomF)) return -1;
+        Frequency f = FQ.get(nomF);
+        f.getAlphabet().deleteFrequency(f);//quito del treemap del alfabeto la freq.
         FQ.remove(nomF);
         return 0;
     }
     public boolean ExisteixFreq(String nomf){
         return FQ.containsKey(nomf);
     }
+
+
+    public int Modificar_Freq_Path(String nomF, String path, int mode){
+
+        Frequency f = FQ.get(nomF); //no fa falta anar al treemapde l'alfabet a modificar la freq perquè en teoria es el mateix punter
+
+        String[] text = llegir_archiu_path(path);
+        try{
+            f.updateFrequency(text,mode);
+        }
+        catch (Exception e){
+            return 3;
+        }
+        return 0;
+    }
+
+    public int Modificar_FreqMa(String nomF, Vector<String> vs, int mode){
+
+        String[] text = new String[vs.size()];
+
+        for(int i=0; i < text.length; i++){
+            text[i]=vs.get(i);
+        }
+
+        Frequency f = FQ.get(nomF);
+        try{
+            f.updateFrequency(text,mode);
+        }
+        catch (Exception e){
+            return 3;
+        }// A l'alfabet no hi ha la lletra.
+
+        return 0;
+    }
+
     public boolean ExisteixAlf(String noma){
         return AP.containsKey(noma);
     }
