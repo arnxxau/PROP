@@ -1,13 +1,13 @@
 package edu.upc.prop.clusterxx;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class KeyboardTest {
     private Keyboard keyboard;
@@ -29,23 +29,23 @@ public class KeyboardTest {
     @Test
     public void testUpdate() {
         // Perform the update
-        //keyboard.update();
+        keyboard.update();
 
         // Verify that the distribucio is null after the update
-        //assertEquals(null, keyboard.getDistribucio());
+        assertNull(keyboard.getDistribucio());
     }
 
     @Test
     public void testGetLayout() {
         // Stub the necessary methods for the test
         Mockito.when(gridMock.getMaxSize()).thenReturn(new Pair(3, 3));
-        Mockito.when(gridMock.getPositions()).thenReturn(new ArrayList<>());
+        Mockito.when(gridMock.getPositions()).thenReturn(new ArrayList<Pair>(List.of(new Pair(0, 0))));
 
         // Perform the test
         String layout = keyboard.getLayout();
 
         // Verify the result (you need to adjust this based on your implementation)
-        assertEquals("  \n  \n  \n", layout);
+        assertEquals("a    \n      \n      \n", layout);
     }
 
     @Test

@@ -1,11 +1,12 @@
 package edu.upc.prop.clusterxx;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 import java.time.Instant;
 import java.util.HashSet;
+
+import static org.junit.Assert.assertEquals;
 
 public class FrequencyTest {
 
@@ -88,10 +89,10 @@ public class FrequencyTest {
         Frequency frequencyStub = new Frequency("TestFreq", new String[]{"ab ab ab ab ab", "cd cd cd cd cd cd"}, Frequency.TEXT_MODE, alphabetStub);
 
         assertEquals(5.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
-        assertEquals(0.05, frequencyStub.getFrequency('a', 'b'), 0.001);
+        assertEquals(0.227, frequencyStub.getFrequency('a', 'b'), 0.001);
 
         frequencyStub.updateFrequency(new String[]{"ab ab ab ab ab ab", "cd cd cd cd cd cd"});
-        assertEquals(5.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
+        assertEquals(11.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
     }
 
     @Test
