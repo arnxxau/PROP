@@ -3,9 +3,7 @@ package edu.upc.prop.clusterxx;
 import java.util.*;
 
 
-
 public class Algorithm2 {
-
 
 
     public Map<Character, Integer> QAPAlgorithm(Alphabet alphabet, Frequency freq, Grid grid) {
@@ -19,8 +17,7 @@ public class Algorithm2 {
         PriorityQueue<nodo> priorityQueue = new PriorityQueue<nodo>();
         boolean end=false;
 
-        double cota = greedysol(Solucio, simbols, posicions, freq, grid);
-
+        double cota = greedysol_cota(simbols, posicions, freq, grid);
 
         priorityQueue.add(new nodo(Solucio,posicions,simbols,calcCota(Solucio,simbols,posicions,freq,grid)));
 
@@ -53,8 +50,58 @@ public class Algorithm2 {
         return new HashMap<>();
     }
 
-    private double greedysol(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
+    private double greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
 
+        Map<Integer, Character> num_freq = new TreeMap<>(Comparator.reverseOrder());
+
+        Iterator<Character> iterator = simbols.iterator();
+        while (iterator.hasNext()) {
+            char sim1 = iterator.next();
+            Iterator<Character> iterator2 = simbols.iterator();
+            int total=0;
+            char sim2;
+            while (iterator2.hasNext()) {
+                sim2 = iterator2.next();
+
+                if(sim1!=sim2){
+                    total += freq.getNumberOfAppearances(sim1,sim2);
+                }
+
+            }
+            num_freq.put(total,sim1);
+        }
+
+        Map<Double, Integer> num_dist = new TreeMap<>();
+        Iterator<Integer> iteratorPos = Posicions.iterator();
+        while (iteratorPos.hasNext()) {
+            int pos1 = iteratorPos.next();
+            Iterator<Integer> iteratorPos2 = Posicions.iterator();
+            double totalDist=0;
+            int pos2;
+
+            while(iteratorPos2.hasNext()) {
+                pos2 = iteratorPos2.next();
+
+                if(pos1!=pos2){
+                    totalDist += grid.distance(pos1,pos2);
+                }
+            }
+            num_dist.put(totalDist,pos1);
+        }
+
+        Map<Character, Integer> assig_greedy = new HashMap<>();
+
+        Iterator<Map.Entry<Integer, Character>> iterator1 = num_freq.entrySet().iterator();
+        Iterator<Map.Entry<Double, Integer>> iterator2 = num_dist.entrySet().iterator();
+
+        while (iterator1.hasNext() && iterator2.hasNext()) {
+            Map.Entry<Integer, Character> entry1 = iterator1.next();
+            Map.Entry<Double, Integer> entry2 = iterator2.next();
+
+            assig_greedy.put(entry1.getValue(),entry2.getValue());
+        }
+
+        return termino1(assig_greedy,freq,grid);
     }
 
     private double calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
@@ -324,6 +371,5 @@ public class Algorithm2 {
         return minElements;
     }
     ////////////////////////////////////////////
-
 
 }
