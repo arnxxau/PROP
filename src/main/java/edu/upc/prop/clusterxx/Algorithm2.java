@@ -8,36 +8,22 @@ public class Algorithm2 {
     public Algorithm2(){}
 
     public static char[] QAPAlgorithm(Alphabet alphabet, Frequency freq, Grid grid) {
-        System.out.println("pito1\n");
         Map<Character, Integer> Solucio = new HashMap<>();
         HashSet<Integer> posicions = new HashSet<>();//posicions no assignades
         HashSet<Character> simbols = alphabet.getCharacters();
         for(int i=0;i<grid.size();i++)posicions.add(i);
-        System.out.println("pito2\n");
-        ////System.out.println("holi1\n");
         PriorityQueue<nodo> priorityQueue = new PriorityQueue<nodo>();
-        boolean end=false;
-        System.out.println("pito3\n");
-        ////System.out.println("holi2\n");
         double cota = greedysol_cota(simbols, posicions, freq, grid);
-        System.out.println("pito4\n");
-        ////System.out.println("holi3\n");
         double c = calcCota(Solucio,simbols,posicions,freq,grid);
-        System.out.println("pito5\n");
 
-        ////System.out.println("holi4\n");
         nodo inp = new nodo(Solucio,posicions,simbols,c);
-        ////System.out.println("holi5\n");
         priorityQueue.add(inp);
 
-        ////System.out.println("holi6\n");
         nodo actual;
-        ////System.out.println("adeu\n");
 
-        while(!priorityQueue.isEmpty() & !end){
+        while(!priorityQueue.isEmpty()){
             actual = priorityQueue.poll();
             if(actual.posicions.isEmpty()){
-                System.out.println(actual.Solucio.size()+"<----");
                 return convert(actual.Solucio);
             }
             for (Character simb : actual.simbols) {
@@ -50,11 +36,9 @@ public class Algorithm2 {
 
                     HashSet<Integer> novaposicions = new HashSet<>(actual.posicions);
                     novaposicions.remove(pos);
-                    ////System.out.println("jj\n");
                     double cot = calcCota(novaSol,novasimbols,novaposicions,freq,grid);
-                    ////System.out.println("jj1\n");
 
-                    if(true){
+                    if(cot<=cota){
                         nodo nou = new nodo(novaSol,novaposicions, novasimbols,cot);
                         priorityQueue.add(nou);
                     }
@@ -62,7 +46,6 @@ public class Algorithm2 {
             }
 
         }
-        System.out.println("arriba anull\n");
         return new char[0];
     }
 
@@ -76,50 +59,28 @@ public class Algorithm2 {
         return sol;
     }
     private static double greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
-        //System.out.println("-----\n");
-        //System.out.println(simbols);
-        //System.out.println(Posicions);
-
-        System.out.println("albet\n");
         Map<Character, Integer> frecuencias = new HashMap<>();
 
         Iterator<Character> iterator = simbols.iterator();
         while (iterator.hasNext()) {
-            System.out.println("albet1\n");
             char sim1 = iterator.next();
-            System.out.println("albet2\n");
             Iterator<Character> iterator2 = simbols.iterator();
-            System.out.println("albet3\n");
             int total=0;
-            System.out.println("albet4\n");
             char sim2;
-            System.out.println("albet5\n");
             while (iterator2.hasNext()) {
-                System.out.println("albet6\n");
                 sim2 = iterator2.next();
-                System.out.println("albet7\n");
 
                 if(sim1!=sim2){
-                    System.out.println("albet8\n");
-                    System.out.println("------------------\n");
-                    System.out.println(sim1 + " " + sim2+ "\n");
-                    System.out.println(freq.getAlphabet().getCharacters());
                     total += (int) freq.getNumberOfAppearances(sim1,sim2);
-                    System.out.println("------------------\n");
-                    System.out.println("albet9\n");
                 }
 
             }
             frecuencias.put(sim1,total);
-            System.out.println("albet10\n");
         }
         List<Map.Entry<Character, Integer>> listaOrdenada = new ArrayList<>(frecuencias.entrySet());
         listaOrdenada.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        //System.out.println(listaOrdenada);
 
-
-        System.out.println("alb1\n");
         Map<Integer,Double> num_dist = new TreeMap<>();
         Iterator<Integer> iteratorPos = Posicions.iterator();
         while (iteratorPos.hasNext()) {
@@ -137,12 +98,10 @@ public class Algorithm2 {
             }
             num_dist.put(pos1,totalDist);
         }
-        System.out.println("alb2\n");
 
         List<Map.Entry<Integer, Double>> listaOrdenada1 = new ArrayList<>(num_dist.entrySet());
         listaOrdenada1.sort(Map.Entry.comparingByValue());
 
-        //System.out.println(listaOrdenada1);
 
 
         Map<Character, Integer> assig_greedy = new HashMap<>();
@@ -150,9 +109,6 @@ public class Algorithm2 {
         for(int i=0; i<listaOrdenada.size();i++){
             assig_greedy.put(listaOrdenada.get(i).getKey(),listaOrdenada1.get(i).getKey());
         }
-        System.out.println("alb3\n");
-
-        //System.out.println(convert(assig_greedy));
 
 
 
@@ -160,11 +116,8 @@ public class Algorithm2 {
     }
 
     private static double calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
-        ////System.out.println("oli\n");
         double termino1_ = termino1(Solucio,freq,grid);
-        ////System.out.println("oli1\n");
         double termino2i3_ = termino2i3(Solucio, simbols, Posicions, freq, grid);
-        ////System.out.println("oli2\n");
         return termino1_ + termino2i3_;
     }
 
@@ -191,23 +144,19 @@ public class Algorithm2 {
     private static double termino2i3(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
         double[][] Mat = new double[simbols.size()][Posicions.size()];
 
-        ////System.out.println("li\n");
 
         Iterator<Character> iterator_simb = simbols.iterator();
         for (int i = 0; i < simbols.size(); i++) {
-            ////System.out.println("li1\n");
             char sim_act = iterator_simb.next();
 
             Iterator<Integer> iterator_pos = Posicions.iterator();
             for (int k = 0; k < Posicions.size(); k++) {
-                ////System.out.println("li2\n");
                 int pos_act = iterator_pos.next();
 
 
                 double total = 0;
                 //calculo C1
                 for (Map.Entry<Character, Integer> entry : Solucio.entrySet()) {
-                    ////System.out.println("li3\n");
                     Character clave = entry.getKey();
                     Integer valor = entry.getValue();
                     total += (freq.getNumberOfAppearances(clave, sim_act) * grid.distance(valor, pos_act));
@@ -225,7 +174,6 @@ public class Algorithm2 {
                 Iterator<Character> iter_sim_ext = simbols.iterator();
                 char ext;
                 while (iter_sim_ext.hasNext()) {
-                    ////System.out.println("li4\n");
                     ext = iter_sim_ext.next();
                     if (ext != sim_act) {
                         T[indx] = freq.getNumberOfAppearances(ext, sim_act);
@@ -237,36 +185,26 @@ public class Algorithm2 {
                 Iterator<Integer> iter_pos_ext = Posicions.iterator();
                 int pos;
                 while (iter_pos_ext.hasNext()) {
-                    ////System.out.println("li5\n");
                     pos = iter_pos_ext.next();
                     if (pos != pos_act) {
                         D[indx] = grid.distance(pos, pos_act);
                     }
                 }
 
-                //Ordenar T Creixent
                 Arrays.sort(T);
 
-                //Ordenar D Decreixent
                 Arrays.sort(D);
                 invertirArray(D);
 
 
-                //Producte escalar T*D
                 total = 0;
                 for (int h = 0; h < (T.length); h++) {
-                    ////System.out.println("li6\n");
                     total += T[h] * D[h];
-                    ////System.out.println("li6finish\n");
                 }
-                ////System.out.println("li6.6\n");
                 Mat[i][k] += total;
-                ////System.out.println("li6.7\n");
             }
-            ////System.out.println("li7\n");
 
         }
-        ////System.out.println("li8\n");
 
         return hungarianAlgorithm(Mat);
     }
@@ -297,7 +235,6 @@ public class Algorithm2 {
                 mat[i][l]=ini[i][l];
             }
         }
-        ////System.out.println("hah\n");
 
         double[] row = findMinElementsInRows(mat);
         for (int i = 0; i < mat.length; i++) {
@@ -305,18 +242,15 @@ public class Algorithm2 {
                 mat[i][l] -= row[i];
             }
         }
-        ////System.out.println("hah1\n");
         double[] column = findMinElementsInColumns(mat);
         for (int i = 0; i < mat.length; i++) {
             for (int l = 0; l < mat.length; l++) {
                 mat[i][l] -= column[l];
             }
         }
-        ////System.out.println("hah2\n");
         boolean[] zerorow = new boolean[mat.length];
         boolean[] zerocolumn = new boolean[mat.length];
         findrowcolumzero(mat, zerorow, zerocolumn);
-        ////System.out.println("hah3\n");
 
         while (totalcover(zerorow, zerocolumn) < mat.length) {
             double min = Double.POSITIVE_INFINITY;
@@ -334,13 +268,11 @@ public class Algorithm2 {
             findrowcolumzero(mat, zerorow, zerocolumn);
 
         }
-        ////System.out.println("hah4\n");
         //corretigir assignació <------------------------
         int [] rows = new int[mat.length];
         int [] occupiedCols = new int[mat.length];
 
         optimitzacio(rows, mat, occupiedCols);
-        ////System.out.println("hah5\n");
 
 
         return getTotal(mat,rows,ini);
@@ -415,7 +347,6 @@ public class Algorithm2 {
         int cols = matrix.length;
 
         double[] minElements = new double[rows];
-        ////System.out.println("fmeR finished\n");
         for (int i = 0; i < rows; i++) {
             // Inicializar el mínimo con el primer elemento de la fila
             double min = matrix[i][0];
@@ -430,7 +361,6 @@ public class Algorithm2 {
             // Almacenar el mínimo de la fila en el arreglo
             minElements[i] = min;
         }
-        ////System.out.println("fmeR finished\n");
         return minElements;
     }
 
