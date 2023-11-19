@@ -39,7 +39,7 @@ public class FrequencyTest {
 
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void testNonCompatibleFreq() throws Exception {
         // Create a stub for the Alphabet class
         Alphabet alphabetStub = Mockito.mock(Alphabet.class);
@@ -48,7 +48,7 @@ public class FrequencyTest {
         // Create a stub for the Frequency class
         Frequency frequencyStub = new Frequency("TestFreq", new String[]{"100","a b 5", "c d 10"}, Frequency.FREQ_MODE, alphabetStub);
 
-        assertEquals(5.0, frequencyStub.getNumberOfAppearances('a', 'x'), 0.001);
+        assertEquals(0.0, frequencyStub.getNumberOfAppearances('a', 'x'), 0.001);
     }
 
     @Test

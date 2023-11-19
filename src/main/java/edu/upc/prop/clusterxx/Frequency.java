@@ -317,7 +317,13 @@ public class Frequency {
      * @return El nombre d'aparicions de la combinació de caràcters.
      */
     public double getNumberOfAppearances(Character first, Character second) {
-        return (double) freq.get(first).get(second);
+        if (freq.containsKey(first)) {
+            HashMap<Character, Integer> innerHash = freq.get(first);
+            if (innerHash.containsKey(second)) {
+                return innerHash.get(second);
+            }
+        }
+        return 0;
     }
 
     /**
