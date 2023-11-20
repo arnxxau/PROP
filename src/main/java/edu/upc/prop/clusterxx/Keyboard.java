@@ -39,10 +39,7 @@ public class Keyboard {
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
-        System.out.println("ELPEPE\n");
         this.distribucio = Algorithm2.QAPAlgorithm(alphabet,frequency,grid); // CALCULAR DISTRIBUCIÓ AMB QAP
-        System.out.println("------>"+ Arrays.toString(this.distribucio));
-        System.out.println(getLayout());
     }
 
     /**

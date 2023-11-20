@@ -1,5 +1,7 @@
 package edu.upc.prop.clusterxx;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
 
 
@@ -13,7 +15,8 @@ public class Algorithm2 {
         HashSet<Character> simbols = alphabet.getCharacters();
         for(int i=0;i<grid.size();i++)posicions.add(i);
         PriorityQueue<nodo> priorityQueue = new PriorityQueue<nodo>();
-        double cota = greedysol_cota(simbols, posicions, freq, grid);
+        char[] greedy_sol = new char[posicions.size()];
+        double cota = greedysol_cota(simbols, posicions, freq, grid, greedy_sol);
         double c = calcCota(Solucio,simbols,posicions,freq,grid);
 
         nodo inp = new nodo(Solucio,posicions,simbols,c);
@@ -21,8 +24,12 @@ public class Algorithm2 {
 
         nodo actual;
 
+        int cont = 0;
+        System.out.println("cota ="+cota+"\n");
         while(!priorityQueue.isEmpty()){
+            cont += 1;
             actual = priorityQueue.poll();
+
             if(actual.posicions.isEmpty()){
                 return convert(actual.Solucio);
             }
@@ -37,16 +44,18 @@ public class Algorithm2 {
                     HashSet<Integer> novaposicions = new HashSet<>(actual.posicions);
                     novaposicions.remove(pos);
                     double cot = calcCota(novaSol,novasimbols,novaposicions,freq,grid);
-
                     if(cot<=cota){
                         nodo nou = new nodo(novaSol,novaposicions, novasimbols,cot);
                         priorityQueue.add(nou);
+                        //System.out.println(cot+" "+ cota+"\n");
                     }
+                    //else{System.out.println("PODA\n");}
                 }
             }
 
         }
-        return new char[0];
+        System.out.println("Returned Greedy Sol\n");
+        return greedy_sol;
     }
 
     private static char[] convert(Map<Character, Integer> Solucio){
@@ -58,7 +67,7 @@ public class Algorithm2 {
         }
         return sol;
     }
-    private static double greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
+    private static double greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid, char[] greedy_sol) {
         Map<Character, Integer> frecuencias = new HashMap<>();
 
         Iterator<Character> iterator = simbols.iterator();
@@ -109,10 +118,9 @@ public class Algorithm2 {
         for(int i=0; i<listaOrdenada.size();i++){
             assig_greedy.put(listaOrdenada.get(i).getKey(),listaOrdenada1.get(i).getKey());
         }
-
-
-
-        return termino1(assig_greedy,freq,grid);
+        greedy_sol = convert(assig_greedy);
+        System.out.println(greedy_sol);
+        return calcCota(assig_greedy, new HashSet<>(), new HashSet<>(),freq,grid);
     }
 
     private static double calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
@@ -143,7 +151,6 @@ public class Algorithm2 {
 
     private static double termino2i3(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
         double[][] Mat = new double[simbols.size()][Posicions.size()];
-
 
         Iterator<Character> iterator_simb = simbols.iterator();
         for (int i = 0; i < simbols.size(); i++) {
@@ -188,6 +195,7 @@ public class Algorithm2 {
                     pos = iter_pos_ext.next();
                     if (pos != pos_act) {
                         D[indx] = grid.distance(pos, pos_act);
+                        indx += 1;
                     }
                 }
 
@@ -229,7 +237,6 @@ public class Algorithm2 {
     ////////////////////////////////////////////
     public static double hungarianAlgorithm(double[][] ini) {
         double[][] mat = new double[ini.length][ini.length];
-
         for(int i=0; i< ini.length; i++){
             for(int l=0; l< ini.length; l++){
                 mat[i][l]=ini[i][l];
@@ -261,10 +268,11 @@ public class Algorithm2 {
             }
             for (int i = 0; i < mat.length; i++) {
                 for (int l = 0; l < mat.length; l++) {
-                    if (zerorow[i] & zerocolumn[l]) mat[i][l] += min;
-                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] -= min;
+                    if (zerorow[i] & zerocolumn[l]) mat[i][l] = decimals(mat[i][l] + min);
+                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] = decimals(mat[i][l] - min);
                 }
             }
+
             findrowcolumzero(mat, zerorow, zerocolumn);
 
         }
@@ -274,8 +282,22 @@ public class Algorithm2 {
 
         optimitzacio(rows, mat, occupiedCols);
 
-
         return getTotal(mat,rows,ini);
+
+    }
+
+    private static double decimals(double a) {
+        // Crear un formato con símbolos personalizados que usen coma como separador decimal
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        DecimalFormat formato = new DecimalFormat("#.##", symbols);
+
+        String resultadoFormateado = formato.format(a);
+
+        // Reemplazar la coma por un punto antes de convertir a double
+        resultadoFormateado = resultadoFormateado.replace(',', '.');
+
+        return Double.parseDouble(resultadoFormateado);
 
     }
 

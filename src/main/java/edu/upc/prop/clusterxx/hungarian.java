@@ -1,17 +1,17 @@
 package edu.upc.prop.clusterxx;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 
 public class hungarian {
     public static double hungarianAlgorithm(double[][] ini) {
         double[][] mat = new double[ini.length][ini.length];
-
         for(int i=0; i< ini.length; i++){
             for(int l=0; l< ini.length; l++){
                 mat[i][l]=ini[i][l];
             }
         }
-
 
         double[] row = findMinElementsInRows(mat);
         for (int i = 0; i < mat.length; i++) {
@@ -38,13 +38,17 @@ public class hungarian {
             }
             for (int i = 0; i < mat.length; i++) {
                 for (int l = 0; l < mat.length; l++) {
-                    if (zerorow[i] & zerocolumn[l]) mat[i][l] += min;
-                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] -= min;
+                    if (zerorow[i] & zerocolumn[l]) mat[i][l] = decimals(mat[i][l] + min);
+                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] = decimals(mat[i][l] - min);
                 }
             }
+
             findrowcolumzero(mat, zerorow, zerocolumn);
+            System.out.println("a\n");
 
         }
+        System.out.println("bbbbbbbbbbbbb\n");
+
         //corretigir assignació <------------------------
         int [] rows = new int[mat.length];
         int [] occupiedCols = new int[mat.length];
@@ -53,6 +57,20 @@ public class hungarian {
 
         return getTotal(mat,rows,ini);
 
+    }
+
+    private static double decimals(double a) {
+        // Crear un formato con símbolos personalizados que usen coma como separador decimal
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        DecimalFormat formato = new DecimalFormat("#.##", symbols);
+
+        String resultadoFormateado = formato.format(a);
+
+        // Reemplazar la coma por un punto antes de convertir a double
+        resultadoFormateado = resultadoFormateado.replace(',', '.');
+
+        return Double.parseDouble(resultadoFormateado);
     }
 
     private static double getTotal(double[][] values, int[] rows, double[][] originalValues) {
@@ -66,19 +84,19 @@ public class hungarian {
     }
 
     private static boolean optimization(int row, int[] rows, double[][] values, int [] occupiedCols) {
-        if (row == rows.length) // If all rows were assigned a cell
+        if (row == rows.length)
             return true;
 
-        for (int col = 0; col < values.length; col++) { // Try all columns
-            if (values[row][col] == 0 && occupiedCols[col] == 0) { // If the current cell at column `col` has a value of zero, and the column is not reserved by a previous row
-                rows[row] = col; // Assign the current row the current column cell
-                occupiedCols[col] = 1; // Mark the column as reserved
-                if (optimization(row + 1,rows, values, occupiedCols)) // If the next rows were assigned successfully a cell from a unique column, return true
+        for (int col = 0; col < values.length; col++) {
+            if (values[row][col] == 0 && occupiedCols[col] == 0) {
+                rows[row] = col;
+                occupiedCols[col] = 1;
+                if (optimization(row + 1,rows, values, occupiedCols))
                     return true;
-                occupiedCols[col] = 0; // If the next rows were not able to get a cell, go back and try for the previous rows another cell from another column
+                occupiedCols[col] = 0;
             }
         }
-        return false; // If no cell were assigned for the current row, return false to go back one row to try to assign to it another cell from another column
+        return false;
     }
 
     private static boolean checknegative1(int[] assigment){
@@ -120,10 +138,9 @@ public class hungarian {
 
     private static double[] findMinElementsInRows(double[][] matrix) {
         int rows = matrix.length;
-        int cols = matrix[0].length;
+        int cols = matrix.length;
 
         double[] minElements = new double[rows];
-
         for (int i = 0; i < rows; i++) {
             // Inicializar el mínimo con el primer elemento de la fila
             double min = matrix[i][0];
@@ -138,13 +155,12 @@ public class hungarian {
             // Almacenar el mínimo de la fila en el arreglo
             minElements[i] = min;
         }
-
         return minElements;
     }
 
     private static double[] findMinElementsInColumns(double[][] matrix) {
         int rows = matrix.length;
-        int cols = matrix[0].length;
+        int cols = matrix.length;
 
         double[] minElements = new double[cols];
 
