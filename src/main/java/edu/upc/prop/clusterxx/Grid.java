@@ -28,7 +28,13 @@ public class Grid {
     //pre: p not null
     //post: construeix l'objecte Grid copiant p en grid.
     public Grid(ArrayList<Pair> p){
-        for (Pair pair : p) grid.add(pair);
+        Pair max = new Pair(-1,-1);
+        for (Pair pair : p) {
+            if (pair.x > max.x) max.x = pair.x;
+            if (pair.y > max.y) max.y = pair.y;
+            grid.add(pair);
+        }
+
     }
 
     public Grid(){}
