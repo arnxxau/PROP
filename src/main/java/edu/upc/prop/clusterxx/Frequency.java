@@ -112,7 +112,7 @@ public class Frequency {
         }
     }
 
-    public void updateFrequency(String[] lines) throws Exception {
+    public void updateFrequency(String[] lines,int mode) throws Exception {
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
         lastModifiedTime = Instant.now();
