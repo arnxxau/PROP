@@ -15,8 +15,12 @@ public class Algorithm2 {
         HashSet<Character> simbols = alphabet.getCharacters();
         for(int i=0;i<grid.size();i++)posicions.add(i);
         PriorityQueue<nodo> priorityQueue = new PriorityQueue<nodo>();
-        char[] greedy_sol = new char[posicions.size()];
-        double cota = greedysol_cota(simbols, posicions, freq, grid, greedy_sol);
+
+
+        Map<Character, Integer> cota_assig = greedysol_cota(simbols, posicions, freq, grid);
+
+        double cota = termino1(cota_assig,freq,grid);
+
         double c = calcCota(Solucio,simbols,posicions,freq,grid);
 
         nodo inp = new nodo(Solucio,posicions,simbols,c);
@@ -25,7 +29,7 @@ public class Algorithm2 {
         nodo actual;
 
         int cont = 0;
-        System.out.println("cota ="+cota+"\n");
+        //System.out.println("cota ="+cota+"\n");
         while(!priorityQueue.isEmpty()){
             cont += 1;
             actual = priorityQueue.poll();
@@ -54,8 +58,8 @@ public class Algorithm2 {
             }
 
         }
-        System.out.println("Returned Greedy Sol\n");
-        return greedy_sol;
+        //System.out.println("GREEDYYYYYYY\n");
+        return convert(cota_assig);
     }
 
     private static char[] convert(Map<Character, Integer> Solucio){
@@ -67,7 +71,7 @@ public class Algorithm2 {
         }
         return sol;
     }
-    private static double greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid, char[] greedy_sol) {
+    private static Map<Character, Integer> greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
         Map<Character, Integer> frecuencias = new HashMap<>();
 
         Iterator<Character> iterator = simbols.iterator();
@@ -118,9 +122,8 @@ public class Algorithm2 {
         for(int i=0; i<listaOrdenada.size();i++){
             assig_greedy.put(listaOrdenada.get(i).getKey(),listaOrdenada1.get(i).getKey());
         }
-        greedy_sol = convert(assig_greedy);
-        System.out.println(greedy_sol);
-        return calcCota(assig_greedy, new HashSet<>(), new HashSet<>(),freq,grid);
+
+        return assig_greedy;
     }
 
     private static double calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
