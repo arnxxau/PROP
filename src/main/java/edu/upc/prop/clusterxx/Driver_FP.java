@@ -81,7 +81,8 @@ public class Driver_FP {
 
     }
     private void Vista_Grids() {
-        try{io.writeln("Menu Grids: ");
+        try{
+            io.writeln("Menu Grids: ");
             io.writeln("0 - Sortir ");
             io.writeln("1 - Afegir Grid ");
             io.writeln("2 - Esborrar Grid ");
@@ -93,7 +94,7 @@ public class Driver_FP {
 
     }
 
-    private int Obtenir_Opcions(int nopcions,int viewtype){
+    private int Obtenir_Opcions(int nopcions,int viewtype) throws Exception {
         int opt = -1;
         while(opt<0 || opt>nopcions) {
             switch (viewtype){
@@ -115,15 +116,16 @@ public class Driver_FP {
                     Vista_Grids();
                     break;
             }
-            try {
+            //try {
                 opt = Integer.parseInt(io.readword());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            //} catch (Exception e) {//La excepció aquí es que ha de ser un enter
+                //System.out.println("Ha de ser un número");
+           // }
+            if(opt<0 || opt>nopcions)System.out.println("Has de posar un numero de entre les opcions");
         }
         return opt;
     }
-    private int Obtenir_Opcions_funcions(int nopcions, int viewtype,String afegirOModificar) { //viewtype afegirfreq per exemple.
+    private int Obtenir_Opcions_funcions(int nopcions, int viewtype,String afegirOModificar) throws Exception { //viewtype afegirfreq per exemple.
         int opt = -1;
         while(opt<0 || opt>nopcions) {
             switch (viewtype){
@@ -131,11 +133,12 @@ public class Driver_FP {
                     Vista_af_freq(afegirOModificar);
                     break;
             }
-            try {
+            //try {
                 opt = Integer.parseInt(io.readword());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            //} catch (Exception e) {
+                //System.out.println("Ha de ser un número");
+            //}
+            if(opt<0 || opt>nopcions)System.out.println("Has de posar un numero de entre les opcions");
         }
         return opt;
     }
@@ -515,22 +518,22 @@ public class Driver_FP {
         return x;
     }
 
-    private String Demanar_Nom(String nomclase){
+    private String Demanar_Nom(String nomclase)throws Exception{
         String s1="";
-        try{
+        //try{
             io.writeln("Necessito el nom del " + nomclase);
             s1 = io.readword();//nombre del alfabeto
 
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        //}
+       // catch (Exception e){
+            //System.out.println(e.getMessage());
+        //}
         return s1;
     }
-    public Vector<String> Demanar_text(boolean mode){
+    public Vector<String> Demanar_text(boolean mode)throws Exception{
         Vector<String> vs = new Vector<>();
         String s;
-        try{
+        //try{
             if(mode)io.writeln("Escriu una llista de freq de la forma\n " +
                     " 600\n" +
                     "    a c 11\n" +
@@ -543,23 +546,23 @@ public class Driver_FP {
                 vs.add(s);
             }
 
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        //}
+       // catch (Exception e){
+            //System.out.println(e.getMessage());
+        //}
         return vs;
     }
     //suposem que el fitxer té escrites bé les dades
-    private String Demanar_Fitxer(){
+    private String Demanar_Fitxer()throws Exception{
         String s1="";
-        try{
+        //try{
             io.writeln("Necessito el Path a un fitxer de text del que extraure les Freqüències , el fitxer ha de ser un text amb només paraules, " +
                     "amb cap caracter que no sigui del propi alfabet");
             s1 = io.readword();//nombre del Path
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+       // }
+        //catch (Exception e){
+            //System.out.println(e.getMessage());
+       // }
         return s1;
     }
 
@@ -602,7 +605,7 @@ public class Driver_FP {
         return res;
     }
 
-    public void Next_Step_from_Menu_General(){
+    public void Next_Step_from_Menu_General()throws Exception{
         int opt=-1;
         while(opt!=0){
             int option=-1;

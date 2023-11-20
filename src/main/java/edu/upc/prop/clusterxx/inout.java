@@ -124,7 +124,7 @@ public class inout
 
   private BufferedReader in = new BufferedReader(
                                   new InputStreamReader(System.in));
-  private char[] buffer = new char[80];
+  private char[] buffer = new char[10000];
   private int typed= 0, used= 0;
 
   private char readkey() throws Exception
