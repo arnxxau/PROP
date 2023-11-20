@@ -1,9 +1,12 @@
 package edu.upc.prop.clusterxx;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 
 public class CtrlDomini {
 
@@ -60,40 +63,63 @@ public class CtrlDomini {
         }
         return vvs;
     }
-    public int Afegir_Alfabet(String s, HashSet<Character> h){
+    public void Afegir_Alfabet(String s, HashSet<Character> h){
+        h.add(' ');
         Alphabet a = new Alphabet(s,h);
-        if(AP.containsKey(s))return 1;
         AP.put(s,a);
+    }
+
+    //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
+    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+        try{
+
+            /*if(FQ.containsKey(nomF))return 1;//ja existeix la freq
+
+            if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
+
+            Alphabet a = AP.get(nomA);
+
+            String[] text = llegir_archiu_path(path);//pasa del texto del fichero path a string[]
+
+            /*if (text==null)return 4; // no existeix o no es troba el fitxer*/
+
+            Frequency f;
+            try{
+                f = new Frequency(nomF, text, mode, a);
+            }
+            catch (Exception e){
+                return 3; // NO EXISTEIX LA LLETRA A L'ALFABET
+            };
+
+            f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
+            a.addFrequency(f);  //a l'alfabet li afegim la freq.
+            FQ.put(nomF,f); //afegim la frequencia
+
+        }catch (Exception e){
+            System.out.println(e.getMessage()); // EXCEPCIÓ NO EXISTEIX EL PATH
+        }
+
         return 0;
     }
-    /*public int Afegir_Freqs(String nom, String path, String nomAlfabet){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
-        try{
-            //Frequency f = new Frequency(nom, path, Frequency.TEXT_MODE);
-            if(FQ.containsKey(nom))return 1;//ja existeix la freq
+    private String[] llegir_archiu_path(String path){
 
-            if(!AP.containsKey(nomAlfabet))return 2; //l'alfabet no existeix
+        List<String> lines = new ArrayList<>();
 
-            Alphabet a = AP.get(nomAlfabet);
+        /*File f =  new File(path);
+        if(!f.exists())return null;*/
 
-            /*for(Character c : f.getFreq().keySet()){//comprobant si existeix un caracter a la freq i no al alfabet a.
-                if(!a.existsCharacter(c))return 3;
-                for(Character c1 : f.getFreq().get(c).keySet()){
-                    if(!a.existsCharacter(c1))return 3;
-                }
-            }
-            f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
-            a.afegir_freq(f);  //a l'alfabet li afegim la freq.
-            FQ.put(nom,f); //afegim la frequencia
-
-        }catch (FileNotFoundException e){
-            System.out.println(e.getMessage());
+        try {
+            lines = Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
+        }catch (Exception e){
+            System.out.println(e.getMessage()); //inout exception
         }
-        return 0;
-    }*/
 
-    public int Afegir_FreqText(String nomA, String nomF, Vector<String> vs){
-        if(FQ.containsKey(nomF))return 1; //la freq ja existeix
-        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix
+        return lines.toArray(new String[0]);
+    }
+
+    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode){
+       /* if(FQ.containsKey(nomF))return 1; //la freq ja existeix
+        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
 
         String[] text = new String[vs.size()];
         for(int i=0; i < text.length; i++){
@@ -102,31 +128,23 @@ public class CtrlDomini {
 
         Alphabet a = AP.get(nomA);
 
-       /*for(String s : text){
-            for(int i=0;i<s.length();i++){
-                if(!a.existsCharacter(s.charAt(i)))return 3;
-            }
-        }*/
         Frequency f;
         try{
-            f = new Frequency(nomF,text,1,a);
+            f = new Frequency(nomF,text,mode,a);
         }
         catch (Exception e){
             return 3;
         }// A l'alfabet no hi ha la lletra.
 
         FQ.put(nomF,f);
-        f.printFrequencies();
+        //f.printFrequencies();
         a.addFrequency(f);//a l'alfabet se li afegeix la freq
         return 0;
     }
 
-    public int Esborrar_Alfabet(String s){
-        if(!AP.containsKey(s)) return 1;
-        Alphabet a = AP.get(s);
-        for (String nomF : a.getFrequencies().keySet()) FQ.remove(nomF);
+    public void Esborrar_Alfabet(String s){
+        for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
         AP.remove(s);
-        return 0;
     }
     public int CanviarNom_Alfabet(String s,String s2){
         if(!AP.containsKey(s)) return 1;
@@ -174,16 +192,66 @@ public class CtrlDomini {
                 stringBuilder.append(valor.getFrequencyWeight());
                 vs.add(stringBuilder.toString());//vs[3] == frequencyweight
                 stringBuilder.setLength(0);
+
             }
 
             vvs.add(vs);
         }
         return vvs;
     }
+
     public int Esborrar_Frequencia (String nomF) {
         if (!FQ.containsKey(nomF)) return -1;
+        Frequency f = FQ.get(nomF);
+        f.getAlphabet().deleteFrequency(f);//quito del treemap del alfabeto la freq.
         FQ.remove(nomF);
         return 0;
+    }
+    public boolean ExisteixFreq(String nomf){
+        return FQ.containsKey(nomf);
+    }
+
+
+    public int Modificar_Freq_Path(String nomF, String path, int mode){
+
+        Frequency f = FQ.get(nomF); //no fa falta anar al treemapde l'alfabet a modificar la freq perquè en teoria es el mateix punter
+
+        String[] text = llegir_archiu_path(path);
+        try{
+            f.updateFrequency(text,mode);
+        }
+        catch (Exception e){
+            return 3;
+        }
+        return 0;
+    }
+
+    public int Modificar_FreqMa(String nomF, Vector<String> vs, int mode){
+
+        String[] text = new String[vs.size()];
+
+        for(int i=0; i < text.length; i++){
+            text[i]=vs.get(i);
+        }
+
+        Frequency f = FQ.get(nomF);
+        try{
+            f.updateFrequency(text,mode);
+        }
+        catch (Exception e){
+            return 3;
+        }// A l'alfabet no hi ha la lletra.
+
+        return 0;
+    }
+
+    public boolean ExisteixAlf(String noma){
+        return AP.containsKey(noma);
+    }
+
+    public boolean ExisteixFitxer(String path){
+        File f = new File(path);
+        return f.exists();
     }
     public int Afegir_Grid (int x, boolean[][] pos) {
         if (GD.containsKey(x)) return -1;

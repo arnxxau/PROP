@@ -42,7 +42,13 @@ public class Grid {
      * @param p Llista de parells que defineix les posicions de la graella.
      */
     public Grid(ArrayList<Pair> p){
-        for (Pair pair : p) grid.add(pair);
+        Pair max = new Pair(-1,-1);
+        for (Pair pair : p) {
+            if (pair.x > max.x) max.x = pair.x;
+            if (pair.y > max.y) max.y = pair.y;
+            grid.add(pair);
+        }
+
     }
 
     /**

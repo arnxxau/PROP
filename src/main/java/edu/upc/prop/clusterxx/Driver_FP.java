@@ -1,55 +1,57 @@
 package edu.upc.prop.clusterxx;
 
+import java.io.IOException;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Vector;
 
 public class Driver_FP {
-    inout io = new inout();
-
-    Scanner s = new Scanner(System.in);
+    InOutPlus ioPlus = new InOutPlus();
 
     CtrlDomini cd = new CtrlDomini();
-    static final int MENUGENERAL=0;
-    static final int MENUTECLAT=1;
-    static final int MENUFREQUENCIA=2;
-    static final int MENUALFABET=3;
-    static final int MENUGRID=4;
+    static final int MENUGENERAL=1;
+    static final int MENUTECLAT=2;
+    static final int MENUFREQUENCIA=3;
+    static final int MENUALFABET=4;
+    static final int MENUGRID=5;
 
     static final int MENUAFFRQ=0;
 
     public Driver_FP(){}
 
-    private void Vista_af_freq(){
-        try{io.writeln("Com vols Afegir la frequencia");
-            io.writeln("0 - Sortir");
-            io.writeln("1 - Fitxer Text");
-            io.writeln("2 - Fitxer Llista a través d'un Path");
-            io.writeln("3 - Text a mà");
+    private void Vista_af_freq(String afegirOModificar){
+        try{
+            ioPlus.print("Com vols "+afegirOModificar+" la frequencia");
+            ioPlus.print("0 - Sortir");
+            ioPlus.print("1 - Fitxer Text a través d'un Path");
+            ioPlus.print("2 - Fitxer Llista a través d'un Path");
+            ioPlus.print("3 - Text a mà");
+            ioPlus.print("4 - Llista a mà");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
     private void Vista_General(){
-        try{io.writeln("Menu General: ");
-        io.writeln("0 - Sortir ");
-        io.writeln("1 - Manteniment Teclats ");
-        io.writeln("2 - Manteniment Frequencies ");
-        io.writeln("3 - Manteniment Alfabets ");
-        io.writeln("4 - Manteniment Grids ");}
+        try{
+            ioPlus.print("Menu General: ");
+        ioPlus.print("0 - Sortir ");
+        ioPlus.print("1 - Manteniment Teclats ");
+        ioPlus.print("2 - Manteniment Frequencies ");
+        ioPlus.print("3 - Manteniment Alfabets ");
+        ioPlus.print("4 - Manteniment Grids ");}
         catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
     private void Vista_Teclats(){
-        try{io.writeln("Menu Teclats: ");
-            io.writeln("0 - Sortir ");
-            io.writeln("1 - Afegir Teclat ");
-            io.writeln("2 - Esborrar Teclat ");
-            io.writeln("3 - Canviar Nom Teclat ");
-            io.writeln("4 - Actualitzar Teclat ");
-            io.writeln("5 - Llistar Teclats ");
+        try{
+            ioPlus.print("Menu Teclats: ");
+            ioPlus.print("0 - Sortir ");
+            ioPlus.print("1 - Afegir Teclat ");
+            ioPlus.print("2 - Esborrar Teclat ");
+            ioPlus.print("3 - Canviar Nom Teclat ");
+            ioPlus.print("4 - Actualitzar Teclat ");
+            ioPlus.print("5 - Llistar Teclats ");
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -57,12 +59,13 @@ public class Driver_FP {
     }
 
     private void Vista_Frequencies() {
-        try{io.writeln("Menu Freqüències: ");
-            io.writeln("0 - Sortir ");
-            io.writeln("1 - Afegir Freqüència ");
-            io.writeln("2 - Esborrar Freqüència ");
-            io.writeln("3 - Modificar Freqüència ");
-            io.writeln("4 - Llistar Freqüència ");
+        try{
+            ioPlus.print("Menu Freqüències: ");
+            ioPlus.print("0 - Sortir ");
+            ioPlus.print("1 - Afegir Freqüència a Alfabet");
+            ioPlus.print("2 - Esborrar Freqüència ");
+            ioPlus.print("3 - Modificar Freqüència ");
+            ioPlus.print("4 - Llistar Freqüències d'un alfabet ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -70,25 +73,26 @@ public class Driver_FP {
     }
 
     private void Vista_Alfabets() {
-        try{io.writeln("Menu Alfabets: ");
-            io.writeln("0 - Sortir ");
-            io.writeln("1 - Afegir Alfabet ");
-            io.writeln("2 - Esborrar Alfabet");
-            io.writeln("3 - Canviar Nom Alfabet ");
-            io.writeln("4 - Llistar Alfabets ");
+        try{
+            ioPlus.print("Menu Alfabets: ");
+            ioPlus.print("0 - Sortir ");
+            ioPlus.print("1 - Afegir Alfabet ");
+            ioPlus.print("2 - Esborrar Alfabet");
+            ioPlus.print("3 - Canviar Nom Alfabet ");
+            ioPlus.print("4 - Llistar Alfabets ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
 
     }
-//hem de mirar si has tret un alfabet per exemple, quan accedim al teclat mirar ,que encara que estigui creat, no tingui un alfabet apuntant que no existeix.
     private void Vista_Grids() {
-        try{io.writeln("Menu Grids: ");
-            io.writeln("0 - Sortir ");
-            io.writeln("1 - Afegir Grid ");
-            io.writeln("2 - Esborrar Grid ");
-            io.writeln("3 - Llistar Grids ");
+        try{
+            ioPlus.print("Menu Grids: ");
+            ioPlus.print("0 - Sortir ");
+            ioPlus.print("1 - Afegir Grid ");
+            ioPlus.print("2 - Esborrar Grid ");
+            ioPlus.print("3 - Llistar Grids ");
             }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -96,44 +100,46 @@ public class Driver_FP {
 
     }
 
-    private int Obtenir_Opcions(int nopcions,int viewtype){
+    private int Obtenir_Opcions(int nopcions,int viewtype) throws IOException {
         int opt = -1;
         while(opt<0 || opt>nopcions) {
             switch (viewtype){
                 case 0:
-                    Vista_General();
                     break;
                 case 1:
-                    Vista_Teclats();
+                    Vista_General();
                     break;
                 case 2:
-                    Vista_Frequencies();
+                    Vista_Teclats();
                     break;
                 case 3:
-                    Vista_Alfabets();
+                    Vista_Frequencies();
                     break;
                 case 4:
+                    Vista_Alfabets();
+                    break;
+                case 5:
                     Vista_Grids();
                     break;
             }
             try {
-                opt = io.readint();
+                opt = ioPlus.readInt();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                 System.out.println(e.getMessage());
             }
         }
         return opt;
     }
-    private int Obtenir_Opcions_funcions(int nopcions, int viewtype) { //viewtype afegirfreq per exemple.
+    private int Obtenir_Opcions_funcions(int nopcions, int viewtype,String afegirOModificar) { //viewtype afegirfreq per exemple.
         int opt = -1;
         while(opt<0 || opt>nopcions) {
             switch (viewtype){
                 case 0:
-                    Vista_af_freq();
+                    Vista_af_freq(afegirOModificar);
                     break;
             }
             try {
-                opt = io.readint();
+                opt = ioPlus.readInt();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -146,61 +152,69 @@ public class Driver_FP {
     private void Opcions_de_Clase(String nomclase,int option){
         try {
             if (option != 0) {
+                int ret;
+                String path;
+                String nomT;
+                String newNomT;
+                String nomA;
+                String nomnewA;
+                String nomF;
+                int idG;
                 switch (nomclase) {
                     case "Teclat":
                         switch (option) {
                             case 1:
-                                io.writeln("Afegint Teclat");
-                                String nomT = Demanar_Nom("Teclat");
+                                ioPlus.print("Afegint Teclat");
+                                nomT = Demanar_Nom("Teclat");
                                 llistar_alfabets(cd.Consultar_Alfabets());
-                                String nomA = Demanar_Nom("Alfabet");
+                                nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
-                                String nomF = Demanar_Nom("Freqüència");
+                                nomF = Demanar_Nom("Freqüència");
                                 llistar_grids(cd.Consultar_Grids());
-                                int idG = Demanar_ID("Graella");
-                                int ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+                                idG = Demanar_ID("Graella");
+                                ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
                                 switch (ret) {
                                     case -1:
-                                        io.writeln("El teclat " + nomT + " ja existeix");
+                                        ioPlus.print("El teclat " + nomT + " ja existeix");
                                         break;
                                     case -2:
-                                        io.writeln("L'alfabet " + nomA + " no existeix");
+                                        ioPlus.print("L'alfabet " + nomA + " no existeix");
                                         break;
                                     case -3:
-                                        io.writeln("La freqüència " + nomF + " no existeix o no pertany a l'alfabet " + nomA);
+                                        ioPlus.print("La freqüència " + nomF + " no existeix o no pertany a l'alfabet " + nomA);
                                         break;
                                     case -4:
-                                        io.writeln("La Grid número " + idG + " no eisteix");
+                                        ioPlus.print("La Grid número " + idG + " no eisteix");
                                         break;
                                     case -5:
-                                        io.writeln("El grid número " + idG + " no té el mateix nombre de posicions disponibles que caràcters l'alfabet");
+                                        ioPlus.print("El grid número " + idG + " no té el mateix nombre de posicions disponibles que caràcters l'alfabet");
                                 }
-                                io.writeln("Teclat afegit");
+                                ioPlus.print("Teclat afegit");
                                 break;
                             case 2:
-                                io.writeln("Esborrant Teclat");
-                                String nomT1 = Demanar_Nom("Teclat");
-                                ret = cd.Esborrar_Teclat(nomT1);
-                                if (ret == -1) io.writeln("El teclat " + nomT1 + " NO existeix");
-                                else io.writeln("Teclat Esborrat");
+                                ioPlus.print("Esborrant Teclat");
+                                nomT = Demanar_Nom("Teclat");
+                                ret = cd.Esborrar_Teclat(nomT);
+                                if (ret == -1) ioPlus.print("El teclat " + nomT + " NO existeix");
+                                else ioPlus.print("Teclat Esborrat");
                                 break;
                             case 3:
-                                io.writeln("Canviant nom Teclat");
-                                String nomT3 = Demanar_Nom("Teclat");
-                                String newNom = Demanar_Nom("nou Teclat");
-                                ret = cd.CanviarNom_Teclat(nomT3, newNom);
-                                if (ret == -1) io.writeln("El Teclat " + nomT3 + " NO existeix");
-                                else if (ret == -2) io.writeln("El Teclat " + newNom + " JA existeix");
-                                else io.writeln("Teclat " + nomT3 + " ha canviat de nom a " + newNom);
+                                ioPlus.print("Canviant nom Teclat");
+                                nomT = Demanar_Nom("Teclat");
+                                newNomT = Demanar_Nom("nou Teclat");
+                                ret = cd.CanviarNom_Teclat(nomT, newNomT);
+                                if (ret == -1) ioPlus.print("El Teclat " + nomT + " NO existeix");
+                                else if (ret == -2) ioPlus.print("El Teclat " + newNomT + " JA existeix");
+                                else ioPlus.print("Teclat " + nomT + " ha canviat de nom a " + newNomT);
                                 break;
                             case 4:
-                                io.writeln("Actualitzant teclat");
-                                String nomT4 = Demanar_Nom("Teclat");
-                                ret = cd.Actualitzar_Teclat(nomT4);
-                                if (ret == -1) io.writeln("El Teclat " + nomT4 + " NO existeix");
-                                else io.writeln("Teclat actualitzat");
+                                ioPlus.print("Actualitzant teclat");
+                                nomT = Demanar_Nom("Teclat");
+                                ret = cd.Actualitzar_Teclat(nomT);
+                                if (ret == -1) ioPlus.print("El Teclat " + nomT + " NO existeix");
+                                else ioPlus.print("Teclat actualitzat");
                             case 5:
-                                io.writeln("Llistant Teclats: ");
+                                ioPlus.print("Llistant Teclats: ");
                                 llistar_Teclats(cd.Consultar_Teclats());
                                 break;
                         }
@@ -208,90 +222,204 @@ public class Driver_FP {
                     case "Frequencia":
                         switch (option) {
                             case 1:
-                                io.writeln("Afegint Frequencia a un Alfabet");
+                                ioPlus.print("Afegint Frequencia a un Alfabet");
                                 int opt2=-1;
-                                while(opt2!=0){
-                                    opt2 = Obtenir_Opcions_funcions(3,MENUAFFRQ);
 
-                                    if(opt2!=0){
+                                nomA = Demanar_Nom("Alfabet");
+                                if(!cd.ExisteixAlf(nomA)){
+                                    System.out.println("No existeix l'Alfabet " + nomA);
+                                    llistar_alfabets(cd.Consultar_Alfabets());
+                                    break;
+                                }
+
+                                nomF = Demanar_Nom("nova Freqüència");
+                                if(cd.ExisteixFreq(nomF)){
+                                    System.out.println("Ja existeix la Freqüència " + nomF);
+                                    llistar_frequencies(cd.Consultar_Freqs(nomA));
+                                    break;
+                                }
+                                while(opt2!=0){
+                                    opt2 = Obtenir_Opcions_funcions(4,MENUAFFRQ,"afegir");
                                         switch (opt2){
-                                            case 1: //ESTO HAY QUE ACABARLO HAY QUE TRANSFORMAR EN EL CD UN PATH A STRING[] PARA LA CONSTRUCTORA DE FREQ.
-                                               String s = Demanar_Nom("Alfabet");
-                                                String s2 = Demanar_Nom("nova Freqüència");
-                                                String s3 = Demanar_Fitxer();
-                                                /*int ret = cd.Afegir_Freqs(s2,s3,s);
-                                                if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
-                                                else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
-                                                else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);*/
+                                            case 0:
                                                 break;
+                                            case 1: //opcio text d'un fitxer
+                                                path = Demanar_Fitxer();
+                                                if(!cd.ExisteixFitxer(path)){
+                                                    System.out.println("No existeix el fitxer que m'has passat amb path " + path);
+                                                    break;
+                                                }
+                                                ret = cd.Afegir_Freq_FromPath(nomF,path,nomA,1);
+
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
+
+                                                else ioPlus.print("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
+                                                break;
+
                                             case 2:
                                                 //opcio llista d'un fitxer
-                                                s = Demanar_Nom("nova Freqüència");
 
+                                                path = Demanar_Fitxer(); //path
+                                                if(!cd.ExisteixFitxer(path)){
+                                                    System.out.println("No existeix el fitxer que m'has passat amb path " + path);
+                                                    break;
+                                                }
+
+                                                ret = cd.Afegir_Freq_FromPath(nomF,path,nomA,0);
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
+
+                                                else ioPlus.print("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
                                                 break;
+
                                             case 3:
                                                 //opcio text a mà
-                                                s = Demanar_Nom("Alfabet");
-                                                s2 = Demanar_Nom("nova Freqüència");
-                                                Vector<String> text = Demanar_text();
-                                                int ret = cd.Afegir_FreqText(s,s2,text);
-                                                if(ret==1)System.out.println("Ja existeix la Freqüència " + s2);
-                                                else if(ret==2)System.out.println("No existeix l'Alfabet " + s);
-                                                else if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+
+                                                Vector<String> text = Demanar_text(false);//demanar text en forma normal
+                                                ret = cd.Afegir_FreqMa(nomA,nomF,text,1);
+
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
+
+                                                else ioPlus.print("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
+                                                break;
+
+                                            case 4:
+                                                //opcio llista a mà
+                                                Vector<String> llista = Demanar_text(true);//text en forma de llista.
+                                                ret = cd.Afegir_FreqMa(nomA,nomF,llista,0);
+
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
+
+                                                else ioPlus.print("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
                                                 break;
                                         }
-                                    }
                                 }
                                 break;
                             case 2:
-                                io.writeln("Esborrant Freqüència");
-                                String nomF = Demanar_Nom("Freqüència");
-                                int ret = cd.Esborrar_Frequencia(nomF);
-                                if (ret == -1) io.writeln("La freqüència " + nomF + " no existeix");
-                                else io.writeln("Freqüència esborrada");
+                                ioPlus.print("Esborrant Freqüència");
+                                nomF = Demanar_Nom("Freqüència");
+                                ret = cd.Esborrar_Frequencia(nomF);
+                                if (ret == -1) ioPlus.print("La Freqüència " + nomF + " no existeix");
+                                else ioPlus.print("Freqüència esborrada");
                                 break;
+
                             case 3:
-                                io.writeln("Modificant Frequencia");
-                                io.writeln("funcionalitat en desenvolupament...");
+                                ioPlus.print("Modificant Frequencia");
+
+                                nomF = Demanar_Nom("Freqüència");
+                                if(!cd.ExisteixFreq(nomF)){
+                                    System.out.println("No existeix la Freqüència " + nomF);
+                                    break;
+                                }
+                                int opt3=-1;
+                                while(opt3!=0){
+
+                                    opt3 = Obtenir_Opcions_funcions(4,MENUAFFRQ,"modificar");
+                                    switch (opt3){
+                                        case 1: //opcio text d'un fitxer
+
+                                            path = Demanar_Fitxer();
+
+                                            if(!cd.ExisteixFitxer(path)){
+                                                System.out.println("No existeix el fitxer que m'has passat amb path " + path);
+                                                break;
+                                            }
+
+                                            ret = cd.Modificar_Freq_Path(nomF,path,1);
+
+                                            if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son del seu Alfabet ");
+
+                                            else ioPlus.print("Freqüencia " + nomF + " modificada");
+                                            break;
+
+                                        case 2:
+                                            //opcio llista d'un fitxer
+
+                                            path = Demanar_Fitxer(); //path
+                                            if(!cd.ExisteixFitxer(path)){
+                                                System.out.println("No existeix el fitxer que m'has passat amb path " + path);
+                                                break;
+                                            }
+
+                                            ret = cd.Modificar_Freq_Path(nomF,path,0);
+
+                                            if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son del seu Alfabet ");
+
+                                            else ioPlus.print("Freqüencia " + nomF + " modificada");
+                                            break;
+
+                                        case 3:
+                                            //opcio text a mà
+
+                                            Vector<String> text = Demanar_text(false);//demanar text en forma normal
+
+                                            ret = cd.Modificar_FreqMa(nomF,text,1);
+
+                                            if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de Alfabet ");
+
+                                            else ioPlus.print("Freqüencia " + nomF + " modificada");
+                                            break;
+
+                                        case 4:
+                                            //opcio llista a mà
+                                            Vector<String> llista = Demanar_text(true);//text en forma de llista.
+
+                                            ret = cd.Modificar_FreqMa(nomF,llista,0);
+
+                                            if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son del seu Alfabet ");
+
+                                            else ioPlus.print("Freqüencia " + nomF + " modificada");
+                                            break;
+                                    }
+                                }
                                 break;
                             case 4:
-                                io.writeln("Llistant Freqüències d'un Alfabet");
-                                String nomA = Demanar_Nom("Alfabet");
+                                ioPlus.print("Llistant Freqüències d'un Alfabet");
+                                nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
+                                break;
                         }
                         break;
                     case "Alfabet":
                         switch (option) {
                             case 1:
-                                io.writeln("Afegint Alfabet");
-                                String s = Demanar_Nom("Alfabet");
+                                ioPlus.print("Afegint Alfabet");
+                                nomA = Demanar_Nom("Alfabet");
+                                if(cd.ExisteixAlf(nomA)){
+                                    System.out.println("Ja existeix l'Alfabet " + nomA);
+                                    llistar_alfabets(cd.Consultar_Alfabets());
+                                    break;
+                                }
                                 HashSet<Character> h = Demanar_chars_Alfabet();
-                                int ret = cd.Afegir_Alfabet(s, h);
-                                if (ret == 1) io.writeln("L'Alfabet amb aquest nom ja existeix");
-                                else io.writeln("Alfabet Afegit");
+                                cd.Afegir_Alfabet(nomA, h);
+
+                                ioPlus.print("Alfabet Afegit");
                                 break;
                             case 2:
-                                io.writeln("Esborrant Alfabet");
-                                String s1 = Demanar_Nom("Alfabet");
-                                ret = cd.Esborrar_Alfabet(s1);
-                                if (ret == 1) io.writeln("L'Alfabet amb aquest nom NO existeix");
-                                else io.writeln("Alfabet Esborrat");
+                                ioPlus.print("Esborrant Alfabet");
+                                nomA  = Demanar_Nom("Alfabet");
 
+                                if(!cd.ExisteixAlf(nomA)){
+                                    System.out.println("No existeix l'Alfabet " + nomA);
+                                    llistar_alfabets(cd.Consultar_Alfabets());
+                                    break;
+                                }
+
+                                cd.Esborrar_Alfabet(nomA);
+
+                                ioPlus.print("Alfabet Esborrat");
                                 break;
                             case 3:
-                                io.writeln("Canviant nom Alfabet");
-                                String s2 = Demanar_Nom("Alfabet");
-                                String s3 = Demanar_Nom("nou Alfabet");
-                                ret = cd.CanviarNom_Alfabet(s2, s3);
-                                if (ret == 1) io.writeln("L'Alfabet el nom " + s2 + " NO existeix");
-                                else if (ret == 2) io.writeln("L'Alfabet el nom " + s3 + " JA existeix");
-                                else io.writeln("Alfabet " + s2 + " ha canviat de nom a " + s3);
+                                ioPlus.print("Canviant nom Alfabet");
+                                nomA = Demanar_Nom("Alfabet");
+                                nomnewA = Demanar_Nom("nou Alfabet");
+                                ret = cd.CanviarNom_Alfabet(nomA, nomnewA);
+                                if (ret == 1) ioPlus.print("L'Alfabet el nom " + nomA + " NO existeix");
+                                else if (ret == 2) ioPlus.print("L'Alfabet el nom " + nomnewA + " JA existeix");
+                                else ioPlus.print("Alfabet " + nomA + " ha canviat de nom a " + nomnewA);
 
                                 break;
                             case 4:
-                                io.writeln("Llistant Alfabets: ");
+                                ioPlus.print("Llistant Alfabets: ");
                                 llistar_alfabets(cd.Consultar_Alfabets());
                                 break;
                         }
@@ -299,26 +427,26 @@ public class Driver_FP {
                     case "Grid":
                         switch (option) {
                             case 1:
-                                io.writeln("Afegint Grid");
+                                ioPlus.print("Afegint Grid");
                                 Integer x = Demanar_ID("Grid");
                                 boolean[][] b = Demanar_mat_Grid();
                                 if (b == null) {
-                                    io.writeln("Format incorrecte");
+                                    ioPlus.print("Format incorrecte");
                                     break;
                                 }
-                                int ret = cd.Afegir_Grid(x,b);
-                                if (ret == -1) io.writeln("El Grid " + x + " ja existeix");
-                                else io.writeln("Grid afegit");
+                                ret = cd.Afegir_Grid(x,b);
+                                if (ret == -1) ioPlus.print("El Grid " + x + " ja existeix");
+                                else ioPlus.print("Grid afegit");
                                 break;
                             case 2:
-                                io.writeln("Esborrant Grid");
-                                x = Demanar_ID("Grid");
-                                ret = cd.Esborrar_Grid(x);
-                                if (ret == -1) io.writeln("El Grid número " + x.toString() + " no existeix");
-                                else io.writeln("Grid esborrat");
+                                ioPlus.print("Esborrant Grid");
+                                Integer x2 = Demanar_ID("Grid");
+                                ret = cd.Esborrar_Grid(x2);
+                                if (ret == -1) ioPlus.print("El Grid número " + x2.toString() + " no existeix");
+                                else ioPlus.print("Grid esborrat");
                                 break;
                             case 3:
-                                io.writeln("llistant grids");
+                                ioPlus.print("llistant grids");
                                 llistar_grids(cd.Consultar_Grids());
                                 break;
                         }
@@ -335,12 +463,12 @@ public class Driver_FP {
     private void llistar_Teclats(Vector<Vector<String>> vvs) {
         for(Vector<String> vs : vvs){
             try {
-                io.writeln("NOM: " + vs.get(0));
-                io.writeln("ALFABET: " + vs.get(1));
-                io.writeln("FREQÜÈNCIA: " + vs.get(2));
-                io.writeln("GRID: " + vs.get(3));
-                io.writeln("LAYOUT: ");
-                io.writeln(vs.get(4));
+                ioPlus.print("NOM: " + vs.get(0));
+                ioPlus.print("ALFABET: " + vs.get(1));
+                ioPlus.print("FREQÜÈNCIA: " + vs.get(2));
+                ioPlus.print("GRID: " + vs.get(3));
+                ioPlus.print("LAYOUT: ");
+                ioPlus.print(vs.get(4));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -350,8 +478,8 @@ public class Driver_FP {
     private void llistar_alfabets(Vector<Vector<String>> vvs){
         for(Vector<String> vs : vvs){
             try {
-                io.writeln("NOM: " + vs.get(0));
-                io.writeln("CARÀCTERS: " + vs.get(1));
+                ioPlus.print("NOM: " + vs.get(0));
+                ioPlus.print("CARÀCTERS: " + vs.get(1));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -361,10 +489,10 @@ public class Driver_FP {
     private void llistar_frequencies(Vector<Vector<String>> vvs){
         for(Vector<String> vs : vvs){
             try {
-                io.writeln("NOM: " + vs.get(0));
-                io.writeln("Data de Creació: " + vs.get(1));
-                io.writeln("Data última modificació: " + vs.get(2));
-                io.writeln("Frequency weight: " + vs.get(3));
+                ioPlus.print("NOM: " + vs.get(0));
+                ioPlus.print("Data de Creació: " + vs.get(1));
+                ioPlus.print("Data última modificació: " + vs.get(2));
+                ioPlus.print("Frequency weight: " + vs.get(3));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -374,8 +502,8 @@ public class Driver_FP {
     private void llistar_grids(Vector<Vector<String>> vvs){
         for(Vector<String> vs : vvs){
             try {
-                io.writeln("ID: " + vs.get(0));
-                io.writeln("POSICIONS VÀLIDES:\n" + vs.get(1));
+                ioPlus.print("ID: " + vs.get(0));
+                ioPlus.print("POSICIONS VÀLIDES:\n" + vs.get(1));
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -385,8 +513,8 @@ public class Driver_FP {
     private Integer Demanar_ID(String nomclase) {
         int x = -1;
         try{
-            io.writeln("Necessito la ID del " + nomclase);
-            x = io.readint();//nombre del alfabeto
+            ioPlus.print("Necessito la ID del " + nomclase);
+            x = ioPlus.readInt();//nombre del alfabeto
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -394,11 +522,11 @@ public class Driver_FP {
         return x;
     }
 
-    private String Demanar_Nom(String nomclase){
+    private String Demanar_Nom(String nomclase) throws Exception {
         String s1="";
         try{
-            io.writeln("Necessito el nom del " + nomclase);
-            s1 = io.readword();//nombre del alfabeto
+            ioPlus.print("Necessito el nom del " + nomclase);
+            s1 = ioPlus.readWord();//nombre del alfabeto
 
         }
         catch (Exception e){
@@ -406,29 +534,35 @@ public class Driver_FP {
         }
         return s1;
     }
-    public Vector<String> Demanar_text(){
+    public Vector<String> Demanar_text(boolean mode) throws Exception {
         Vector<String> vs = new Vector<>();
         String s;
         try{
-            io.writeln("Escriu el text acabat amb un espai i un '.' del que agafarem les frequencies");
-            while(!(s = io.readword()).equals(".")){
-                vs.add(s);
-                System.out.println(s);
-            }
-            vs.remove(".");
+            if(mode) ioPlus.print("Escriu una llista de freq de la forma\n " +
+                    " 600\n" +
+                    "    a c 11\n" +
+                    "    a v 15\n" +
+                    "    a x 99\n " + " on 600 és ns la verda i la resta es per cada parell p.e " +
+                    "a c quantes vegades apereix junta, en aquest exemple 11, acabat amb un espai i un '.' del que agafarem les frequencies");
 
-            //nombre del alfabeto
+            else ioPlus.print("Escriu el text acabat amb un espai i un '.' del que agafarem les frequencies");
+            while(!(s = ioPlus.readWord()).equals(".")){
+                vs.add(s);
+            }
+
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+           System.out.println(e.getMessage());
         }
         return vs;
     }
-    private String Demanar_Fitxer(){
+    //suposem que el fitxer té escrites bé les dades
+    private String Demanar_Fitxer() throws Exception {
         String s1="";
         try{
-            io.writeln("Necessito el Path a un fitxer de text del que extraure les Freqüències ");
-            s1 = io.readword();//nombre del Path
+            ioPlus.print("Necessito el Path a un fitxer de text del que extraure les Freqüències , el fitxer ha de ser un text amb només paraules, " +
+                    "amb cap caracter que no sigui del propi alfabet");
+            s1 = ioPlus.readWord();//nombre del Path
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -436,12 +570,12 @@ public class Driver_FP {
         return s1;
     }
 
-    private HashSet<Character> Demanar_chars_Alfabet(){
+    private HashSet<Character> Demanar_chars_Alfabet() {
         String s2="";
         HashSet<Character> car = new HashSet<>();
         try{
-            io.writeln("Necesito un conjunt de caracters per l'alfabet");
-            s2 = io.readword();//caracteres del alfabeto
+            ioPlus.print("Necesito un conjunt de caracters per l'alfabet");
+            s2 = ioPlus.readWord();//caracteres del alfabeto
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -451,18 +585,18 @@ public class Driver_FP {
         }
         return car;
     }
-    private boolean[][] Demanar_mat_Grid() {
+    private boolean[][] Demanar_mat_Grid()  {
         boolean[][] res = null;
         try {
-            io.writeln("Indica l'amplada màxima del Grid:");
-            int x = io.readint();
-            io.writeln("Indica l'alçada màxima del Grid:");
-            int y = io.readint();
+            ioPlus.print("Indica l'amplada màxima del Grid:");
+            int x = ioPlus.readInt();
+            ioPlus.print("Indica l'alçada màxima del Grid:");
+            int y = ioPlus.readInt();
             res = new boolean[x][y];
-            io.writeln("Indica les posicions vàlides (1 = vàlid; 0 = no vàlid; separats per espais)");
+            ioPlus.print("Indica les posicions vàlides (1 = vàlid; 0 = no vàlid; separats per espais)");
             for (int i = 0; i < x; ++i) {
                 for (int j = 0; j < y; ++j) {
-                    int c = io.readint();
+                    int c = ioPlus.readInt();
                     if (c == 1) res[i][j] = true;
                     else if (c == 0) res[i][j] = false;
                     else return null;
@@ -475,7 +609,7 @@ public class Driver_FP {
         return res;
     }
 
-    public void Next_Step_from_Menu_General(){
+    public void Next_Step_from_Menu_General() throws IOException {
         int opt=-1;
         while(opt!=0){
             int option=-1;
@@ -492,7 +626,20 @@ public class Driver_FP {
                 case 2:
                     while(option!=0){
                         option = Obtenir_Opcions(4,MENUFREQUENCIA);
-                        Opcions_de_Clase("Frequencia",option);
+                        /*if(option==1) {
+                            System.out.println("Tingues en compte que per afegir una Freqüència a un Alfabet " +
+                                    "has d'haver creat L'Alfabet d'avantmà\ni no poden haver caracters diferents " +
+                                    "entre la Freqüència i l'Alfabet escollit.");
+                            System.out.println("Vols continuar? (s|n)");
+                            String aux="";
+                            try {
+                                aux = AR.readWord();
+                            } catch (Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            if(!aux.equals("s"))option=-1;
+                        }*/
+                        /*if(option!=-1)*/Opcions_de_Clase("Frequencia",option);
                     }
                     break;
                 case 3:
