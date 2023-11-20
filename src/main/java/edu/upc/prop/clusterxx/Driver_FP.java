@@ -1,7 +1,6 @@
 package edu.upc.prop.clusterxx;
 
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Vector;
 
 public class Driver_FP {
@@ -146,19 +145,27 @@ public class Driver_FP {
     private void Opcions_de_Clase(String nomclase,int option){
         try {
             if (option != 0) {
+                int ret;
+                String path;
+                String nomT;
+                String newNomT;
+                String nomA;
+                String nomnewA;
+                String nomF;
+                int idG;
                 switch (nomclase) {
                     case "Teclat":
                         switch (option) {
                             case 1:
                                 io.writeln("Afegint Teclat");
-                                String nomT = Demanar_Nom("Teclat");
+                                nomT = Demanar_Nom("Teclat");
                                 llistar_alfabets(cd.Consultar_Alfabets());
-                                String nomA = Demanar_Nom("Alfabet");
+                                nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
-                                String nomF = Demanar_Nom("Freqüència");
+                                nomF = Demanar_Nom("Freqüència");
                                 llistar_grids(cd.Consultar_Grids());
-                                int idG = Demanar_ID("Graella");
-                                int ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+                                idG = Demanar_ID("Graella");
+                                ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
                                 switch (ret) {
                                     case -1:
                                         io.writeln("El teclat " + nomT + " ja existeix");
@@ -179,25 +186,25 @@ public class Driver_FP {
                                 break;
                             case 2:
                                 io.writeln("Esborrant Teclat");
-                                String nomT1 = Demanar_Nom("Teclat");
-                                ret = cd.Esborrar_Teclat(nomT1);
-                                if (ret == -1) io.writeln("El teclat " + nomT1 + " NO existeix");
+                                nomT = Demanar_Nom("Teclat");
+                                ret = cd.Esborrar_Teclat(nomT);
+                                if (ret == -1) io.writeln("El teclat " + nomT + " NO existeix");
                                 else io.writeln("Teclat Esborrat");
                                 break;
                             case 3:
                                 io.writeln("Canviant nom Teclat");
-                                String nomT3 = Demanar_Nom("Teclat");
-                                String newNom = Demanar_Nom("nou Teclat");
-                                ret = cd.CanviarNom_Teclat(nomT3, newNom);
-                                if (ret == -1) io.writeln("El Teclat " + nomT3 + " NO existeix");
-                                else if (ret == -2) io.writeln("El Teclat " + newNom + " JA existeix");
-                                else io.writeln("Teclat " + nomT3 + " ha canviat de nom a " + newNom);
+                                nomT = Demanar_Nom("Teclat");
+                                newNomT = Demanar_Nom("nou Teclat");
+                                ret = cd.CanviarNom_Teclat(nomT, newNomT);
+                                if (ret == -1) io.writeln("El Teclat " + nomT + " NO existeix");
+                                else if (ret == -2) io.writeln("El Teclat " + newNomT + " JA existeix");
+                                else io.writeln("Teclat " + nomT + " ha canviat de nom a " + newNomT);
                                 break;
                             case 4:
                                 io.writeln("Actualitzant teclat");
-                                String nomT4 = Demanar_Nom("Teclat");
-                                ret = cd.Actualitzar_Teclat(nomT4);
-                                if (ret == -1) io.writeln("El Teclat " + nomT4 + " NO existeix");
+                                nomT = Demanar_Nom("Teclat");
+                                ret = cd.Actualitzar_Teclat(nomT);
+                                if (ret == -1) io.writeln("El Teclat " + nomT + " NO existeix");
                                 else io.writeln("Teclat actualitzat");
                             case 5:
                                 io.writeln("Llistant Teclats: ");
@@ -211,17 +218,17 @@ public class Driver_FP {
                                 io.writeln("Afegint Frequencia a un Alfabet");
                                 int opt2=-1;
 
-                                String s = Demanar_Nom("Alfabet");
-                                if(!cd.ExisteixAlf(s)){
-                                    System.out.println("No existeix l'Alfabet " + s);
+                                nomA = Demanar_Nom("Alfabet");
+                                if(!cd.ExisteixAlf(nomA)){
+                                    System.out.println("No existeix l'Alfabet " + nomA);
                                     llistar_alfabets(cd.Consultar_Alfabets());
                                     break;
                                 }
 
-                                String s2 = Demanar_Nom("nova Freqüència");
-                                if(cd.ExisteixFreq(s2)){
-                                    System.out.println("Ja existeix la Freqüència " + s2);
-                                    llistar_frequencies(cd.Consultar_Freqs(s));
+                                nomF = Demanar_Nom("nova Freqüència");
+                                if(cd.ExisteixFreq(nomF)){
+                                    System.out.println("Ja existeix la Freqüència " + nomF);
+                                    llistar_frequencies(cd.Consultar_Freqs(nomA));
                                     break;
                                 }
                                 while(opt2!=0){
@@ -230,60 +237,60 @@ public class Driver_FP {
                                             case 0:
                                                 break;
                                             case 1: //opcio text d'un fitxer
-                                                String s3 = Demanar_Fitxer();
-                                                if(!cd.ExisteixFitxer(s3)){
-                                                    System.out.println("No existeix el fitxer que m'has passat amb path " + s3);
+                                                path = Demanar_Fitxer();
+                                                if(!cd.ExisteixFitxer(path)){
+                                                    System.out.println("No existeix el fitxer que m'has passat amb path " + path);
                                                     break;
                                                 }
-                                                int ret = cd.Afegir_Freq_FromPath(s2,s3,s,1);
+                                                ret = cd.Afegir_Freq_FromPath(nomF,path,nomA,1);
 
-                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
 
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                else io.writeln("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
                                                 break;
 
                                             case 2:
                                                 //opcio llista d'un fitxer
 
-                                                s3 = Demanar_Fitxer(); //path
-                                                if(!cd.ExisteixFitxer(s3)){
-                                                    System.out.println("No existeix el fitxer que m'has passat amb path " + s3);
+                                                path = Demanar_Fitxer(); //path
+                                                if(!cd.ExisteixFitxer(path)){
+                                                    System.out.println("No existeix el fitxer que m'has passat amb path " + path);
                                                     break;
                                                 }
 
-                                                ret = cd.Afegir_Freq_FromPath(s2,s3,s,0);
-                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                ret = cd.Afegir_Freq_FromPath(nomF,path,nomA,0);
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
 
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                else io.writeln("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
                                                 break;
 
                                             case 3:
                                                 //opcio text a mà
 
                                                 Vector<String> text = Demanar_text(false);//demanar text en forma normal
-                                                ret = cd.Afegir_FreqMa(s,s2,text,1);
+                                                ret = cd.Afegir_FreqMa(nomA,nomF,text,1);
 
-                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
 
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                else io.writeln("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
                                                 break;
 
                                             case 4:
                                                 //opcio llista a mà
                                                 Vector<String> llista = Demanar_text(true);//text en forma de llista.
-                                                ret = cd.Afegir_FreqMa(s,s2,llista,0);
+                                                ret = cd.Afegir_FreqMa(nomA,nomF,llista,0);
 
-                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + s);
+                                                if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son de l'Alfabet " + nomA);
 
-                                                else io.writeln("Freqüencia " + s2 + " afegida amb el Alfabet " + s);
+                                                else io.writeln("Freqüencia " + nomF + " afegida amb el Alfabet " + nomA);
                                                 break;
                                         }
                                 }
                                 break;
                             case 2:
                                 io.writeln("Esborrant Freqüència");
-                                String nomF = Demanar_Nom("Freqüència");
-                                int ret = cd.Esborrar_Frequencia(nomF);
+                                nomF = Demanar_Nom("Freqüència");
+                                ret = cd.Esborrar_Frequencia(nomF);
                                 if (ret == -1) io.writeln("La Freqüència " + nomF + " no existeix");
                                 else io.writeln("Freqüència esborrada");
                                 break;
@@ -303,14 +310,14 @@ public class Driver_FP {
                                     switch (opt3){
                                         case 1: //opcio text d'un fitxer
 
-                                            String s3 = Demanar_Fitxer();
+                                            path = Demanar_Fitxer();
 
-                                            if(!cd.ExisteixFitxer(s3)){
-                                                System.out.println("No existeix el fitxer que m'has passat amb path " + s3);
+                                            if(!cd.ExisteixFitxer(path)){
+                                                System.out.println("No existeix el fitxer que m'has passat amb path " + path);
                                                 break;
                                             }
 
-                                            ret = cd.Modificar_Freq_Path(nomF,s3,1);
+                                            ret = cd.Modificar_Freq_Path(nomF,path,1);
 
                                             if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son del seu Alfabet ");
 
@@ -320,13 +327,13 @@ public class Driver_FP {
                                         case 2:
                                             //opcio llista d'un fitxer
 
-                                            s3 = Demanar_Fitxer(); //path
-                                            if(!cd.ExisteixFitxer(s3)){
-                                                System.out.println("No existeix el fitxer que m'has passat amb path " + s3);
+                                            path = Demanar_Fitxer(); //path
+                                            if(!cd.ExisteixFitxer(path)){
+                                                System.out.println("No existeix el fitxer que m'has passat amb path " + path);
                                                 break;
                                             }
 
-                                            ret = cd.Modificar_Freq_Path(nomF,s3,0);
+                                            ret = cd.Modificar_Freq_Path(nomF,path,0);
 
                                             if(ret==3)System.out.println("La nova Freqüència tindria caracters que no son del seu Alfabet ");
 
@@ -360,7 +367,7 @@ public class Driver_FP {
                                 break;
                             case 4:
                                 io.writeln("Llistant Freqüències d'un Alfabet");
-                                String nomA = Demanar_Nom("Alfabet");
+                                nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
                                 break;
                         }
@@ -369,39 +376,39 @@ public class Driver_FP {
                         switch (option) {
                             case 1:
                                 io.writeln("Afegint Alfabet");
-                                String s = Demanar_Nom("Alfabet");
-                                if(cd.ExisteixAlf(s)){
-                                    System.out.println("Ja existeix l'Alfabet " + s);
+                                nomA = Demanar_Nom("Alfabet");
+                                if(cd.ExisteixAlf(nomA)){
+                                    System.out.println("Ja existeix l'Alfabet " + nomA);
                                     llistar_alfabets(cd.Consultar_Alfabets());
                                     break;
                                 }
                                 HashSet<Character> h = Demanar_chars_Alfabet();
-                                cd.Afegir_Alfabet(s, h);
+                                cd.Afegir_Alfabet(nomA, h);
 
                                 io.writeln("Alfabet Afegit");
                                 break;
                             case 2:
                                 io.writeln("Esborrant Alfabet");
-                                String s1 = Demanar_Nom("Alfabet");
+                                nomA  = Demanar_Nom("Alfabet");
 
-                                if(!cd.ExisteixAlf(s1)){
-                                    System.out.println("No existeix l'Alfabet " + s1);
+                                if(!cd.ExisteixAlf(nomA)){
+                                    System.out.println("No existeix l'Alfabet " + nomA);
                                     llistar_alfabets(cd.Consultar_Alfabets());
                                     break;
                                 }
 
-                                cd.Esborrar_Alfabet(s1);
+                                cd.Esborrar_Alfabet(nomA);
 
                                 io.writeln("Alfabet Esborrat");
                                 break;
                             case 3:
                                 io.writeln("Canviant nom Alfabet");
-                                String s2 = Demanar_Nom("Alfabet");
-                                String s3 = Demanar_Nom("nou Alfabet");
-                                int ret = cd.CanviarNom_Alfabet(s2, s3);
-                                if (ret == 1) io.writeln("L'Alfabet el nom " + s2 + " NO existeix");
-                                else if (ret == 2) io.writeln("L'Alfabet el nom " + s3 + " JA existeix");
-                                else io.writeln("Alfabet " + s2 + " ha canviat de nom a " + s3);
+                                nomA = Demanar_Nom("Alfabet");
+                                nomnewA = Demanar_Nom("nou Alfabet");
+                                ret = cd.CanviarNom_Alfabet(nomA, nomnewA);
+                                if (ret == 1) io.writeln("L'Alfabet el nom " + nomA + " NO existeix");
+                                else if (ret == 2) io.writeln("L'Alfabet el nom " + nomnewA + " JA existeix");
+                                else io.writeln("Alfabet " + nomA + " ha canviat de nom a " + nomnewA);
 
                                 break;
                             case 4:
@@ -420,15 +427,15 @@ public class Driver_FP {
                                     io.writeln("Format incorrecte");
                                     break;
                                 }
-                                int ret = cd.Afegir_Grid(x,b);
+                                ret = cd.Afegir_Grid(x,b);
                                 if (ret == -1) io.writeln("El Grid " + x + " ja existeix");
                                 else io.writeln("Grid afegit");
                                 break;
                             case 2:
                                 io.writeln("Esborrant Grid");
-                                x = Demanar_ID("Grid");
-                                ret = cd.Esborrar_Grid(x);
-                                if (ret == -1) io.writeln("El Grid número " + x.toString() + " no existeix");
+                                Integer x2 = Demanar_ID("Grid");
+                                ret = cd.Esborrar_Grid(x2);
+                                if (ret == -1) io.writeln("El Grid número " + x2.toString() + " no existeix");
                                 else io.writeln("Grid esborrat");
                                 break;
                             case 3:
@@ -612,7 +619,7 @@ public class Driver_FP {
                 case 2:
                     while(option!=0){
                         option = Obtenir_Opcions(4,MENUFREQUENCIA);
-                        if(option==1) {
+                        /*if(option==1) {
                             System.out.println("Tingues en compte que per afegir una Freqüència a un Alfabet " +
                                     "has d'haver creat L'Alfabet d'avantmà\ni no poden haver caracters diferents " +
                                     "entre la Freqüència i l'Alfabet escollit.");
@@ -624,8 +631,8 @@ public class Driver_FP {
                                 System.out.println(e.getMessage());
                             }
                             if(!aux.equals("s"))option=-1;
-                        }
-                        if(option!=-1)Opcions_de_Clase("Frequencia",option);
+                        }*/
+                        /*if(option!=-1)*/Opcions_de_Clase("Frequencia",option);
                     }
                     break;
                 case 3:

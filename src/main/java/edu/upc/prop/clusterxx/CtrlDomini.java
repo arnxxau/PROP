@@ -137,7 +137,7 @@ public class CtrlDomini {
         }// A l'alfabet no hi ha la lletra.
 
         FQ.put(nomF,f);
-        f.printFrequencies();
+        //f.printFrequencies();
         a.addFrequency(f);//a l'alfabet se li afegeix la freq
         return 0;
     }
@@ -192,12 +192,14 @@ public class CtrlDomini {
                 stringBuilder.append(valor.getFrequencyWeight());
                 vs.add(stringBuilder.toString());//vs[3] == frequencyweight
                 stringBuilder.setLength(0);
+
             }
 
             vvs.add(vs);
         }
         return vvs;
     }
+
     public int Esborrar_Frequencia (String nomF) {
         if (!FQ.containsKey(nomF)) return -1;
         Frequency f = FQ.get(nomF);
