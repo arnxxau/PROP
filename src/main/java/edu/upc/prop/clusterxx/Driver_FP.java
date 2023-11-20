@@ -117,7 +117,7 @@ public class Driver_FP {
                     break;
             }
             try {
-                opt = io.readint();
+                opt = Integer.parseInt(io.readword());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -133,7 +133,7 @@ public class Driver_FP {
                     break;
             }
             try {
-                opt = io.readint();
+                opt = Integer.parseInt(io.readword());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -500,7 +500,7 @@ public class Driver_FP {
         int x = -1;
         try{
             io.writeln("Necessito la ID del " + nomclase);
-            x = io.readint();//nombre del alfabeto
+            x = Integer.parseInt(io.readword());//nombre del alfabeto
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -575,14 +575,14 @@ public class Driver_FP {
         boolean[][] res = null;
         try {
             io.writeln("Indica l'amplada màxima del Grid:");
-            int x = io.readint();
+            int x = Integer.parseInt(io.readword());
             io.writeln("Indica l'alçada màxima del Grid:");
-            int y = io.readint();
+            int y = Integer.parseInt(io.readword());
             res = new boolean[x][y];
             io.writeln("Indica les posicions vàlides (1 = vàlid; 0 = no vàlid; separats per espais)");
             for (int i = 0; i < x; ++i) {
                 for (int j = 0; j < y; ++j) {
-                    int c = io.readint();
+                    int c = Integer.parseInt(io.readword());
                     if (c == 1) res[i][j] = true;
                     else if (c == 0) res[i][j] = false;
                     else return null;
