@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InOutPlus {
@@ -19,7 +20,13 @@ public class InOutPlus {
     }
 
     public Integer readInt() {
-        return scanner.nextInt();
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            scanner.next();
+            System.out.println("L'input ha de ser un número, torna-ho a intentar");
+            return -1;
+        }
     }
 
     public void print(String s) {

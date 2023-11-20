@@ -122,11 +122,8 @@ public class Driver_FP {
                     Vista_Grids();
                     break;
             }
-            try {
-                opt = ioPlus.readInt();
-            } catch (Exception e) {
-                 System.out.println(e.getMessage());
-            }
+
+            opt = ioPlus.readInt();
         }
         return opt;
     }
@@ -138,11 +135,7 @@ public class Driver_FP {
                     Vista_af_freq(afegirOModificar);
                     break;
             }
-            try {
-                opt = ioPlus.readInt();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            opt = ioPlus.readInt();
         }
         return opt;
     }
@@ -557,7 +550,7 @@ public class Driver_FP {
         return vs;
     }
     //suposem que el fitxer té escrites bé les dades
-    private String Demanar_Fitxer() throws Exception {
+    private String Demanar_Fitxer() {
         String s1="";
         try{
             ioPlus.print("Necessito el Path a un fitxer de text del que extraure les Freqüències , el fitxer ha de ser un text amb només paraules, " +
