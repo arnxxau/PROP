@@ -338,7 +338,7 @@ public class Frequency {
     }
 
 
-    // public (putos) setters
+    // public setters
 
     /**
      * Estableix el pes de la freqüència al valor especificat.
