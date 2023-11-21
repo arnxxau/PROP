@@ -456,8 +456,8 @@ public class Driver_FP {
     }
 
 
-    // TODO INFORMAR AL USUARIO SI NO HAY NINGUN ELEMENTO DISPONIBLE, POR EJ: "NO HAY NINGÚN TECLADO EN MEMORIA"
     private void llistar_Teclats(Vector<Vector<String>> vvs) {
+        if(vvs.isEmpty()) ioPlus.print("no hi ha teclats per mostrar");
         for(Vector<String> vs : vvs){
             try {
                 ioPlus.print("NOM: " + vs.get(0));
@@ -473,6 +473,7 @@ public class Driver_FP {
         }
     }
     private void llistar_alfabets(Vector<Vector<String>> vvs){
+        if(vvs.isEmpty()) ioPlus.print("no hi ha alfabets per mostrar");
         for(Vector<String> vs : vvs){
             try {
                 ioPlus.print("NOM: " + vs.get(0));
@@ -484,6 +485,7 @@ public class Driver_FP {
         }
     }
     private void llistar_frequencies(Vector<Vector<String>> vvs){
+        if(vvs.isEmpty()) ioPlus.print("no hi ha freqüències d'aquest alfabet per mostrar");
         for(Vector<String> vs : vvs){
             try {
                 ioPlus.print("NOM: " + vs.get(0));
@@ -497,6 +499,7 @@ public class Driver_FP {
         }
     }
     private void llistar_grids(Vector<Vector<String>> vvs){
+        if(vvs.isEmpty()) ioPlus.print("no hi ha grids per mostrar");
         for(Vector<String> vs : vvs){
             try {
                 ioPlus.print("ID: " + vs.get(0));
