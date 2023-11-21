@@ -1,5 +1,2 @@
-abe ae ea eee ba+const int: FREQ_MODE=0
-+const int: TEXT_MODE=1
--const int REPLACE = 3
--const int ADD = 3
--const String ALPHABET_ERROR = "The alphabet is not compatible wth this frequency"
+hola mi nombre es pep
+me gustan las patatas y tal aunque creo que me gustan mas los boniatos
