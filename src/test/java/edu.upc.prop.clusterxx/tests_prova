@@ -1,0 +1,31 @@
+3 1 a abe 0 2 1 a f 3 abe ae ea eee ba . 0 4 a 0 4 1 1 2 2 1 1 0 1 0 1 1 t a f 1
+
+CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
+3 1 a abe 0 2 1 a f 3 abe ae ea eee ba . 0 4 a 0 4 1 1 3 3
+1 0 0
+0 1 0
+0 0 1
+0 1 1 t a f 1 5
+*AQUEST JOC DE PROVA NO CREA EL TECLAT PERQUÈ L'ALFABET NO TÉ EL MATEIX NOMBRE DE POSICIONS QUE EL GRID*
+
+
++EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)
+3 t teclat 2 t 2 teclat
+
+envez de : abe ae ea eee ba .
+filepath : /src/main/java/edu/upc/prop/clusterxx/text.freq
+
+path correcte: //añadir 2 freqs
+3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a 1 a f2 3 ae e eab eee ba . 0 4 a
+
+
+path erroni:
+3 1 a abe 0 2 1 a f 1 /main/java/edu/upc/prop/clusterxx/text.freq 0 4 a
+
+Borrant la freq i comprovant que no hi està i que no es pot modificar:
+3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a 2 f 4 a 3 f
+
+Comprovant modificar freq. //modifica f
+3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a 3 f 3 ae e eab eee ba . 0 4 a
+
+
