@@ -197,7 +197,8 @@ public class Driver_FP {
                             case 3:
                                 ioPlus.print("Canviant nom Teclat");
                                 nomT = Demanar_Nom("Teclat");
-                                newNomT = Demanar_Nom("nou Teclat");
+                                ioPlus.print("Necessito el nou nom de l'Alfabet");
+                                newNomT = ioPlus.readWord();
                                 ret = cd.CanviarNom_Teclat(nomT, newNomT);
                                 if (ret == -1) ioPlus.print("El Teclat " + nomT + " NO existeix");
                                 else if (ret == -2) ioPlus.print("El Teclat " + newNomT + " JA existeix");
@@ -407,7 +408,8 @@ public class Driver_FP {
                             case 3:
                                 ioPlus.print("Canviant nom Alfabet");
                                 nomA = Demanar_Nom("Alfabet");
-                                nomnewA = Demanar_Nom("nou Alfabet");
+                                ioPlus.print("Necessito el nou nom de l'Alfabet");
+                                nomnewA = ioPlus.readWord();
                                 ret = cd.CanviarNom_Alfabet(nomA, nomnewA);
                                 if (ret == 1) ioPlus.print("L'Alfabet el nom " + nomA + " NO existeix");
                                 else if (ret == 2) ioPlus.print("L'Alfabet el nom " + nomnewA + " JA existeix");
