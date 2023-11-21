@@ -19,7 +19,6 @@ package edu.upc.prop.clusterxx;
 
 import java.util.*;
 
-
 public class QAP {
 
 
