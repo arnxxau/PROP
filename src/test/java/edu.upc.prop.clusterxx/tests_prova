@@ -6,7 +6,6 @@ CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 0 1 0
 0 0 1
 0 1 1 t a f 1 5
-*AQUEST JOC DE PROVA NO CREA EL TECLAT PERQUÈ L'ALFABET NO TÉ EL MATEIX NOMBRE DE POSICIONS QUE EL GRID*
 
 
 +EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)

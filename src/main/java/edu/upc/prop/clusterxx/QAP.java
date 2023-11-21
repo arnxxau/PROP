@@ -1,3 +1,20 @@
+/**
+ * La classe QAP representa un solucionador del Problema d'Assignació Quadràtica enfocat a un teclat (QAP, per les seves sigles en anglès).
+ * Proporciona un mètode, {@link #QAPAlgorithm(Alphabet, Frequency, Grid)}, per resoldre el problema QAP.
+ *
+ * <p>El mètode QAPAlgorithm utilitza una cua de prioritat i un enfocament de cerca en l'espai de solucions per trobar una solució
+ * òptima per al Problema d'Assignació Quadràtica basat en l'Alfabet, la Freqüència i la Matriu de Distàncies donats (grid).
+ *
+ * <p>Aquesta classe també conté mètodes d'utilitat per a diversos càlculs i algoritmes utilitzats
+ * en el mètode QAPAlgorithm.
+ *
+ * @author Nil Allué
+ * @version entrega 1.0
+ * @see Alphabet
+ * @see Frequency
+ * @see Grid
+ * @see Nodo
+ */
 package edu.upc.prop.clusterxx;
 
 import java.util.*;
@@ -5,6 +22,15 @@ import java.util.*;
 
 public class QAP {
 
+
+    /**
+     * Resol el Problema d'Assignació Quadràtica utilitzant una cua de prioritat i un enfocament voraç.
+     *
+     * @param alphabet L'Alfabet que conté els caràcters a assignar.
+     * @param freq La Freqüència que conté les freqüències d'aparició dels caràcters.
+     * @param grid La Matriu de Distàncies que representa la matriu de distàncies.
+     * @return Un array de caràcters que representa la solució d'assignació òptima.
+     */
     public static char[] QAPAlgorithm(Alphabet alphabet, Frequency freq, Grid grid) {
         Map<Character, Integer> Solucio = new HashMap<>();
         HashSet<Integer> posicions = new HashSet<>();//posicions no assignades
@@ -63,6 +89,16 @@ public class QAP {
         }
         return sol;
     }
+
+    /**
+     * Calcula una solució d'assignació voraç i el seu cost.
+     *
+     * @param simbols El conjunt de caràcters a assignar.
+     * @param Posicions El conjunt de posicions encara no assignades.
+     * @param freq La Freqüència que conté les freqüències d'aparició dels caràcters.
+     * @param grid La Matriu de Distàncies que representa la matriu de distàncies.
+     * @return Un mapa que representa la solució d'assignació voraç.
+     */
     private static Map<Character, Integer> greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
         Map<Character, Integer> frecuencias = new HashMap<>();
 
@@ -118,6 +154,16 @@ public class QAP {
         return assig_greedy;
     }
 
+    /**
+     * Calcula la cota per a una solució donada, considerant els termes 1, 2 i 3 del Problema d'Assignació Quadràtica.
+     *
+     * @param Solucio    Mapa que conté la solució amb els caràcters i les seves assignacions a les posicions.
+     * @param simbols    Conjunt de caràcters disponibles.
+     * @param Posicions  Conjunt de posicions disponibles.
+     * @param freq       Objecte que representa les freqüències entre els caràcters.
+     * @param grid       Objecte que representa la matriu de distàncies entre les posicions.
+     * @return La cota calculada per a la solució proporcionada.
+     */
     private static int calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
         int termino1_ = termino1(Solucio,freq,grid);
         int termino2i3_ = termino2i3(Solucio, simbols, Posicions, freq, grid);
@@ -241,6 +287,13 @@ public class QAP {
 
 
     ////////////////////////////////////////////
+
+    /**
+     * Implementa l'algorisme "Hungarian" per resoldre el Problema d'Assignació Quadràtica.
+     *
+     * @param ini Matriu d'entrada que representa el pes entre els elements a assignar.
+     * @return El total òptim després de l'assignació.
+     */
     private static int hungarianAlgorithm(int[][] ini) {
         int[][] mat = new int[ini.length][ini.length];
         for(int i=0; i< ini.length; i++){
