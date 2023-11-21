@@ -197,7 +197,8 @@ public class Driver_FP {
                             case 3:
                                 ioPlus.print("Canviant nom Teclat");
                                 nomT = Demanar_Nom("Teclat");
-                                newNomT = Demanar_Nom("nou Teclat");
+                                ioPlus.print("Necessito el nou nom de l'Alfabet");
+                                newNomT = ioPlus.readWord();
                                 ret = cd.CanviarNom_Teclat(nomT, newNomT);
                                 if (ret == -1) ioPlus.print("El Teclat " + nomT + " NO existeix");
                                 else if (ret == -2) ioPlus.print("El Teclat " + newNomT + " JA existeix");
@@ -407,7 +408,8 @@ public class Driver_FP {
                             case 3:
                                 ioPlus.print("Canviant nom Alfabet");
                                 nomA = Demanar_Nom("Alfabet");
-                                nomnewA = Demanar_Nom("nou Alfabet");
+                                ioPlus.print("Necessito el nou nom de l'Alfabet");
+                                nomnewA = ioPlus.readWord();
                                 ret = cd.CanviarNom_Alfabet(nomA, nomnewA);
                                 if (ret == 1) ioPlus.print("L'Alfabet el nom " + nomA + " NO existeix");
                                 else if (ret == 2) ioPlus.print("L'Alfabet el nom " + nomnewA + " JA existeix");
@@ -425,6 +427,10 @@ public class Driver_FP {
                             case 1:
                                 ioPlus.print("Afegint Grid");
                                 Integer x = Demanar_ID("Grid");
+                                while(x<0){
+                                    System.out.println("Ha de ser un enter positiu");
+                                    x = Demanar_ID("Grid");
+                                }
                                 boolean[][] b = Demanar_mat_Grid();
                                 if (b == null) {
                                     ioPlus.print("Format incorrecte");
@@ -437,6 +443,10 @@ public class Driver_FP {
                             case 2:
                                 ioPlus.print("Esborrant Grid");
                                 Integer x2 = Demanar_ID("Grid");
+                                while(x2<0){
+                                    System.out.println("Ha de ser un enter positiu");
+                                    x2 = Demanar_ID("Grid");
+                                }
                                 ret = cd.Esborrar_Grid(x2);
                                 if (ret == -1) ioPlus.print("El Grid número " + x2.toString() + " no existeix");
                                 else ioPlus.print("Grid esborrat");

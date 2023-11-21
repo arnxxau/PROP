@@ -30,27 +30,27 @@ public class CtrlDomini {
     public String fusionarFreqs(ArrayList<String> arrayF) {
         if (arrayF.isEmpty()) return null;
         Frequency f = FQ.get(arrayF.get(0));
-        int i = 0;
-        String name = "fusió (";
-        for (String s : arrayF) {
-            if (i > 0) {
-                try {
-                    f.fusion(FQ.get(s));
-                    name += " + " + s;
+        if (arrayF.size() > 1) {
+            int i = 0;
+            String name = "fusió (";
+            for (String s : arrayF) {
+                if (i > 0) {
+                    try {
+                        f.fusion(FQ.get(s));
+                        name += " + " + s;
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    name += s;
                 }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+                ++i;
             }
-            else {
-                name += s;
-            }
-            ++i;
+            name += ")";
+            f.setName(name);
+            FQ.put(f.getName(), f);
+            (f.getAlphabet()).addFrequency(f);
         }
-        name += ")";
-        f.setName(name);
-        FQ.put(f.getName(),f);
-        (f.getAlphabet()).addFrequency(f);
         return f.getName();
     }
     public int Esborrar_Teclat(String nomT) {
