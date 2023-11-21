@@ -9,6 +9,7 @@
 package edu.upc.prop.clusterxx;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeMap;
 
@@ -17,7 +18,7 @@ public class Alphabet {
     private Instant crDate;
     private Instant ultMod;
     private HashSet<Character> caracters;
-    private TreeMap<String, Frequency> frequencies;
+    private HashMap<String, Frequency> frequencies;
 
     // Constructor
 
@@ -32,7 +33,7 @@ public class Alphabet {
         this.caracters = cars;
         this.crDate = Instant.now();
         this.ultMod = Instant.now();
-        this.frequencies = new TreeMap<String,Frequency>();
+        this.frequencies = new HashMap<String,Frequency>();
     }
 
     /**
@@ -157,7 +158,7 @@ public class Alphabet {
      *
      * @return Les freqüències associades a l'alfabet.
      */
-    public TreeMap<String, Frequency> getFrequencies() {
+    public HashMap<String, Frequency> getFrequencies() {
         return frequencies;
     }
 

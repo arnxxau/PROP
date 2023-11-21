@@ -7,6 +7,12 @@ CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 0 0 1
 0 1 1 t a f 1 5
 
+CREA ALFABET, dues FREQ (mode text per consola), GRID I TECLAT (fusionant les dues freqüències) I LLISTA:
+3 1 a abe 0 2 1 a f 3 abe ae ea eee ba . 0 4 a 0 4 1 1 3 3
+1 0 0
+0 1 0
+0 0 1
+0 2 1 a f2 3 aeaeaeaeaeaeaeaeaeaeaeaeae . 0 0 1 1 t a f f2 . 1
 
 +EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)
 3 t teclat 2 t 2 teclat
@@ -27,5 +33,7 @@ Borrant la freq i comprovant que no hi està i que no es pot modificar:
 
 Comprovant modificar freq. //modifica f
 3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a 3 f 3 ae e eab eee ba . 0 4 a
+
+
 
 
