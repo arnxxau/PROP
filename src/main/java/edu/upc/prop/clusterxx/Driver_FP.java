@@ -489,8 +489,8 @@ public class Driver_FP {
         for(Vector<String> vs : vvs){
             try {
                 ioPlus.print("NOM: " + vs.get(0));
-                ioPlus.print("Data de Creació: " + vs.get(1));
-                ioPlus.print("Data última modificació: " + vs.get(2));
+                ioPlus.print("Data de Creació: " + vs.get(1).substring(0,19));
+                ioPlus.print("Data última modificació: " + vs.get(2).substring(0,19));
                 ioPlus.print("Frequency weight: " + vs.get(3));
             }
             catch (Exception e) {
