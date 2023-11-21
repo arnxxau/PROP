@@ -1,5 +1,6 @@
 package edu.upc.prop.clusterxx;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Vector;
@@ -156,7 +157,8 @@ public class Driver_FP {
                                 llistar_alfabets(cd.Consultar_Alfabets());
                                 String nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
-                                String nomF = Demanar_Nom("Freqüència");
+                                ArrayList<String> nomF = Demanar_Freqs();
+                                //String nomF =
                                 llistar_grids(cd.Consultar_Grids());
                                 int idG = Demanar_ID("Graella");
                                 int ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
@@ -475,6 +477,22 @@ public class Driver_FP {
         return x;
     }
 
+    private ArrayList<String> Demanar_Freqs() {
+        ArrayList<String> s = new ArrayList<>();
+        try{
+            io.writeln("Escriu els noms de les freqüències que vols sel·leccionar i un espai i un punt al final:");
+            String nomF = "";
+            nomF = io.readword();
+            while(!nomF.equals(".")) {
+                s.add(nomF);
+                nomF = io.readword();
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return s;
+    }
     private String Demanar_Nom(String nomclase){
         String s1="";
         try{
