@@ -130,7 +130,7 @@ e) mirem en un ordre especific on:
     1 1 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: b i e molt propers de a.
+    Sortida esperada: 'b' i 'e' molt propers de 'a'.
 
 f) mirem en un ordre especific on:
     - f, no te frequencia amb cap.
@@ -148,7 +148,7 @@ f) mirem en un ordre especific on:
     0 0 0 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: f "marginada" a baix dreta.
+    Sortida esperada: 'f' "marginada" a baix dreta.
 
 
 g) mirem en un ordre especific on:
@@ -188,11 +188,11 @@ h) mirem en un ordre especific on:
     0 0 0 1 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: numeros i lletres separades on a i 4 han destar lo més a prop possible.
+    Sortida esperada: numeros i lletres separades on 'a' i '4' han destar lo més a prop possible.
 
 
 i) mirem en un ordre especific on:
-    - l'alfabet només te un simbol i no te frequencia.
+    - l'alfabet només te un simbol 'i' no te frequencia.
 
     3 1 a
     i
@@ -204,4 +204,4 @@ i) mirem en un ordre especific on:
     1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: teclat amb nomes una i.
+    Sortida esperada: teclat amb nomes una 'i'.
