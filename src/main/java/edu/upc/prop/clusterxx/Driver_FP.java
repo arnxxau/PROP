@@ -606,8 +606,16 @@ public class Driver_FP {
         try {
             ioPlus.print("Indica l'amplada màxima del Grid:");
             int x = ioPlus.readInt();
+            while(x<0){
+                ioPlus.print("Ha de ser un enter positiu");
+                x = ioPlus.readInt();
+            }
             ioPlus.print("Indica l'alçada màxima del Grid:");
             int y = ioPlus.readInt();
+            while(y<0){
+                ioPlus.print("Ha de ser un enter positiu");
+                y = ioPlus.readInt();
+            }
             res = new boolean[x][y];
             ioPlus.print("Indica les posicions vàlides (1 = vàlid; 0 = no vàlid; separats per espais)");
             for (int i = 0; i < x; ++i) {
