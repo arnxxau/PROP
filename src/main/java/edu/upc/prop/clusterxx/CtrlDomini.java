@@ -8,7 +8,7 @@ import java.util.*;
 
 public class CtrlDomini {
 
-    TreeMap<String,Alphabet> AP = new TreeMap<>();
+    HashMap<String,Alphabet> AP = new HashMap<>();
     TreeMap<String,Frequency> FQ = new TreeMap<>();
     TreeMap<String,Keyboard> KB = new TreeMap<>();
     TreeMap<Integer,Grid> GD = new TreeMap<>();
@@ -27,6 +27,32 @@ public class CtrlDomini {
         Keyboard k = new Keyboard(nomT,a,f,g);
         KB.put(nomT,k);
         return 0;
+    }
+    public String fusionarFreqs(ArrayList<String> arrayF) {
+        if (arrayF.isEmpty()) return null;
+        Frequency f = FQ.get(arrayF.get(0));
+        int i = 0;
+        String name = "fusió (";
+        for (String s : arrayF) {
+            if (i > 0) {
+                try {
+                    f.fusion(FQ.get(s));
+                    name += " + " + s;
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else {
+                name += s;
+            }
+            ++i;
+        }
+        name += ")";
+        f.setName(name);
+        FQ.put(f.getName(),f);
+        (f.getAlphabet()).addFrequency(f);
+        return f.getName();
     }
     public int Esborrar_Teclat(String nomT) {
         if (KB.containsKey(nomT)) {

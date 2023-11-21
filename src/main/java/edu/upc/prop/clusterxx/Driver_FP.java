@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -162,7 +163,9 @@ public class Driver_FP {
                                 llistar_alfabets(cd.Consultar_Alfabets());
                                 nomA = Demanar_Nom("Alfabet");
                                 llistar_frequencies(cd.Consultar_Freqs(nomA));
-                                nomF = Demanar_Nom("Freqüència");
+                                ArrayList<String> arrayF = Demanar_Freqs();
+                                nomF = cd.fusionarFreqs(arrayF);
+                                if (nomF == null) ioPlus.print("has d'indicar com a mínim una freqüència");
                                 llistar_grids(cd.Consultar_Grids());
                                 idG = Demanar_ID("Graella");
                                 ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
@@ -601,6 +604,16 @@ public class Driver_FP {
             System.out.println(e.getMessage());
         }
         return res;
+    }
+    private ArrayList<String> Demanar_Freqs() {
+        ioPlus.print("Indica les freqüències separades per espais, acabant amb un espai i un .");
+        ArrayList<String> arrayF = new ArrayList<>();
+        String nomF = ioPlus.readWord();
+        while (!nomF.equals(".")) {
+            arrayF.add(nomF);
+            nomF = ioPlus.readWord();
+        }
+        return arrayF;
     }
 
     public void Next_Step_from_Menu_General() throws IOException {
