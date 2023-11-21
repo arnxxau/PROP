@@ -1,8 +1,6 @@
 package edu.upc.prop.clusterxx;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +13,8 @@ public class CtrlDomini {
     TreeMap<String,Keyboard> KB = new TreeMap<>();
     TreeMap<Integer,Grid> GD = new TreeMap<>();
     public CtrlDomini(){}
+
+    // TODO fusionar teclats array
     public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
         if (KB.containsKey(nomT)) return -1;
         Alphabet a = AP.get(nomA);
@@ -142,6 +142,7 @@ public class CtrlDomini {
         return 0;
     }
 
+    // TODO NO SE BORRAN LOS ALFABETOS DE LOS TECLADOS !!!!!!!
     public void Esborrar_Alfabet(String s){
         for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
         AP.remove(s);
@@ -200,6 +201,7 @@ public class CtrlDomini {
         return vvs;
     }
 
+    // TODO NO SE BORRAN FRECUENCIAS DE LOS TECLADOS !!!!!!!!!!!!!!!
     public int Esborrar_Frequencia (String nomF) {
         if (!FQ.containsKey(nomF)) return -1;
         Frequency f = FQ.get(nomF);
@@ -259,6 +261,8 @@ public class CtrlDomini {
         GD.put(x,g);
         return 0;
     }
+
+    // TODO NO SE BORRAN GRIDS DE LOS TECLAODs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public int Esborrar_Grid (Integer idG) {
         if (GD.containsKey(idG)) {
             GD.remove(idG);

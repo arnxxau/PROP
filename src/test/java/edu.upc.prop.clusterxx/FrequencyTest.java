@@ -91,7 +91,8 @@ public class FrequencyTest {
         assertEquals(5.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
         assertEquals(0.227, frequencyStub.getFrequency('a', 'b'), 0.001);
 
-        frequencyStub.updateFrequency(new String[]{"ab ab ab ab ab ab", "cd cd cd cd cd cd"});
+        // TODO create modify freq and edit update
+        frequencyStub.updateFrequency(new String[]{"ab ab ab ab ab ab", "cd cd cd cd cd cd"}, Frequency.TEXT_MODE);
         assertEquals(11.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
     }
 

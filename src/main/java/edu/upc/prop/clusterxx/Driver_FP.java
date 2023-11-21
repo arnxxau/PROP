@@ -453,6 +453,7 @@ public class Driver_FP {
     }
 
 
+    // TODO INFORMAR AL USUARIO SI NO HAY NINGUN ELEMENTO DISPONIBLE, POR EJ: "NO HAY NINGÚN TECLADO EN MEMORIA"
     private void llistar_Teclats(Vector<Vector<String>> vvs) {
         for(Vector<String> vs : vvs){
             try {
@@ -617,6 +618,7 @@ public class Driver_FP {
                     }
                     break;
                 case 2:
+                    // TODO qué se hace con estas líneas comentadas ?
                     while(option!=0){
                         option = Obtenir_Opcions(4,MENUFREQUENCIA);
                         /*if(option==1) {
