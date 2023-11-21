@@ -1,3 +1,4 @@
+GENERAL:
 CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 3 1 a abe 0 2 1 a f 3 abe ae ea eee ba . 0 4 a 0 4 1 1 3 3
 1 0 0
@@ -42,7 +43,6 @@ Afegint freq f, borrant la freq i comprovant que no hi està i que no es pot mod
 
 Comprovant modificar freq. //modifica f
 3 1 a abe 0 2 1 a f 1 src/test/java/edu/upc/prop/clusterxx/text2.freq 0 4 a 3 f 3 ae e eab eee ba . 0 4 a
-
 
 
 
@@ -130,7 +130,7 @@ e) mirem en un ordre especific on:
     1 1 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: b i e molt propers de a.
+    Sortida esperada: 'b' i 'e' molt propers de 'a'.
 
 f) mirem en un ordre especific on:
     - f, no te frequencia amb cap.
@@ -148,7 +148,7 @@ f) mirem en un ordre especific on:
     0 0 0 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: f "marginada" a baix dreta.
+    Sortida esperada: 'f' "marginada" a baix dreta.
 
 
 g) mirem en un ordre especific on:
@@ -188,11 +188,11 @@ h) mirem en un ordre especific on:
     0 0 0 1 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: numeros i lletres separades on a i 4 han destar lo més a prop possible.
+    Sortida esperada: numeros i lletres separades on 'a' i '4' han destar lo més a prop possible.
 
 
 i) mirem en un ordre especific on:
-    - l'alfabet només te un simbol i no te frequencia.
+    - l'alfabet només te un simbol 'i' no te frequencia.
 
     3 1 a
     i
@@ -204,4 +204,4 @@ i) mirem en un ordre especific on:
     1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: teclat amb nomes una i.
+    Sortida esperada: teclat amb nomes una 'i'.
