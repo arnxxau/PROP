@@ -173,6 +173,8 @@ public class Frequency {
      * @throws Exception Si hi ha un error durant el procés d'actualització.
      */
     public void updateFrequency(String[] lines) throws Exception {
+        frequencyWeight = 0;
+        freq = new HashMap<>();
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
         lastModifiedTime = Instant.now();

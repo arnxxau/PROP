@@ -19,6 +19,12 @@ public class Driver_FP {
 
     public Driver_FP(){}
 
+    public static void main(String[] args) throws Exception {
+        Driver_FP df = new Driver_FP();
+        df.Next_Step_from_Menu_General();
+    }
+
+
     private void Vista_af_freq(String afegirOModificar){
         try{
             ioPlus.print("Com vols "+afegirOModificar+" la frequencia");
