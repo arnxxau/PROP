@@ -168,7 +168,6 @@ public class CtrlDomini {
         return 0;
     }
 
-    // TODO NO SE BORRAN LOS ALFABETOS DE LOS TECLADOS !!!!!!!
     public void Esborrar_Alfabet(String s){
         for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
         AP.remove(s);
@@ -227,7 +226,6 @@ public class CtrlDomini {
         return vvs;
     }
 
-    // TODO NO SE BORRAN FRECUENCIAS DE LOS TECLADOS !!!!!!!!!!!!!!!
     public int Esborrar_Frequencia (String nomF) {
         if (!FQ.containsKey(nomF)) return -1;
         Frequency f = FQ.get(nomF);
@@ -288,7 +286,6 @@ public class CtrlDomini {
         return 0;
     }
 
-    // TODO NO SE BORRAN GRIDS DE LOS TECLAODs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public int Esborrar_Grid (Integer idG) {
         if (GD.containsKey(idG)) {
             GD.remove(idG);

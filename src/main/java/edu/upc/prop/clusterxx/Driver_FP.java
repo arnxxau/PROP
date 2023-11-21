@@ -434,7 +434,7 @@ public class Driver_FP {
                                 ioPlus.print("Afegint Grid");
                                 Integer x = Demanar_ID("Grid");
                                 while(x<0){
-                                    System.out.println("Ha de ser un enter positiu");
+                                    ioPlus.print("Ha de ser un enter positiu");
                                     x = Demanar_ID("Grid");
                                 }
                                 boolean[][] b = Demanar_mat_Grid();
@@ -450,7 +450,7 @@ public class Driver_FP {
                                 ioPlus.print("Esborrant Grid");
                                 Integer x2 = Demanar_ID("Grid");
                                 while(x2<0){
-                                    System.out.println("Ha de ser un enter positiu");
+                                    ioPlus.print("Ha de ser un enter positiu");
                                     x2 = Demanar_ID("Grid");
                                 }
                                 ret = cd.Esborrar_Grid(x2);
@@ -650,23 +650,9 @@ public class Driver_FP {
                     }
                     break;
                 case 2:
-                    // TODO qué se hace con estas líneas comentadas ?
                     while(option!=0){
                         option = Obtenir_Opcions(4,MENUFREQUENCIA);
-                        /*if(option==1) {
-                            System.out.println("Tingues en compte que per afegir una Freqüència a un Alfabet " +
-                                    "has d'haver creat L'Alfabet d'avantmà\ni no poden haver caracters diferents " +
-                                    "entre la Freqüència i l'Alfabet escollit.");
-                            System.out.println("Vols continuar? (s|n)");
-                            String aux="";
-                            try {
-                                aux = AR.readWord();
-                            } catch (Exception e){
-                                System.out.println(e.getMessage());
-                            }
-                            if(!aux.equals("s"))option=-1;
-                        }*/
-                        /*if(option!=-1)*/Opcions_de_Clase("Frequencia",option);
+                        Opcions_de_Clase("Frequencia",option);
                     }
                     break;
                 case 3:
