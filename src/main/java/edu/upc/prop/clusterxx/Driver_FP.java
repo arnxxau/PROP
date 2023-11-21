@@ -427,6 +427,10 @@ public class Driver_FP {
                             case 1:
                                 ioPlus.print("Afegint Grid");
                                 Integer x = Demanar_ID("Grid");
+                                while(x<0){
+                                    System.out.println("Ha de ser un enter positiu");
+                                    x = Demanar_ID("Grid");
+                                }
                                 boolean[][] b = Demanar_mat_Grid();
                                 if (b == null) {
                                     ioPlus.print("Format incorrecte");
@@ -439,6 +443,10 @@ public class Driver_FP {
                             case 2:
                                 ioPlus.print("Esborrant Grid");
                                 Integer x2 = Demanar_ID("Grid");
+                                while(x2<0){
+                                    System.out.println("Ha de ser un enter positiu");
+                                    x2 = Demanar_ID("Grid");
+                                }
                                 ret = cd.Esborrar_Grid(x2);
                                 if (ret == -1) ioPlus.print("El Grid número " + x2.toString() + " no existeix");
                                 else ioPlus.print("Grid esborrat");

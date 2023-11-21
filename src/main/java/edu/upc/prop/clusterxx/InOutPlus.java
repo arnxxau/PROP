@@ -20,7 +20,7 @@ public class InOutPlus {
 
     public Integer readInt() {
         try {
-            return scanner.nextInt();
+             return scanner.nextInt();
         } catch (InputMismatchException e) {
             scanner.next();
             System.out.println("L'input ha de ser un número, torna-ho a intentar");
