@@ -3,7 +3,7 @@ package edu.upc.prop.clusterxx;
 import java.util.*;
 
 
-public class Algorithm2 {
+public class QAP {
 
     public static char[] QAPAlgorithm(Alphabet alphabet, Frequency freq, Grid grid) {
         Map<Character, Integer> Solucio = new HashMap<>();

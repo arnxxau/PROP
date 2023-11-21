@@ -10,8 +10,6 @@ package edu.upc.prop.clusterxx;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
 public class Keyboard {
     private String nom;
@@ -39,14 +37,14 @@ public class Keyboard {
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
-        this.distribucio = Algorithm2.QAPAlgorithm(alphabet,frequency,grid); // CALCULAR DISTRIBUCIÓ AMB QAP
+        this.distribucio = QAP.QAPAlgorithm(alphabet,frequency,grid); // CALCULAR DISTRIBUCIÓ AMB QAP
     }
 
     /**
      * Actualitza la distribució de lletres del teclat.
      */
     public void update() {
-        this.distribucio = Algorithm2.QAPAlgorithm(Alph,Freq,Grid);
+        this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);
     }
 
 

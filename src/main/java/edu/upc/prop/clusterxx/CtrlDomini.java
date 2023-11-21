@@ -64,7 +64,7 @@ public class CtrlDomini {
         return vvs;
     }
     public void Afegir_Alfabet(String s, HashSet<Character> h){
-        h.add(' ');
+        //h.add(' ');
         Alphabet a = new Alphabet(s,h);
         AP.put(s,a);
     }
