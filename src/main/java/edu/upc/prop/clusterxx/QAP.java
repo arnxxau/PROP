@@ -21,7 +21,6 @@ import java.util.*;
 
 public class QAP {
 
-
     /**
      * Resol el Problema d'Assignació Quadràtica utilitzant una cua de prioritat amb ajuda enfocament de cerca en l'espai de solucions acotat amb un alorisme voraç.
      *
