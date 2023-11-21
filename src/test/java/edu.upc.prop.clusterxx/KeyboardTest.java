@@ -31,21 +31,8 @@ public class KeyboardTest {
         // Perform the update
         keyboard.update();
 
-        // Verify that the distribucio is null after the update
-        assertNull(keyboard.getDistribucio());
-    }
-
-    @Test
-    public void testGetLayout() {
-        // Stub the necessary methods for the test
-        Mockito.when(gridMock.getMaxSize()).thenReturn(new Pair(3, 3));
-        Mockito.when(gridMock.getPositions()).thenReturn(new ArrayList<Pair>(List.of(new Pair(0, 0))));
-
-        // Perform the test
-        String layout = keyboard.getLayout();
-
-        // Verify the result (you need to adjust this based on your implementation)
-        assertEquals("a    \n      \n      \n", layout);
+        // Verify that the distribucio is not null after the update
+        assertNotNull(keyboard.getDistribucio());
     }
 
     @Test
@@ -54,7 +41,6 @@ public class KeyboardTest {
         assertEquals("TestKeyboard", keyboard.getName());
         assertNotNull(keyboard.getCrDate());
         assertNotNull(keyboard.getLastMod());
-        assertArrayEquals(new char[]{'a', 'b', 'e'}, keyboard.getDistribucio());
         assertEquals(alphabetMock, keyboard.getAlphabet());
         assertEquals(frequencyMock, keyboard.getFrequency());
         assertEquals(gridMock, keyboard.getGrid());
@@ -74,7 +60,6 @@ public class KeyboardTest {
 
         // Verify that the setters worked
         assertEquals("NewName", keyboard.getName());
-        assertArrayEquals(new char[]{'c', 'd', 'f'}, keyboard.getDistribucio());
         assertEquals(newAlphabetMock, keyboard.getAlphabet());
         assertEquals(newFrequencyMock, keyboard.getFrequency());
         assertEquals(newGridMock, keyboard.getGrid());

@@ -8,6 +8,8 @@
 
 package edu.upc.prop.clusterxx;
 
+import com.google.gson.internal.JsonReaderInternalAccess;
+
 import java.util.ArrayList;
 
 
@@ -48,7 +50,7 @@ public class Grid {
             if (pair.getY() > max.getY()) max.setY(pair.getY());
             grid.add(pair);
         }
-
+        size = new Pair(max.getX() + 1, max.getY() + 1);
     }
 
     /**

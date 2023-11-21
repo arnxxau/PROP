@@ -80,6 +80,23 @@ public class FrequencyTest {
 
 
     @Test
+    public void modifyFrequency() throws Exception {
+        // Create a stub for the Alphabet class
+        Alphabet alphabetStub = Mockito.mock(Alphabet.class);
+        Mockito.when(alphabetStub.existsCharacter(Mockito.any(Character.class))).thenReturn(true);
+
+        // Create a stub for the Frequency class
+        Frequency frequencyStub = new Frequency("TestFreq", new String[]{"ab ab ab ab ab", "cd cd cd cd cd cd"}, Frequency.TEXT_MODE, alphabetStub);
+
+        assertEquals(5.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
+        assertEquals(0.227, frequencyStub.getFrequency('a', 'b'), 0.001);
+
+        // TODO create modify freq and edit update
+        frequencyStub.modifyFrequency(new String[]{"ab ab ab ab ab ab", "cd cd cd cd cd cd"}, Frequency.TEXT_MODE);
+        assertEquals(6.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
+    }
+
+    @Test
     public void updateFrequency() throws Exception {
         // Create a stub for the Alphabet class
         Alphabet alphabetStub = Mockito.mock(Alphabet.class);
@@ -92,8 +109,8 @@ public class FrequencyTest {
         assertEquals(0.227, frequencyStub.getFrequency('a', 'b'), 0.001);
 
         // TODO create modify freq and edit update
-        frequencyStub.updateFrequency(new String[]{"ab ab ab ab ab ab", "cd cd cd cd cd cd"}, Frequency.TEXT_MODE);
-        assertEquals(11.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
+        frequencyStub.updateFrequency(new String[]{"ab ab ab ab ab ab", "cd cd cd cd cd cd"});
+        assertEquals(6.0, frequencyStub.getNumberOfAppearances('a', 'b'), 0.001);
     }
 
     @Test

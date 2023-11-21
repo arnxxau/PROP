@@ -37,8 +37,7 @@ public class GridTest {
         positions.add(new Pair(3, 4));
         Grid grid = new Grid(positions);
 
-        assertEquals(2, grid.getSize());
-        assertEquals(3, grid.getMaxSize().getX());
+        assertEquals(4, grid.getMaxSize().getX());
         assertEquals(5, grid.getMaxSize().getY());
     }
 
@@ -50,9 +49,9 @@ public class GridTest {
         Grid grid = new Grid(positions);
 
         double distance = grid.distance(0, 1);
-        assertEquals(Math.sqrt(2 * 2 + 2 * 2), distance, 0.0001);
+        // (distància manhattan)
+        assertEquals(4, distance, 0.0001);
     }
-
     @Test
     public void testToString() {
         ArrayList<Pair> positions = new ArrayList<>();
@@ -61,8 +60,9 @@ public class GridTest {
         Grid grid = new Grid(positions);
 
         String expected = "0 0 0 0 0 \n" +
-                "0 0 0 0 0 \n" +
-                "0 0 1 0 0 \n";
+                            "0 0 1 0 0 \n" +
+                                "0 0 0 0 0 \n" +
+                                    "0 0 0 0 1 \n";
         assertEquals(expected, grid.toString());
     }
 

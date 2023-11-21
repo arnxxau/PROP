@@ -4,6 +4,13 @@ CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 1 0 0
 0 1 0
 0 0 1
+0 1 1 t a f . 1 5 3 t tecl 5
+
+COM EL PRIMER, I CANVIA EL NOM AL TECLAT
+3 1 a abe 0 2 1 a f 3 abe ae ea eee ba . 0 4 a 0 4 1 1 3 3
+1 0 0
+0 1 0
+0 0 1
 0 1 1 t a f . 1 5
 
 CREA ALFABET, dues FREQ (mode text per consola), GRID I TECLAT (fusionant les dues freqüències) I LLISTA:
@@ -25,10 +32,11 @@ ALFABET:
 Creant un alfabet a, esborrant un que no existeix , esborrant a i comprovant que ja no hi és.
 3 1 a abec 4 2 b 2 a 4
 
-Creant un alfabet,  creant 2 freq i comprovar si borrant l'alfabet, es borren les freqs associades
+Creant un alfabet,  creant 2 freq i comprovar si borrant l'alfabet, es borren les freqs associades (ha de sortir que no hi ha freqüències a mostrar)
+3 1 a abec 0 2 1 a f 1 src/test/java/edu.upc.prop.clusterxx/text2.freq 3 abecabec . 0 0 3 2 a 0 2 4 a
 
-3 1 a abec 0 2 1 a f 1 src/test/java/edu.upc.prop.clusterxx/text2.freq
-
+Creant un alfabet a i canviant el nom a alf, llista
+3 1 a abec 3 a alf 4
 
 FREQÜENCIES:
 
