@@ -46,7 +46,7 @@ path correcte, añadir 2 freqs :
 path erroni:
 3 1 a abe 0 2 1 a f 1 /test/java/edu/upc/prop/clusterxx/text2.freq 0 4 a
 
-Afegint freq f, borrant la freq i comprovant que no hi està i que no es pot modificar:
+Afegint freq f, borrant la freq i comprovant que no hi és i que no es pot modificar:
 3 1 a abe 0 2 1 a f 1 src/test/java/edu/upc/prop/clusterxx/text2.freq 0 4 a 2 f 4 a 3 f
 
 Comprovant modificar freq. //modifica f
@@ -56,7 +56,7 @@ Comprovant modificar freq. //modifica f
 
 PROVA ALGORITME:
 
-a) mirem en una distribució sencilla si compleix.
+a) mirem en una distribució senzilla si compleix.
 
     3 1 a
     abe
@@ -123,8 +123,8 @@ d) mirem en un ordre especific:
     a   b   c   d   e   f   g
 
 e) mirem en un ordre especific on:
-    - a i e, tenen molta frequencia.
-    - a i b, tenen molta frequencia.
+    - a i e, tenen freqüència alta.
+    - a i b, tenen freqüència alta.
 
     3 1 a
     abcdefghi
@@ -138,10 +138,10 @@ e) mirem en un ordre especific on:
     1 1 1
     0 1 1 t a f . 1 5
 
-    Sortida esperada: 'b' i 'e' molt propers de 'a'.
+    Sortida esperada: 'b' i 'e' molt propers a 'a'.
 
 f) mirem en un ordre especific on:
-    - f, no te frequencia amb cap.
+    - f, no te freqüència amb cap.
 
     3 1 a
     abcdefghi
@@ -160,7 +160,7 @@ f) mirem en un ordre especific on:
 
 
 g) mirem en un ordre especific on:
-    - hi ha dos grups que nomes tenen frequencia entre ells(numeros i lletres).
+    - hi ha dos grups que nomes tenen freqüència entre ells (números i lletres).
 
     3 1 a
     12345abcde
@@ -180,7 +180,7 @@ g) mirem en un ordre especific on:
 
 
 h) mirem en un ordre especific on:
-    - hi ha dos grups que nomes tenen frequencia entre ells(numeros i lletres) menys, a i 4 tenen frequecnia 1.
+    - hi ha dos grups que nomes tenen freqüència entre ells(números i lletres) menys, a i 4 tenen freqüència 1.
 
     3 1 a
     12345abcde
@@ -200,7 +200,7 @@ h) mirem en un ordre especific on:
 
 
 i) mirem en un ordre especific on:
-    - l'alfabet només te un simbol 'i' no te frequencia.
+    - l'alfabet només te un símbol 'i' no te freqüència.
 
     3 1 a
     i
