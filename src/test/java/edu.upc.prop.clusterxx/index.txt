@@ -1,0 +1,2 @@
+Testos de les funcionalitats i unitaris 
+Mocks de les classes pels testos
