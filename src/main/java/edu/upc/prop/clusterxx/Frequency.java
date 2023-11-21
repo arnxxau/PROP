@@ -172,9 +172,15 @@ public class Frequency {
      * @param lines Les línies de dades que contenen informació de freqüència.
      * @throws Exception Si hi ha un error durant el procés d'actualització.
      */
-    public void updateFrequency(String[] lines, int mode) throws Exception {
-        freq = new HashMap<>();
+    public void updateFrequency(String[] lines) throws Exception {
+        if (mode == FREQ_MODE) extractRawFrequencies(lines);
+        else if (mode == TEXT_MODE) extractTextFrequencies(lines);
+        lastModifiedTime = Instant.now();
+    }
+    public void modifyFrequency(String[] lines, int mode) throws Exception {
         frequencyWeight = 0;
+        freq = new HashMap<>();
+        this.mode = mode;
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
         lastModifiedTime = Instant.now();

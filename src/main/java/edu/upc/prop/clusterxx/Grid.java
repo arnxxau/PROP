@@ -44,8 +44,8 @@ public class Grid {
     public Grid(ArrayList<Pair> p){
         Pair max = new Pair(-1,-1);
         for (Pair pair : p) {
-            if (pair.x > max.x) max.x = pair.x;
-            if (pair.y > max.y) max.y = pair.y;
+            if (pair.getX() > max.getX()) max.setX(pair.getX());
+            if (pair.getY() > max.getY()) max.setY(pair.getY());
             grid.add(pair);
         }
 
@@ -66,7 +66,7 @@ public class Grid {
      * @throws IndexOutOfBoundsException Si un dels índexs està fora dels límits de la graella.
      */
     public double distance(int i1,int i2)throws IndexOutOfBoundsException{
-        return Math.sqrt(Math.pow(grid.get(i1).x-grid.get(i2).x,2)+Math.pow(grid.get(i1).y-grid.get(i2).y,2));
+        return Math.sqrt(Math.pow(grid.get(i1).getX()-grid.get(i2).getX(),2)+Math.pow(grid.get(i1).getY()-grid.get(i2).getY(),2));
     }
 
     /**
@@ -115,12 +115,12 @@ public class Grid {
      */
     public String toString() {
         String res = "";
-        Integer[][] mat = new Integer[size.x][size.y];
+        Integer[][] mat = new Integer[size.getX()][size.getY()];
         for (Pair p : grid) {
-            mat[p.x][p.y] = 1;
+            mat[p.getX()][p.getY()] = 1;
         }
-        for (int i = 0; i < size.x; ++i) {
-            for (int j = 0; j < size.y; ++j) {
+        for (int i = 0; i < size.getX(); ++i) {
+            for (int j = 0; j < size.getY(); ++j) {
                 if (mat[i][j] == null) {
                     res += "0 ";
                 }

@@ -24,10 +24,10 @@ public class GridTest {
         assertEquals(1, grid.getID());
         assertEquals(4, grid.getSize());
 
-        assertEquals(2, grid.getMaxSize().x);
-        assertEquals(3, grid.getMaxSize().y);
-        assertEquals(matrix.length, grid.getMaxSize().x);
-        assertEquals(matrix[0].length, grid.getMaxSize().y);
+        assertEquals(2, grid.getMaxSize().getX());
+        assertEquals(3, grid.getMaxSize().getY());
+        assertEquals(matrix.length, grid.getMaxSize().getX());
+        assertEquals(matrix[0].length, grid.getMaxSize().getY());
     }
 
     @Test
@@ -38,8 +38,8 @@ public class GridTest {
         Grid grid = new Grid(positions);
 
         assertEquals(2, grid.getSize());
-        assertEquals(3, grid.getMaxSize().x);
-        assertEquals(5, grid.getMaxSize().y);
+        assertEquals(3, grid.getMaxSize().getX());
+        assertEquals(5, grid.getMaxSize().getY());
     }
 
     @Test

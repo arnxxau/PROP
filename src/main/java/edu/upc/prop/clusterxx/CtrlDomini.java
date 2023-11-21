@@ -220,7 +220,7 @@ public class CtrlDomini {
 
         String[] text = llegir_archiu_path(path);
         try{
-            f.updateFrequency(text,mode);
+            f.modifyFrequency(text,mode);
         }
         catch (Exception e){
             return 3;
@@ -238,7 +238,7 @@ public class CtrlDomini {
 
         Frequency f = FQ.get(nomF);
         try{
-            f.updateFrequency(text,mode);
+            f.modifyFrequency(text,mode);
         }
         catch (Exception e){
             return 3;

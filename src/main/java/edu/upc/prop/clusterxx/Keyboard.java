@@ -53,16 +53,16 @@ public class Keyboard {
      * @return Una cadena que representa la distribució de lletres en el teclat.
      */
     public String getLayout() {
-        char[][] mat = new char[Grid.getMaxSize().x][Grid.getMaxSize().y];
+        char[][] mat = new char[Grid.getMaxSize().getX()][Grid.getMaxSize().getY()];
         ArrayList<Pair> al = Grid.getPositions();
         int i = 0;
         for (Pair p : al) {
-            mat[p.x][p.y] = distribucio[i];
+            mat[p.getX()][p.getY()] = distribucio[i];
             ++i;
         }
         StringBuilder res = new StringBuilder();
-        for (i = 0; i < Grid.getMaxSize().x; ++i) {
-            for (int j = 0; j < Grid.getMaxSize().y; ++j) {
+        for (i = 0; i < Grid.getMaxSize().getX(); ++i) {
+            for (int j = 0; j < Grid.getMaxSize().getY(); ++j) {
                 if (mat[i][j] == '\0') res.append("  ");
                 else res.append(mat[i][j]);
             }
