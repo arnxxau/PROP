@@ -114,6 +114,7 @@ public class CtrlDomini {
             }
             catch (Exception e){
                 return 3; // NO EXISTEIX LA LLETRA A L'ALFABET
+
             };
 
             f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet

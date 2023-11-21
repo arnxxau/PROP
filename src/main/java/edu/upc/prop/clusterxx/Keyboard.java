@@ -2,7 +2,7 @@
  * La classe Keyboard representa un teclat amb una distribució de lletres en un patró definides per
  * un alfabet, una freqüència i una graella.
  *
- * @author unknown
+ * @author Nil Allué i Andreu Bravo
  * @version entrega 1.0
  */
 
