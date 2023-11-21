@@ -203,7 +203,7 @@ public class Driver_FP {
                             case 3:
                                 ioPlus.print("Canviant nom Teclat");
                                 nomT = Demanar_Nom("Teclat");
-                                ioPlus.print("Necessito el nou nom de l'Alfabet");
+                                ioPlus.print("Necessito el nou nom de teclat");
                                 newNomT = ioPlus.readWord();
                                 ret = cd.CanviarNom_Teclat(nomT, newNomT);
                                 if (ret == -1) ioPlus.print("El Teclat " + nomT + " NO existeix");
