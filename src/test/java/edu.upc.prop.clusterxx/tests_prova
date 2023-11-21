@@ -14,7 +14,6 @@ CREA ALFABET, dues FREQ (mode text per consola), GRID I TECLAT (fusionant les du
 0 0 1
 0 2 1 a f2 3 aeaeaeaeaeaeaeaeaeaeaeaeae . 0 0 1 1 t a f f2 . 1
 
-
 +EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)
 3 t teclat 2 t 2 teclat
 
