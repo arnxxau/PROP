@@ -46,14 +46,17 @@ public class Keyboard {
      * Actualitza la distribució de lletres del teclat.
      */
     public void update() {
-        this.distribucio = null; // RECALCULAR DISTRIBUCIÓ
+        this.distribucio = Algorithm2.QAPAlgorithm(Alph,Freq,Grid);
     }
+
 
     /**
      * Obté una representació de la distribució de lletres en el teclat basada en la graella.
      *
      * @return Una cadena que representa la distribució de lletres en el teclat.
      */
+
+
     public String getLayout() {
         char[][] mat = new char[Grid.getMaxSize().x][Grid.getMaxSize().y];
         ArrayList<Pair> al = Grid.getPositions();

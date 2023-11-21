@@ -59,8 +59,9 @@ public class Grid {
      * @return La distancia entre les dues posicions.
      * @throws IndexOutOfBoundsException Si un dels índexs està fora dels límits de la graella.
      */
-    public double distance(int i1,int i2)throws IndexOutOfBoundsException{
-        return Math.sqrt(Math.pow(grid.get(i1).x-grid.get(i2).x,2)+Math.pow(grid.get(i1).y-grid.get(i2).y,2));
+    public int distance(int i1,int i2)throws IndexOutOfBoundsException{
+        //return Math.sqrt(Math.pow(grid.get(i1).x-grid.get(i2).x,2)+Math.pow(grid.get(i1).y-grid.get(i2).y,2));
+        return Math.abs(grid.get(i1).x-grid.get(i2).x) + Math.abs(grid.get(i1).y-grid.get(i2).y);
     }
 
     /**

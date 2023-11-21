@@ -145,6 +145,7 @@ public class Algorithm2 {
     }
 
     private static int termino2i3(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
+
         int[][] Mat = new int[simbols.size()][Posicions.size()];
 
         Iterator<Character> iterator_simb = simbols.iterator();
@@ -168,6 +169,7 @@ public class Algorithm2 {
                 //calculo C2
                 int[] T = new int[simbols.size() - 1];
                 int[] D = new int[Posicions.size() - 1];
+
 
 
                 //calculo vecto T y vector D
@@ -208,6 +210,16 @@ public class Algorithm2 {
             }
 
         }
+
+
+
+
+        int[][] test = new int[Mat.length][Mat.length];
+        for(int i=0; i< Mat.length; i++){
+            for(int l=0; l< Mat.length; l++){
+                test[i][l]=Mat[i][l];
+            }
+        }
         return hungarianAlgorithm(Mat);
     }
 
@@ -230,8 +242,6 @@ public class Algorithm2 {
 
     ////////////////////////////////////////////
     private static int hungarianAlgorithm(int[][] ini) {
-        System.out.println("Starthungarian");
-        System.out.println(Arrays.deepToString(ini));
         int[][] mat = new int[ini.length][ini.length];
         for(int i=0; i< ini.length; i++){
             for(int l=0; l< ini.length; l++){
@@ -277,7 +287,6 @@ public class Algorithm2 {
         int [] occupiedCols = new int[mat.length];
 
         optimitzacio(rows, mat, occupiedCols);
-        System.out.println("endHungarian");
         return getTotal(mat,rows,ini);
 
     }
@@ -288,13 +297,9 @@ public class Algorithm2 {
             total += originalValues[row][rows[row]];
         return total;
     }
-    private static boolean optimitzacio(int[] rows, int[][] values, int [] occupiedCols){
-        System.out.println("optimitzation");
-        boolean ret=optimization(0, rows, values, occupiedCols);
-        System.out.println("OptimitzationFinal");
-        return ret;
+    private static void optimitzacio(int[] rows, int[][] values, int [] occupiedCols){
+        optimization(0, rows, values, occupiedCols);
     }
-
     private static boolean optimization(int row, int[] rows, int[][] values, int [] occupiedCols) {
         if (row == rows.length)
             return true;

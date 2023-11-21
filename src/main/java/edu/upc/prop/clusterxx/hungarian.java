@@ -1,25 +1,23 @@
 package edu.upc.prop.clusterxx;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Arrays;
+
 
 public class hungarian {
-    public static double hungarianAlgorithm(double[][] ini) {
-        double[][] mat = new double[ini.length][ini.length];
+    public static int hungarianAlgorithm(int[][] ini) {
+        int[][] mat = new int[ini.length][ini.length];
         for(int i=0; i< ini.length; i++){
             for(int l=0; l< ini.length; l++){
                 mat[i][l]=ini[i][l];
             }
         }
 
-        double[] row = findMinElementsInRows(mat);
+        int[] row = findMinElementsInRows(mat);
         for (int i = 0; i < mat.length; i++) {
             for (int l = 0; l < mat.length; l++) {
                 mat[i][l] -= row[i];
             }
         }
-        double[] column = findMinElementsInColumns(mat);
+        int[] column = findMinElementsInColumns(mat);
         for (int i = 0; i < mat.length; i++) {
             for (int l = 0; l < mat.length; l++) {
                 mat[i][l] -= column[l];
@@ -30,7 +28,7 @@ public class hungarian {
         findrowcolumzero(mat, zerorow, zerocolumn);
 
         while (totalcover(zerorow, zerocolumn) < mat.length) {
-            double min = Double.POSITIVE_INFINITY;
+            int min = Integer.MAX_VALUE;
             for (int i = 0; i < mat.length; i++) {
                 for (int l = 0; l < mat.length; l++) {
                     if (!zerorow[i] & !zerocolumn[l] & mat[i][l] < min) min = mat[i][l];
@@ -38,17 +36,14 @@ public class hungarian {
             }
             for (int i = 0; i < mat.length; i++) {
                 for (int l = 0; l < mat.length; l++) {
-                    if (zerorow[i] & zerocolumn[l]) mat[i][l] = decimals(mat[i][l] + min);
-                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] = decimals(mat[i][l] - min);
+                    if (zerorow[i] & zerocolumn[l]) mat[i][l] = mat[i][l] + min;
+                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] = mat[i][l] - min;
                 }
             }
 
             findrowcolumzero(mat, zerorow, zerocolumn);
-            System.out.println("a\n");
 
         }
-        System.out.println("bbbbbbbbbbbbb\n");
-
         //corretigir assignació <------------------------
         int [] rows = new int[mat.length];
         int [] occupiedCols = new int[mat.length];
@@ -59,31 +54,18 @@ public class hungarian {
 
     }
 
-    private static double decimals(double a) {
-        // Crear un formato con símbolos personalizados que usen coma como separador decimal
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator(',');
-        DecimalFormat formato = new DecimalFormat("#.##", symbols);
 
-        String resultadoFormateado = formato.format(a);
-
-        // Reemplazar la coma por un punto antes de convertir a double
-        resultadoFormateado = resultadoFormateado.replace(',', '.');
-
-        return Double.parseDouble(resultadoFormateado);
-    }
-
-    private static double getTotal(double[][] values, int[] rows, double[][] originalValues) {
-        double total = 0;
+    private static int getTotal(int[][] values, int[] rows, int[][] originalValues) {
+        int total = 0;
         for (int row = 0; row < values.length; row++)
             total += originalValues[row][rows[row]];
         return total;
     }
-    private static boolean optimitzacio(int[] rows, double[][] values, int [] occupiedCols){
+    private static boolean optimitzacio(int[] rows, int[][] values, int [] occupiedCols){
         return optimization(0, rows, values, occupiedCols);
     }
 
-    private static boolean optimization(int row, int[] rows, double[][] values, int [] occupiedCols) {
+    private static boolean optimization(int row, int[] rows, int[][] values, int [] occupiedCols) {
         if (row == rows.length)
             return true;
 
@@ -112,7 +94,7 @@ public class hungarian {
         return total;
     }
 
-    private static void findrowcolumzero(double[][] mat, boolean[] row, boolean[] column) {
+    private static void findrowcolumzero(int[][] mat, boolean[] row, boolean[] column) {
         int x;
         int y;
         //inicialitzar a zero
@@ -124,9 +106,9 @@ public class hungarian {
             for (int l = 0; l < mat.length; l++) {
                 if (mat[i][l] == 0 & !row[i] & !column[l]) {
                     x = 0;
-                    for (int v = 0; v < mat.length; v++) if (mat[i][v] == 0) x += 1;
+                    for (int v = 0; v < mat.length; v++) if (mat[i][v] == 0 & !column[v]) x += 1; //&!column[v]
                     y = 0;
-                    for (int v = 0; v < mat.length; v++) if (mat[v][l] == 0) y += 1;
+                    for (int v = 0; v < mat.length; v++) if (mat[v][l] == 0 & !row[v]) y += 1; // & !row[v]
 
                     if (x >= y) row[i] = true;
                     else column[l] = true;
@@ -136,14 +118,14 @@ public class hungarian {
     }
 
 
-    private static double[] findMinElementsInRows(double[][] matrix) {
+    private static int[] findMinElementsInRows(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix.length;
 
-        double[] minElements = new double[rows];
+        int[] minElements = new int[rows];
         for (int i = 0; i < rows; i++) {
             // Inicializar el mínimo con el primer elemento de la fila
-            double min = matrix[i][0];
+            int min = matrix[i][0];
 
             // Buscar el mínimo en la fila
             for (int j = 1; j < cols; j++) {
@@ -158,15 +140,15 @@ public class hungarian {
         return minElements;
     }
 
-    private static double[] findMinElementsInColumns(double[][] matrix) {
+    private static int[] findMinElementsInColumns(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix.length;
 
-        double[] minElements = new double[cols];
+        int[] minElements = new int[cols];
 
         for (int j = 0; j < cols; j++) {
             // Inicializar el mínimo con el primer elemento de la columna
-            double min = matrix[0][j];
+            int min = matrix[0][j];
 
             // Buscar el mínimo en la columna
             for (int i = 1; i < rows; i++) {
