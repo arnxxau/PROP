@@ -24,7 +24,7 @@ public class QAP {
 
 
     /**
-     * Resol el Problema d'Assignació Quadràtica utilitzant una cua de prioritat i un enfocament voraç.
+     * Resol el Problema d'Assignació Quadràtica utilitzant una cua de prioritat amb ajuda d'un enfocament voraç.
      *
      * @param alphabet L'Alfabet que conté els caràcters a assignar.
      * @param freq La Freqüència que conté les freqüències d'aparició dels caràcters.
