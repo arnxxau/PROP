@@ -8,7 +8,7 @@ CREA ALFABET, FREQ (mode text per consola), GRID I TECLAT I LLISTA:
 0 1 1 t a f 1 5
 
 CREA ALFABET, dues FREQ (mode text per consola), GRID I TECLAT (fusionant les dues freqüències) I LLISTA:
-3 1 a abe 0 2 1 a f 3 abe ae ea eee ba . 0 4 a 0 4 1 1 3 3
+3 1 a abe 0 2 1 a f 3 abe aec eac eee ba . 0 4 a 0 4 1 1 3 3
 1 0 0
 0 1 0
 0 0 1
@@ -17,25 +17,38 @@ CREA ALFABET, dues FREQ (mode text per consola), GRID I TECLAT (fusionant les du
 +EXTRA: canvia nom del teclat i esborra el teclat (primer comprova que no pot esborrar el nom anterior)
 3 t teclat 2 t 2 teclat
 
-envez de : abe ae ea eee ba .
-filepath : /src/main/java/edu/upc/prop/clusterxx/text.freq
+*/ envez de : abe aec eac eee ba .
+filepath : /src/test/java/edu/upc/prop/clusterxx/text2.freq /*
 
-path correcte: //añadir 2 freqs
-3 1 a abe 0 2 1 a f 1 src/test/java/edu.upc.prop.clusterxx/text.freq 0 4 a 1 a f2 3 ae e eab eee ba . 0 4 a
 
-3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 1 a f2 3 ae e eab eee ba . 0 4 a
+ALFABET:
+
+Creant un alfabet a, esborrant un que no existeix , esborrant a i comprovant que ja no hi és.
+3 1 a abec 4 2 b 2 a 4
+
+Creant un alfabet,  creant 2 freq i comprovar si borrant l'alfabet, es borren les freqs associades
+
+3 1 a abec 0 2 1 a f 1 src/test/java/edu.upc.prop.clusterxx/text2.freq
+
+
+FREQÜENCIES:
+
+path correcte, añadir 2 freqs :
+3 1 a abe 0 2 1 a f 1 src/test/java/edu.upc.prop.clusterxx/text2.freq 0 4 a 1 a f2 3 ae e eab eee ba . 0 4 a
 
 path erroni:
-3 1 a abe 0 2 1 a f 1 /main/java/edu/upc/prop/clusterxx/text.freq 0 4 a
+3 1 a abe 0 2 1 a f 1 /test/java/edu/upc/prop/clusterxx/text2.freq 0 4 a
 
-Borrant la freq i comprovant que no hi està i que no es pot modificar:
-3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a 2 f 4 a 3 f
+Afegint freq f, borrant la freq i comprovant que no hi està i que no es pot modificar:
+3 1 a abe 0 2 1 a f 1 src/test/java/edu/upc/prop/clusterxx/text2.freq 0 4 a 2 f 4 a 3 f
 
 Comprovant modificar freq. //modifica f
-3 1 a abe 0 2 1 a f 1 src/main/java/edu/upc/prop/clusterxx/text.freq 0 4 a 3 f 3 ae e eab eee ba . 0 4 a
+3 1 a abe 0 2 1 a f 1 src/test/java/edu/upc/prop/clusterxx/text2.freq 0 4 a 3 f 3 ae e eab eee ba . 0 4 a
+
 
 
 PROVA ALGORITME:
+
 a) mirem en una distribució sencilla si compleix.
 
     3 1 a
