@@ -1,64 +1,56 @@
 package edu.upc.prop.clusterxx;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.*;
 
 
 public class Algorithm2 {
-
-    public Algorithm2(){}
 
     public static char[] QAPAlgorithm(Alphabet alphabet, Frequency freq, Grid grid) {
         Map<Character, Integer> Solucio = new HashMap<>();
         HashSet<Integer> posicions = new HashSet<>();//posicions no assignades
         HashSet<Character> simbols = alphabet.getCharacters();
         for(int i=0;i<grid.size();i++)posicions.add(i);
-        PriorityQueue<nodo> priorityQueue = new PriorityQueue<nodo>();
+        PriorityQueue<Nodo> priorityQueue = new PriorityQueue<Nodo>();
 
 
         Map<Character, Integer> cota_assig = greedysol_cota(simbols, posicions, freq, grid);
 
-        double cota = termino1(cota_assig,freq,grid);
+        int cota = termino1(cota_assig,freq,grid);
 
-        double c = calcCota(Solucio,simbols,posicions,freq,grid);
+        int c = calcCota(Solucio,simbols,posicions,freq,grid);
 
-        nodo inp = new nodo(Solucio,posicions,simbols,c);
+        Nodo inp = new Nodo(Solucio,posicions,simbols,c);
         priorityQueue.add(inp);
 
-        nodo actual;
+        Nodo actual;
 
         int cont = 0;
-        //System.out.println("cota ="+cota+"\n");
+
         while(!priorityQueue.isEmpty()){
             cont += 1;
             actual = priorityQueue.poll();
 
-            if(actual.posicions.isEmpty()){
-                return convert(actual.Solucio);
+            if(actual.getPosicions().isEmpty() & calcCota(actual.getSolucio(),actual.getSimbols(),actual.getPosicions(),freq,grid) <= cota){
+                return convert(actual.getSolucio());
             }
-            for (Character simb : actual.simbols) {
-                for(Integer pos: actual.posicions){
-                    Map<Character, Integer> novaSol = new HashMap<>(actual.Solucio);
+            for (Character simb : actual.getSimbols()) {
+                for(Integer pos: actual.getPosicions()){
+                    Map<Character, Integer> novaSol = new HashMap<>(actual.getSolucio());
                     novaSol.put(simb,pos);
 
-                    HashSet<Character> novasimbols = new HashSet<>(actual.simbols);
+                    HashSet<Character> novasimbols = new HashSet<>(actual.getSimbols());
                     novasimbols.remove(simb);
 
-                    HashSet<Integer> novaposicions = new HashSet<>(actual.posicions);
+                    HashSet<Integer> novaposicions = new HashSet<>(actual.getPosicions());
                     novaposicions.remove(pos);
-                    double cot = calcCota(novaSol,novasimbols,novaposicions,freq,grid);
+                    int cot = calcCota(novaSol,novasimbols,novaposicions,freq,grid);
                     if(cot<=cota){
-                        nodo nou = new nodo(novaSol,novaposicions, novasimbols,cot);
+                        Nodo nou = new Nodo(novaSol,novaposicions, novasimbols,cot);
                         priorityQueue.add(nou);
-                        //System.out.println(cot+" "+ cota+"\n");
                     }
-                    //else{System.out.println("PODA\n");}
                 }
             }
-
         }
-        //System.out.println("GREEDYYYYYYY\n");
         return convert(cota_assig);
     }
 
@@ -94,12 +86,12 @@ public class Algorithm2 {
         listaOrdenada.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
 
-        Map<Integer,Double> num_dist = new TreeMap<>();
+        Map<Integer, Integer> num_dist = new TreeMap<>();
         Iterator<Integer> iteratorPos = Posicions.iterator();
         while (iteratorPos.hasNext()) {
             int pos1 = iteratorPos.next();
             Iterator<Integer> iteratorPos2 = Posicions.iterator();
-            double totalDist=0;
+            int totalDist=0;
             int pos2;
 
             while(iteratorPos2.hasNext()) {
@@ -112,7 +104,7 @@ public class Algorithm2 {
             num_dist.put(pos1,totalDist);
         }
 
-        List<Map.Entry<Integer, Double>> listaOrdenada1 = new ArrayList<>(num_dist.entrySet());
+        List<Map.Entry<Integer, Integer>> listaOrdenada1 = new ArrayList<>(num_dist.entrySet());
         listaOrdenada1.sort(Map.Entry.comparingByValue());
 
 
@@ -126,14 +118,14 @@ public class Algorithm2 {
         return assig_greedy;
     }
 
-    private static double calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
-        double termino1_ = termino1(Solucio,freq,grid);
-        double termino2i3_ = termino2i3(Solucio, simbols, Posicions, freq, grid);
+    private static int calcCota(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid){
+        int termino1_ = termino1(Solucio,freq,grid);
+        int termino2i3_ = termino2i3(Solucio, simbols, Posicions, freq, grid);
         return termino1_ + termino2i3_;
     }
 
-    private static double termino1(Map<Character, Integer> Solucio, Frequency freq, Grid grid){
-        double res=0;
+    private static int termino1(Map<Character, Integer> Solucio, Frequency freq, Grid grid){
+        int res=0;
         int cont=1;
         for (Map.Entry<Character, Integer> entry : Solucio.entrySet()) {
             Character clave = entry.getKey();
@@ -143,7 +135,7 @@ public class Algorithm2 {
                 Character clave2 = entry2.getKey();
                 Integer valor2 = entry2.getValue();
                 if(ind>=cont){
-                    res += freq.getNumberOfAppearances(clave, clave2) * grid.distance(valor, valor2);
+                    res += (int) (freq.getNumberOfAppearances(clave, clave2) * grid.distance(valor, valor2));
                 }
                 ind += 1;
             }
@@ -152,8 +144,8 @@ public class Algorithm2 {
         return res;
     }
 
-    private static double termino2i3(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
-        double[][] Mat = new double[simbols.size()][Posicions.size()];
+    private static int termino2i3(Map<Character, Integer> Solucio, HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
+        int[][] Mat = new int[simbols.size()][Posicions.size()];
 
         Iterator<Character> iterator_simb = simbols.iterator();
         for (int i = 0; i < simbols.size(); i++) {
@@ -164,18 +156,18 @@ public class Algorithm2 {
                 int pos_act = iterator_pos.next();
 
 
-                double total = 0;
+                int total = 0;
                 //calculo C1
                 for (Map.Entry<Character, Integer> entry : Solucio.entrySet()) {
                     Character clave = entry.getKey();
                     Integer valor = entry.getValue();
-                    total += (freq.getNumberOfAppearances(clave, sim_act) * grid.distance(valor, pos_act));
+                    total += (int) (freq.getNumberOfAppearances(clave, sim_act) * grid.distance(valor, pos_act));
                 }
                 Mat[i][k] = total;
 
                 //calculo C2
-                double[] T = new double[simbols.size() - 1];
-                double[] D = new double[Posicions.size() - 1];
+                int[] T = new int[simbols.size() - 1];
+                int[] D = new int[Posicions.size() - 1];
 
 
                 //calculo vecto T y vector D
@@ -186,7 +178,7 @@ public class Algorithm2 {
                 while (iter_sim_ext.hasNext()) {
                     ext = iter_sim_ext.next();
                     if (ext != sim_act) {
-                        T[indx] = freq.getNumberOfAppearances(ext, sim_act);
+                        T[indx] = (int) freq.getNumberOfAppearances(ext, sim_act);
                         indx += 1;
                     }
                 }
@@ -216,17 +208,16 @@ public class Algorithm2 {
             }
 
         }
-
         return hungarianAlgorithm(Mat);
     }
 
-    private static void invertirArray(double[] array) {
+    private static void invertirArray(int[] array) {
         int inicio = 0;
         int fin = array.length - 1;
 
         while (inicio < fin) {
             // Intercambiar los elementos en las posiciones inicio y fin
-            double temp = array[inicio];
+            int temp = array[inicio];
             array[inicio] = array[fin];
             array[fin] = temp;
 
@@ -238,21 +229,23 @@ public class Algorithm2 {
 
 
     ////////////////////////////////////////////
-    public static double hungarianAlgorithm(double[][] ini) {
-        double[][] mat = new double[ini.length][ini.length];
+    private static int hungarianAlgorithm(int[][] ini) {
+        System.out.println("Starthungarian");
+        System.out.println(Arrays.deepToString(ini));
+        int[][] mat = new int[ini.length][ini.length];
         for(int i=0; i< ini.length; i++){
             for(int l=0; l< ini.length; l++){
                 mat[i][l]=ini[i][l];
             }
         }
 
-        double[] row = findMinElementsInRows(mat);
+        int[] row = findMinElementsInRows(mat);
         for (int i = 0; i < mat.length; i++) {
             for (int l = 0; l < mat.length; l++) {
                 mat[i][l] -= row[i];
             }
         }
-        double[] column = findMinElementsInColumns(mat);
+        int[] column = findMinElementsInColumns(mat);
         for (int i = 0; i < mat.length; i++) {
             for (int l = 0; l < mat.length; l++) {
                 mat[i][l] -= column[l];
@@ -263,7 +256,7 @@ public class Algorithm2 {
         findrowcolumzero(mat, zerorow, zerocolumn);
 
         while (totalcover(zerorow, zerocolumn) < mat.length) {
-            double min = Double.POSITIVE_INFINITY;
+            int min = Integer.MAX_VALUE;
             for (int i = 0; i < mat.length; i++) {
                 for (int l = 0; l < mat.length; l++) {
                     if (!zerorow[i] & !zerocolumn[l] & mat[i][l] < min) min = mat[i][l];
@@ -271,8 +264,8 @@ public class Algorithm2 {
             }
             for (int i = 0; i < mat.length; i++) {
                 for (int l = 0; l < mat.length; l++) {
-                    if (zerorow[i] & zerocolumn[l]) mat[i][l] = decimals(mat[i][l] + min);
-                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] = decimals(mat[i][l] - min);
+                    if (zerorow[i] & zerocolumn[l]) mat[i][l] = mat[i][l] + min;
+                    else if (!zerorow[i] & !zerocolumn[l]) mat[i][l] = mat[i][l] - min;
                 }
             }
 
@@ -284,37 +277,25 @@ public class Algorithm2 {
         int [] occupiedCols = new int[mat.length];
 
         optimitzacio(rows, mat, occupiedCols);
-
+        System.out.println("endHungarian");
         return getTotal(mat,rows,ini);
 
     }
 
-    private static double decimals(double a) {
-        // Crear un formato con símbolos personalizados que usen coma como separador decimal
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator(',');
-        DecimalFormat formato = new DecimalFormat("#.##", symbols);
-
-        String resultadoFormateado = formato.format(a);
-
-        // Reemplazar la coma por un punto antes de convertir a double
-        resultadoFormateado = resultadoFormateado.replace(',', '.');
-
-        return Double.parseDouble(resultadoFormateado);
-
-    }
-
-    private static double getTotal(double[][] values, int[] rows, double[][] originalValues) {
-        double total = 0;
+    private static int getTotal(int[][] values, int[] rows, int[][] originalValues) {
+        int total = 0;
         for (int row = 0; row < values.length; row++)
             total += originalValues[row][rows[row]];
         return total;
     }
-    private static boolean optimitzacio(int[] rows, double[][] values, int [] occupiedCols){
-        return optimization(0, rows, values, occupiedCols);
+    private static boolean optimitzacio(int[] rows, int[][] values, int [] occupiedCols){
+        System.out.println("optimitzation");
+        boolean ret=optimization(0, rows, values, occupiedCols);
+        System.out.println("OptimitzationFinal");
+        return ret;
     }
 
-    private static boolean optimization(int row, int[] rows, double[][] values, int [] occupiedCols) {
+    private static boolean optimization(int row, int[] rows, int[][] values, int [] occupiedCols) {
         if (row == rows.length)
             return true;
 
@@ -330,11 +311,6 @@ public class Algorithm2 {
         return false;
     }
 
-    private static boolean checknegative1(int[] assigment){
-        for (int j : assigment) if (j == -1) return true;
-        return false;
-    }
-
 
     private static int totalcover(boolean[] zerorow, boolean[] zerocolumn) {
         int total = 0;
@@ -343,7 +319,7 @@ public class Algorithm2 {
         return total;
     }
 
-    private static void findrowcolumzero(double[][] mat, boolean[] row, boolean[] column) {
+    private static void findrowcolumzero(int[][] mat, boolean[] row, boolean[] column) {
         int x;
         int y;
         //inicialitzar a zero
@@ -355,9 +331,9 @@ public class Algorithm2 {
             for (int l = 0; l < mat.length; l++) {
                 if (mat[i][l] == 0 & !row[i] & !column[l]) {
                     x = 0;
-                    for (int v = 0; v < mat.length; v++) if (mat[i][v] == 0) x += 1;
+                    for (int v = 0; v < mat.length; v++) if (mat[i][v] == 0 ) x += 1; //&!column[v]
                     y = 0;
-                    for (int v = 0; v < mat.length; v++) if (mat[v][l] == 0) y += 1;
+                    for (int v = 0; v < mat.length; v++) if (mat[v][l] == 0) y += 1; // & !row[v]
 
                     if (x >= y) row[i] = true;
                     else column[l] = true;
@@ -367,14 +343,14 @@ public class Algorithm2 {
     }
 
 
-    private static double[] findMinElementsInRows(double[][] matrix) {
+    private static int[] findMinElementsInRows(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix.length;
 
-        double[] minElements = new double[rows];
+        int[] minElements = new int[rows];
         for (int i = 0; i < rows; i++) {
             // Inicializar el mínimo con el primer elemento de la fila
-            double min = matrix[i][0];
+            int min = matrix[i][0];
 
             // Buscar el mínimo en la fila
             for (int j = 1; j < cols; j++) {
@@ -389,15 +365,15 @@ public class Algorithm2 {
         return minElements;
     }
 
-    private static double[] findMinElementsInColumns(double[][] matrix) {
+    private static int[] findMinElementsInColumns(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix.length;
 
-        double[] minElements = new double[cols];
+        int[] minElements = new int[cols];
 
         for (int j = 0; j < cols; j++) {
             // Inicializar el mínimo con el primer elemento de la columna
-            double min = matrix[0][j];
+            int min = matrix[0][j];
 
             // Buscar el mínimo en la columna
             for (int i = 1; i < rows; i++) {
