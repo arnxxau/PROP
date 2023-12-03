@@ -41,11 +41,13 @@ public class Driver_FP {
     private void Vista_General(){
         try{
             ioPlus.print("Menu General: ");
-        ioPlus.print("0 - Sortir ");
-        ioPlus.print("1 - Manteniment Teclats ");
-        ioPlus.print("2 - Manteniment Frequencies ");
-        ioPlus.print("3 - Manteniment Alfabets ");
-        ioPlus.print("4 - Manteniment Grids ");}
+            ioPlus.print("0 - Sortir ");
+            ioPlus.print("1 - Manteniment Teclats ");
+            ioPlus.print("2 - Manteniment Frequencies ");
+            ioPlus.print("3 - Manteniment Alfabets ");
+            ioPlus.print("4 - Manteniment Grids ");
+            ioPlus.print("5 - guardar");
+        }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -644,10 +646,11 @@ public class Driver_FP {
     }
 
     public void Next_Step_from_Menu_General() throws IOException {
+        cd.Carregar_Dades();
         int opt=-1;
         while(opt!=0){
             int option=-1;
-            opt = Obtenir_Opcions(4,MENUGENERAL);
+            opt = Obtenir_Opcions(5,MENUGENERAL);
             switch(opt){
                 case 0:
                     break;
@@ -674,6 +677,9 @@ public class Driver_FP {
                         option = Obtenir_Opcions(3,MENUGRID);
                         Opcions_de_Clase("Grid",option);
                     }
+                    break;
+                case 5:
+                    cd.Guardar_Dades();
                     break;
             }
         }

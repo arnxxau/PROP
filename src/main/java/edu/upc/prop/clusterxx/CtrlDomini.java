@@ -12,6 +12,7 @@ public class CtrlDomini {
     HashMap<String,Frequency> FQ = new HashMap<>();
     HashMap<String,Keyboard> KB = new HashMap<>();
     HashMap<Integer,Grid> GD = new HashMap<>();
+    CtrlPersistencia persistencia = new CtrlPersistencia();
     public CtrlDomini(){}
 
     public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
@@ -302,5 +303,15 @@ public class CtrlDomini {
             vvs.add(vs);
         }
         return vvs;
+    }
+
+    public void Guardar_Dades() {
+        persistencia.saveAlphabets(AP);
+        persistencia.saveFrequencies(FQ);
+        persistencia.saveGrids(GD);
+        persistencia.saveKeyboards(KB);
+    }
+    public void Carregar_Dades() {
+        AP = persistencia.getAlphabets();
     }
 }
