@@ -313,5 +313,6 @@ public class CtrlDomini {
     }
     public void Carregar_Dades() {
         AP = persistencia.getAlphabets();
+        //FQ = persistencia.getFrequencies();
     }
 }
