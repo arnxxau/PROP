@@ -4,7 +4,6 @@ import com.google.gson.*;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class gestorAlfabet {
     JsonArray ja;
@@ -38,12 +37,10 @@ public class gestorAlfabet {
     public HashMap<String,Alphabet> getAlphabets() {
         HashMap<String, Alphabet> AP = new HashMap<>();
         try (FileReader rd = new FileReader(filePath)){
-            // Llegir el contingut del fitxer JSON
             Gson g = new Gson();
-            JsonArray jsonArray = g.fromJson(rd,JsonArray.class);
-            // Recórrer l'array JSON i afegir cada element al HashMap
-            for (JsonElement jsonElement : jsonArray) {
-                Alphabet a = g.fromJson(jsonElement, Alphabet.class);
+            String[] Alphabets = g.fromJson(rd, String[].class);
+            for (String s : Alphabets) {
+                Alphabet a = g.fromJson(s, Alphabet.class);
                 AP.put(a.getName(), a);
             }
         } catch (IOException e) {
