@@ -8,16 +8,25 @@
 
 package edu.upc.prop.clusterxx;
 
+import com.google.gson.annotations.Expose;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class Keyboard {
+    @Expose
     private String nom;
+    @Expose
     private Instant dataCreacio;
+    @Expose
     private Instant ultimaModificacio;
+    @Expose
     private char[] distribucio;
+    @Expose
     private Alphabet Alph;
+    @Expose
     private Frequency Freq;
+    @Expose
     private Grid Grid;
 
 

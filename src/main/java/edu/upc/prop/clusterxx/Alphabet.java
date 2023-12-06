@@ -8,16 +8,24 @@
 
 package edu.upc.prop.clusterxx;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeMap;
 
 public class Alphabet {
+    @Expose
     private String nom;
+    @Expose
     private Instant crDate;
+    @Expose
     private Instant ultMod;
+    @Expose
     private HashSet<Character> caracters;
+    @Expose(serialize = false)
     private HashMap<String, Frequency> frequencies;
 
     // Constructor
@@ -98,7 +106,8 @@ public class Alphabet {
      * @return Cert si la freqüència s'ha afegit amb èxit, fals si ja existeix.
      */
     public boolean addFrequency(Frequency frequencia) {
-        if(frequencies.containsKey(frequencia.getName())) return false;
+        if (frequencies == null) frequencies = new HashMap<>();
+        if (frequencies.containsKey(frequencia.getName())) return false;
         frequencies.put(frequencia.getName(), frequencia);
         return true;
     }

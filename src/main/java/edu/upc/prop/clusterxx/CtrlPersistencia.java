@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CtrlPersistencia {
-    String AlphPath = "alphabets.json";
-    String FreqPath = "frequencies.json";
-    String GridPath = "grids.json";
-    String KeyboardPath = "keyboards.json";
-    GestorPersistencia<Alphabet> gpa = new GestorPersistencia<>();
-    GestorPersistencia<Frequency> gpf = new GestorPersistencia<>();
-    GestorPersistencia<Grid> gpg = new GestorPersistencia<>();
-    GestorPersistencia<Keyboard> gpk = new GestorPersistencia<>();
+    private String GeneralPath = "src/data/";
+    private String AlphPath = GeneralPath + "alphabets.json";
+    private String FreqPath = GeneralPath + "frequencies.json";
+    private String GridPath = GeneralPath + "grids.json";
+    private String KeyboardPath = GeneralPath + "keyboards.json";
+    private GestorPersistencia<String, Alphabet> gpa = new GestorPersistencia<>();
+    private GestorPersistencia<String, Frequency> gpf = new GestorPersistencia<>();
+    private GestorPersistencia<Integer, Grid> gpg = new GestorPersistencia<>();
+    private GestorPersistencia<String, Keyboard> gpk = new GestorPersistencia<>();
     public void saveAlphabets(HashMap<String,Alphabet> AP) {
         gpa.saveElements(AP, AlphPath);
     }
@@ -31,9 +32,21 @@ public class CtrlPersistencia {
         return map;
     }
     public void saveGrids(HashMap<Integer,Grid> GD) {
-
+        gpg.saveElements(GD, GridPath);
+    }
+    public HashMap<Integer, Grid> getGrids() {
+        HashMap<Integer, Grid> map = new HashMap<>();
+        ArrayList<Grid> list = gpg.getElements(Grid.class, GridPath);
+        for (Grid g : list) map.put(g.getID(), g);
+        return map;
     }
     public void saveKeyboards(HashMap<String,Keyboard> KB) {
-
+        gpk.saveElements(KB, KeyboardPath);
+    }
+    public HashMap<String, Keyboard> getKeyboards() {
+        HashMap<String, Keyboard> map = new HashMap<>();
+        ArrayList<Keyboard> list = gpk.getElements(Keyboard.class, KeyboardPath);
+        for (Keyboard k : list) map.put(k.getName(), k);
+        return map;
     }
 }

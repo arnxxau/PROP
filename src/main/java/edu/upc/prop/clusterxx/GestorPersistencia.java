@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
 import java.io.File;
@@ -12,11 +13,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GestorPersistencia<T> {
-    public void saveElements(HashMap<String,T> map, String filePath) {
+public class GestorPersistencia<U, T> {
+    public void saveElements(HashMap<U,T> map, String filePath) {
         JsonArray ja = new JsonArray();
         for (T e : map.values()) {
-            Gson g = new Gson();
+            Gson g = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
             String json = g.toJson(e);
             System.out.println(json);
             ja.add(json);

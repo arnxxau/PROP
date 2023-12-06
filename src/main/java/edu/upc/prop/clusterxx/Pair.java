@@ -1,7 +1,11 @@
 package edu.upc.prop.clusterxx;
 
+import com.google.gson.annotations.Expose;
+
 public class Pair {
+    @Expose
     private int x;
+    @Expose
     private int y;
 
     public Pair(){}

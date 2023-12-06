@@ -606,13 +606,13 @@ public class Driver_FP {
     private boolean[][] Demanar_mat_Grid()  {
         boolean[][] res = null;
         try {
-            ioPlus.print("Indica l'amplada màxima del Grid:");
+            ioPlus.print("Indica l'alçada màxima del Grid:");
             int x = ioPlus.readInt();
             while(x<0){
                 ioPlus.print("Ha de ser un enter positiu");
                 x = ioPlus.readInt();
             }
-            ioPlus.print("Indica l'alçada màxima del Grid:");
+            ioPlus.print("Indica l'amplada màxima del Grid:");
             int y = ioPlus.readInt();
             while(y<0){
                 ioPlus.print("Ha de ser un enter positiu");
