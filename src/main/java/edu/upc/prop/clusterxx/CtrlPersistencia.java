@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CtrlPersistencia {
-    private String GeneralPath = "src/data/";
-    private String AlphPath = GeneralPath + "alphabets.json";
-    private String FreqPath = GeneralPath + "frequencies.json";
-    private String GridPath = GeneralPath + "grids.json";
-    private String KeyboardPath = GeneralPath + "keyboards.json";
-    private GestorPersistencia<String, Alphabet> gpa = new GestorPersistencia<>();
-    private GestorPersistencia<String, Frequency> gpf = new GestorPersistencia<>();
-    private GestorPersistencia<Integer, Grid> gpg = new GestorPersistencia<>();
-    private GestorPersistencia<String, Keyboard> gpk = new GestorPersistencia<>();
+    private final static String GeneralPath = "src/data/";
+    private final static String AlphPath = GeneralPath + "alphabets.json";
+    private final static String FreqPath = GeneralPath + "frequencies.json";
+    private final static String GridPath = GeneralPath + "grids.json";
+    private final static String KeyboardPath = GeneralPath + "keyboards.json";
+    private final GestorPersistencia<String, Alphabet> gpa = new GestorPersistencia<>();
+    private final GestorPersistencia<String, Frequency> gpf = new GestorPersistencia<>();
+    private final GestorPersistencia<Integer, Grid> gpg = new GestorPersistencia<>();
+    private final GestorPersistencia<String, Keyboard> gpk = new GestorPersistencia<>();
     public void saveAlphabets(HashMap<String,Alphabet> AP) {
         gpa.saveElements(AP, AlphPath);
     }
