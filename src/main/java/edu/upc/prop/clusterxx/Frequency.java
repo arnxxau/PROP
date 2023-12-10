@@ -9,6 +9,9 @@
 
 package edu.upc.prop.clusterxx;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,10 +19,13 @@ import java.util.Map;
 
 public class Frequency {
     // Main data
+    @Expose
     private Integer frequencyWeight;
+    @Expose
     private HashMap<Character, HashMap<Character, Integer>> freq;
 
     // Read modes
+    @Expose
     private int mode;
     /**
      * Constant que representa el mode d'extracció de freqüències, utilitzat
@@ -42,9 +48,13 @@ public class Frequency {
     private final static String NON_EXISTING_FREQUENCY = "The character combination doesn't exist.";
 
     // General info
+    @Expose
     private String name;
+    @Expose
     private final Instant creationDate;
+    @Expose
     private Instant lastModifiedTime;
+    @Expose
     private Alphabet alphabet;
 
 

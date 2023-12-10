@@ -8,14 +8,18 @@
 
 package edu.upc.prop.clusterxx;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.internal.JsonReaderInternalAccess;
 
 import java.util.ArrayList;
 
 
 public class Grid {
+    @Expose
     private int id;
+    @Expose
     private Pair size;
+    @Expose
     private ArrayList<Pair> grid = new ArrayList<Pair>();
 
     /**
