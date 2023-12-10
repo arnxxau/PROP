@@ -69,7 +69,7 @@ public class Frequency {
      * @param alphabet L'alfabet associat amb la freqüència.
      * @throws Exception Si hi ha un error durant la construcció.
      */
-    public Frequency(String name, String[] lines, int mode, Alphabet alphabet) throws Exception {
+    public Frequency(String name, String[] lines, int mode, Alphabet alphabet) throws CaractersfromFreq_notInAlph_Exception {
         this.mode = mode;
         this.name = name;
         this.alphabet = alphabet;
@@ -99,7 +99,7 @@ public class Frequency {
      * @param lines Les línies que contenen la informació de freqüències.
      * @throws Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
      */
-    private void extractRawFrequencies(String[] lines) throws Exception {
+    private void extractRawFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception {
         frequencyWeight = Integer.parseInt(lines[0]);
         for (int i = 1; i < lines.length; ++i) {
             String[] line = lines[i].split(" ");
@@ -121,7 +121,7 @@ public class Frequency {
      * @param lines Línies de text amb el mateix alfabet.
      * @throws Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
      */
-    private void extractTextFrequencies(String[] lines) throws Exception {
+    private void extractTextFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception {
         for (String s1 : lines) {
             String[] line = s1.split(" ");
 
@@ -141,7 +141,7 @@ public class Frequency {
      * @param w La paraula a processar.
      * @throws Exception Si la paraula caràcters que no estan presents a l'alfabet de la freqüència.
      */
-    private void processWord(String w) throws Exception {
+    private void processWord(String w) throws CaractersfromFreq_notInAlph_Exception {
         for (int i = 0; i < w.length() - 1; ++i) {
             checkFreqIntegrity(w.charAt(i));
             checkFreqIntegrity(w.charAt(i + 1));
@@ -189,7 +189,7 @@ public class Frequency {
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
         lastModifiedTime = Instant.now();
     }
-    public void modifyFrequency(String[] lines, int mode) throws Exception {
+    public void modifyFrequency(String[] lines, int mode) throws CaractersfromFreq_notInAlph_Exception {
         frequencyWeight = 0;
         freq = new HashMap<>();
         this.mode = mode;
@@ -258,9 +258,9 @@ public class Frequency {
 
 
     // integrity checkers
-    private void checkFreqIntegrity(Character c) throws Exception {
+    private void checkFreqIntegrity(Character c) throws CaractersfromFreq_notInAlph_Exception {
         if (!alphabet.existsCharacter(c))
-            throw new Exception(ALPHABET_ERROR);
+            throw new CaractersfromFreq_notInAlph_Exception();
     }
 
     // public getters
