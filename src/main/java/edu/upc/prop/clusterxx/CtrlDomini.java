@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -89,6 +90,9 @@ public class CtrlDomini {
         }
         return vvs;
     }
+    public Vector<String> Noms_Teclats(){
+       return new Vector<>(KB.keySet());
+    }
     public void Afegir_Alfabet(String s, HashSet<Character> h){
         //h.add(' ');
         Alphabet a = new Alphabet(s,h);
@@ -96,7 +100,7 @@ public class CtrlDomini {
     }
 
     //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
-    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode){ //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
         try{
 
             /*if(FQ.containsKey(nomF))return 1;//ja existeix la freq
@@ -144,7 +148,7 @@ public class CtrlDomini {
         return lines.toArray(new String[0]);
     }
 
-    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode){
+    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception{
        /* if(FQ.containsKey(nomF))return 1; //la freq ja existeix
         if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
 
@@ -197,6 +201,13 @@ public class CtrlDomini {
         }
         return vvs;
     }
+    public Vector<String> Noms_Alfabets(){
+        Vector<String> vs = new Vector<>();
+        for (String valor : AP.keySet()) {
+            vs.add(valor);
+        }
+        return vs;
+    }
     public Vector<Vector<String>> Consultar_Freqs(String nomA){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Frequency valor : FQ.values()) {
@@ -227,6 +238,15 @@ public class CtrlDomini {
         return vvs;
     }
 
+    public Vector<String> NomsFreqs_Alfabet(String nomA){
+        Vector<String> vs = new Vector<>();
+        String nom;
+        for(String s : AP.get(nomA).getFrequencies().keySet()){
+            vs.add(s);
+        }
+        return vs;
+    }
+
     public int Esborrar_Frequencia (String nomF) {
         if (!FQ.containsKey(nomF)) return -1;
         Frequency f = FQ.get(nomF);
@@ -239,7 +259,7 @@ public class CtrlDomini {
     }
 
 
-    public int Modificar_Freq_Path(String nomF, String path, int mode){
+    public int Modificar_Freq_Path(String nomF, String path, int mode)throws CaractersfromFreq_notInAlph_Exception,IOException{
 
         Frequency f = FQ.get(nomF); //no fa falta anar al HashMapde l'alfabet a modificar la freq perquè en teoria es el mateix punter
 
@@ -253,7 +273,7 @@ public class CtrlDomini {
         return 0;
     }
 
-    public int Modificar_FreqMa(String nomF, Vector<String> vs, int mode){
+    public int Modificar_FreqMa(String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception{
 
         String[] text = new String[vs.size()];
 
@@ -317,5 +337,7 @@ public class CtrlDomini {
         for (Frequency f : FQ.values()) AP.get(f.getAlphabet().getName()).addFrequency((f));
         GD = persistencia.getGrids();
         KB = persistencia.getKeyboards();
+
+
     }
 }
