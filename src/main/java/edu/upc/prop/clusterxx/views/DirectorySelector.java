@@ -5,7 +5,7 @@ import java.io.File;
 
 public class DirectorySelector extends JFrame {
 
-    DirectorySelector() {
+    public DirectorySelector() {
         setLocationRelativeTo(null);
     }
 

@@ -1,5 +1,7 @@
 package edu.upc.prop.clusterxx;
 
+import edu.upc.prop.clusterxx.views.*;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Vector;
@@ -20,10 +22,10 @@ public class CtrlPresentacio {
         DirectorySelector ds = new DirectorySelector();
     }
     public static void ErrorView(){
-        ErrorView ev = new ErrorView();
+        ErrorView ev = new ErrorView("Error");
     }
     public static void LiveEditor(){
-        LiveEditor le = new LiveEditor();
+        LiveEditor le = new LiveEditor(new CreateFrequency());
     }
     public static void MainView(){
         MainView mv = new MainView();
@@ -44,7 +46,11 @@ public class CtrlPresentacio {
 
     }
     public void CanviarNom_Alfabet(String nomA, String nomAnou) {
-        cd.CanviarNom_Alfabet(nomA,nomAnou);
+        try{
+            cd.CanviarNom_Alfabet(nomA,nomAnou);
+        }catch (ExisteixID_Exception e){
+            String s = e.Ja_Existeix(nomA);
+        }
     }
 
     public Vector<Vector<String>> llistar_Alfabets(){
@@ -80,7 +86,7 @@ public class CtrlPresentacio {
             cd.Afegir_Freq_FromPath(nomF,path,nomA,1);
         }catch (CaractersfromFreq_notInAlph_Exception c1){
             String s;
-            s=c1.getMessage() + nomA;
+            s =c1.getMessage() + nomA;
             //llamar a errorview
         }catch (IOException io){
             String s = io.getMessage() + "no existeix el path"+ path;
@@ -170,7 +176,11 @@ public class CtrlPresentacio {
         cd.Esborrar_Teclat(nomT); //hay que asegurarse que la freq es del alfabeto porque no se comprueba
     }
     public void Canviar_Nom_Teclat(String nomT,String nomTnou){
-        cd.CanviarNom_Teclat(nomT,nomTnou); //hace falta una excepcion para cuando canvias el nombre que no sea uno que ya existe de otro teclado.
+        try{
+            cd.CanviarNom_Teclat(nomT,nomTnou); //hace falta una excepcion para cuando canvias el nombre que no sea uno que ya existe de otro teclado.
+        }catch(ExisteixID_Exception e){
+            String s = e.Ja_Existeix(nomTnou);
+        }
     }
     public void Actualitzar_Teclat(String nomT){
         cd.Actualitzar_Teclat(nomT);
@@ -181,8 +191,5 @@ public class CtrlPresentacio {
     public Vector<String> Noms_Teclats(){
        return cd.Noms_Teclats();
     }
-
-
-
 
 }

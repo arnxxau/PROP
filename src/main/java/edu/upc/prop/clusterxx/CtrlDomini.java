@@ -62,9 +62,12 @@ public class CtrlDomini {
         }
         return -1;
     }
-    public int CanviarNom_Teclat(String nomT, String newNom) {
+    public int CanviarNom_Teclat(String nomT, String newNom)throws ExisteixID_Exception {
         if (!KB.containsKey(nomT)) return -1;
-        if (KB.containsKey(newNom)) return -2;
+        if (KB.containsKey(newNom)){
+            throw new ExisteixID_Exception();
+            //return -2;
+        }
         Keyboard k = KB.get(nomT);
         k.setNom(newNom);
         KB.remove(nomT);
@@ -177,12 +180,15 @@ public class CtrlDomini {
         for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
         AP.remove(s);
     }
-    public int CanviarNom_Alfabet(String s,String s2){
+    public int CanviarNom_Alfabet(String s,String s2)throws ExisteixID_Exception{
         if(!AP.containsKey(s)) return 1;
+        if(AP.containsKey(s2)){
+            throw new ExisteixID_Exception();
+            // return 2;
+        }
         Alphabet a = AP.get(s);
         a.setName(s2);
         AP.remove(s);
-        if(AP.containsKey(s2))return 2;
         AP.put(s2,a);
         return 0;
     }
