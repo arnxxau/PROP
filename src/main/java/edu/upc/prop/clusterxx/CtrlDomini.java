@@ -207,8 +207,8 @@ public class CtrlDomini {
         }
         return vvs;
     }
-    public Vector<String> Noms_Alfabets(){
-        Vector<String> vs = new Vector<>();
+    public Vector<Object> Noms_Alfabets(){
+        Vector<Object> vs = new Vector<>();
         for (String valor : AP.keySet()) {
             vs.add(valor);
         }
