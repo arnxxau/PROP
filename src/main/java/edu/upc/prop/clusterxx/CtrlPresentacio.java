@@ -62,7 +62,7 @@ public class CtrlPresentacio {
         return cd.Consultar_Alfabets();
     }
 
-    public static Vector<String> getAlphabets() {
+    public static Vector<Object> getAlphabets() {
         return cd.Noms_Alfabets();
     }
 
