@@ -1,11 +1,11 @@
-package edu.upc.prop.clusterxx;
+package edu.upc.prop.clusterxx.exceptions;
 
 public class ExisteixID_Exception extends Exception {
 
     ExisteixID_Exception(String s){
         super(s);//String de excepcion para diferenciar entre varias del mismo tipo en una funcion
     }
-    ExisteixID_Exception(){
+    public ExisteixID_Exception(){
         super();
     }
     public String Ja_Existeix(String ID){

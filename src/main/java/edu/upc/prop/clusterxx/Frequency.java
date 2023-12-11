@@ -10,7 +10,7 @@
 package edu.upc.prop.clusterxx;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
 
 import java.time.Instant;
 import java.util.HashMap;

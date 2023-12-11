@@ -1,8 +1,8 @@
 package edu.upc.prop.clusterxx;
 
+import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 import edu.upc.prop.clusterxx.views.*;
-
-import edu.upc.prop.clusterxx.views.CreateFrequency;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -45,8 +45,11 @@ public class CtrlPresentacio {
     // ALFABETS
 
     public static void Afegir_Alfabet(String nomA, HashSet<Character> h) {
-        cd.Afegir_Alfabet(nomA, h);
-        // String s = e.Ja_Existeix(nomA);
+       try{
+           cd.Afegir_Alfabet(nomA, h);
+       }catch (ExisteixID_Exception e){
+           // String s = e.Ja_Existeix(nomA);
+       }
     }
 
     public static void Esborrar_Alfabet(String nomA) {
@@ -100,7 +103,11 @@ public class CtrlPresentacio {
     // GRIDS
 
     public static void Afegir_Grid(int ID, boolean[][] b) {
-        cd.Afegir_Grid(ID, b);
+        try{
+            cd.Afegir_Grid(ID, b);
+        }catch (ExisteixID_Exception e){
+            String s = e.Ja_Existeix(String.valueOf(ID));
+        }
         // String s = e.Ja_Existeix(String.valueOf(ID));
         // cridar a la vista d'errors amb el missatge s //en la vista de errores ya
         // el arnau hace lo que sea
@@ -125,6 +132,8 @@ public class CtrlPresentacio {
             // llamar a errorview
         } catch (IOException io) {
             String s = io.getMessage() + "no existeix el path" + path;
+        }catch (ExisteixID_Exception e){
+            String s = e.Ja_Existeix(nomF);
         }
     }
 
@@ -136,6 +145,8 @@ public class CtrlPresentacio {
             s = c1.getMessage() + nomA;
         } catch (IOException io) {
             String s = io.getMessage() + "no existeix el path" + path;
+        }catch (ExisteixID_Exception e){
+            String s = e.Ja_Existeix(nomF);
         }
     }
 
@@ -151,6 +162,8 @@ public class CtrlPresentacio {
             cd.Afegir_FreqMa(nomA, nomF, text, 1);
         } catch (CaractersfromFreq_notInAlph_Exception c1) {
             String s = c1.getMessage() + nomA;
+        }catch (ExisteixID_Exception e){
+            String s = e.Ja_Existeix(nomF);
         }
     }
 
@@ -159,6 +172,8 @@ public class CtrlPresentacio {
             cd.Afegir_FreqMa(nomA, nomF, text, 0);
         } catch (CaractersfromFreq_notInAlph_Exception c1) {
             String s = c1.getMessage() + nomA;
+        }catch (ExisteixID_Exception e){
+            String s = e.Ja_Existeix(nomF);
         }
     }
 
@@ -226,7 +241,12 @@ public class CtrlPresentacio {
     // TECLATS
 
     public static void Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
-        cd.Afegir_Teclat(nomT, nomA, nomF, idG); // hay que asegurarse que la freq es del alfabeto porque no se comprueba
+        try{
+            cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+        }catch (ExisteixID_Exception e){
+           String s = e.Ja_Existeix(nomT);
+        }
+         // hay que asegurarse que la freq es del alfabeto porque no se comprueba
     }
 
     public static void Esborrar_Teclat(String nomT) {

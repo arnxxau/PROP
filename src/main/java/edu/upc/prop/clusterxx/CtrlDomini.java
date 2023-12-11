@@ -1,5 +1,7 @@
 package edu.upc.prop.clusterxx;
 
+import edu.upc.prop.clusterxx.exceptions.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,8 +18,11 @@ public class CtrlDomini {
     CtrlPersistencia persistencia = new CtrlPersistencia();
     public CtrlDomini(){}
 
-    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
-        if (KB.containsKey(nomT)) return -1;
+    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) throws ExisteixID_Exception{
+        if (KB.containsKey(nomT)){
+            throw new ExisteixID_Exception();
+            //return -1;
+        }
         Alphabet a = AP.get(nomA);
         if (a == null) return -2;
         Frequency f = a.getFrequencies().get(nomF);
@@ -96,19 +101,20 @@ public class CtrlDomini {
     public Vector<String> Noms_Teclats(){
        return new Vector<>(KB.keySet());
     }
-    public void Afegir_Alfabet(String s, HashSet<Character> h){
+    public void Afegir_Alfabet(String s, HashSet<Character> h)throws ExisteixID_Exception{
         //h.add(' ');
+        if(AP.containsKey(s))throw new ExisteixID_Exception();
         Alphabet a = new Alphabet(s,h);
         AP.put(s,a);
     }
 
     //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
-    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException,ExisteixID_Exception { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
         try{
 
-            /*if(FQ.containsKey(nomF))return 1;//ja existeix la freq
+            if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1;ja existeix la freq
 
-            if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
+           // if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
 
             Alphabet a = AP.get(nomA);
 
@@ -181,9 +187,9 @@ public class CtrlDomini {
         return lines.toArray(new String[0]);
     }
 
-    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception{
-       /* if(FQ.containsKey(nomF))return 1; //la freq ja existeix
-        if(!AP.containsKey(nomA))return 2; //l'alfabet no existeix*/
+    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception,ExisteixID_Exception{
+        if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1; la freq ja existeix
+       // if(!AP.containsKey(nomA))return 2; l'alfabet no existeix
 
         String[] text = new String[vs.size()];
         for(int i=0; i < text.length; i++){
@@ -336,8 +342,8 @@ public class CtrlDomini {
         File f = new File(path);
         return f.exists();
     }
-    public int Afegir_Grid (int x, boolean[][] pos) {
-        if (GD.containsKey(x)) return -1;
+    public int Afegir_Grid (int x, boolean[][] pos)throws ExisteixID_Exception{
+        if (GD.containsKey(x))throw new ExisteixID_Exception(); //return -1;
         Grid g = new Grid(x,pos);
         GD.put(x,g);
         return 0;
