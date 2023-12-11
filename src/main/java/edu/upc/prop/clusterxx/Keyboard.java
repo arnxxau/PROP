@@ -29,6 +29,12 @@ public class Keyboard {
     @Expose
     private Grid Grid;
 
+    @Expose
+    final static int QAPAlgorithm = 0;
+
+    @Expose
+    final static int LocalSearchAlgorithm = 1;
+
 
     /**
      * Constructor de la classe Keyboard.
@@ -39,14 +45,15 @@ public class Keyboard {
      * @param grid      La graella que defineix les posicions vàlides per al teclat.
      * @throws IllegalArgumentException Si la freqüència no pertany a l'alfabet o si el grid no té prou posicions vàlides.
      */
-    public Keyboard(String nom, Alphabet alphabet, Frequency frequency, Grid grid){
+    public Keyboard(String nom, Alphabet alphabet, Frequency frequency, Grid grid, int mode){
         this.nom = nom;
         this.dataCreacio = Instant.now();
         this.ultimaModificacio = Instant.now();
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
-        this.distribucio = QAP.QAPAlgorithm(alphabet,frequency,grid); // CALCULAR DISTRIBUCIÓ AMB QAP
+        if(mode == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(alphabet,frequency,grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
+        else{this.distribucio = LocalSearch.HillClimbing(alphabet,frequency,grid);}
     }
 
     /**
