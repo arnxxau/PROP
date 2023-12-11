@@ -1,27 +1,29 @@
 package edu.upc.prop.clusterxx.views;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LiveEditor extends JFrame {
+public class LiveEditorDialog extends JDialog {
 
-    JEditorPane editorPane = new JEditorPane();
+    private JEditorPane editorPane;
+    private String content;
 
-    DialogCallback dc;
-    public LiveEditor(DialogCallback dc) {
-        // Set up the main frame
-        setTitle("Live editor");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public LiveEditorDialog(Frame f, String s) {
+        // Set up the dialog
+        super(f, "Live editor", true);
         setSize(300, 300);
+        setLocationRelativeTo(null);
+
+        editorPane = new JEditorPane(JTextComponent.DEFAULT_KEYMAP, s);
+        content = s;
 
         // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel tablePanel = createTablePanel();
         JPanel buttonPanel = createButtonPanel();
-
-        this.dc = dc;
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -29,12 +31,9 @@ public class LiveEditor extends JFrame {
         mainPanel.add(tablePanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add the main panel to the frame
+        // Add the main panel to the dialog
         add(mainPanel);
-
-        // Make the frame visible
-        setVisible(true);
-        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private JPanel createTablePanel() {
@@ -53,13 +52,10 @@ public class LiveEditor extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Replace this logic with your desired action
-                String content = getContent();
+                content = getContent();
 
-                dc.onDialogClosed(content);
-
-                setVisible(false);
-
-                System.out.println("Content in the editor:\n" + content);
+                // Close the dialog
+                dispose();
             }
         });
 
@@ -73,13 +69,17 @@ public class LiveEditor extends JFrame {
         return editorPane.getText();
     }
 
+    public String showDialogAndGetContent() {
+        // Make the dialog visible
+        setVisible(true);
+
+        // Return the content after the dialog is closed
+        return content;
+    }
+
     private JButton createLoadSaveButton(String text) {
         JButton button = new JButton(text);
         button.setPreferredSize(new Dimension(80, 30));
         return button;
     }
-
-    // public static void main(String[] args) {
-    // SwingUtilities.invokeLater(LiveEditor::new);
-    // }
 }

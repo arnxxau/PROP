@@ -6,21 +6,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class CreateFrequency extends JFrame implements DialogCallback {
+public class EditFrequency extends JFrame implements DialogCallback {
 
     String content;
 
-    public CreateFrequency() {
+    public EditFrequency() {
         // Set up the main frame
         setTitle("Frequency creator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(330, 280);
+        setSize(300, 200);
 
         // Create panels for better organization
-        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        JPanel mainPanel = new JPanel(new GridLayout(3, 1));
         JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        JPanel radioBtnPanel = new JPanel(new GridLayout(1, 3));
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonPanel = new JPanel(new BorderLayout());
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -31,7 +30,13 @@ public class CreateFrequency extends JFrame implements DialogCallback {
         formPanel.add(nameField);
 
         formPanel.add(new JLabel("Alphabet: "));
-        Vector<Object> alphabetElements = CtrlPresentacio.getAlphabets();
+        Vector<Object> alphabetElements = new Vector<>();
+        alphabetElements.add(1);
+        alphabetElements.add(2);
+        alphabetElements.add("geeks");
+        alphabetElements.add("forGeeks");
+        alphabetElements.add(3);
+        alphabetElements = CtrlPresentacio.getAlphabets();
         JComboBox<Object> alphabetComboBox = new JComboBox<>(alphabetElements);
         formPanel.add(alphabetComboBox);
 
@@ -44,30 +49,41 @@ public class CreateFrequency extends JFrame implements DialogCallback {
         radioButtonGroup.add(rawFileRadioButton);
         radioButtonGroup.add(textFileRadioButton);
 
+        JPanel radioBtnPanel = new JPanel(new GridLayout(1, 3));
         radioBtnPanel.add(liveTextRadioButton);
         radioBtnPanel.add(rawFileRadioButton);
         radioBtnPanel.add(textFileRadioButton);
 
-        mainPanel.add(formPanel, BorderLayout.NORTH);
-        mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
+        mainPanel.add(formPanel);
+        mainPanel.add(radioBtnPanel);
 
         // Button Panel
+        JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
+
             if (liveTextRadioButton.isSelected()) {
+                //LiveEditor le = new LiveEditor(this);
                 LiveEditorDialog led = new LiveEditorDialog(this, content);
                 System.out.println(led.showDialogAndGetContent());
-            } else if (rawFileRadioButton.isSelected() || textFileRadioButton.isSelected()) {
+            }
+            else if (rawFileRadioButton.isSelected()) {
                 DirectorySelector ds = new DirectorySelector();
                 String url = ds.selectDirectory();
                 System.out.println(url);
-            } else {
+            }
+            else if (textFileRadioButton.isSelected()) {
+                DirectorySelector ds = new DirectorySelector();
+                String url = ds.selectDirectory();
+            }
+            else {
                 JOptionPane.showMessageDialog(null, "Please select an extraction mode!");
             }
         });
-        buttonPanel.add(createButton);
+        saveLoadPanel.add(createButton);
+        buttonPanel.add(saveLoadPanel, BorderLayout.EAST);
 
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(buttonPanel);
 
         // Add the main panel to the frame
         add(mainPanel);
@@ -82,8 +98,9 @@ public class CreateFrequency extends JFrame implements DialogCallback {
         return button;
     }
 
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateFrequency::new);
+        SwingUtilities.invokeLater(EditFrequency::new);
     }
 
     @Override

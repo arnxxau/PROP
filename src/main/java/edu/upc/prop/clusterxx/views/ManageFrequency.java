@@ -1,5 +1,7 @@
 package edu.upc.prop.clusterxx.views;
 
+import edu.upc.prop.clusterxx.CtrlPresentacio;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

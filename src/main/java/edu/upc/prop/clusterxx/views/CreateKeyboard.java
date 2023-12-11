@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class CreateFrequency extends JFrame implements DialogCallback {
+public class CreateKeyboard extends JFrame implements DialogCallback {
 
     String content;
 
-    public CreateFrequency() {
+    public CreateKeyboard() {
         // Set up the main frame
-        setTitle("Frequency creator");
+        setTitle("Keyboard creator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(330, 280);
 
@@ -83,7 +83,7 @@ public class CreateFrequency extends JFrame implements DialogCallback {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateFrequency::new);
+        SwingUtilities.invokeLater(CreateKeyboard::new);
     }
 
     @Override

@@ -588,7 +588,7 @@ public class Driver_FP {
         return s1;
     }
 
-    private HashSet<Character> Demanar_chars_Alfabet() {
+    private HashSet<Character>  Demanar_chars_Alfabet() {
         String s2="";
         HashSet<Character> car = new HashSet<>();
         try{

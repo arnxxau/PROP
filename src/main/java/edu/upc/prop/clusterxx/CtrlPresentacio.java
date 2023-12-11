@@ -2,6 +2,8 @@ package edu.upc.prop.clusterxx;
 
 import edu.upc.prop.clusterxx.views.*;
 
+import edu.upc.prop.clusterxx.views.CreateFrequency;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Vector;
@@ -27,9 +29,9 @@ public class CtrlPresentacio {
         ErrorView ev = new ErrorView("Error");
     }
 
-    public static void LiveEditor() {
-        LiveEditor le = new LiveEditor(new CreateFrequency());
-    }
+    //public static void LiveEditor() {
+    //    LiveEditor le = new LiveEditor(new CreateFrequency());
+   // }
 
     public static void MainView() {
         MainView mv = new MainView();
