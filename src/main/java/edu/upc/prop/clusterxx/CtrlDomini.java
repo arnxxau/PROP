@@ -182,6 +182,23 @@ public class CtrlDomini {
         AP.put(s2,a);
         return 0;
     }
+
+    public String[][] Consultar_Freq(){
+        String[][] res = new String[FQ.size()][3];
+        int idx=0;
+        for (Map.Entry<String, Frequency> entry : FQ.entrySet()) {
+            String clave = entry.getKey();
+            Frequency valor = entry.getValue();
+            String[] a = new String[3];
+            a[0]=clave;
+            a[1]=valor.getAlphabet().getName();
+            a[2]= String.valueOf(valor.getMode());
+
+            res[idx] = a;
+            idx += 1;
+        }
+        return res;
+    }
     public Vector<Vector<String>> Consultar_Alfabets(){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Alphabet valor : AP.values()) {

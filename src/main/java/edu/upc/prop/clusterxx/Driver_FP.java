@@ -619,6 +619,10 @@ public class Driver_FP {
         return res;
     }
 
+    private String[][] Demanar_full_Freq(){
+        return cd.Consultar_Freq();
+    }
+
     private HashSet<Character> Demanar_chars_Alfabet() {
         String s2="";
         HashSet<Character> car = new HashSet<>();
