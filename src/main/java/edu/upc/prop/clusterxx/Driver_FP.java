@@ -3,6 +3,7 @@ package edu.upc.prop.clusterxx;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.SimpleTimeZone;
 import java.util.Vector;
 
 public class Driver_FP {
@@ -586,6 +587,35 @@ public class Driver_FP {
             System.out.println(e.getMessage());
         }
         return s1;
+    }
+
+    //per a futur presentacio
+    private String[][] Demanar_full_Alfabet() {
+        Vector<Vector<String>> inp = cd.Consultar_Alfabets();
+        String[][] res = new String[inp.size()][3];
+        for(int i=0; i<inp.size(); i++) {
+            String[] a = new String[3];
+            a[0] = inp.get(i).get(0);
+
+            StringBuilder resultant = new StringBuilder();
+
+            String entrant = inp.get(i).get(1);
+
+            for (int l = 0; l < entrant.length(); l++) {
+                resultant.append(entrant.charAt(l)).append(" ");
+            }
+
+            // Eliminar el espacio adicional al final, si es necesario
+            if (resultant.length() > 0) {
+                resultant.deleteCharAt(resultant.length() - 1);
+            }
+
+            a[1] = resultant.toString();
+            a[2] = String.valueOf(entrant.length());
+
+            res[i] = a;
+        }
+        return res;
     }
 
     private HashSet<Character> Demanar_chars_Alfabet() {
