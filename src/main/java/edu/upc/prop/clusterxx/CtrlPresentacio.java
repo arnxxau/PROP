@@ -177,6 +177,10 @@ public class CtrlPresentacio {
         return cd.NomsFreqs_Alfabet(nomA);
     }
 
+    public static String[][] Dades_Freqs(){
+        return cd.datosFreqs();
+    }
+
     // TECLATS
 
     public static void Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
