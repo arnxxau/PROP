@@ -141,12 +141,30 @@ public class CtrlDomini {
         for(Frequency f : FQ.values()){
             ss[i][0] = f.getName();
             ss[i][1] = f.getAlphabet().getName();
-            if(f.getMode()==1)ss[i][2] = "live mode";//escrito a man
+            if(f.getMode()==1)ss[i][2] = "text mode";//escrito a man
             else if(f.getMode() == 0) ss[i][2]= "raw mode";
             i++;
         }
         return ss;
     }
+
+    public String[][] Consultar_Freq(){
+        String[][] res = new String[FQ.size()][3];
+        int idx=0;
+        for (Map.Entry<String, Frequency> entry : FQ.entrySet()) {
+            String clave = entry.getKey();
+            Frequency valor = entry.getValue();
+            String[] a = new String[3];
+            a[0]=clave;
+            a[1]=valor.getAlphabet().getName();
+            a[2]= String.valueOf(valor.getMode());
+
+            res[idx] = a;
+            idx += 1;
+        }
+        return res;
+    }
+
     private String[] llegir_archiu_path(String path){
 
         List<String> lines = new ArrayList<>();

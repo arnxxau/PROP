@@ -6,15 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class CreateFrequency extends JFrame implements DialogCallback {
+public class CreateFrequency extends JDialog {
 
-    String content;
+    private String content;
 
-    public CreateFrequency() {
-        // Set up the main frame
-        setTitle("Frequency creator");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public CreateFrequency(JFrame parent) {
+        super(parent, "Frequency creator", true);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(330, 280);
+        setLocationRelativeTo(parent);
 
         // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
@@ -55,8 +55,14 @@ public class CreateFrequency extends JFrame implements DialogCallback {
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
             if (liveTextRadioButton.isSelected()) {
-                LiveEditorDialog led = new LiveEditorDialog(this, content);
-                System.out.println(led.showDialogAndGetContent());
+                LiveEditorDialog led = new LiveEditorDialog(parent, content);
+                content = led.showDialogAndGetContent();
+                CtrlPresentacio.AfegirTextFreqMa(alphabetComboBox.getSelectedItem().toString(), nameField.getText(), content);
+
+
+                System.out.println(content);
+
+                dispose();
             } else if (rawFileRadioButton.isSelected() || textFileRadioButton.isSelected()) {
                 DirectorySelector ds = new DirectorySelector();
                 String url = ds.selectDirectory();
@@ -69,25 +75,23 @@ public class CreateFrequency extends JFrame implements DialogCallback {
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add the main panel to the frame
+        // Add the main panel to the dialog
         add(mainPanel);
 
-        // Make the frame visible
+        // Make the dialog visible
+        pack();
         setVisible(true);
-        setLocationRelativeTo(null);
     }
 
     private JButton loadSaveButton(String text) {
-        JButton button = new JButton(text);
-        return button;
+        return new JButton(text);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateFrequency::new);
-    }
-
-    @Override
-    public void onDialogClosed(String content) {
-        System.out.println(content);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
+            new CreateFrequency(frame);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        });
     }
 }

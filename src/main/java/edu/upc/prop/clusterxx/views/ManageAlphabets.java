@@ -4,11 +4,14 @@ import edu.upc.prop.clusterxx.CtrlPresentacio;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Vector;
 
-public class ManageFrequency extends JFrame {
+public class ManageAlphabets extends JFrame {
 
     private JTable table;
     private JButton modifyButton;
@@ -18,12 +21,11 @@ public class ManageFrequency extends JFrame {
     private JPanel mainPanel;
     private JPanel tablePanel;
     private JPanel buttonPanel;
-    private JPanel saveLoadPanel;
     private JScrollPane scrollPane;
 
-    public ManageFrequency() {
+    public ManageAlphabets() {
         // Set up the main frame
-        setTitle("Frequency manager");
+        setTitle("Alphabet manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -31,20 +33,17 @@ public class ManageFrequency extends JFrame {
         // Create panels for better organization
         mainPanel = new JPanel(new BorderLayout());
         tablePanel = new JPanel(new BorderLayout());
-        buttonPanel = new JPanel(new BorderLayout());
-        saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        String[][] data = {{"101", "Amit", "670000"},
-                {"102", "Jai", "780000"},
-                {"101", "Sachin", "700000"}};
-        String[] column = {"NAME", "ALPHABET", "MODE"};
+        String[] column = {"NAME", "CHARS", "SIZE"};
 
-        table = new JTable(CtrlPresentacio.Demanar_full_Freq(), column);
+        table = new JTable(CtrlPresentacio.Demanar_full_Alfabet(), column);
 
         scrollPane = new JScrollPane(table);
 
         tablePanel.add(scrollPane);
 
+        buttonPanel = new JPanel(new BorderLayout());
+        JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         modifyButton = new JButton("Modify");
         createButton = new JButton("Create");
         deleteButton = new JButton("Delete");
@@ -66,11 +65,10 @@ public class ManageFrequency extends JFrame {
 
         createButton.addActionListener(e -> {
             // Replace this with the actual logic for the button
-            CreateFrequency cf = new CreateFrequency(this);
-
+            CreateAlphabet ca = new CreateAlphabet(this);
 
             // Update the table model with the new data
-            DefaultTableModel model = new DefaultTableModel(CtrlPresentacio.Demanar_full_Freq(), column);
+            DefaultTableModel model = new DefaultTableModel(CtrlPresentacio.Demanar_full_Alfabet(), column);
             table.setModel(model);
 
             // Notify the table that the data has changed
@@ -95,13 +93,12 @@ public class ManageFrequency extends JFrame {
             }
         });
 
-        // Add buttons to the saveLoadPanel
+        // Add buttons to the panel
         saveLoadPanel.add(modifyButton);
         saveLoadPanel.add(createButton);
         saveLoadPanel.add(deleteButton);
         saveLoadPanel.add(backButton);
 
-        // Add saveLoadPanel to buttonPanel
         buttonPanel.add(saveLoadPanel, BorderLayout.EAST);
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -118,7 +115,17 @@ public class ManageFrequency extends JFrame {
         setLocationRelativeTo(null);
     }
 
+
+    private String[][] getAlphabetNames() {
+
+        String[][] data = {{"101"},};
+
+        return data;
+    }
+
+
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ManageFrequency::new);
+        SwingUtilities.invokeLater(ManageAlphabets::new);
     }
 }

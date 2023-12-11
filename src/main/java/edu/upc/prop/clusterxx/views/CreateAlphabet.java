@@ -7,21 +7,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
-import java.util.Objects;
-import java.util.Vector;
 
-public class CreateAlphabet extends JFrame {
+public class CreateAlphabet extends JDialog {
 
-    HashSet<Character> c;
-    String content = "";
+    private HashSet<Character> c;
+    private String content = "";
 
-    public CreateAlphabet() {
-        // Set up the main frame
-        setTitle("Alphabet creator");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public CreateAlphabet(Frame parent) {
+        super(parent, "Alphabet creator", true);
         setSize(200, 180);
+        setLocationRelativeTo(parent);
 
-        // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         JPanel radioBtnPanel = new JPanel(new GridLayout(1, 3));
@@ -29,7 +25,6 @@ public class CreateAlphabet extends JFrame {
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Form Panel
         JTextField nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(80, 30));
         formPanel.add(new JLabel("Name: "));
@@ -41,7 +36,7 @@ public class CreateAlphabet extends JFrame {
         JButton selectGridButton = loadSaveButton("Type the characters");
 
         selectGridButton.addActionListener(e -> {
-            LiveEditorDialog led = new LiveEditorDialog(this, content);
+            LiveEditorDialog led = new LiveEditorDialog(parent, content);
             content = led.showDialogAndGetContent();
 
             c = new HashSet<>();
@@ -53,43 +48,44 @@ public class CreateAlphabet extends JFrame {
             System.out.println(c);
         });
 
-        // Button Panel
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
 
-            if (nameField.getText().isEmpty())
-                JOptionPane.showMessageDialog(this, "Name missing.", "Alert", JOptionPane.WARNING_MESSAGE);
-
-            else if (c.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "There are no characters! Please type some characters in the live editor.", "Alert", JOptionPane.WARNING_MESSAGE);
+            if (nameField.getText().isEmpty()) {
+                showMessage("Name missing.", "Alert", JOptionPane.WARNING_MESSAGE);
+            } else if (c.isEmpty()) {
+                showMessage("There are no characters! Please type some characters in the live editor.", "Alert", JOptionPane.WARNING_MESSAGE);
+            } else {
+                CtrlPresentacio.Afegir_Alfabet(nameField.getText(), c);
+                dispose(); // Close the dialog after successful creation
             }
-
-            // Your logic for creating the grid goes here
         });
+
         saveLoadPanel.add(createButton);
 
         buttonPanel.add(selectGridButton, BorderLayout.NORTH);
         buttonPanel.add(saveLoadPanel, BorderLayout.SOUTH);
 
-
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add the main panel to the frame
         add(mainPanel);
 
-        // Make the frame visible
         setVisible(true);
-        setLocationRelativeTo(null);
     }
 
     private JButton loadSaveButton(String text) {
-        JButton button = new JButton(text);
-        return button;
+        return new JButton(text);
+    }
+
+    private void showMessage(String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(this, message, title, messageType);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateAlphabet::new);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
+            new CreateAlphabet(frame);
+        });
     }
-
 }

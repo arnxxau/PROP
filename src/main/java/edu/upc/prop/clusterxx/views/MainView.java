@@ -103,6 +103,9 @@ public class MainView extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Manage Alphabets Button Clicked");
+            ManageAlphabets ma = new ManageAlphabets();
+            setVisible(false);
+
             // Add specific action for Manage Alphabets button
         }
     }

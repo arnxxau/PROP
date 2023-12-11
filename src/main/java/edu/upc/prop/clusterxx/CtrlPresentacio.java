@@ -6,6 +6,7 @@ import edu.upc.prop.clusterxx.views.CreateFrequency;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 public class CtrlPresentacio {
@@ -17,9 +18,9 @@ public class CtrlPresentacio {
 
     // CRIDA A VISTES
 
-    public static void CreateFrequency() {
-        CreateFrequency cf = new CreateFrequency();
-    }
+    //public static void CreateFrequency() {
+    //    CreateFrequency cf = new CreateFrequency();
+    //}
 
     public static void DirectorySelector() {
         DirectorySelector ds = new DirectorySelector();
@@ -68,6 +69,34 @@ public class CtrlPresentacio {
         return cd.Noms_Alfabets();
     }
 
+    public static String[][] Demanar_full_Alfabet() {
+        Vector<Vector<String>> inp = cd.Consultar_Alfabets();
+        String[][] res = new String[inp.size()][3];
+        for(int i=0; i<inp.size(); i++) {
+            String[] a = new String[3];
+            a[0] = inp.get(i).get(0);
+
+            StringBuilder resultant = new StringBuilder();
+
+            String entrant = inp.get(i).get(1);
+
+            for (int l = 0; l < entrant.length(); l++) {
+                resultant.append(entrant.charAt(l)).append(" ");
+            }
+
+            // Eliminar el espacio adicional al final, si es necesario
+            if (resultant.length() > 0) {
+                resultant.deleteCharAt(resultant.length() - 1);
+            }
+
+            a[1] = resultant.toString();
+            a[2] = String.valueOf(entrant.length());
+
+            res[i] = a;
+        }
+        return res;
+    }
+
     // GRIDS
 
     public static void Afegir_Grid(int ID, boolean[][] b) {
@@ -110,8 +139,15 @@ public class CtrlPresentacio {
         }
     }
 
-    public static void AfegirTextFreqMa(String nomA, String nomF, Vector<String> text) {
+    public static void AfegirTextFreqMa(String nomA, String nomF, String liveText) {
         try {
+            Vector<String> text = new Vector<>();
+            StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+
+            while (tokenizer.hasMoreTokens()) {
+                text.add(tokenizer.nextToken());
+            }
+
             cd.Afegir_FreqMa(nomA, nomF, text, 1);
         } catch (CaractersfromFreq_notInAlph_Exception c1) {
             String s = c1.getMessage() + nomA;
@@ -181,6 +217,10 @@ public class CtrlPresentacio {
 
     public static String[][] Dades_Freqs(){
         return cd.datosFreqs();
+    }
+
+    public static String[][] Demanar_full_Freq(){
+        return cd.Consultar_Freq();
     }
 
     // TECLATS
