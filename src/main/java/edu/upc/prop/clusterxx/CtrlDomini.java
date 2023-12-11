@@ -135,6 +135,18 @@ public class CtrlDomini {
 
         return 0;
     }
+    public String[][] datosFreqs(){
+        String[][] ss = new String[FQ.size()][3];
+        int i=0;
+        for(Frequency f : FQ.values()){
+            ss[i][0] = f.getName();
+            ss[i][1] = f.getAlphabet().getName();
+            if(f.getMode()==1)ss[i][2] = "live mode";//escrito a man
+            else if(f.getMode() == 0) ss[i][2]= "raw mode";
+            i++;
+        }
+        return ss;
+    }
     private String[] llegir_archiu_path(String path){
 
         List<String> lines = new ArrayList<>();
