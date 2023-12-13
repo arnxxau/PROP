@@ -3,9 +3,9 @@ package edu.upc.prop.clusterxx.views;
 import javax.swing.*;
 import java.io.File;
 
-public class DirectorySelector extends JFrame {
+public class DirectorySelectorDialog extends JFrame {
 
-    public DirectorySelector() {
+    public DirectorySelectorDialog() {
         setLocationRelativeTo(null);
     }
 
@@ -26,6 +26,6 @@ public class DirectorySelector extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new DirectorySelector().selectDirectory());
+        SwingUtilities.invokeLater(() -> new DirectorySelectorDialog().selectDirectory());
     }
 }

@@ -6,15 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Vector;
 
-public class CreateGrid extends JFrame {
+public class CreateGrid extends JDialog {
 
-    public CreateGrid() {
-        // Set up the main frame
-        setTitle("Grid Creator");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JFrame parent;
+
+    boolean [][] pos = null;
+
+    public CreateGrid(JFrame parent) {
+        super(parent, "Grid Creator", true);
+        this.parent = parent;
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 300);
 
         // Create panels for better organization
@@ -25,10 +28,9 @@ public class CreateGrid extends JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Form Panel
-        JTextField nameField = new JTextField();
-        nameField.setPreferredSize(new Dimension(80, 30));
-        formPanel.add(new JLabel("Name: "));
-        formPanel.add(nameField);
+        JSpinner idSpinner = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        formPanel.add(new JLabel("ID: "));
+        formPanel.add(idSpinner);
 
         formPanel.add(new JLabel("Size: "));
 
@@ -44,8 +46,8 @@ public class CreateGrid extends JFrame {
         spinnerPanel.add(spinnerY);
         formPanel.add(spinnerPanel);
 
-        Vector<Object> alphabetElements = CtrlPresentacio.getAlphabets();
-        JComboBox<Object> alphabetComboBox = new JComboBox<>(alphabetElements);
+        Vector<String> alphabetElements = CtrlPresentacio.getAlphabets();
+        JComboBox<String> alphabetComboBox = new JComboBox<>(alphabetElements);
         formPanel.add(new JLabel("Alphabet: "));
         formPanel.add(alphabetComboBox);
 
@@ -63,7 +65,11 @@ public class CreateGrid extends JFrame {
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
-            // Your logic for creating the grid goes here
+            if (pos == null) JOptionPane.showMessageDialog(this, "Select the positions!");
+            else {
+                CtrlPresentacio.Afegir_Grid((Integer) idSpinner.getValue(), pos);
+                dispose();
+            }
         });
         saveLoadPanel.add(createButton);
         buttonPanel.add(selectGridButton, BorderLayout.NORTH);
@@ -71,21 +77,24 @@ public class CreateGrid extends JFrame {
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add the main panel to the frame
+        // Add the main panel to the dialog
         add(mainPanel);
 
-        // Make the frame visible
+        // Make the dialog visible
+        setLocationRelativeTo(parent);
+        pack();
         setVisible(true);
-        setLocationRelativeTo(null);
     }
 
     private void onSelectPositions(SpinnerModel x, SpinnerModel y) {
         int currentValueX = ((SpinnerNumberModel) x).getNumber().intValue();
         int currentValueY = ((SpinnerNumberModel) y).getNumber().intValue();
-        PositionSelector dialog = new PositionSelector(this, currentValueX, currentValueY);
+        GridSelectorDialog dialog = new GridSelectorDialog(parent, currentValueX, currentValueY);
         dialog.setVisible(true);
 
-        List<Point> selectedPositions = dialog.getSelectedPositions();
+        boolean[][] selectedPositions = dialog.getSelectedPositions();
+
+        pos = selectedPositions;
 
         System.out.println("Selected Positions: " + selectedPositions);
     }
@@ -96,6 +105,13 @@ public class CreateGrid extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateGrid::new);
+        SwingUtilities.invokeLater(() -> {
+            JFrame parentFrame = new JFrame();
+            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            parentFrame.setSize(500, 320);
+            parentFrame.setVisible(true);
+
+            CreateGrid dialog = new CreateGrid(parentFrame);
+        });
     }
 }

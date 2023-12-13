@@ -4,18 +4,16 @@ import edu.upc.prop.clusterxx.CtrlPresentacio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 
-public class CreateAlphabet extends JDialog {
+public class AlphabetCreatorDialog extends JDialog {
 
     private HashSet<Character> c;
     private String content = "";
 
-    public CreateAlphabet(Frame parent) {
+    public AlphabetCreatorDialog(Frame parent) {
         super(parent, "Alphabet creator", true);
-        setSize(200, 180);
+        setSize(200, 200);
         setLocationRelativeTo(parent);
 
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
@@ -85,7 +83,7 @@ public class CreateAlphabet extends JDialog {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame();
-            new CreateAlphabet(frame);
+            new AlphabetCreatorDialog(frame);
         });
     }
 }

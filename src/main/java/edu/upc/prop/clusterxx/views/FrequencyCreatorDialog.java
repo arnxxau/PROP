@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class CreateFrequency extends JDialog {
+public class FrequencyCreatorDialog extends JDialog {
 
     private String content;
 
-    public CreateFrequency(JFrame parent) {
+    public FrequencyCreatorDialog(JFrame parent) {
         super(parent, "Frequency creator", true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(330, 280);
@@ -31,8 +31,8 @@ public class CreateFrequency extends JDialog {
         formPanel.add(nameField);
 
         formPanel.add(new JLabel("Alphabet: "));
-        Vector<Object> alphabetElements = CtrlPresentacio.getAlphabets();
-        JComboBox<Object> alphabetComboBox = new JComboBox<>(alphabetElements);
+        Vector<String> alphabetElements = CtrlPresentacio.getAlphabets();
+        JComboBox<String> alphabetComboBox = new JComboBox<>(alphabetElements);
         formPanel.add(alphabetComboBox);
 
         // Radio Buttons
@@ -64,7 +64,7 @@ public class CreateFrequency extends JDialog {
 
                 dispose();
             } else if (rawFileRadioButton.isSelected() || textFileRadioButton.isSelected()) {
-                DirectorySelector ds = new DirectorySelector();
+                DirectorySelectorDialog ds = new DirectorySelectorDialog();
                 String url = ds.selectDirectory();
                 System.out.println(url);
             } else {
@@ -90,7 +90,7 @@ public class CreateFrequency extends JDialog {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame();
-            new CreateFrequency(frame);
+            new FrequencyCreatorDialog(frame);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         });
     }

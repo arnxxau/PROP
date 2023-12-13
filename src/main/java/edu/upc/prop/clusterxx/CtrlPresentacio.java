@@ -5,6 +5,7 @@ import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 import edu.upc.prop.clusterxx.views.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -23,7 +24,7 @@ public class CtrlPresentacio {
     //}
 
     public static void DirectorySelector() {
-        DirectorySelector ds = new DirectorySelector();
+        DirectorySelectorDialog ds = new DirectorySelectorDialog();
     }
 
     public static void ErrorView() {
@@ -38,9 +39,9 @@ public class CtrlPresentacio {
         MainView mv = new MainView();
     }
 
-    public static void ManageFrequency() {
-        ManageFrequency mf = new ManageFrequency();
-    }
+    //public static void ManageFrequency() {
+    //    ManageFrequency mf = new ManageFrequency();
+    //}
 
     // ALFABETS
 
@@ -68,8 +69,12 @@ public class CtrlPresentacio {
         return cd.Consultar_Alfabets();
     }
 
-    public static Vector<Object> getAlphabets() {
+    public static Vector<String> getAlphabets() {
         return cd.Noms_Alfabets();
+    }
+
+    public static Vector<String> getGrid() {
+        return cd.Noms_Grids();
     }
 
     public static String[][] Demanar_full_Alfabet() {
@@ -98,6 +103,14 @@ public class CtrlPresentacio {
             res[i] = a;
         }
         return res;
+    }
+
+    public static String[] Consultar_Alfabet(String nomA) {
+        return cd.Consultar_Alfabet(nomA);
+    }
+
+    public static String[] Consultar_Freq(String nomA) {
+        return cd.Consultar_Freq(nomA);
     }
 
     // GRIDS
@@ -230,8 +243,25 @@ public class CtrlPresentacio {
         return cd.NomsFreqs_Alfabet(nomA);
     }
 
+    public static Vector<String> Noms_Freqs() {
+        return cd.Noms_Freq();
+    }
+
+    public static Vector<String> Noms_Alfabet() {
+        return cd.Noms_Alfabets();
+    }
+
+    public static Vector<String> Noms_Grid() {
+        return cd.Noms_Grids();
+    }
+
+
     public static String[][] Dades_Freqs(){
         return cd.datosFreqs();
+    }
+
+    public static String FusionarFreqa(ArrayList<String> vs) {
+        return cd.fusionarFreqs(vs);
     }
 
     public static String[][] Demanar_full_Freq(){

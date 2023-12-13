@@ -8,25 +8,54 @@ import java.awt.event.ActionListener;
 public class MainView extends JFrame {
 
     public MainView() {
+
+        // Set to the system look and feel
+        try {
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // If system look and feel is not available, fall back to the default look and feel.
+        }
+
+        // Use modern fonts
+        setFont(new Font("Arial", Font.PLAIN, 14));
+
+
         // Set up the main frame
         setTitle("Main menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 250);
+        setSize(500, 500);
 
         // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel topPanel = createTopPanel();
+        JPanel topPanel = new JPanel();
         JPanel bottomPanel = createBottomPanel();
 
+        JTabbedPane tp = new JTabbedPane();
+        FrequencyManagerPanel mf = new FrequencyManagerPanel(this);
+        AlphabetManagerPanel ma = new AlphabetManagerPanel(this);
+        KeyboardManagerPanel mk = new KeyboardManagerPanel(this);
+        GridManagerPanel mg = new GridManagerPanel(this);
+        InformationPanel mm = new InformationPanel(this);
+        tp.addTab("keyboards", null, mk, "manage your keyboards here");
+        tp.addTab("grids", null, mg, "manage your grids here");
+        tp.addTab("alphabets", null, ma, "manage your alphabets here");
+        tp.addTab("frequencies", null, mf, "manage your frequencies here");
+        tp.addTab("info", null, mm, "load and save your program and get info");
+        topPanel.add(tp);
+
         // Add panels to the main panel
-        mainPanel.add(topPanel, BorderLayout.CENTER);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        mainPanel.add(tp, BorderLayout.CENTER);
+        //mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // Add the main panel to the frame
         add(mainPanel);
 
         // Make the frame visible
         setVisible(true);
+        //setVisible(true);
+
+
         setLocationRelativeTo(null);
 
     }
@@ -59,6 +88,7 @@ public class MainView extends JFrame {
         // Label Panel
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         labelPanel.add(new JLabel("Current loaded objects: "));
+        bottomPanel.add(labelPanel, BorderLayout.WEST);
         bottomPanel.add(labelPanel, BorderLayout.WEST);
 
         // Save and Load Panel
@@ -94,8 +124,8 @@ public class MainView extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Manage Frequency Button Clicked");
-            ManageFrequency mf = new ManageFrequency();
-            setVisible(false);
+            //ManageFrequency mf = new ManageFrequency();
+            //setVisible(false);
         }
     }
 
@@ -138,7 +168,7 @@ public class MainView extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Load Button Clicked");
-            DirectorySelector ds = new DirectorySelector();
+            DirectorySelectorDialog ds = new DirectorySelectorDialog();
             ds.selectDirectory();
         }
     }

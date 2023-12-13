@@ -4,12 +4,9 @@ import edu.upc.prop.clusterxx.CtrlPresentacio;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Vector;
 
 public class ManageAlphabets extends JFrame {
 
@@ -65,7 +62,7 @@ public class ManageAlphabets extends JFrame {
 
         createButton.addActionListener(e -> {
             // Replace this with the actual logic for the button
-            CreateAlphabet ca = new CreateAlphabet(this);
+            AlphabetCreatorDialog ca = new AlphabetCreatorDialog(this);
 
             // Update the table model with the new data
             DefaultTableModel model = new DefaultTableModel(CtrlPresentacio.Demanar_full_Alfabet(), column);

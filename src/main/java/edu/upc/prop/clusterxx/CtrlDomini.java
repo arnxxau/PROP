@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CtrlDomini {
@@ -243,13 +245,73 @@ public class CtrlDomini {
         }
         return vvs;
     }
-    public Vector<Object> Noms_Alfabets(){
-        Vector<Object> vs = new Vector<>();
+
+    public String[] Consultar_Alfabet(String nomA){
+
+        Alphabet a = AP.get(nomA);
+
+        String [] s = new String[5];
+
+        s[0] = a.getName();
+        s[1] = "";
+        for (String f :  a.getFrequencies().keySet()) {
+            s[1] += f + " ";
+        }
+        s[2] = "";
+        for (Character f :  a.getCharacters()) {
+            s[2] += f + " ";
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+
+
+        s[3] = formatter.format(a.getLastMod());
+        s[4] = formatter.format(a.getCrDate());
+
+        return s;
+    }
+
+    public String[] Consultar_Freq(String nomF){
+
+        Frequency f = FQ.get(nomF);
+
+        String [] s = new String[5];
+
+        s[0] = f.getName();
+        s[1] = f.getAlphabet().getName();
+
+        int mode = f.getMode();
+        if (mode == 0) s[2] = "raw";
+        else if (mode == 1) s[2] = "text";
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+
+        s[3] = formatter.format(f.getLastModifiedTime());
+        s[4] = formatter.format(f.getCreationDate());
+
+        return s;
+    }
+
+
+    public Vector<String> Noms_Alfabets(){
+        Vector<String> vs = new Vector<>();
         for (String valor : AP.keySet()) {
             vs.add(valor);
         }
         return vs;
     }
+
+    public Vector<String> Noms_Grids(){
+        Vector<String> vs = new Vector<>();
+        for (Integer valor : GD.keySet()) {
+            vs.add(valor.toString());
+        }
+        return vs;
+    }
+
     public Vector<Vector<String>> Consultar_Freqs(String nomA){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Frequency valor : FQ.values()) {
@@ -280,10 +342,21 @@ public class CtrlDomini {
         return vvs;
     }
 
+
+
     public Vector<String> NomsFreqs_Alfabet(String nomA){
         Vector<String> vs = new Vector<>();
         String nom;
         for(String s : AP.get(nomA).getFrequencies().keySet()){
+            vs.add(s);
+        }
+        return vs;
+    }
+
+    public Vector<String> Noms_Freq(){
+        Vector<String> vs = new Vector<>();
+        String nom;
+        for(String s : FQ.keySet()){
             vs.add(s);
         }
         return vs;
