@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
+import static edu.upc.prop.clusterxx.Keyboard.*;
+
 public class Driver_FP {
     InOutPlus ioPlus = new InOutPlus();
 
@@ -176,7 +178,7 @@ public class Driver_FP {
                                 if (nomF == null) ioPlus.print("has d'indicar com a mínim una freqüència");
                                 llistar_grids(cd.Consultar_Grids());
                                 idG = Demanar_ID("Graella");
-                                ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+                                ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG, LocalSearchAlgorithm);
                                 switch (ret) {
                                     case -1:
                                         ioPlus.print("El teclat " + nomT + " ja existeix");
@@ -586,6 +588,40 @@ public class Driver_FP {
             System.out.println(e.getMessage());
         }
         return s1;
+    }
+
+    //per a futur presentacio
+
+    private String[][] Demanar_full_Alfabet() {
+        Vector<Vector<String>> inp = cd.Consultar_Alfabets();
+        String[][] res = new String[inp.size()][3];
+        for(int i=0; i<inp.size(); i++) {
+            String[] a = new String[3];
+            a[0] = inp.get(i).get(0);
+
+            StringBuilder resultant = new StringBuilder();
+
+            String entrant = inp.get(i).get(1);
+
+            for (int l = 0; l < entrant.length(); l++) {
+                resultant.append(entrant.charAt(l)).append(" ");
+            }
+
+            // Eliminar el espacio adicional al final, si es necesario
+            if (resultant.length() > 0) {
+                resultant.deleteCharAt(resultant.length() - 1);
+            }
+
+            a[1] = resultant.toString();
+            a[2] = String.valueOf(entrant.length());
+
+            res[i] = a;
+        }
+        return res;
+    }
+
+    private String[][] Demanar_full_Freq(){
+        return cd.Consultar_Freq();
     }
 
     private HashSet<Character> Demanar_chars_Alfabet() {
