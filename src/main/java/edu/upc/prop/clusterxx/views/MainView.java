@@ -18,13 +18,16 @@ public class MainView extends JFrame {
     public MainView() {
         ImageIcon imgicon = new ImageIcon("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/views/logo.png");
         setIconImage(imgicon.getImage());
+        setName("Distributor");
 
 
         // Set to the system look and feel
         try {
+            //
             //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
             //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
+            System.out.println(e);
             // If system look and feel is not available, fall back to the default look and feel.
         }
 

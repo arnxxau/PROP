@@ -59,7 +59,19 @@ public class AlphabetManagerPanel extends JPanel {
             AlphabetCreatorDialog cf = new AlphabetCreatorDialog(parent);
             updateTab();
         });
-        deleteButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Delete button clicked"));
+        deleteButton.addActionListener(e -> {
+
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select an alphabet!");
+            } else {
+                int confirmLoad = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this component?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirmLoad == JOptionPane.YES_OPTION) {
+                    CtrlPresentacio.Esborrar_Alfabet(list.getSelectedValue());
+                    updateTab();
+                }
+            }
+
+        });
         propertiesButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Select an alphabet!");

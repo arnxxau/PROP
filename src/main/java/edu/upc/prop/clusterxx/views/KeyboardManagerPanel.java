@@ -80,12 +80,18 @@ public class KeyboardManagerPanel extends JPanel {
             updateTab();
         });
 
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Replace this with the actual logic for the button
-                JOptionPane.showMessageDialog(null, "Delete button clicked");
+        deleteButton.addActionListener(e -> {
+
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select an alphabet!");
+            } else {
+                int confirmLoad = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this component?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirmLoad == JOptionPane.YES_OPTION) {
+                    CtrlPresentacio.Esborrar_Teclat(list.getSelectedValue());
+                    updateTab();
+                }
             }
+
         });
 
         propertiesButton.addActionListener(e -> {

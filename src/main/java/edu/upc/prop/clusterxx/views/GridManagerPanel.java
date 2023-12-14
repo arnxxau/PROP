@@ -67,7 +67,21 @@ public class GridManagerPanel extends JPanel {
             GridCreatorDialog cf = new GridCreatorDialog(parent);
             updateTab();
         });
-        deleteButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Delete button clicked"));
+
+        deleteButton.addActionListener(e -> {
+
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select an alphabet!");
+            } else {
+                int confirmLoad = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this component?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirmLoad == JOptionPane.YES_OPTION) {
+                    CtrlPresentacio.Esborrar_Grid(Integer.parseInt(list.getSelectedValue()));
+                    updateTab();
+                }
+            }
+
+        });
+
         displayButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) JOptionPane.showMessageDialog(null, "Select a grid!");
             else {

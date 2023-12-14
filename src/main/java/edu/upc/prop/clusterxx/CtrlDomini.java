@@ -218,7 +218,10 @@ public class CtrlDomini {
     }
 
     public void Esborrar_Alfabet(String s){
-        for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
+        if (AP.get(s).getFrequencies() != null) { // safe delete
+            for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
+        }
+
         AP.remove(s);
     }
     public int CanviarNom_Alfabet(String s,String s2)throws ExisteixID_Exception{

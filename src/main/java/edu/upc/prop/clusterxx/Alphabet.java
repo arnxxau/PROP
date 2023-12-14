@@ -119,9 +119,12 @@ public class Alphabet {
      * @return Cert si la freqüència s'ha eliminat amb èxit, fals si no existeix.
      */
     public boolean deleteFrequency(Frequency frequencia) {
-        if (!frequencies.containsKey(frequencia.getName())) return false;
-        frequencies.remove(frequencia.getName());
-        return true;
+        if (frequencies != null) {
+            if (!frequencies.containsKey(frequencia.getName())) return false;
+            frequencies.remove(frequencia.getName());
+            return true;
+        }
+        return false;
     }
 
     // Getters

@@ -59,8 +59,20 @@ public class FrequencyManagerPanel extends JPanel {
             FrequencyCreatorDialog cf = new FrequencyCreatorDialog(parent);
             updateTab();
         });
-        deleteButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Delete button clicked"));
-        propertiesButton.addActionListener(e -> {
+
+        deleteButton.addActionListener(e -> {
+
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select an alphabet!");
+            } else {
+                int confirmLoad = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this component?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirmLoad == JOptionPane.YES_OPTION) {
+                    CtrlPresentacio.Esborrar_Freq(list.getSelectedValue());
+                    updateTab();
+                }
+            }
+
+        });        propertiesButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Select a frequency!");
             } else {
