@@ -51,9 +51,9 @@ public class Frequency {
     @Expose
     private String name;
     @Expose
-    private final Instant creationDate;
+    private final String creationDate;
     @Expose
-    private Instant lastModifiedTime;
+    private String lastModifiedTime;
     @Expose
     private Alphabet alphabet;
 
@@ -78,8 +78,8 @@ public class Frequency {
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
 
-        creationDate = Instant.now();
-        lastModifiedTime = Instant.now();
+        creationDate = Instant.now().toString();
+        lastModifiedTime = Instant.now().toString().toString();
     }
 
 
@@ -187,7 +187,7 @@ public class Frequency {
         freq = new HashMap<>();
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
-        lastModifiedTime = Instant.now();
+        lastModifiedTime = Instant.now().toString();
     }
     public void modifyFrequency(String[] lines, int mode) throws Exception {
         frequencyWeight = 0;
@@ -195,7 +195,7 @@ public class Frequency {
         this.mode = mode;
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
-        lastModifiedTime = Instant.now();
+        lastModifiedTime = Instant.now().toString();
     }
 
     /**
@@ -307,7 +307,7 @@ public class Frequency {
      *
      * @return La data de creació.
      */
-    public Instant getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
@@ -316,7 +316,7 @@ public class Frequency {
      *
      * @return El temps de l'última modificació.
      */
-    public Instant getLastModifiedTime() {
+    public String getLastModifiedTime() {
         return lastModifiedTime;
     }
 
@@ -402,7 +402,7 @@ public class Frequency {
      * @param lastModifiedTime El nou temps de l'última modificació.
      */
     public void setLastModifiedTime(Instant lastModifiedTime) {
-        this.lastModifiedTime = lastModifiedTime;
+        this.lastModifiedTime = lastModifiedTime.toString();
     }
 
     /**

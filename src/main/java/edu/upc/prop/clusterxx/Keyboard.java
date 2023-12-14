@@ -17,9 +17,9 @@ public class Keyboard {
     @Expose
     private String nom;
     @Expose
-    private Instant dataCreacio;
+    private String dataCreacio;
     @Expose
-    private Instant ultimaModificacio;
+    private String ultimaModificacio;
     @Expose
     private char[] distribucio;
     @Expose
@@ -43,8 +43,8 @@ public class Keyboard {
      */
     public Keyboard(String nom, Alphabet alphabet, Frequency frequency, Grid grid, int mode){
         this.nom = nom;
-        this.dataCreacio = Instant.now();
-        this.ultimaModificacio = Instant.now();
+        this.dataCreacio = Instant.now().toString();
+        this.ultimaModificacio = Instant.now().toString();
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
@@ -102,7 +102,7 @@ public class Keyboard {
      *
      * @return La data de creació.
      */
-    public Instant getCrDate() {
+    public String getCrDate() {
         return dataCreacio;
     }
 
@@ -111,7 +111,7 @@ public class Keyboard {
      *
      * @return La data de l'última modificació.
      */
-    public Instant getLastMod() {
+    public String getLastMod() {
         return ultimaModificacio;
     }
 
