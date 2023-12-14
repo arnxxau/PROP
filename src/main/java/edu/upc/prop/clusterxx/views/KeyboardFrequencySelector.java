@@ -7,12 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class FrequencySelector extends JDialog {
+public class KeyboardFrequencySelector extends JDialog {
 
     private Vector<String> stringVector;
     private ArrayList<String> selectedStrings;
 
-    public FrequencySelector(JFrame parent, Vector<String> stringVector) {
+    public KeyboardFrequencySelector(JFrame parent, Vector<String> stringVector) {
         super(parent, "String Selection", true);
         this.stringVector = stringVector;
         this.selectedStrings = new ArrayList<>();
@@ -85,7 +85,7 @@ public class FrequencySelector extends JDialog {
             stringVector.add("Option 2");
             stringVector.add("Option 3");
 
-            FrequencySelector dialog = new FrequencySelector(parentFrame, stringVector);
+            KeyboardFrequencySelector dialog = new KeyboardFrequencySelector(parentFrame, stringVector);
             ArrayList<String> selectedStrings = dialog.getSelectedStrings();
 
             System.out.println("Selected Strings:");

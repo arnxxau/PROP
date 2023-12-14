@@ -61,7 +61,7 @@ public class KeyboardCreatorDialog extends JDialog {
             if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create an alphabet!");
             else {
                 String name = alphabetComboBox.getSelectedItem().toString();
-                FrequencySelector fs = new FrequencySelector(parent, CtrlPresentacio.NomsFreqs_alfabet(name));
+                KeyboardFrequencySelector fs = new KeyboardFrequencySelector(parent, CtrlPresentacio.NomsFreqs_alfabet(name));
                 if (fs.getSelectedStrings().isEmpty()) JOptionPane.showMessageDialog(null, "You provided 0 frequencies so no fusion frequency was created.");
                 else {
                     fName = CtrlPresentacio.FusionarFreqa(fs.getSelectedStrings());

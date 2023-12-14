@@ -27,10 +27,6 @@ public class CtrlPresentacio {
         DirectorySelectorDialog ds = new DirectorySelectorDialog();
     }
 
-    public static void ErrorView() {
-        ErrorView ev = new ErrorView("Error");
-    }
-
     //public static void LiveEditor() {
     //    LiveEditor le = new LiveEditor(new CreateFrequency());
    // }
@@ -52,6 +48,15 @@ public class CtrlPresentacio {
            // String s = e.Ja_Existeix(nomA);
        }
     }
+
+    public static ArrayList<Pair> Obtenir_Reprentacio_Grid(int ID) {
+        return cd.Obtenir_Reprentacio_Grid(ID);
+    }
+
+    public static Pair Max_Grid(int ID) {
+        return cd.Max_Grid(ID);
+    }
+
 
     public static void Esborrar_Alfabet(String nomA) {
         cd.Esborrar_Alfabet(nomA);
@@ -279,6 +284,8 @@ public class CtrlPresentacio {
          // hay que asegurarse que la freq es del alfabeto porque no se comprueba
     }
 
+
+
     public static void Esborrar_Teclat(String nomT) {
         cd.Esborrar_Teclat(nomT); // hay que asegurarse que la freq es del alfabeto porque no se comprueba
     }
@@ -302,5 +309,26 @@ public class CtrlPresentacio {
 
     public static Vector<String> Noms_Teclats() {
         return cd.Noms_Teclats();
+    }
+
+    public static  String[] Obtenir_Informacio() {
+        return cd.Obtenir_Informacio();
+    }
+
+    public static  void Guardar_Dades() {
+         cd.Guardar_Dades();
+    }
+
+    public static  void Carregar_Dades() {
+        cd.Carregar_Dades();
+    }
+
+
+    public static String[] Consultar_Grid(Integer ID){
+        return cd.Consultar_Grid(ID);
+    }
+
+    public static String[] Consultar_Teclat(String nomT){
+        return cd.Consultar_Teclat(nomT);
     }
 }

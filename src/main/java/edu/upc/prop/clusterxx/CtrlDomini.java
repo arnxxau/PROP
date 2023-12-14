@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,6 +19,8 @@ public class CtrlDomini {
     HashMap<String,Keyboard> KB = new HashMap<>();
     HashMap<Integer,Grid> GD = new HashMap<>();
     CtrlPersistencia persistencia = new CtrlPersistencia();
+
+    Instant lastSaved = null;
     public CtrlDomini(){}
 
     public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) throws ExisteixID_Exception{
@@ -254,9 +257,12 @@ public class CtrlDomini {
 
         s[0] = a.getName();
         s[1] = "";
-        for (String f :  a.getFrequencies().keySet()) {
-            s[1] += f + " ";
+        if (a.getFrequencies() != null) {
+            for (String f :  a.getFrequencies().keySet()) {
+                s[1] += f + " ";
+            }
         }
+
         s[2] = "";
         for (Character f :  a.getCharacters()) {
             s[2] += f + " ";
@@ -291,6 +297,48 @@ public class CtrlDomini {
 
         s[3] = formatter.format(f.getLastModifiedTime());
         s[4] = formatter.format(f.getCreationDate());
+
+        return s;
+    }
+
+    public String[] Consultar_Teclat(String nomT){
+
+        Keyboard k = KB.get(nomT);
+
+        String [] s = new String[5];
+
+        s[0] = k.getName();
+        s[1] = k.getAlphabet().getName();
+
+        s[2] = k.getFrequency().getName();
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+
+        s[3] = formatter.format(k.getLastMod());
+        s[4] = formatter.format(k.getCrDate());
+        return s;
+    }
+
+    public String[] Consultar_Grid(Integer ID){
+
+        Grid f = GD.get(ID);
+
+        String [] s = new String[5];
+
+        s[0] = String.valueOf(f.getID());
+        s[1] = String.valueOf(f.getPositions().size());
+
+        Pair p = f.getMaxSize();
+
+        s[2] = p.getX() + " " + p.getY();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+
+        s[3] = "formatter.format(f.getLastModifiedTime())";
+        s[4] = "formatter.format(f.getCreationDate())";
 
         return s;
     }
@@ -440,11 +488,22 @@ public class CtrlDomini {
         return vvs;
     }
 
+    public ArrayList<Pair> Obtenir_Reprentacio_Grid(int ID) {
+        return GD.get(ID).getPositions();
+    }
+
+    public Pair Max_Grid(int ID) {
+        return GD.get(ID).getMaxSize();
+    }
+
+
     public void Guardar_Dades() {
         persistencia.saveAlphabets(AP);
         persistencia.saveFrequencies(FQ);
         persistencia.saveGrids(GD);
         persistencia.saveKeyboards(KB);
+
+        lastSaved = Instant.now();
     }
     public void Carregar_Dades() {
         AP = persistencia.getAlphabets();
@@ -452,7 +511,21 @@ public class CtrlDomini {
         for (Frequency f : FQ.values()) AP.get(f.getAlphabet().getName()).addFrequency((f));
         GD = persistencia.getGrids();
         KB = persistencia.getKeyboards();
+    }
 
+    public String[] Obtenir_Informacio() {
+        String [] as = new String[5];
+        as[0] = String.valueOf(AP.size());
+        as[1] = String.valueOf(FQ.size());
+        as[2] = String.valueOf(KB.size());
+        as[3] = String.valueOf(GD.size());
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+
+        if (lastSaved == null) as[4] = "never";
+        else as[4] = formatter.format(lastSaved);
+
+        return as;
     }
 }

@@ -69,6 +69,8 @@ public class AlphabetCreatorDialog extends JDialog {
 
         add(mainPanel);
 
+        setLocationRelativeTo(parent);
+
         setVisible(true);
     }
 

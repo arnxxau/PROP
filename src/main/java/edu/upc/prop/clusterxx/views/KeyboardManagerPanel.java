@@ -8,9 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class KeyboardManagerPanel extends JPanel {
-
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    JList<String> list = new JList<>(listModel);
     public KeyboardManagerPanel(JFrame parent) {
         setLayout(new BorderLayout());
+
+        updateTab();
 
         // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -20,12 +23,7 @@ public class KeyboardManagerPanel extends JPanel {
         // Use BoxLayout to stack buttons vertically in the buttonPanel
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (String freq : CtrlPresentacio.Noms_Teclats()) {
-            listModel.addElement(freq);
-        }
 
-        JList<String> list = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(list);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -72,8 +70,6 @@ public class KeyboardManagerPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Modify button clicked");
 
-
-
                 list.getSelectedValue();
             }
         });
@@ -81,13 +77,7 @@ public class KeyboardManagerPanel extends JPanel {
         createButton.addActionListener(e -> {
             // Replace this with the actual logic for the button
             KeyboardCreatorDialog cf = new KeyboardCreatorDialog(parent);
-
-            // Update the list model with the new data
-            listModel.clear();
-            for (String freq : CtrlPresentacio.Noms_Teclats()) {
-                listModel.addElement(freq);
-            }
-
+            updateTab();
         });
 
         deleteButton.addActionListener(new ActionListener() {
@@ -101,18 +91,24 @@ public class KeyboardManagerPanel extends JPanel {
         propertiesButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) JOptionPane.showMessageDialog(null, "Select a keyboard!");
             else {
-                FrequencyInfo fid = new FrequencyInfo(parent);
+                KeyboardPropertiesDialog fid = new KeyboardPropertiesDialog(parent, CtrlPresentacio.Consultar_Teclat(list.getSelectedValue()));
                 fid.setVisible(true);
             }
 
         });
-
-        // Add other listeners here
     }
 
     private void setButtonSize(JButton button, Dimension size) {
         button.setMaximumSize(size);
         button.setPreferredSize(size);
+    }
+
+    public void updateTab() {
+        // Update the list model with the new data
+        listModel.clear();
+        for (String freq : CtrlPresentacio.Noms_Teclats()) {
+            listModel.addElement(freq);
+        }
     }
 
     public static void main(String[] args) {

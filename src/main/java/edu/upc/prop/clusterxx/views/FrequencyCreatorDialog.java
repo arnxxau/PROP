@@ -80,6 +80,7 @@ public class FrequencyCreatorDialog extends JDialog {
 
         // Make the dialog visible
         pack();
+        setLocationRelativeTo(parent);
         setVisible(true);
     }
 

@@ -1,13 +1,24 @@
 package edu.upc.prop.clusterxx.views;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
 
+    FrequencyManagerPanel mf = new FrequencyManagerPanel(this);
+    AlphabetManagerPanel ma = new AlphabetManagerPanel(this);
+    KeyboardManagerPanel mk = new KeyboardManagerPanel(this);
+    GridManagerPanel mg = new GridManagerPanel(this);
+    InformationPanel mm = new InformationPanel();
+
     public MainView() {
+        ImageIcon imgicon = new ImageIcon("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/views/logo.png");
+        setIconImage(imgicon.getImage());
+
 
         // Set to the system look and feel
         try {
@@ -16,6 +27,8 @@ public class MainView extends JFrame {
         } catch (Exception e) {
             // If system look and feel is not available, fall back to the default look and feel.
         }
+
+
 
         // Use modern fonts
         setFont(new Font("Arial", Font.PLAIN, 14));
@@ -32,17 +45,21 @@ public class MainView extends JFrame {
         JPanel bottomPanel = createBottomPanel();
 
         JTabbedPane tp = new JTabbedPane();
-        FrequencyManagerPanel mf = new FrequencyManagerPanel(this);
-        AlphabetManagerPanel ma = new AlphabetManagerPanel(this);
-        KeyboardManagerPanel mk = new KeyboardManagerPanel(this);
-        GridManagerPanel mg = new GridManagerPanel(this);
-        InformationPanel mm = new InformationPanel(this);
         tp.addTab("keyboards", null, mk, "manage your keyboards here");
         tp.addTab("grids", null, mg, "manage your grids here");
         tp.addTab("alphabets", null, ma, "manage your alphabets here");
         tp.addTab("frequencies", null, mf, "manage your frequencies here");
         tp.addTab("info", null, mm, "load and save your program and get info");
         topPanel.add(tp);
+
+        tp.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
+                int selectedIndex = tabbedPane.getSelectedIndex();
+                updateTab(selectedIndex);
+            }
+        });
 
         // Add panels to the main panel
         mainPanel.add(tp, BorderLayout.CENTER);
@@ -60,26 +77,30 @@ public class MainView extends JFrame {
 
     }
 
-    private JPanel createTopPanel() {
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+    // Method to update the selected tab
+    private void updateTab(int tabIndex) {
+        switch (tabIndex) {
+            case 0: // keyboard
+                mk.updateTab();
+                break;
+            case 1: // grids
+                mg.updateTab();
+                break;
+            case 2: // alphabet
+                ma.updateTab();
+                break;
+            case 3: // frequency
+                mf.updateTab();
+                break;
+            case 4:
+                mm.refreshLabels();
+                break;
 
-        JButton manageFrequencyButton = createButton("Manage Frequency");
-        JButton manageAlphabetsButton = createButton("Manage Alphabets");
-        JButton manageKeyboardsButton = createButton("Manage Keyboards");
-        JButton manageGridsButton = createButton("Manage Grids");
-
-        manageFrequencyButton.addActionListener(new ManageFrequencyListener());
-        manageAlphabetsButton.addActionListener(new ManageAlphabetsListener());
-        manageKeyboardsButton.addActionListener(new ManageKeyboardsListener());
-        manageGridsButton.addActionListener(new ManageGridsListener());
-
-        topPanel.add(manageFrequencyButton);
-        topPanel.add(manageAlphabetsButton);
-        topPanel.add(manageKeyboardsButton);
-        topPanel.add(manageGridsButton);
-
-        return topPanel;
+            default:
+                break;
+        }
     }
+
 
     private JPanel createBottomPanel() {
         JPanel bottomPanel = new JPanel(new BorderLayout());

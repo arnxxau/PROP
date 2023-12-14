@@ -8,13 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class CreateGrid extends JDialog {
+public class GridCreatorDialog extends JDialog {
 
     JFrame parent;
 
     boolean [][] pos = null;
 
-    public CreateGrid(JFrame parent) {
+    public GridCreatorDialog(JFrame parent) {
         super(parent, "Grid Creator", true);
         this.parent = parent;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,11 +45,6 @@ public class CreateGrid extends JDialog {
         spinnerPanel.add(new JLabel("Y:"));
         spinnerPanel.add(spinnerY);
         formPanel.add(spinnerPanel);
-
-        Vector<String> alphabetElements = CtrlPresentacio.getAlphabets();
-        JComboBox<String> alphabetComboBox = new JComboBox<>(alphabetElements);
-        formPanel.add(new JLabel("Alphabet: "));
-        formPanel.add(alphabetComboBox);
 
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
@@ -111,7 +106,7 @@ public class CreateGrid extends JDialog {
             parentFrame.setSize(500, 320);
             parentFrame.setVisible(true);
 
-            CreateGrid dialog = new CreateGrid(parentFrame);
+            GridCreatorDialog dialog = new GridCreatorDialog(parentFrame);
         });
     }
 }

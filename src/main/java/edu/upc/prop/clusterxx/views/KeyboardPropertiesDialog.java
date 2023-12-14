@@ -3,8 +3,8 @@ package edu.upc.prop.clusterxx.views;
 import javax.swing.*;
 import java.awt.*;
 
-public class FrequencyProperties extends JDialog {
-    public FrequencyProperties(JFrame parent, String [] propierties) {
+public class KeyboardPropertiesDialog extends JDialog {
+    public KeyboardPropertiesDialog(JFrame parent, String [] propierties) {
         super(parent, "Alphabet Information", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);
@@ -19,7 +19,7 @@ public class FrequencyProperties extends JDialog {
 
         JLabel nameLabel = new JLabel("Name: " + propierties[0]);
         JLabel alphabetLabel = new JLabel("Alphabet: " + propierties[1]);
-        JLabel modeLabel = new JLabel("Mode: " + propierties[2]);
+        JLabel modeLabel = new JLabel("Frequency: " + propierties[2]);
         JLabel lastModificationLabel = new JLabel("Last Modification: " + propierties[3]);
         JLabel creationLabel = new JLabel("Creation: " + propierties[4]);
 
@@ -61,7 +61,7 @@ public class FrequencyProperties extends JDialog {
         JButton showInfoButton = new JButton("Show Frequency Info");
         showInfoButton.addActionListener(e -> {
             String [] s = {"test", "test", "test", "test", "test"};
-            FrequencyProperties dialog = new FrequencyProperties(frame, s);
+            KeyboardPropertiesDialog dialog = new KeyboardPropertiesDialog(frame, s);
             dialog.setVisible(true);
         });
 
