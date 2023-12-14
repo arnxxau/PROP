@@ -78,7 +78,7 @@ public class KeyboardCreatorDialog extends JDialog {
             else if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create an alphabet!");
             else if (gridComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create a grid!");
             else if (fName == null) JOptionPane.showMessageDialog(null, "Select some frequencies!");
-            else CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName));
+            else {CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName)); dispose(); };
 
         });
         radioBtnPanel.add(selectFrequenciesButton);
