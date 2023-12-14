@@ -9,20 +9,19 @@
 package edu.upc.prop.clusterxx;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.TreeMap;
 
 public class Alphabet {
     @Expose
     private String nom;
     @Expose
-    private Instant crDate;
+    private LocalDateTime crDate;
     @Expose
-    private Instant ultMod;
+    private LocalDateTime ultMod;
     @Expose
     private HashSet<Character> caracters;
     @Expose(serialize = false)
@@ -39,8 +38,8 @@ public class Alphabet {
     public Alphabet(String nom, HashSet<Character> cars) {
         this.nom = nom;
         this.caracters = cars;
-        this.crDate = Instant.now();
-        this.ultMod = Instant.now();
+        this.crDate = LocalDateTime.now();
+        this.ultMod = LocalDateTime.now();
         this.frequencies = new HashMap<String,Frequency>();
     }
 
@@ -69,7 +68,7 @@ public class Alphabet {
      */
     public boolean addCharacter(char caracter) {
         if (caracters.add(caracter)) {
-            ultMod = Instant.now();
+            ultMod = LocalDateTime.now();
             return true;
         } else {
             return false;
@@ -84,7 +83,7 @@ public class Alphabet {
      */
     public boolean deleteCharacter(char caracter) {
         if (caracters.remove(caracter)) {
-            ultMod = Instant.now();
+            ultMod = LocalDateTime.now();
             return true;
         } else {
             return false;
@@ -140,7 +139,7 @@ public class Alphabet {
      *
      * @return La data de creació.
      */
-    public Instant getCrDate() {
+    public LocalDateTime getCrDate() {
         return crDate;
     }
 
@@ -149,7 +148,7 @@ public class Alphabet {
      *
      * @return La data de l'última modificació.
      */
-    public Instant getLastMod() {
+    public LocalDateTime getLastMod() {
         return ultMod;
     }
 
