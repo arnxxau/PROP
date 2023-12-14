@@ -3,8 +3,9 @@ package edu.upc.prop.clusterxx;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.SimpleTimeZone;
 import java.util.Vector;
+
+import static edu.upc.prop.clusterxx.Keyboard.*;
 
 public class Driver_FP {
     InOutPlus ioPlus = new InOutPlus();
@@ -177,7 +178,7 @@ public class Driver_FP {
                                 if (nomF == null) ioPlus.print("has d'indicar com a mínim una freqüència");
                                 llistar_grids(cd.Consultar_Grids());
                                 idG = Demanar_ID("Graella");
-                                ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+                                ret = cd.Afegir_Teclat(nomT, nomA, nomF, idG, LocalSearchAlgorithm);
                                 switch (ret) {
                                     case -1:
                                         ioPlus.print("El teclat " + nomT + " ja existeix");

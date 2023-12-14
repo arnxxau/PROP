@@ -15,7 +15,7 @@ public class CtrlDomini {
     CtrlPersistencia persistencia = new CtrlPersistencia();
     public CtrlDomini(){}
 
-    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
+    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) {
         if (KB.containsKey(nomT)) return -1;
         Alphabet a = AP.get(nomA);
         if (a == null) return -2;
@@ -24,7 +24,7 @@ public class CtrlDomini {
         Grid g = GD.get(idG);
         if (g == null) return -4;
         if (g.getSize() != a.size()) return -5;
-        Keyboard k = new Keyboard(nomT,a,f,g);
+        Keyboard k = new Keyboard(nomT,a,f,g,mode);
         KB.put(nomT,k);
         return 0;
     }
