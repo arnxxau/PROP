@@ -11,6 +11,7 @@ public class GridManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
 
+
     public GridManagerPanel(JFrame parent) {
         setLayout(new BorderLayout());
 
@@ -60,6 +61,7 @@ public class GridManagerPanel extends JPanel {
         mainPanel.add(saveLoadPanel, BorderLayout.EAST);
 
         add(mainPanel);
+
 
         // ActionListeners
         modifyButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Modify button clicked"));

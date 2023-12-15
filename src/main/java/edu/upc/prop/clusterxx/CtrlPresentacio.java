@@ -277,7 +277,7 @@ public class CtrlPresentacio {
 
     public static void Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
         try{
-            cd.Afegir_Teclat(nomT, nomA, nomF, idG);
+            cd.Afegir_Teclat(nomT, nomA, nomF, idG, 0);
         }catch (ExisteixID_Exception e){
            String s = e.Ja_Existeix(nomT);
         }

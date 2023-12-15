@@ -277,8 +277,8 @@ public class CtrlDomini {
                 .withZone(ZoneId.systemDefault());
 
 
-        s[3] = formatter.format(a.getLastMod());
-        s[4] = formatter.format(a.getCrDate());
+        s[3] = a.getLastMod();
+        s[4] = a.getCrDate();
 
         return s;
     }
@@ -300,8 +300,8 @@ public class CtrlDomini {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .withZone(ZoneId.systemDefault());
 
-        s[3] = formatter.format(f.getLastModifiedTime());
-        s[4] = formatter.format(f.getCreationDate());
+        s[3] = f.getLastModifiedTime();
+        s[4] = f.getCreationDate();
 
         return s;
     }
@@ -321,8 +321,8 @@ public class CtrlDomini {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .withZone(ZoneId.systemDefault());
 
-        s[3] = formatter.format(k.getLastMod());
-        s[4] = formatter.format(k.getCrDate());
+        s[3] = k.getLastMod();
+        s[4] = k.getCrDate();
         return s;
     }
 
