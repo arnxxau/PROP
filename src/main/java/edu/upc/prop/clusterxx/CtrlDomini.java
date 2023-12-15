@@ -23,7 +23,7 @@ public class CtrlDomini {
     Instant lastSaved = null;
     public CtrlDomini(){}
 
-    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG) throws ExisteixID_Exception{
+    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) throws ExisteixID_Exception {
         if (KB.containsKey(nomT)){
             throw new ExisteixID_Exception();
             //return -1;
@@ -35,7 +35,7 @@ public class CtrlDomini {
         Grid g = GD.get(idG);
         if (g == null) return -4;
         if (g.getSize() != a.size()) return -5;
-        Keyboard k = new Keyboard(nomT,a,f,g);
+        Keyboard k = new Keyboard(nomT,a,f,g,mode);
         KB.put(nomT,k);
         return 0;
     }
@@ -236,6 +236,8 @@ public class CtrlDomini {
         AP.put(s2,a);
         return 0;
     }
+
+
     public Vector<Vector<String>> Consultar_Alfabets(){
         Vector<Vector<String>> vvs = new Vector<>();
         for (Alphabet valor : AP.values()) {
@@ -511,7 +513,10 @@ public class CtrlDomini {
     public void Carregar_Dades() {
         AP = persistencia.getAlphabets();
         FQ = persistencia.getFrequencies();
-        for (Frequency f : FQ.values()) AP.get(f.getAlphabet().getName()).addFrequency((f));
+        for (Frequency f : FQ.values()) {
+            Alphabet a = AP.get(f.getAlphabet().getName());
+            if (null != a) a.addFrequency((f));
+        }
         GD = persistencia.getGrids();
         KB = persistencia.getKeyboards();
     }
