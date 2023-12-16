@@ -1,9 +1,12 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Vector;
 
 public class FrequencyCreatorDialog extends JDialog {
@@ -37,16 +40,21 @@ public class FrequencyCreatorDialog extends JDialog {
 
         // Radio Buttons
         JRadioButton liveTextRadioButton = new JRadioButton("Live text");
-        JRadioButton rawFileRadioButton = new JRadioButton("Raw file");
-        JRadioButton textFileRadioButton = new JRadioButton("Text file");
+        JRadioButton liveFreqRadioButton = new JRadioButton("Live freq");
+        JRadioButton fileTextRadioButton = new JRadioButton("File text");
+        JRadioButton fileFreqRadioButton = new JRadioButton("File freq");
         ButtonGroup radioButtonGroup = new ButtonGroup();
         radioButtonGroup.add(liveTextRadioButton);
-        radioButtonGroup.add(rawFileRadioButton);
-        radioButtonGroup.add(textFileRadioButton);
+        radioButtonGroup.add(liveFreqRadioButton);
+        radioButtonGroup.add(fileFreqRadioButton);
+        radioButtonGroup.add(fileTextRadioButton);
+
 
         radioBtnPanel.add(liveTextRadioButton);
-        radioBtnPanel.add(rawFileRadioButton);
-        radioBtnPanel.add(textFileRadioButton);
+        radioBtnPanel.add(liveFreqRadioButton);
+        radioBtnPanel.add(fileTextRadioButton);
+        radioBtnPanel.add(fileFreqRadioButton);
+
 
         mainPanel.add(formPanel, BorderLayout.NORTH);
         mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
@@ -54,23 +62,49 @@ public class FrequencyCreatorDialog extends JDialog {
         // Button Panel
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
-            if (liveTextRadioButton.isSelected()) {
-                LiveEditorDialog led = new LiveEditorDialog(parent, content);
-                content = led.showDialogAndGetContent();
-                CtrlPresentacio.AfegirTextFreqMa(alphabetComboBox.getSelectedItem().toString(), nameField.getText(), content);
+
+            try {
+
+                if (nameField.getText().isEmpty()) JOptionPane.showMessageDialog(parent, "Type a name!");
+                else if (liveTextRadioButton.isSelected() || liveFreqRadioButton.isSelected()) {
+                    LiveEditorDialog led = new LiveEditorDialog(parent, content);
+                    content = led.showDialogAndGetContent();
+                    if (liveTextRadioButton.isSelected())
+                        CtrlPresentacio.AfegirTextFreqMa(alphabetComboBox.getSelectedItem().toString(), nameField.getText(), content);
+                    else
+                        CtrlPresentacio.AfegirListFreqMa(alphabetComboBox.getSelectedItem().toString(), nameField.getText(), content);
+
+                    dispose();
+                } else if (fileTextRadioButton.isSelected() || fileFreqRadioButton.isSelected()) {
+
+                    FileSelectorDialog ds = new FileSelectorDialog();
+                    String url = ds.selectDirectory();
+
+                    if (fileTextRadioButton.isSelected())
+                        CtrlPresentacio.AfegirTextFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(), url);
+                    else
+                        CtrlPresentacio.AfegirListFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(),url);
+
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select an extraction mode!");
+                }
 
 
-                System.out.println(content);
-
-                dispose();
-            } else if (rawFileRadioButton.isSelected() || textFileRadioButton.isSelected()) {
-                DirectorySelectorDialog ds = new DirectorySelectorDialog();
-                String url = ds.selectDirectory();
-                System.out.println(url);
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select an extraction mode!");
+            } catch (CaractersfromFreq_notInAlph_Exception ex) {
+                JOptionPane.showMessageDialog(parent, "The frequency contains incompatible characters with the selected alphabet", "Character error", JOptionPane.ERROR_MESSAGE);
+            } catch (ExisteixID_Exception ex) {
+                JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(parent, "There was an error while extracting the file", "File error", JOptionPane.ERROR_MESSAGE);
             }
+            System.out.println(content);
+
+
+
         });
+
         buttonPanel.add(createButton);
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);

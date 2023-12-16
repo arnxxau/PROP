@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,8 +63,13 @@ public class GridCreatorDialog extends JDialog {
         createButton.addActionListener(e -> {
             if (pos == null) JOptionPane.showMessageDialog(this, "Select the positions!");
             else {
-                CtrlPresentacio.Afegir_Grid((Integer) idSpinner.getValue(), pos);
-                dispose();
+                try {
+                    CtrlPresentacio.Afegir_Grid((Integer) idSpinner.getValue(), pos);
+                    dispose();
+                } catch (ExisteixID_Exception ex) {
+                    JOptionPane.showMessageDialog(parent, "The ID already exists!","Name error",JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
         saveLoadPanel.add(createButton);

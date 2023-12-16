@@ -28,8 +28,9 @@ public class Keyboard {
     private Frequency Freq;
     @Expose
     private Grid Grid;
-    final static int QAPAlgorithm = 0;
-    final static int LocalSearchAlgorithm = 1;
+
+    public final static int QAPAlgorithm = 0;
+    public final static int LocalSearchAlgorithm = 1;
 
 
     /**

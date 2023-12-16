@@ -2,6 +2,8 @@ package edu.upc.prop.clusterxx;
 
 import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
 import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
+import edu.upc.prop.clusterxx.exceptions.alphNotCompatible_Exception;
+import edu.upc.prop.clusterxx.exceptions.gridAndAlphabetNotSameSize_Exception;
 import edu.upc.prop.clusterxx.views.*;
 
 import java.io.IOException;
@@ -19,34 +21,18 @@ public class CtrlPresentacio {
 
     // CRIDA A VISTES
 
-    //public static void CreateFrequency() {
-    //    CreateFrequency cf = new CreateFrequency();
-    //}
-
-    public static void DirectorySelector() {
-        DirectorySelectorDialog ds = new DirectorySelectorDialog();
+    public static void DirectorySelector() throws IOException {
+        FileSelectorDialog ds = new FileSelectorDialog();
     }
-
-    //public static void LiveEditor() {
-    //    LiveEditor le = new LiveEditor(new CreateFrequency());
-   // }
 
     public static void MainView() {
         MainView mv = new MainView();
     }
 
-    //public static void ManageFrequency() {
-    //    ManageFrequency mf = new ManageFrequency();
-    //}
-
     // ALFABETS
 
-    public static void Afegir_Alfabet(String nomA, HashSet<Character> h) {
-       try{
-           cd.Afegir_Alfabet(nomA, h);
-       }catch (ExisteixID_Exception e){
-           // String s = e.Ja_Existeix(nomA);
-       }
+    public static void Afegir_Alfabet(String nomA, HashSet<Character> h) throws ExisteixID_Exception {
+        cd.Afegir_Alfabet(nomA, h);
     }
 
     public static ArrayList<Pair> Obtenir_Reprentacio_Grid(int ID) {
@@ -57,17 +43,12 @@ public class CtrlPresentacio {
         return cd.Max_Grid(ID);
     }
 
-
     public static void Esborrar_Alfabet(String nomA) {
         cd.Esborrar_Alfabet(nomA);
     }
 
-    public static void CanviarNom_Alfabet(String nomA, String nomAnou) {
-        try {
-            cd.CanviarNom_Alfabet(nomA, nomAnou);
-        } catch (ExisteixID_Exception e) {
-            String s = e.Ja_Existeix(nomA);
-        }
+    public static void CanviarNom_Alfabet(String nomA, String nomAnou) throws ExisteixID_Exception {
+        cd.CanviarNom_Alfabet(nomA, nomAnou);
     }
 
     public static Vector<Vector<String>> llistar_Alfabets() {
@@ -120,15 +101,8 @@ public class CtrlPresentacio {
 
     // GRIDS
 
-    public static void Afegir_Grid(int ID, boolean[][] b) {
-        try{
-            cd.Afegir_Grid(ID, b);
-        }catch (ExisteixID_Exception e){
-            String s = e.Ja_Existeix(String.valueOf(ID));
-        }
-        // String s = e.Ja_Existeix(String.valueOf(ID));
-        // cridar a la vista d'errors amb el missatge s //en la vista de errores ya
-        // el arnau hace lo que sea
+    public static void Afegir_Grid(int ID, boolean[][] b) throws ExisteixID_Exception {
+        cd.Afegir_Grid(ID, b);
     }
 
     public static void Esborrar_Grid(int ID) {
@@ -136,112 +110,89 @@ public class CtrlPresentacio {
     }
 
     public static Vector<Vector<String>> llistar_Grids() {
-        return cd.Consultar_Grids();// 1a pos ID 2a pos el grid
+        return cd.Consultar_Grids();
     }
 
     // FREQUENCIES
 
-    public static void AfegirTextFreqFromPath(String nomF, String nomA, String path) {
-        try {
-            cd.Afegir_Freq_FromPath(nomF, path, nomA, 1);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s;
-            s = c1.getMessage() + nomA;
-            // llamar a errorview
-        } catch (IOException io) {
-            String s = io.getMessage() + "no existeix el path" + path;
-        }catch (ExisteixID_Exception e){
-            String s = e.Ja_Existeix(nomF);
-        }
+    public static void AfegirTextFreqFromPath(String nomF, String nomA, String path)
+            throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception {
+        cd.Afegir_Freq_FromPath(nomF, path, nomA, 1);
     }
 
-    public static void AfegirListFreqFromPath(String nomF, String nomA, String path) {
-        try {
-            cd.Afegir_Freq_FromPath(nomF, path, nomA, 0);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s;
-            s = c1.getMessage() + nomA;
-        } catch (IOException io) {
-            String s = io.getMessage() + "no existeix el path" + path;
-        }catch (ExisteixID_Exception e){
-            String s = e.Ja_Existeix(nomF);
-        }
+    public static void AfegirListFreqFromPath(String nomF, String nomA, String path)
+            throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception {
+        cd.Afegir_Freq_FromPath(nomF, path, nomA, 0);
     }
 
-    public static void AfegirTextFreqMa(String nomA, String nomF, String liveText) {
-        try {
-            Vector<String> text = new Vector<>();
-            StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+    public static void AfegirTextFreqMa(String nomA, String nomF, String liveText)
+            throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception {
+        Vector<String> text = new Vector<>();
+        StringTokenizer tokenizer = new StringTokenizer(liveText, "\n");
 
-            while (tokenizer.hasMoreTokens()) {
-                text.add(tokenizer.nextToken());
-            }
-
-            cd.Afegir_FreqMa(nomA, nomF, text, 1);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s = c1.getMessage() + nomA;
-        }catch (ExisteixID_Exception e){
-            String s = e.Ja_Existeix(nomF);
+        while (tokenizer.hasMoreTokens()) {
+            text.add(tokenizer.nextToken());
         }
+
+        cd.Afegir_FreqMa(nomA, nomF, text, 1);
     }
 
-    public static void AfegirListFreqMa(String nomA, String nomF, Vector<String> text) {
-        try {
-            cd.Afegir_FreqMa(nomA, nomF, text, 0);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s = c1.getMessage() + nomA;
-        }catch (ExisteixID_Exception e){
-            String s = e.Ja_Existeix(nomF);
+    public static void AfegirListFreqMa(String nomA, String nomF, String liveText)
+            throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception {
+        Vector<String> text = new Vector<>();
+        StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+
+        while (tokenizer.hasMoreTokens()) {
+            text.add(tokenizer.nextToken());
         }
+
+
+        cd.Afegir_FreqMa(nomA, nomF, text, 0);
     }
 
     public static void Esborrar_Freq(String nomf) {
         cd.Esborrar_Frequencia(nomf);
     }
 
-    public static void ModificarTextFreqFromPath(String nomF, String nomA, String path) {
-        try {
-            cd.Modificar_Freq_Path(nomF, path, 1);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s;
-            s = c1.getMessage() + nomA;
-        } catch (IOException io) {
-            String s = io.getMessage() + "no existeix el path" + path;
-        }
+    public static void ModificarTextFreqFromPath(String nomF, String path)
+            throws CaractersfromFreq_notInAlph_Exception, IOException {
+        cd.Modificar_Freq_Path(nomF, path, 1);
     }
 
-    public static void ModificarListFreqFromPath(String nomF, String path) {
-        try {
-            cd.Modificar_Freq_Path(nomF, path, 0);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s;
-            s = c1.getMessage();
-        } catch (IOException io) {
-            String s = io.getMessage() + "no existeix el path" + path;
-        }
+    public static void ModificarListFreqFromPath(String nomF, String path)
+            throws CaractersfromFreq_notInAlph_Exception, IOException {
+
+        cd.Modificar_Freq_Path(nomF, path, 0);
     }
 
-    public static void ModificarTextFreqMa(String nomF, Vector<String> text) {
-        try {
-            cd.Modificar_FreqMa(nomF, text, 1);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s;
-            s = c1.getMessage();
+    public static void ModificarTextFreqMa(String nomF, String liveText)
+            throws CaractersfromFreq_notInAlph_Exception {
+        Vector<String> text = new Vector<>();
+        StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+
+        while (tokenizer.hasMoreTokens()) {
+            text.add(tokenizer.nextToken());
         }
+
+
+        cd.Modificar_FreqMa(nomF, text, 1);
     }
 
-    public static void ModificarListFreqMa(String nomF, Vector<String> text) {
-        try {
-            cd.Modificar_FreqMa(nomF, text, 0);
-        } catch (CaractersfromFreq_notInAlph_Exception c1) {
-            String s;
-            s = c1.getMessage();
+    public static void ModificarListFreqMa(String nomF, String liveText)
+            throws CaractersfromFreq_notInAlph_Exception {
+        Vector<String> text = new Vector<>();
+        StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+
+        while (tokenizer.hasMoreTokens()) {
+            text.add(tokenizer.nextToken());
         }
+
+
+        cd.Modificar_FreqMa(nomF, text, 0);
     }
 
     public static Vector<Vector<String>> Llistar_Freqs_from_Alph(String nomA) {
-        return cd.Consultar_Freqs(nomA);// ademas de los nombres de las freqs(1a pos de cada vector dentro del vector)te
-        // dice los pesos de freqs de los pares de letras creo.
+        return cd.Consultar_Freqs(nomA);
     }
 
     public static Vector<String> NomsFreqs_alfabet(String nomA) {
@@ -260,12 +211,11 @@ public class CtrlPresentacio {
         return cd.Noms_Grids();
     }
 
-
     public static String[][] Dades_Freqs(){
         return cd.datosFreqs();
     }
 
-    public static String FusionarFreqa(ArrayList<String> vs) {
+    public static String FusionarFreqa(ArrayList<String> vs) throws alphNotCompatible_Exception {
         return cd.fusionarFreqs(vs);
     }
 
@@ -275,28 +225,17 @@ public class CtrlPresentacio {
 
     // TECLATS
 
-    public static void Afegir_Teclat(String nomT, String nomA, String nomF, int idG) {
-        try{
-            cd.Afegir_Teclat(nomT, nomA, nomF, idG, 0);
-        }catch (ExisteixID_Exception e){
-           String s = e.Ja_Existeix(nomT);
-        }
-         // hay que asegurarse que la freq es del alfabeto porque no se comprueba
+    public static void Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode)
+            throws ExisteixID_Exception, gridAndAlphabetNotSameSize_Exception {
+        cd.Afegir_Teclat(nomT, nomA, nomF, idG, mode);
     }
-
-
 
     public static void Esborrar_Teclat(String nomT) {
-        cd.Esborrar_Teclat(nomT); // hay que asegurarse que la freq es del alfabeto porque no se comprueba
+        cd.Esborrar_Teclat(nomT);
     }
 
-    public static void Canviar_Nom_Teclat(String nomT, String nomTnou) {
-        try {
-            cd.CanviarNom_Teclat(nomT, nomTnou); // hace falta una excepcion para cuando cambias el nombre que no sea uno
-            // que ya existe de otro teclado.
-        } catch (ExisteixID_Exception e) {
-            String s = e.Ja_Existeix(nomTnou);
-        }
+    public static void Canviar_Nom_Teclat(String nomT, String nomTnou) throws ExisteixID_Exception {
+        cd.CanviarNom_Teclat(nomT, nomTnou);
     }
 
     public static void Actualitzar_Teclat(String nomT) {
@@ -311,18 +250,17 @@ public class CtrlPresentacio {
         return cd.Noms_Teclats();
     }
 
-    public static  String[] Obtenir_Informacio() {
+    public static String[] Obtenir_Informacio() {
         return cd.Obtenir_Informacio();
     }
 
-    public static  void Guardar_Dades() {
-         cd.Guardar_Dades();
+    public static void Guardar_Dades() {
+        cd.Guardar_Dades();
     }
 
-    public static  void Carregar_Dades() {
+    public static void Carregar_Dades() {
         cd.Carregar_Dades();
     }
-
 
     public static String[] Consultar_Grid(Integer ID){
         return cd.Consultar_Grid(ID);
@@ -331,4 +269,13 @@ public class CtrlPresentacio {
     public static String[] Consultar_Teclat(String nomT){
         return cd.Consultar_Teclat(nomT);
     }
+
+    public static char[] Obtenir_Distribucio_Teclat(String nomT) {
+        return cd.Obtenir_Distribucio_Teclat(nomT);
+    }
+
+    public static int Obtenir_Nom_Grid_Teclat(String nomT) {
+        return cd.Obtenir_Nom_Grid_Teclat(nomT);
+    }
+
 }

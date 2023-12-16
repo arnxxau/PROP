@@ -1,6 +1,13 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.Keyboard;
+import edu.upc.prop.clusterxx.QAP;
+import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
+import edu.upc.prop.clusterxx.exceptions.alphNotCompatible_Exception;
+import edu.upc.prop.clusterxx.exceptions.gridAndAlphabetNotSameSize_Exception;
+import edu.upc.prop.clusterxx.views.KeyboardFrequencySelector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +28,7 @@ public class KeyboardCreatorDialog extends JDialog {
         // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // Added an extra row for the "Grid" combo box
-        JPanel radioBtnPanel = new JPanel(new GridLayout(1, 3));
+        JPanel radioBtnPanel = new JPanel(new GridLayout(1, 3)); // Updated the grid layout to 1 row and 3 columns
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -43,9 +50,16 @@ public class KeyboardCreatorDialog extends JDialog {
         JComboBox<String> gridComboBox = new JComboBox<>(gridElements);
         formPanel.add(gridComboBox);
 
-
         mainPanel.add(formPanel, BorderLayout.NORTH);
-        mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
+
+        // Add radio buttons
+        JRadioButton algorithm1RadioButton = new JRadioButton("QAP");
+        JRadioButton algorithm2RadioButton = new JRadioButton("Local Search");
+        ButtonGroup algorithmGroup = new ButtonGroup();
+        algorithmGroup.add(algorithm1RadioButton);
+        algorithmGroup.add(algorithm2RadioButton);
+        radioBtnPanel.add(algorithm1RadioButton);
+        radioBtnPanel.add(algorithm2RadioButton);
 
         // Button Panel
         JButton createButton = loadSaveButton("Create");
@@ -64,7 +78,11 @@ public class KeyboardCreatorDialog extends JDialog {
                 KeyboardFrequencySelector fs = new KeyboardFrequencySelector(parent, CtrlPresentacio.NomsFreqs_alfabet(name));
                 if (fs.getSelectedStrings().isEmpty()) JOptionPane.showMessageDialog(null, "You provided 0 frequencies so no fusion frequency was created.");
                 else {
-                    fName = CtrlPresentacio.FusionarFreqa(fs.getSelectedStrings());
+                    try {
+                        fName = CtrlPresentacio.FusionarFreqa(fs.getSelectedStrings());
+                    } catch (alphNotCompatible_Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Alphabets not compatible");
+                    }
                 }
 
             }
@@ -75,14 +93,28 @@ public class KeyboardCreatorDialog extends JDialog {
             String aName = alphabetComboBox.getSelectedItem().toString();
             String gName = gridComboBox.getSelectedItem().toString();
             if (nameField.getText().isEmpty()) JOptionPane.showMessageDialog(null, "Give it a name!");
+            else if (!algorithm1RadioButton.isSelected() && !algorithm2RadioButton.isSelected()) JOptionPane.showMessageDialog(null, "Select an algorithm!");
             else if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create an alphabet!");
             else if (gridComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create a grid!");
             else if (fName == null) JOptionPane.showMessageDialog(null, "Select some frequencies!");
-            else {CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName)); dispose(); };
+            else {
+                try {
+                    if (algorithm1RadioButton.isSelected()) CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName), Keyboard.QAPAlgorithm);
+                    else CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName), Keyboard.LocalSearchAlgorithm);
+
+                    dispose();
+                } catch (ExisteixID_Exception ex) {
+                    JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
+                } catch (gridAndAlphabetNotSameSize_Exception ex) {
+                    fName = null;
+                    JOptionPane.showMessageDialog(parent, "Grid selected positions and alphabet size have to be the same!", "Size error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
 
         });
         radioBtnPanel.add(selectFrequenciesButton);
 
+        mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         // Add the main panel to the dialog

@@ -1,16 +1,21 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.Pair;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class KeyboardManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
+
+    KeyboardDisplayerPanel keyboardRepresentation = new KeyboardDisplayerPanel();
     public KeyboardManagerPanel(JFrame parent) {
+
+
         setLayout(new BorderLayout());
 
         updateTab();
@@ -26,6 +31,9 @@ public class KeyboardManagerPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(list);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.add(keyboardRepresentation, BorderLayout.SOUTH);
+
+
 
         Dimension buttonSize = new Dimension(100, 30); // Adjust width and height as needed
 
@@ -33,11 +41,13 @@ public class KeyboardManagerPanel extends JPanel {
         JButton modifyButton = new JButton("Modify");
         JButton propertiesButton = new JButton("Properties");
         JButton deleteButton = new JButton("Delete");
+        JButton displayButton = new JButton("Display");
 
         setButtonSize(modifyButton, buttonSize);
         setButtonSize(propertiesButton, buttonSize);
         setButtonSize(createButton, buttonSize);
         setButtonSize(deleteButton, buttonSize);
+        setButtonSize(displayButton, buttonSize);
 
         // Add buttons to the buttonPanel
         buttonPanel.add(createButton);
@@ -47,6 +57,8 @@ public class KeyboardManagerPanel extends JPanel {
         buttonPanel.add(deleteButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
         buttonPanel.add(propertiesButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(displayButton);
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -65,17 +77,36 @@ public class KeyboardManagerPanel extends JPanel {
         add(mainPanel);
 
         // Add ActionListeners to buttons
-        modifyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Modify button clicked");
+        list.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) { // This line prevents double events
+                String selectedKeyboardName = list.getSelectedValue();
+                int gridId = CtrlPresentacio.Obtenir_Nom_Grid_Teclat(selectedKeyboardName);
+                ArrayList<Pair> positions = CtrlPresentacio.Obtenir_Reprentacio_Grid(gridId);
+                Pair gridSize = CtrlPresentacio.Max_Grid(gridId);
+                char[] characters = CtrlPresentacio.Obtenir_Distribucio_Teclat(selectedKeyboardName);
 
-                list.getSelectedValue();
+                keyboardRepresentation.updateView(positions, gridSize, characters);
+            }
+        });
+
+        modifyButton.addActionListener(e -> {
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select a keyboard!");
+            } else {
+                String name = JOptionPane.showInputDialog("What will the new name be?");
+
+                if (name != null && !name.isEmpty()) {
+                    try {
+                        CtrlPresentacio.Canviar_Nom_Teclat(list.getSelectedValue(), name);
+                    } catch (ExisteixID_Exception ex) {
+                        JOptionPane.showMessageDialog(parent, "The name already exists!","Name error",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                updateTab();
             }
         });
 
         createButton.addActionListener(e -> {
-            // Replace this with the actual logic for the button
             KeyboardCreatorDialog cf = new KeyboardCreatorDialog(parent);
             updateTab();
         });
@@ -102,7 +133,22 @@ public class KeyboardManagerPanel extends JPanel {
             }
 
         });
+
+        displayButton.addActionListener(e -> {
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select a keyboard!");
+            } else {
+                String selectedKeyboardName = list.getSelectedValue();
+                int gridId = CtrlPresentacio.Obtenir_Nom_Grid_Teclat(selectedKeyboardName);
+                ArrayList<Pair> positions = CtrlPresentacio.Obtenir_Reprentacio_Grid(gridId);
+                Pair gridSize = CtrlPresentacio.Max_Grid(gridId);
+                char[] characters = CtrlPresentacio.Obtenir_Distribucio_Teclat(selectedKeyboardName);
+                KeyboardDisplayerDialog dialog = new KeyboardDisplayerDialog(parent, positions, gridSize, characters);
+                dialog.setVisible(true);
+            }
+        });
     }
+
 
     private void setButtonSize(JButton button, Dimension size) {
         button.setMaximumSize(size);

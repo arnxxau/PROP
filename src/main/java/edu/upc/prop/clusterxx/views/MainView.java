@@ -9,27 +9,37 @@ import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
 
-    FrequencyManagerPanel mf = new FrequencyManagerPanel(this);
-    AlphabetManagerPanel ma = new AlphabetManagerPanel(this);
-    KeyboardManagerPanel mk = new KeyboardManagerPanel(this);
-    GridManagerPanel mg = new GridManagerPanel(this);
-    InformationPanel mm = new InformationPanel();
+    FrequencyManagerPanel mf;
+    AlphabetManagerPanel ma;
+    KeyboardManagerPanel mk;
+    GridManagerPanel mg;
+    InformationPanel mm;
 
     public MainView() {
-        ImageIcon imgicon = new ImageIcon("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/views/logo.png");
-        setIconImage(imgicon.getImage());
-        setName("Distributor");
-
-
         // Set to the system look and feel
         try {
             //
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
             //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             System.out.println(e);
             // If system look and feel is not available, fall back to the default look and feel.
         }
+
+        mf = new FrequencyManagerPanel(this);
+        ma = new AlphabetManagerPanel(this);
+        mk = new KeyboardManagerPanel(this);
+        mg = new GridManagerPanel(this);
+        mm = new InformationPanel();
+
+
+
+        ImageIcon imgicon = new ImageIcon("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/views/logo.png");
+        setIconImage(imgicon.getImage());
+        setName("Distributor");
+
+
+
 
 
 
@@ -54,6 +64,8 @@ public class MainView extends JFrame {
         tp.addTab("frequencies", null, mf, "manage your frequencies here");
         tp.addTab("info", null, mm, "load and save your program and get info");
         topPanel.add(tp);
+
+        tp.setSelectedIndex(4);
 
         tp.addChangeListener(new ChangeListener() {
             @Override
@@ -192,7 +204,7 @@ public class MainView extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Load Button Clicked");
-            DirectorySelectorDialog ds = new DirectorySelectorDialog();
+            FileSelectorDialog ds = new FileSelectorDialog();
             ds.selectDirectory();
         }
     }

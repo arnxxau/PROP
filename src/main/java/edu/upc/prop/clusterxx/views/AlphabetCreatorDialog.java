@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,8 +56,13 @@ public class AlphabetCreatorDialog extends JDialog {
             } else if (c.isEmpty()) {
                 showMessage("There are no characters! Please type some characters in the live editor.", "Alert", JOptionPane.WARNING_MESSAGE);
             } else {
-                CtrlPresentacio.Afegir_Alfabet(nameField.getText(), c);
-                dispose(); // Close the dialog after successful creation
+                try {
+                    CtrlPresentacio.Afegir_Alfabet(nameField.getText(), c);
+                    dispose();
+                } catch (ExisteixID_Exception ex) {
+                    JOptionPane.showMessageDialog(parent, "The name already exists!","Name error",JOptionPane.ERROR_MESSAGE);
+                }
+                 // Close the dialog after successful creation
             }
         });
 

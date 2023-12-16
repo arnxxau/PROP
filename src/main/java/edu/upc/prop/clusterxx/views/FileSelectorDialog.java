@@ -3,21 +3,21 @@ package edu.upc.prop.clusterxx.views;
 import javax.swing.*;
 import java.io.File;
 
-public class DirectorySelectorDialog extends JFrame {
+public class FileSelectorDialog extends JFrame {
 
-    public DirectorySelectorDialog() {
+    public FileSelectorDialog() {
         setLocationRelativeTo(null);
     }
 
     public String selectDirectory() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         int result = fileChooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedDirectory = fileChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(this, "Selected Directory: " + selectedDirectory.getAbsolutePath());
+            JOptionPane.showMessageDialog(this, "Selected File: " + selectedDirectory.getAbsolutePath());
             return selectedDirectory.getAbsolutePath();
         } else {
             JOptionPane.showMessageDialog(this, "Selection canceled");
@@ -26,6 +26,6 @@ public class DirectorySelectorDialog extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new DirectorySelectorDialog().selectDirectory());
+        SwingUtilities.invokeLater(() -> new FileSelectorDialog().selectDirectory());
     }
 }

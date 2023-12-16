@@ -1,6 +1,7 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,8 +55,25 @@ public class AlphabetManagerPanel extends JPanel {
         add(mainPanel);
 
         // ActionListeners
-        modifyButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Modify button clicked"));
+        modifyButton.addActionListener(e -> {
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select an alphabet!");
+            } else {
+                String name = JOptionPane.showInputDialog("What will the new name be?");
+
+                if (name != null && !name.isEmpty()) {
+                    try {
+                        CtrlPresentacio.CanviarNom_Alfabet(list.getSelectedValue(), name);
+                    } catch (ExisteixID_Exception ex) {
+                        JOptionPane.showMessageDialog(parent, "The name already exists!","Name error",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                updateTab();
+            }
+        });
+
         createButton.addActionListener(e -> {
+
             AlphabetCreatorDialog cf = new AlphabetCreatorDialog(parent);
             updateTab();
         });

@@ -7,12 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GridDialog extends JDialog {
+public class GridDisplayerDialog extends JDialog {
 
     private final ArrayList<Pair> positions;
     private final Pair gridSize;
 
-    public GridDialog(Frame owner, ArrayList<Pair> positions, Pair gridSize) {
+    public GridDisplayerDialog(Frame owner, ArrayList<Pair> positions, Pair gridSize) {
         super(owner, "Grid Representation", true);
         this.positions = positions;
         this.gridSize = gridSize;
@@ -43,7 +43,6 @@ public class GridDialog extends JDialog {
             g.fillRect(x, y, cellSize, cellSize); // Draw a filled square at each pair position
         }
     }
-
     public static void main(String[] args) {
         // Sample usage
         SwingUtilities.invokeLater(() -> {
@@ -62,7 +61,7 @@ public class GridDialog extends JDialog {
             // Create and display the dialog
             JFrame frame = new JFrame(); // Replace with your main application frame
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            GridDialog dialog = new GridDialog(frame, positions, gridSize);
+            GridDisplayerDialog dialog = new GridDisplayerDialog(frame, positions, gridSize);
             dialog.setVisible(true);
         });
     }

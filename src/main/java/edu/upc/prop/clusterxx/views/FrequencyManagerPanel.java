@@ -1,11 +1,13 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class FrequencyManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -54,8 +56,65 @@ public class FrequencyManagerPanel extends JPanel {
         add(mainPanel);
 
         // ActionListeners
-        modifyButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Modify button clicked"));
+        modifyButton.addActionListener(e -> {
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select a frequency!");
+            } else {
+                String[] options = {"Live text", "Live freq", "File text", "File freq"};
+
+                int choice = JOptionPane.showOptionDialog(
+                        parent,
+                        "Select an extraction type:",
+                        "Frequency updater",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+                try {
+                    String selectedFreq = list.getSelectedValue(); // Get the selected frequency name
+                    switch (choice) {
+                        case 0: // Live text logic
+                            LiveEditorDialog ledLiveText = new LiveEditorDialog(parent, "");
+                            String contentLiveText = ledLiveText.showDialogAndGetContent();
+                            CtrlPresentacio.ModificarTextFreqMa(selectedFreq, contentLiveText);
+                            break;
+
+                        case 1: // Live freq logic
+                            LiveEditorDialog ledLiveFreq = new LiveEditorDialog(parent, "");
+                            String contentLiveFreq = ledLiveFreq.showDialogAndGetContent();
+                            CtrlPresentacio.ModificarListFreqMa(selectedFreq, contentLiveFreq);
+                            break;
+
+                        case 2: // File text logic
+                            FileSelectorDialog dsFileText = new FileSelectorDialog();
+                            String urlFileText = dsFileText.selectDirectory();
+                            CtrlPresentacio.ModificarTextFreqFromPath(selectedFreq, urlFileText);
+                            break;
+
+                        case 3: // File freq logic
+                            FileSelectorDialog dsFileFreq = new FileSelectorDialog();
+                            String urlFileFreq = dsFileFreq.selectDirectory();
+                            CtrlPresentacio.ModificarListFreqFromPath(selectedFreq, urlFileFreq);
+                            break;
+
+                        default: // Dialog closed or canceled
+                            JOptionPane.showMessageDialog(null, "Dialog closed or canceled");
+                            break;
+                    }
+                } catch (CaractersfromFreq_notInAlph_Exception ex) {
+                    JOptionPane.showMessageDialog(parent, "The frequency contains incompatible characters with the selected alphabet", "Character error", JOptionPane.ERROR_MESSAGE);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(parent, "There was an error while extracting the file", "File error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                updateTab();
+            }
+        });
+
         createButton.addActionListener(e -> {
+
             FrequencyCreatorDialog cf = new FrequencyCreatorDialog(parent);
             updateTab();
         });

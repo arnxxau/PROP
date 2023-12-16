@@ -11,6 +11,7 @@ package edu.upc.prop.clusterxx;
 
 import com.google.gson.annotations.Expose;
 import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
+import edu.upc.prop.clusterxx.exceptions.alphNotCompatible_Exception;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class Frequency {
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
 
         creationDate = Instant.now().toString();
-        lastModifiedTime = Instant.now().toString().toString();
+        lastModifiedTime = Instant.now().toString();
     }
 
 
@@ -204,9 +205,9 @@ public class Frequency {
      * @param f L'objecte Frequency amb el qual fusionar.
      * @throws Exception Si els alfabets de les freqüències no coincideixen.
      */
-    public void fusion(Frequency f) throws Exception {
+    public void fusion(Frequency f) throws alphNotCompatible_Exception {
         if (f.alphabet != this.alphabet)
-            throw new Exception(ALPHABET_ERROR);
+            throw new alphNotCompatible_Exception();
 
         Iterator<Character> it1 = alphabet.getCharacters().iterator();
         Iterator<Character> it2 = alphabet.getCharacters().iterator();

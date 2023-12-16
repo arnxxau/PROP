@@ -1,15 +1,19 @@
 package edu.upc.prop.clusterxx.views;
 
 import edu.upc.prop.clusterxx.CtrlPresentacio;
+import edu.upc.prop.clusterxx.Pair;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GridManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
+
+    GridDisplayerPanel gridRepresentation = new GridDisplayerPanel();
 
 
     public GridManagerPanel(JFrame parent) {
@@ -27,6 +31,9 @@ public class GridManagerPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(list);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
+
+        mainPanel.add(gridRepresentation, BorderLayout.SOUTH);
+
         Dimension buttonSize = new Dimension(100, 30);
         JButton createButton = new JButton("Create");
         JButton modifyButton = new JButton("Modify");
@@ -41,8 +48,6 @@ public class GridManagerPanel extends JPanel {
         setButtonSize(displayButton, buttonSize);
 
         buttonPanel.add(createButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        buttonPanel.add(modifyButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         buttonPanel.add(deleteButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -64,16 +69,26 @@ public class GridManagerPanel extends JPanel {
 
 
         // ActionListeners
-        modifyButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Modify button clicked"));
+
+        list.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) { // This line prevents double events
+                int ID = Integer.parseInt(list.getSelectedValue());
+                gridRepresentation.updateView(CtrlPresentacio.Obtenir_Reprentacio_Grid(ID), CtrlPresentacio.Max_Grid(ID));
+                System.out.println("Selected: " + ID);
+            }
+        });
+
+
         createButton.addActionListener(e -> {
             GridCreatorDialog cf = new GridCreatorDialog(parent);
             updateTab();
         });
 
+
         deleteButton.addActionListener(e -> {
 
             if (list.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Select an alphabet!");
+                JOptionPane.showMessageDialog(null, "Select a grid!");
             } else {
                 int confirmLoad = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this component?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
                 if (confirmLoad == JOptionPane.YES_OPTION) {
@@ -89,10 +104,11 @@ public class GridManagerPanel extends JPanel {
             else {
                 Integer ID = Integer.parseInt(list.getSelectedValue());
 
-                GridDialog fid = new GridDialog(parent, CtrlPresentacio.Obtenir_Reprentacio_Grid(ID), CtrlPresentacio.Max_Grid(ID));
+                GridDisplayerDialog fid = new GridDisplayerDialog(parent, CtrlPresentacio.Obtenir_Reprentacio_Grid(ID), CtrlPresentacio.Max_Grid(ID));
                 fid.setVisible(true);
             }
         });
+
         propertiesButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) JOptionPane.showMessageDialog(null, "Select a grid!");
             else {

@@ -23,7 +23,7 @@ public class CtrlDomini {
     Instant lastSaved = null;
     public CtrlDomini(){}
 
-    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) throws ExisteixID_Exception {
+    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) throws ExisteixID_Exception, gridAndAlphabetNotSameSize_Exception {
         if (KB.containsKey(nomT)){
             throw new ExisteixID_Exception();
             //return -1;
@@ -34,12 +34,12 @@ public class CtrlDomini {
         if (f == null) return -3;
         Grid g = GD.get(idG);
         if (g == null) return -4;
-        if (g.getSize() != a.size()) return -5;
+        if (g.getSize() != a.size()) throw new gridAndAlphabetNotSameSize_Exception();
         Keyboard k = new Keyboard(nomT,a,f,g,mode);
         KB.put(nomT,k);
         return 0;
     }
-    public String fusionarFreqs(ArrayList<String> arrayF) {
+    public String fusionarFreqs(ArrayList<String> arrayF) throws alphNotCompatible_Exception {
         if (arrayF.isEmpty()) return null;
         Frequency f = FQ.get(arrayF.get(0));
         if (arrayF.size() > 1) {
@@ -47,12 +47,8 @@ public class CtrlDomini {
             String name = "fusió (";
             for (String s : arrayF) {
                 if (i > 0) {
-                    try {
                         f.fusion(FQ.get(s));
                         name += " + " + s;
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
                 } else {
                     name += s;
                 }
@@ -115,7 +111,6 @@ public class CtrlDomini {
 
     //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
     public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException,ExisteixID_Exception { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
-        try{
 
             if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1;ja existeix la freq
 
@@ -123,26 +118,19 @@ public class CtrlDomini {
 
             Alphabet a = AP.get(nomA);
 
+            System.out.println(a);
+
             String[] text = llegir_archiu_path(path);//pasa del texto del fichero path a string[]
 
             /*if (text==null)return 4; // no existeix o no es troba el fitxer*/
 
             Frequency f;
-            try{
-                f = new Frequency(nomF, text, mode, a);
-            }
-            catch (Exception e){
-                return 3; // NO EXISTEIX LA LLETRA A L'ALFABET
+            f = new Frequency(nomF, text, mode, a);
 
-            };
 
             f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
             a.addFrequency(f);  //a l'alfabet li afegim la freq.
             FQ.put(nomF,f); //afegim la frequencia
-
-        }catch (Exception e){
-            System.out.println(e.getMessage()); // EXCEPCIÓ NO EXISTEIX EL PATH
-        }
 
         return 0;
     }
@@ -176,19 +164,14 @@ public class CtrlDomini {
         return res;
     }
 
-    private String[] llegir_archiu_path(String path){
+    private String[] llegir_archiu_path(String path) throws IOException {
 
         List<String> lines = new ArrayList<>();
 
         /*File f =  new File(path);
         if(!f.exists())return null;*/
 
-        try {
-            lines = Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
-        }catch (Exception e){
-            System.out.println(e.getMessage()); //inout exception
-        }
-
+        lines = Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         return lines.toArray(new String[0]);
     }
 
@@ -204,12 +187,7 @@ public class CtrlDomini {
         Alphabet a = AP.get(nomA);
 
         Frequency f;
-        try{
-            f = new Frequency(nomF,text,mode,a);
-        }
-        catch (Exception e){
-            return 3;
-        }// A l'alfabet no hi ha la lletra.
+        f = new Frequency(nomF,text,mode,a);
 
         FQ.put(nomF,f);
         //f.printFrequencies();
@@ -432,12 +410,9 @@ public class CtrlDomini {
         Frequency f = FQ.get(nomF); //no fa falta anar al HashMapde l'alfabet a modificar la freq perquè en teoria es el mateix punter
 
         String[] text = llegir_archiu_path(path);
-        try{
-            f.modifyFrequency(text,mode);
-        }
-        catch (Exception e){
-            return 3;
-        }
+
+        f.modifyFrequency(text,mode);
+
         return 0;
     }
 
@@ -450,13 +425,7 @@ public class CtrlDomini {
         }
 
         Frequency f = FQ.get(nomF);
-        try{
-            f.modifyFrequency(text,mode);
-        }
-        catch (Exception e){
-            return 3;
-        }// A l'alfabet no hi ha la lletra.
-
+        f.modifyFrequency(text,mode);
         return 0;
     }
 
@@ -536,4 +505,15 @@ public class CtrlDomini {
 
         return as;
     }
+
+    public char[] Obtenir_Distribucio_Teclat(String nomT) {
+        Keyboard k = KB.get(nomT);
+        return k.getDistribucio();
+    }
+
+    public int Obtenir_Nom_Grid_Teclat(String nomT) {
+        Keyboard k = KB.get(nomT);
+        return k.getGrid().getID();
+    }
+
 }
