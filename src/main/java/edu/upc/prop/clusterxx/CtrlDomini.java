@@ -44,7 +44,7 @@ public class CtrlDomini {
         Frequency f = FQ.get(arrayF.get(0));
         if (arrayF.size() > 1) {
             int i = 0;
-            String name = "fusió (";
+            String name = "fusion (";
             for (String s : arrayF) {
                 if (i > 0) {
                         f.fusion(FQ.get(s));
@@ -57,7 +57,8 @@ public class CtrlDomini {
             name += ")";
             f.setName(name);
             FQ.put(f.getName(), f);
-            (f.getAlphabet()).addFrequency(f);
+            AP.get(f.getAlphabet().getName()).addFrequency(f);
+            // (f.getAlphabet()).addFrequency(f); // TODO  fix persistencia
         }
         return f.getName();
     }

@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 public class Frequency {
     // Main data
@@ -206,7 +207,7 @@ public class Frequency {
      * @throws Exception Si els alfabets de les freqüències no coincideixen.
      */
     public void fusion(Frequency f) throws alphNotCompatible_Exception {
-        if (f.alphabet != this.alphabet)
+        if (!Objects.equals(f.alphabet.getName(), this.alphabet.getName()))
             throw new alphNotCompatible_Exception();
 
         Iterator<Character> it1 = alphabet.getCharacters().iterator();
