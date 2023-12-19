@@ -211,6 +211,7 @@ public class CtrlPresentacio {
         return cd.Noms_Grids();
     }
 
+
     public static String[][] Dades_Freqs(){
         return cd.datosFreqs();
     }

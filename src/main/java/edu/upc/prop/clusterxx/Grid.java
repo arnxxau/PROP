@@ -11,6 +11,7 @@ package edu.upc.prop.clusterxx;
 import com.google.gson.annotations.Expose;
 import com.google.gson.internal.JsonReaderInternalAccess;
 
+import java.time.Instant;
 import java.util.ArrayList;
 
 
@@ -21,6 +22,11 @@ public class Grid {
     private Pair size;
     @Expose
     private ArrayList<Pair> grid = new ArrayList<Pair>();
+
+    @Expose
+    private String creationDate;
+    @Expose
+    private String lastModifiedTime;
 
     /**
      * Constructor de la classe Grid que crea una graella buida basada en una matriu booleana.
@@ -39,6 +45,9 @@ public class Grid {
                 }
             }
         }
+
+        creationDate = Instant.now().toString();
+        lastModifiedTime = Instant.now().toString();
     }
 
 
@@ -55,12 +64,16 @@ public class Grid {
             grid.add(pair);
         }
         size = new Pair(max.getX() + 1, max.getY() + 1);
+        creationDate = Instant.now().toString();
+        lastModifiedTime = Instant.now().toString();
     }
 
     /**
      * Constructor sense paràmetres de la classe Grid.
      */
     public Grid() {
+        creationDate = Instant.now().toString();
+        lastModifiedTime = Instant.now().toString();
     }
 
     /**
@@ -103,6 +116,14 @@ public class Grid {
      */
     public int getSize() {
         return grid.size();
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public String getLastModifiedTime() {
+        return lastModifiedTime;
     }
 
     /**

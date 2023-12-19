@@ -321,8 +321,8 @@ public class CtrlDomini {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .withZone(ZoneId.systemDefault());
 
-        s[3] = "formatter.format(f.getLastModifiedTime())";
-        s[4] = "formatter.format(f.getCreationDate())";
+        s[3] = f.getLastModifiedTime();//"formatter.format(f.getLastModifiedTime())";
+        s[4] = f.getCreationDate();//"formatter.format(f.getCreationDate())";
 
         return s;
     }
@@ -343,6 +343,7 @@ public class CtrlDomini {
         }
         return vs;
     }
+
 
     public Vector<Vector<String>> Consultar_Freqs(String nomA){
         Vector<Vector<String>> vvs = new Vector<>();
