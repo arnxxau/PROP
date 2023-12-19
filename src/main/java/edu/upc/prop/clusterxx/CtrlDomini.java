@@ -23,21 +23,17 @@ public class CtrlDomini {
     Instant lastSaved = null;
     public CtrlDomini(){}
 
-    public int Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) throws ExisteixID_Exception, gridAndAlphabetNotSameSize_Exception {
+    public void Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) throws ExisteixID_Exception, gridAndAlphabetNotSameSize_Exception {
         if (KB.containsKey(nomT)){
             throw new ExisteixID_Exception();
             //return -1;
         }
         Alphabet a = AP.get(nomA);
-        if (a == null) return -2;
         Frequency f = a.getFrequencies().get(nomF);
-        if (f == null) return -3;
         Grid g = GD.get(idG);
-        if (g == null) return -4;
         if (g.getSize() != a.size()) throw new gridAndAlphabetNotSameSize_Exception();
         Keyboard k = new Keyboard(nomT,a,f,g,mode);
         KB.put(nomT,k);
-        return 0;
     }
     public String fusionarFreqs(ArrayList<String> arrayF) throws alphNotCompatible_Exception {
         if (arrayF.isEmpty()) return null;
@@ -62,30 +58,21 @@ public class CtrlDomini {
         }
         return f.getName();
     }
-    public int Esborrar_Teclat(String nomT) {
-        if (KB.containsKey(nomT)) {
-            KB.remove(nomT);
-            return 0;
-        }
-        return -1;
+    public void Esborrar_Teclat(String nomT) {
+        KB.remove(nomT);
     }
-    public int CanviarNom_Teclat(String nomT, String newNom)throws ExisteixID_Exception {
-        if (!KB.containsKey(nomT)) return -1;
+    public void CanviarNom_Teclat(String nomT, String newNom)throws ExisteixID_Exception {
         if (KB.containsKey(newNom)){
             throw new ExisteixID_Exception();
-            //return -2;
         }
         Keyboard k = KB.get(nomT);
         k.setNom(newNom);
         KB.remove(nomT);
         KB.put(newNom,k);
-        return 0;
     }
-    public int Actualitzar_Teclat(String nomT) {
-        if (!KB.containsKey(nomT)) return -1;
+    public void Actualitzar_Teclat(String nomT) {
         Keyboard k = KB.get(nomT);
         k.update();
-        return 0;
     }
     public Vector<Vector<String>> Consultar_Teclats(){
         Vector<Vector<String>> vvs = new Vector<>();
@@ -111,7 +98,7 @@ public class CtrlDomini {
     }
 
     //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
-    public int Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException,ExisteixID_Exception { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+    public void Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException,ExisteixID_Exception { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
 
             if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1;ja existeix la freq
 
@@ -132,8 +119,6 @@ public class CtrlDomini {
             f.setAlphabet(a); //si tots els caracters de la freq hi son també al alfabet, li asignem l'alfabet
             a.addFrequency(f);  //a l'alfabet li afegim la freq.
             FQ.put(nomF,f); //afegim la frequencia
-
-        return 0;
     }
     public String[][] datosFreqs(){
         String[][] ss = new String[FQ.size()][3];
@@ -166,19 +151,13 @@ public class CtrlDomini {
     }
 
     private String[] llegir_archiu_path(String path) throws IOException {
-
-        List<String> lines = new ArrayList<>();
-
-        /*File f =  new File(path);
-        if(!f.exists())return null;*/
-
+        List<String> lines;
         lines = Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         return lines.toArray(new String[0]);
     }
 
-    public int Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception,ExisteixID_Exception{
+    public void Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception,ExisteixID_Exception{
         if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1; la freq ja existeix
-       // if(!AP.containsKey(nomA))return 2; l'alfabet no existeix
 
         String[] text = new String[vs.size()];
         for(int i=0; i < text.length; i++){
@@ -191,29 +170,23 @@ public class CtrlDomini {
         f = new Frequency(nomF,text,mode,a);
 
         FQ.put(nomF,f);
-        //f.printFrequencies();
         a.addFrequency(f);//a l'alfabet se li afegeix la freq
-        return 0;
     }
 
     public void Esborrar_Alfabet(String s){
         if (AP.get(s).getFrequencies() != null) { // safe delete
             for(String nomf : AP.get(s).getFrequencies().keySet()) FQ.remove(nomf);
         }
-
         AP.remove(s);
     }
-    public int CanviarNom_Alfabet(String s,String s2)throws ExisteixID_Exception{
-        if(!AP.containsKey(s)) return 1;
+    public void CanviarNom_Alfabet(String s,String s2)throws ExisteixID_Exception{
         if(AP.containsKey(s2)){
             throw new ExisteixID_Exception();
-            // return 2;
         }
         Alphabet a = AP.get(s);
         a.setName(s2);
         AP.remove(s);
         AP.put(s2,a);
-        return 0;
     }
 
 
@@ -395,19 +368,17 @@ public class CtrlDomini {
         return vs;
     }
 
-    public int Esborrar_Frequencia (String nomF) {
-        if (!FQ.containsKey(nomF)) return -1;
+    public void Esborrar_Frequencia (String nomF) {
         Frequency f = FQ.get(nomF);
         f.getAlphabet().deleteFrequency(f);//quito del HashMap del alfabeto la freq.
         FQ.remove(nomF);
-        return 0;
     }
     public boolean ExisteixFreq(String nomf){
         return FQ.containsKey(nomf);
     }
 
 
-    public int Modificar_Freq_Path(String nomF, String path, int mode)throws CaractersfromFreq_notInAlph_Exception,IOException{
+    public void Modificar_Freq_Path(String nomF, String path, int mode)throws CaractersfromFreq_notInAlph_Exception,IOException{
 
         Frequency f = FQ.get(nomF); //no fa falta anar al HashMapde l'alfabet a modificar la freq perquè en teoria es el mateix punter
 
@@ -415,10 +386,9 @@ public class CtrlDomini {
 
         f.modifyFrequency(text,mode);
 
-        return 0;
     }
 
-    public int Modificar_FreqMa(String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception{
+    public void Modificar_FreqMa(String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception{
 
         String[] text = new String[vs.size()];
 
@@ -428,7 +398,6 @@ public class CtrlDomini {
 
         Frequency f = FQ.get(nomF);
         f.modifyFrequency(text,mode);
-        return 0;
     }
 
     public boolean ExisteixAlf(String noma){
@@ -439,19 +408,14 @@ public class CtrlDomini {
         File f = new File(path);
         return f.exists();
     }
-    public int Afegir_Grid (int x, boolean[][] pos)throws ExisteixID_Exception{
+    public void Afegir_Grid (int x, boolean[][] pos)throws ExisteixID_Exception{
         if (GD.containsKey(x))throw new ExisteixID_Exception(); //return -1;
         Grid g = new Grid(x,pos);
         GD.put(x,g);
-        return 0;
     }
 
-    public int Esborrar_Grid (Integer idG) {
-        if (GD.containsKey(idG)) {
-            GD.remove(idG);
-            return 0;
-        }
-        return -1;
+    public void Esborrar_Grid (Integer idG) {
+        GD.remove(idG);
     }
     public Vector<Vector<String>> Consultar_Grids() {
         Vector<Vector<String>> vvs = new Vector<>();
