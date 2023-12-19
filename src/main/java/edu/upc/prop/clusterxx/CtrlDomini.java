@@ -318,8 +318,8 @@ public class CtrlDomini {
 
         s[2] = p.getX() + " " + p.getY();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
+       /* DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());*/
 
         s[3] = f.getLastModifiedTime();//"formatter.format(f.getLastModifiedTime())";
         s[4] = f.getCreationDate();//"formatter.format(f.getCreationDate())";
