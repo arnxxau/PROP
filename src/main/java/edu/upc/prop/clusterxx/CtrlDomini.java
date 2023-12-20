@@ -98,7 +98,7 @@ public class CtrlDomini {
     }
 
     //pre: existeix l'alfabet, no existeix la freq, existeix el fitxer
-    public void Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode)throws CaractersfromFreq_notInAlph_Exception, IOException,ExisteixID_Exception { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
+    public void Afegir_Freq_FromPath(String nomF, String path, String nomA, int mode) throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception, badExtraction_Exception { //PARA PASAR DE PATH DE FICHERO A STRING[] PARA LA CONSTRUCTORA DE FREQ PARA CREARLA
 
             if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1;ja existeix la freq
 
@@ -156,7 +156,7 @@ public class CtrlDomini {
         return lines.toArray(new String[0]);
     }
 
-    public void Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception,ExisteixID_Exception{
+    public void Afegir_FreqMa(String nomA, String nomF, Vector<String> vs, int mode) throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception, badExtraction_Exception {
         if(FQ.containsKey(nomF)) throw new ExisteixID_Exception();//return 1; la freq ja existeix
 
         String[] text = new String[vs.size()];
@@ -378,7 +378,7 @@ public class CtrlDomini {
     }
 
 
-    public void Modificar_Freq_Path(String nomF, String path, int mode)throws CaractersfromFreq_notInAlph_Exception,IOException{
+    public void Modificar_Freq_Path(String nomF, String path, int mode) throws CaractersfromFreq_notInAlph_Exception, IOException, badExtraction_Exception {
 
         Frequency f = FQ.get(nomF); //no fa falta anar al HashMapde l'alfabet a modificar la freq perquè en teoria es el mateix punter
 
@@ -388,7 +388,7 @@ public class CtrlDomini {
 
     }
 
-    public void Modificar_FreqMa(String nomF, Vector<String> vs, int mode)throws CaractersfromFreq_notInAlph_Exception{
+    public void Modificar_FreqMa(String nomF, Vector<String> vs, int mode) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
 
         String[] text = new String[vs.size()];
 

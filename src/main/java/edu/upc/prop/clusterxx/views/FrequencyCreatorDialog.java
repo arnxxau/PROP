@@ -3,6 +3,7 @@ package edu.upc.prop.clusterxx.views;
 import edu.upc.prop.clusterxx.CtrlPresentacio;
 import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
 import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
+import edu.upc.prop.clusterxx.exceptions.badExtraction_Exception;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,6 +99,8 @@ public class FrequencyCreatorDialog extends JDialog {
                 JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(parent, "There was an error while extracting the file", "File error", JOptionPane.ERROR_MESSAGE);
+            } catch (badExtraction_Exception ex) {
+                JOptionPane.showMessageDialog(parent, "There was an error while trying to extract the frequency", "Bad extraction", JOptionPane.ERROR_MESSAGE);
             }
             System.out.println(content);
 

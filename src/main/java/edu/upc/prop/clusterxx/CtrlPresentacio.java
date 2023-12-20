@@ -1,9 +1,6 @@
 package edu.upc.prop.clusterxx;
 
-import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
-import edu.upc.prop.clusterxx.exceptions.ExisteixID_Exception;
-import edu.upc.prop.clusterxx.exceptions.alphNotCompatible_Exception;
-import edu.upc.prop.clusterxx.exceptions.gridAndAlphabetNotSameSize_Exception;
+import edu.upc.prop.clusterxx.exceptions.*;
 import edu.upc.prop.clusterxx.views.*;
 
 import java.io.IOException;
@@ -116,19 +113,19 @@ public class CtrlPresentacio {
     // FREQUENCIES
 
     public static void AfegirTextFreqFromPath(String nomF, String nomA, String path)
-            throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception {
+            throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception, badExtraction_Exception {
         cd.Afegir_Freq_FromPath(nomF, path, nomA, 1);
     }
 
     public static void AfegirListFreqFromPath(String nomF, String nomA, String path)
-            throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception {
+            throws CaractersfromFreq_notInAlph_Exception, IOException, ExisteixID_Exception, badExtraction_Exception {
         cd.Afegir_Freq_FromPath(nomF, path, nomA, 0);
     }
 
     public static void AfegirTextFreqMa(String nomA, String nomF, String liveText)
-            throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception {
+            throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception, badExtraction_Exception {
         Vector<String> text = new Vector<>();
-        StringTokenizer tokenizer = new StringTokenizer(liveText, "\n");
+        StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
 
         while (tokenizer.hasMoreTokens()) {
             text.add(tokenizer.nextToken());
@@ -138,13 +135,15 @@ public class CtrlPresentacio {
     }
 
     public static void AfegirListFreqMa(String nomA, String nomF, String liveText)
-            throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception {
+            throws CaractersfromFreq_notInAlph_Exception, ExisteixID_Exception, badExtraction_Exception {
         Vector<String> text = new Vector<>();
-        StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+        StringTokenizer tokenizer = new StringTokenizer(liveText, "\n");
 
         while (tokenizer.hasMoreTokens()) {
             text.add(tokenizer.nextToken());
         }
+
+        for (String x : text) System.out.println(x);
 
 
         cd.Afegir_FreqMa(nomA, nomF, text, 0);
@@ -155,18 +154,18 @@ public class CtrlPresentacio {
     }
 
     public static void ModificarTextFreqFromPath(String nomF, String path)
-            throws CaractersfromFreq_notInAlph_Exception, IOException {
+            throws CaractersfromFreq_notInAlph_Exception, IOException, badExtraction_Exception {
         cd.Modificar_Freq_Path(nomF, path, 1);
     }
 
     public static void ModificarListFreqFromPath(String nomF, String path)
-            throws CaractersfromFreq_notInAlph_Exception, IOException {
+            throws CaractersfromFreq_notInAlph_Exception, IOException, badExtraction_Exception {
 
         cd.Modificar_Freq_Path(nomF, path, 0);
     }
 
     public static void ModificarTextFreqMa(String nomF, String liveText)
-            throws CaractersfromFreq_notInAlph_Exception {
+            throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         Vector<String> text = new Vector<>();
         StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
 
@@ -179,7 +178,7 @@ public class CtrlPresentacio {
     }
 
     public static void ModificarListFreqMa(String nomF, String liveText)
-            throws CaractersfromFreq_notInAlph_Exception {
+            throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         Vector<String> text = new Vector<>();
         StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
 

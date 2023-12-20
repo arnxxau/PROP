@@ -12,6 +12,7 @@ package edu.upc.prop.clusterxx;
 import com.google.gson.annotations.Expose;
 import edu.upc.prop.clusterxx.exceptions.CaractersfromFreq_notInAlph_Exception;
 import edu.upc.prop.clusterxx.exceptions.alphNotCompatible_Exception;
+import edu.upc.prop.clusterxx.exceptions.badExtraction_Exception;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -71,7 +72,7 @@ public class Frequency {
      * @param alphabet L'alfabet associat amb la freqüència.
      * @throws Exception Si hi ha un error durant la construcció.
      */
-    public Frequency(String name, String[] lines, int mode, Alphabet alphabet) throws CaractersfromFreq_notInAlph_Exception {
+    public Frequency(String name, String[] lines, int mode, Alphabet alphabet) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         this.mode = mode;
         this.name = name;
         this.alphabet = alphabet;
@@ -101,19 +102,26 @@ public class Frequency {
      * @param lines Les línies que contenen la informació de freqüències.
      * @throws Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
      */
-    private void extractRawFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception {
-        frequencyWeight = Integer.parseInt(lines[0]);
-        for (int i = 1; i < lines.length; ++i) {
-            String[] line = lines[i].split(" ");
-            Character first = line[0].charAt(0);
-            Character second = line[1].charAt(0);
-            checkFreqIntegrity(first);
-            checkFreqIntegrity(second);
+    private void extractRawFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
+        try {
+            frequencyWeight = Integer.parseInt(lines[0]);
+            for (int i = 1; i < lines.length; ++i) {
+                String[] line = lines[i].split(" ");
+                Character first = line[0].charAt(0);
+                Character second = line[1].charAt(0);
+                checkFreqIntegrity(first);
+                checkFreqIntegrity(second);
 
-            Integer d_freq = Integer.parseInt(line[2]);
+                Integer d_freq = Integer.parseInt(line[2]);
 
-            insertNewFreq(first, second, d_freq, REPLACE);
+                insertNewFreq(first, second, d_freq, REPLACE);
+            }
+        } catch (CaractersfromFreq_notInAlph_Exception ch) {
+            throw new CaractersfromFreq_notInAlph_Exception();
+        } catch (Exception e) {
+            throw new badExtraction_Exception();
         }
+
 
     }
 
@@ -191,7 +199,7 @@ public class Frequency {
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
         lastModifiedTime = Instant.now().toString();
     }
-    public void modifyFrequency(String[] lines, int mode) throws CaractersfromFreq_notInAlph_Exception {
+    public void modifyFrequency(String[] lines, int mode) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         frequencyWeight = 0;
         freq = new HashMap<>();
         this.mode = mode;
