@@ -1,1 +1,0 @@
-Classes de model i Controlador de Domini i Driver de Funcionalitat
