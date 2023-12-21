@@ -62,6 +62,7 @@ public class Keyboard {
     public void update() {
         if(modeA == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
         else{this.distribucio = LocalSearch.HillClimbing(Alph,Freq,Grid);}
+        this.ultimaModificacio = Instant.now().toString();
     }
 
 
