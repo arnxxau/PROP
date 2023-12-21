@@ -42,8 +42,10 @@ public class KeyboardManagerPanel extends JPanel {
         JButton propertiesButton = new JButton("Properties");
         JButton deleteButton = new JButton("Delete");
         JButton displayButton = new JButton("Display");
+        JButton updateButton = new JButton("Update");
 
         setButtonSize(modifyButton, buttonSize);
+        setButtonSize(updateButton, buttonSize);
         setButtonSize(propertiesButton, buttonSize);
         setButtonSize(createButton, buttonSize);
         setButtonSize(deleteButton, buttonSize);
@@ -59,6 +61,9 @@ public class KeyboardManagerPanel extends JPanel {
         buttonPanel.add(propertiesButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
         buttonPanel.add(displayButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(updateButton);
+
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -145,6 +150,18 @@ public class KeyboardManagerPanel extends JPanel {
                 char[] characters = CtrlPresentacio.Obtenir_Distribucio_Teclat(selectedKeyboardName);
                 KeyboardDisplayerDialog dialog = new KeyboardDisplayerDialog(parent, positions, gridSize, characters);
                 dialog.setVisible(true);
+            }
+        });
+
+        updateButton.addActionListener(e -> {
+            if (list.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Select a keyboard!");
+            } else {
+
+
+                String selectedKeyboardName = list.getSelectedValue();
+
+                CtrlPresentacio.Actualitzar_Teclat(selectedKeyboardName);
             }
         });
     }
