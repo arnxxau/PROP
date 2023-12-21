@@ -29,6 +29,8 @@ public class Keyboard {
     @Expose
     private Grid Grid;
 
+    private int modeA;
+
     public final static int QAPAlgorithm = 0;
     public final static int LocalSearchAlgorithm = 1;
 
@@ -51,13 +53,15 @@ public class Keyboard {
         this.Grid = grid;
         if(mode == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(alphabet,frequency,grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
         else{this.distribucio = LocalSearch.HillClimbing(alphabet,frequency,grid);}
+        this.modeA = mode;
     }
 
     /**
      * Actualitza la distribució de lletres del teclat.
      */
     public void update() {
-        this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);
+        if(modeA == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
+        else{this.distribucio = LocalSearch.HillClimbing(Alph,Freq,Grid);}
     }
 
 
@@ -160,7 +164,9 @@ public class Keyboard {
      * @param nom El nou nom del teclat.
      */
     public void setNom(String nom) {
+
         this.nom = nom;
+        this.ultimaModificacio = Instant.now().toString();
     }
 
     /**
@@ -169,7 +175,9 @@ public class Keyboard {
      * @param distribucio La nova distribució de lletres.
      */
     public void setDistribucio(char[] distribucio) {
+
         this.distribucio = distribucio;
+        this.ultimaModificacio = Instant.now().toString();
     }
 
     /**
@@ -178,7 +186,9 @@ public class Keyboard {
      * @param alph El nou alfabet del teclat.
      */
     public void setAlph(Alphabet alph) {
+
         this.Alph = alph;
+        this.ultimaModificacio = Instant.now().toString();
     }
 
     /**
@@ -187,7 +197,9 @@ public class Keyboard {
      * @param freq La nova freqüència del teclat.
      */
     public void setFreq(Frequency freq) {
+
         this.Freq = freq;
+        this.ultimaModificacio = Instant.now().toString();
     }
 
     /**
@@ -196,7 +208,9 @@ public class Keyboard {
      * @param grid La nova graella del teclat.
      */
     public void setGrid(Grid grid) {
+
         this.Grid = grid;
+        this.ultimaModificacio = Instant.now().toString();
     }
 }
 
