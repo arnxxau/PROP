@@ -53,8 +53,6 @@ public class AlphabetCreatorDialog extends JDialog {
             for (char ch : content.toCharArray()) {
                 c.add(ch);
             }
-
-            System.out.println(c);
         });
 
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

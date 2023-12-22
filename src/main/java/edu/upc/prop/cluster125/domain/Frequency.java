@@ -117,7 +117,8 @@ public class Frequency {
                 checkFreqIntegrity(first);
                 checkFreqIntegrity(second);
 
-                int d_freq = Integer.parseInt(line[2]);
+                String number = line[2].strip();
+                int d_freq = Integer.parseInt(number);
 
                 frequencyWeight += d_freq;
 

@@ -236,9 +236,6 @@ public class CtrlPresentacio {
             text.add(tokenizer.nextToken());
         }
 
-        for (String x : text) System.out.println(x);
-
-
         cd.Afegir_FreqMa(nomA, nomF, text, 0);
     }
 

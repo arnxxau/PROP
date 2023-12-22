@@ -100,7 +100,6 @@ public class FrequencyCreatorDialog extends JDialog {
             } catch (badExtraction_Exception ex) {
                 JOptionPane.showMessageDialog(parent, "There was an error while trying to extract the frequency", "Bad extraction", JOptionPane.ERROR_MESSAGE);
             }
-            System.out.println(content);
         });
 
         buttonPanel.add(createButton);

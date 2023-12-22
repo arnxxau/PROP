@@ -96,8 +96,6 @@ public class CtrlDomini {
 
             Alphabet a = AP.get(nomA);
 
-            System.out.println(a);
-
             String[] text = llegir_archiu_path(path);//pasa del texto del fichero path a string[]
 
             /*if (text==null)return 4; // no existeix o no es troba el fitxer*/
