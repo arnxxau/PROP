@@ -34,9 +34,9 @@ public class MainView extends JFrame {
 
 
 
-        ImageIcon imgicon = new ImageIcon("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/views/logo.png");
+        ImageIcon imgicon = new ImageIcon("./src/main/java/edu/upc/prop/cluster125/presentation/views/logo.png");
         setIconImage(imgicon.getImage());
-        setName("Distributor");
+        setName("Layout manager");
 
 
 
@@ -48,7 +48,7 @@ public class MainView extends JFrame {
 
 
         // Set up the main frame
-        setTitle("Main menu");
+        setTitle("Layout manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
 
@@ -130,9 +130,6 @@ public class MainView extends JFrame {
         // Save and Load Panel
         JButton saveButton = createLoadSaveButton("Save");
         JButton loadButton = createLoadSaveButton("Load");
-
-        saveButton.addActionListener(new SaveButtonListener());
-        loadButton.addActionListener(new LoadButtonListener());
 
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         saveLoadPanel.add(saveButton);

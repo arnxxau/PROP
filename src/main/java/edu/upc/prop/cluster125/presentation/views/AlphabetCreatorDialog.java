@@ -52,7 +52,7 @@ public class AlphabetCreatorDialog extends JDialog {
         createButton.addActionListener(e -> {
 
             if (nameField.getText().isEmpty()) {
-                showMessage("Name missing.", "Alert", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Name missing!");
             } else if (c.isEmpty()) {
                 showMessage("There are no characters! Please type some characters in the live editor.", "Alert", JOptionPane.WARNING_MESSAGE);
             } else {
