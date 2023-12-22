@@ -208,8 +208,4 @@ public class MainView extends JFrame {
             ds.selectDirectory();
         }
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainView::new);
-    }
 }
