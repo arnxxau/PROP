@@ -1,7 +1,6 @@
 package edu.upc.prop.cluster125.presentation.views;
 
 import edu.upc.prop.cluster125.domain.Pair;
-import edu.upc.prop.cluster125.domain.Grid;
 
 import javax.swing.*;
 import java.awt.*;

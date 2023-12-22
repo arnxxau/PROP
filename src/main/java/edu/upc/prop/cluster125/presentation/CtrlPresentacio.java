@@ -94,14 +94,6 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Obté els noms de totes les graelles disponibles.
-     * @return Vector amb els noms de les graelles.
-     */
-    public static Vector<String> getGrid() {
-        return cd.Noms_Grids();
-    }
-
-    /**
      * Demana una representació completa d'un alfabet específic.
      * @return Matriu de Strings amb la informació de l'alfabet.
      */

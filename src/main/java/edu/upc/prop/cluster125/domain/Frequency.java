@@ -245,15 +245,6 @@ public class Frequency {
     // public getters
 
     /**
-     * Obté el pes de la freqüència, que representa el nombre total de combinacions de caràcters.
-     *
-     * @return El pes de la freqüència.
-     */
-    public Integer getFrequencyWeight() {
-        return frequencyWeight;
-    }
-
-    /**
      * Obté el mode de la freqüència, indicant si es troba en mode de freqüència o text.
      *
      * @return El mode de la freqüència.

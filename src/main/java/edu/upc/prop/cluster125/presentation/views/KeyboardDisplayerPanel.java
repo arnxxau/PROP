@@ -1,6 +1,5 @@
 package edu.upc.prop.cluster125.presentation.views;
 
-import edu.upc.prop.cluster125.domain.Grid;
 import edu.upc.prop.cluster125.domain.Pair;
 
 import javax.swing.*;
@@ -48,7 +47,6 @@ public class KeyboardDisplayerPanel extends JPanel {
         int cellSize = 10; // Mida més gran de la cel·la
 
         // Calcula el punt d'inici per centrar la graella
-        int startX = (getWidth() - gridSize.getY() * cellSize) / 2;
         int startY = (getHeight() - gridSize.getX() * cellSize) / 2;
 
         // Dibuixa la graella i els caràcters
