@@ -14,7 +14,7 @@ public class GridPropertiesDialog extends JDialog {
      * @param propietats Un array de propietats per mostrar.
      */
     public GridPropertiesDialog(JFrame parent, String[] propietats) {
-        super(parent, "Informació de la Graella", true);
+        super(parent, "Grid Information", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);
 
@@ -26,11 +26,11 @@ public class GridPropertiesDialog extends JDialog {
         Font fontEtiqueta = new Font("Arial", Font.PLAIN, 14);
         Color colorEtiqueta = UIManager.getColor("textText");
 
-        JLabel etiquetaNom = new JLabel("Nom: " + propietats[0]);
-        JLabel etiquetaSlots = new JLabel("Nombre de slots: " + propietats[1]);
-        JLabel etiquetaMida = new JLabel("Mida: " + propietats[2]);
-        JLabel etiquetaDarreraModificacio = new JLabel("Darrera modificació: " + propietats[3]);
-        JLabel etiquetaCreacio = new JLabel("Creació: " + propietats[4]);
+        JLabel etiquetaNom = new JLabel("Name: " + propietats[0]);
+        JLabel etiquetaSlots = new JLabel("Number of slots: " + propietats[1]);
+        JLabel etiquetaMida = new JLabel("Size: " + propietats[2]);
+        JLabel etiquetaDarreraModificacio = new JLabel("Last Modification: " + propietats[3]);
+        JLabel etiquetaCreacio = new JLabel("Creation: " + propietats[4]);
 
         etiquetaNom.setFont(fontEtiqueta);
         etiquetaNom.setForeground(colorEtiqueta);

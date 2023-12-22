@@ -28,7 +28,7 @@ public class ManageAlphabets extends JFrame {
      */
     public ManageAlphabets() {
         // Configura el marc principal
-        setTitle("Gestor d'Alfabets");
+        setTitle("Alphabet manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -37,7 +37,7 @@ public class ManageAlphabets extends JFrame {
         mainPanel = new JPanel(new BorderLayout());
         tablePanel = new JPanel(new BorderLayout());
 
-        String[] column = {"NOM", "CARÀCTERS", "MIDA"};
+        String[] column = {"NAME", "CHARS", "SIZE"};
 
         table = new JTable(CtrlPresentacio.Demanar_full_Alfabet(), column);
 
@@ -47,10 +47,10 @@ public class ManageAlphabets extends JFrame {
 
         buttonPanel = new JPanel(new BorderLayout());
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        modifyButton = new JButton("Modificar");
-        createButton = new JButton("Crear");
-        deleteButton = new JButton("Eliminar");
-        backButton = new JButton("Enrere");
+        modifyButton = new JButton("Modify");
+        createButton = new JButton("Create");
+        deleteButton = new JButton("Delete");
+        backButton = new JButton("Back");
 
         modifyButton.setPreferredSize(new Dimension(80, 30));
         createButton.setPreferredSize(new Dimension(80, 30));
@@ -62,7 +62,7 @@ public class ManageAlphabets extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Substitueix això amb la lògica real per al botó
-                JOptionPane.showMessageDialog(null, "Botó Modificar clicat");
+                JOptionPane.showMessageDialog(null,  "Modify button clicked");
             }
         });
 
@@ -82,7 +82,7 @@ public class ManageAlphabets extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Substitueix això amb la lògica real per al botó
-                JOptionPane.showMessageDialog(null, "Botó Eliminar clicat");
+                JOptionPane.showMessageDialog(null, "Delete button clicked");
             }
         });
 

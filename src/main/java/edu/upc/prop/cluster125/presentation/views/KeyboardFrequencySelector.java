@@ -22,7 +22,7 @@ public class KeyboardFrequencySelector extends JDialog {
      * @param stringVector Vector de cadenes de text a seleccionar.
      */
     public KeyboardFrequencySelector(JFrame parent, Vector<String> stringVector) {
-        super(parent, "Selecció de Cadena de Text", true);
+        super(parent, "String Selection", true);
         this.stringVector = stringVector;
         this.selectedStrings = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class KeyboardFrequencySelector extends JDialog {
         mainPanel.add(new JScrollPane(checkboxPanel), gbc);
 
         // Crea un botó per confirmar la selecció
-        JButton selectButton = new JButton("Selecciona");
+        JButton selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

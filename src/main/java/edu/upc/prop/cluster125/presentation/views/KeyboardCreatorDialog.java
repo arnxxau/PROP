@@ -26,7 +26,7 @@ public class KeyboardCreatorDialog extends JDialog {
      * @param parent El frame pare.
      */
     public KeyboardCreatorDialog(JFrame parent) {
-        super(parent, "Creador de Teclats", true);
+        super(parent, "Keyboard Creator", true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 280);
 
@@ -41,16 +41,16 @@ public class KeyboardCreatorDialog extends JDialog {
         // Form Panel
         JTextField nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(80, 30));
-        formPanel.add(new JLabel("Nom: "));
+        formPanel.add(new JLabel("Name: "));
         formPanel.add(nameField);
 
-        formPanel.add(new JLabel("Alfabet: "));
+        formPanel.add(new JLabel("Alphabet: "));
         Vector<String> alphabetElements = CtrlPresentacio.getAlphabets();
         JComboBox<String> alphabetComboBox = new JComboBox<>(alphabetElements);
         formPanel.add(alphabetComboBox);
 
         // Add "Grid" combo box
-        formPanel.add(new JLabel("Graella: "));
+        formPanel.add(new JLabel("Grid: "));
         Vector<String> gridElements = CtrlPresentacio.Noms_Grid();
         JComboBox<String> gridComboBox = new JComboBox<>(gridElements);
         formPanel.add(gridComboBox);
@@ -67,26 +67,26 @@ public class KeyboardCreatorDialog extends JDialog {
         radioBtnPanel.add(algorithm2RadioButton);
 
         // Button Panel
-        JButton createButton = loadSaveButton("Crear");
+        JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
 
         });
         buttonPanel.add(createButton);
 
         // Add "Select frequencies" button
-        JButton selectFrequenciesButton = new JButton("Seleccionar freqüències");
+        JButton selectFrequenciesButton = new JButton("Select frequencies");
         selectFrequenciesButton.addActionListener(e -> {
 
-            if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Creeu un alfabet!");
+            if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create an alphabet!");
             else {
                 String name = alphabetComboBox.getSelectedItem().toString();
                 KeyboardFrequencySelector fs = new KeyboardFrequencySelector(parent, CtrlPresentacio.NomsFreqs_alfabet(name));
-                if (fs.getSelectedStrings().isEmpty()) JOptionPane.showMessageDialog(null, "No heu proporcionat cap freqüència, per tant no s'ha creat cap freqüència de fusió.");
+                if (fs.getSelectedStrings().isEmpty()) JOptionPane.showMessageDialog(null, "You provided no frequencies so no fusion frequency was created.");
                 else {
                     try {
                         fName = CtrlPresentacio.FusionarFreqa(fs.getSelectedStrings());
                     } catch (alphNotCompatible_Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Els alfabet no són compatibles.");
+                        JOptionPane.showMessageDialog(null, "Alphabets not compatible!");
                     }
                 }
 
@@ -97,11 +97,11 @@ public class KeyboardCreatorDialog extends JDialog {
         createButton.addActionListener(e -> {
             String aName = alphabetComboBox.getSelectedItem().toString();
             String gName = gridComboBox.getSelectedItem().toString();
-            if (nameField.getText().isEmpty()) JOptionPane.showMessageDialog(null, "Proporcioneu un nom!");
-            else if (!algorithm1RadioButton.isSelected() && !algorithm2RadioButton.isSelected()) JOptionPane.showMessageDialog(null, "Seleccioneu un algorisme!");
-            else if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Creeu un alfabet!");
-            else if (gridComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Creeu una graella!");
-            else if (fName == null) JOptionPane.showMessageDialog(null, "Seleccioneu algunes freqüències!");
+            if (nameField.getText().isEmpty()) JOptionPane.showMessageDialog(null, "Provide a name!");
+            else if (!algorithm1RadioButton.isSelected() && !algorithm2RadioButton.isSelected()) JOptionPane.showMessageDialog(null, "Select an algorithm!");
+            else if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create an alphabet!");
+            else if (gridComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create a grid!");
+            else if (fName == null) JOptionPane.showMessageDialog(null, "Select some frequencies!");
             else {
                 try {
                     if (algorithm1RadioButton.isSelected()) CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName), Keyboard.QAPAlgorithm);
@@ -109,10 +109,10 @@ public class KeyboardCreatorDialog extends JDialog {
 
                     dispose();
                 } catch (ExisteixID_Exception ex) {
-                    JOptionPane.showMessageDialog(parent, "El nom ja existeix!", "Error de nom", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent, "Name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
                 } catch (gridAndAlphabetNotSameSize_Exception ex) {
                     fName = null;
-                    JOptionPane.showMessageDialog(parent, "Les posicions seleccionades de la graella i la mida de l'alfabet han de ser iguals!", "Error de mida", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent, "The number of selected positions on the grid and the size of the alphabet must be the same!", "Size error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 

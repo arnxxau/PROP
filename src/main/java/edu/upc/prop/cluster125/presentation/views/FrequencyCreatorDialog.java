@@ -39,19 +39,19 @@ public class FrequencyCreatorDialog extends JDialog {
         // Form Panel
         JTextField nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(80, 30));
-        formPanel.add(new JLabel("Nom: "));
+        formPanel.add(new JLabel("Name: "));
         formPanel.add(nameField);
 
-        formPanel.add(new JLabel("Alfabet: "));
+        formPanel.add(new JLabel("Alphabet: "));
         Vector<String> alphabetElements = CtrlPresentacio.getAlphabets();
         JComboBox<String> alphabetComboBox = new JComboBox<>(alphabetElements);
         formPanel.add(alphabetComboBox);
 
         // Radio Buttons
-        JRadioButton liveTextRadioButton = new JRadioButton("Text en directe");
-        JRadioButton liveFreqRadioButton = new JRadioButton("Freqüència en directe");
-        JRadioButton fileTextRadioButton = new JRadioButton("Text de fitxer");
-        JRadioButton fileFreqRadioButton = new JRadioButton("Freqüència de fitxer");
+        JRadioButton liveTextRadioButton = new JRadioButton("Live text");
+        JRadioButton liveFreqRadioButton = new JRadioButton("Live freq");
+        JRadioButton fileTextRadioButton = new JRadioButton("File text");
+        JRadioButton fileFreqRadioButton = new JRadioButton("File freq");
         ButtonGroup radioButtonGroup = new ButtonGroup();
         radioButtonGroup.add(liveTextRadioButton);
         radioButtonGroup.add(liveFreqRadioButton);
@@ -67,11 +67,11 @@ public class FrequencyCreatorDialog extends JDialog {
         mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
 
         // Button Panel
-        JButton createButton = loadSaveButton("Crear");
+        JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
             try {
                 if (nameField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(parent, "Escriu un nom!");
+                    JOptionPane.showMessageDialog(parent, "Type a name!");
                 } else if (liveTextRadioButton.isSelected() || liveFreqRadioButton.isSelected()) {
                     LiveEditorDialog led = new LiveEditorDialog(parent, content);
                     content = led.showDialogAndGetContent();
@@ -89,16 +89,16 @@ public class FrequencyCreatorDialog extends JDialog {
                         CtrlPresentacio.AfegirListFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(), url);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecciona un mode d'extracció!");
+                    JOptionPane.showMessageDialog(null, "Please select an extraction mode!");
                 }
             } catch (CaractersfromFreq_notInAlph_Exception ex) {
-                JOptionPane.showMessageDialog(parent, "La freqüència conté caràcters incompatibles amb l'alfabet seleccionat", "Error de caràcters", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent, "The frequency contains incompatible characters with the selected alphabet", "Character error", JOptionPane.ERROR_MESSAGE);
             } catch (ExisteixID_Exception ex) {
-                JOptionPane.showMessageDialog(parent, "El nom ja existeix!", "Error de nom", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(parent, "S'ha produït un error en extreure el fitxer", "Error de fitxer", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent, "There was an error while extracting the file", "File error", JOptionPane.ERROR_MESSAGE);
             } catch (badExtraction_Exception ex) {
-                JOptionPane.showMessageDialog(parent, "S'ha produït un error en intentar extreure la freqüència", "Extracció incorrecta", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent, "There was an error while trying to extract the frequency", "Bad extraction", JOptionPane.ERROR_MESSAGE);
             }
             System.out.println(content);
         });

@@ -18,7 +18,7 @@ public class GridSelectorDialog extends JDialog {
      * @param gridY  El nombre de files de la graella.
      */
     public GridSelectorDialog(JFrame parent, int gridX, int gridY) {
-        super(parent, "Selecció de Graella", true);
+        super(parent, "Grid Selection", true);
         selectedPositions = new boolean[gridY][gridX];
 
         // Crea un panell per a la graella
@@ -41,7 +41,7 @@ public class GridSelectorDialog extends JDialog {
         }
 
         // Crea un botó per confirmar i tancar el diàleg
-        JButton confirmButton = new JButton("Confirmar");
+        JButton confirmButton = new JButton("Confirm");
         confirmButton.addActionListener(e -> dispose());
 
         // Afegeix un marge al botó de confirmació

@@ -14,7 +14,7 @@ public class KeyboardPropertiesDialog extends JDialog {
      * @param properties  Les propietats del teclat.
      */
     public KeyboardPropertiesDialog(JFrame parent, String[] properties) {
-        super(parent, "Informació de l'alfabet", true);
+        super(parent, "Alphabet Information", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);
 
@@ -26,11 +26,11 @@ public class KeyboardPropertiesDialog extends JDialog {
         Font labelFont = new Font("Arial", Font.PLAIN, 14);
         Color labelColor = UIManager.getColor("textText");
 
-        JLabel nameLabel = new JLabel("Nom: " + properties[0]);
-        JLabel alphabetLabel = new JLabel("Alfabet: " + properties[1]);
-        JLabel modeLabel = new JLabel("Freqüència: " + properties[2]);
-        JLabel lastModificationLabel = new JLabel("Última modificació: " + properties[3]);
-        JLabel creationLabel = new JLabel("Creació: " + properties[4]);
+        JLabel nameLabel = new JLabel("Name: " + properties[0]);
+        JLabel alphabetLabel = new JLabel("Alphabet: " + properties[1]);
+        JLabel modeLabel = new JLabel("Frequency: " + properties[2]);
+        JLabel lastModificationLabel = new JLabel("Last Modification: " + properties[3]);
+        JLabel creationLabel = new JLabel("Creation: " + properties[4]);
 
         nameLabel.setFont(labelFont);
         nameLabel.setForeground(labelColor);

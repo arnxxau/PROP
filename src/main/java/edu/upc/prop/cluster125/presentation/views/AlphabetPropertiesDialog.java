@@ -14,7 +14,7 @@ public class AlphabetPropertiesDialog extends JDialog {
      * @param properties  Un array de cadenes que conté les propietats de l'alfabet (nom, freqüències, caràcters, data de l'última modificació i data de creació).
      */
     public AlphabetPropertiesDialog(JFrame parent, String[] properties) {
-        super(parent, "Informació de l'Alfabet", true);
+        super(parent, "Alphabet Information", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);
 
@@ -28,11 +28,11 @@ public class AlphabetPropertiesDialog extends JDialog {
         Color labelColor = UIManager.getColor("textText");
 
         // Etiquetes per mostrar les propietats de l'alfabet
-        JLabel nameLabel = new JLabel("Nom: " + properties[0]);
-        JLabel alphabetLabel = new JLabel("Freqüències: " + properties[1]);
-        JLabel modeLabel = new JLabel("Caràcters: " + properties[2]);
-        JLabel lastModificationLabel = new JLabel("Última Modificació: " + properties[3]);
-        JLabel creationLabel = new JLabel("Creació: " + properties[4]);
+        JLabel nameLabel = new JLabel("Name: " + properties[0]);
+        JLabel alphabetLabel = new JLabel("Frequencies: " + properties[1]);
+        JLabel modeLabel = new JLabel("Characters: "  + properties[2]);
+        JLabel lastModificationLabel = new JLabel("Last Modification: "  + properties[3]);
+        JLabel creationLabel = new JLabel("Creation: " + properties[4]);
 
         // Estableix la font i el color de les etiquetes
         nameLabel.setFont(labelFont);

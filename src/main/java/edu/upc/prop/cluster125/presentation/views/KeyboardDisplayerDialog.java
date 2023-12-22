@@ -25,7 +25,7 @@ public class KeyboardDisplayerDialog extends JDialog {
      * @param characters Llista de caràcters a mostrar.
      */
     public KeyboardDisplayerDialog(Frame owner, ArrayList<Pair> positions, Pair gridSize, char[] characters) {
-        super(owner, "Representació del Teclat", true);
+        super(owner, "Keyboard Representation", true);
         this.positions = positions;
         this.gridSize = gridSize;
         this.characters = characters; // Inicialitza l'array de caràcters

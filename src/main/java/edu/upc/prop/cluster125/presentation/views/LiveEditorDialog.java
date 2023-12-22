@@ -21,7 +21,7 @@ public class LiveEditorDialog extends JDialog {
      */
     public LiveEditorDialog(Frame f, String s) {
         // Configura el diàleg
-        super(f, "Editor en Temps Real", true);
+        super(f, "Live Editor", true);
         setSize(300, 300);
         setLocationRelativeTo(null);
 
@@ -54,7 +54,7 @@ public class LiveEditorDialog extends JDialog {
         JPanel buttonPanel = new JPanel(new BorderLayout());
 
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton doneButton = createLoadSaveButton("Desa");
+        JButton doneButton = createLoadSaveButton("Save");
 
         doneButton.addActionListener(new ActionListener() {
             @Override

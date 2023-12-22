@@ -42,12 +42,12 @@ public class KeyboardManagerPanel extends JPanel {
 
         Dimension buttonSize = new Dimension(100, 30); // Ajusta l'amplada i l'altura segons sigui necessari
 
-        JButton createButton = new JButton("Crear");
-        JButton modifyButton = new JButton("Modificar");
-        JButton propertiesButton = new JButton("Propietats");
-        JButton deleteButton = new JButton("Eliminar");
-        JButton displayButton = new JButton("Mostrar");
-        JButton updateButton = new JButton("Actualitzar");
+        JButton createButton = new JButton("Create");
+        JButton modifyButton = new JButton("Modify");
+        JButton propertiesButton = new JButton("Properties");
+        JButton deleteButton = new JButton("Delete");
+        JButton displayButton = new JButton("Display");
+        JButton updateButton = new JButton("Update");
 
         setButtonSize(modifyButton, buttonSize);
         setButtonSize(updateButton, buttonSize);
@@ -100,15 +100,15 @@ public class KeyboardManagerPanel extends JPanel {
 
         modifyButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccioneu un teclat!");
+                JOptionPane.showMessageDialog(null, "Select a keyboard!");
             } else {
-                String name = JOptionPane.showInputDialog("Quin serà el nou nom?");
+                String name = JOptionPane.showInputDialog("What will the new name be?");
 
                 if (name != null && !name.isEmpty()) {
                     try {
                         CtrlPresentacio.Canviar_Nom_Teclat(list.getSelectedValue(), name);
                     } catch (ExisteixID_Exception ex) {
-                        JOptionPane.showMessageDialog(parent, "El nom ja existeix!", "Error de nom", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 updateTab();
@@ -122,9 +122,9 @@ public class KeyboardManagerPanel extends JPanel {
 
         deleteButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccioneu un teclat!");
+                JOptionPane.showMessageDialog(null, "Select an alphabet!");
             } else {
-                int confirmLoad = JOptionPane.showConfirmDialog(null, "Segur que voleu eliminar aquest component?", "Confirmació d'eliminació", JOptionPane.YES_NO_OPTION);
+                int confirmLoad = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this component?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
                 if (confirmLoad == JOptionPane.YES_OPTION) {
                     CtrlPresentacio.Esborrar_Teclat(list.getSelectedValue());
                     updateTab();
@@ -133,7 +133,7 @@ public class KeyboardManagerPanel extends JPanel {
         });
 
         propertiesButton.addActionListener(e -> {
-            if (list.getSelectedIndex() == -1) JOptionPane.showMessageDialog(null, "Seleccioneu un teclat!");
+            if (list.getSelectedIndex() == -1) JOptionPane.showMessageDialog(null, "Select a keyboard!");
             else {
                 KeyboardPropertiesDialog fid = new KeyboardPropertiesDialog(parent, CtrlPresentacio.Consultar_Teclat(list.getSelectedValue()));
                 fid.setVisible(true);
@@ -142,7 +142,7 @@ public class KeyboardManagerPanel extends JPanel {
 
         displayButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccioneu un teclat!");
+                JOptionPane.showMessageDialog(null, "Select a keyboard!");
             } else {
                 String selectedKeyboardName = list.getSelectedValue();
                 int gridId = CtrlPresentacio.Obtenir_Nom_Grid_Teclat(selectedKeyboardName);
@@ -156,7 +156,7 @@ public class KeyboardManagerPanel extends JPanel {
 
         updateButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccioneu un teclat!");
+                JOptionPane.showMessageDialog(null, "Select a keyboard!");
             } else {
                 String selectedKeyboardName = list.getSelectedValue();
                 CtrlPresentacio.Actualitzar_Teclat(selectedKeyboardName);

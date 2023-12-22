@@ -36,8 +36,8 @@ public class InformationPanel extends JPanel {
 
         Dimension buttonSize = new Dimension(100, 30);
 
-        loadButton = new JButton("Carregar");
-        saveButton = new JButton("Guardar");
+        loadButton = new JButton("Load");
+        saveButton = new JButton("Save");
 
         loadButton.setMaximumSize(buttonSize);
         loadButton.setPreferredSize(buttonSize);
@@ -49,11 +49,11 @@ public class InformationPanel extends JPanel {
 
         String[] data = CtrlPresentacio.Obtenir_Informacio();
 
-        alphabetInfo = createLabel("Nombre d'alfabets carregats: " + data[0], labelFont, labelColor);
-        frequencyInfo = createLabel("Nombre de freqüències carregades: " + data[1], labelFont, labelColor);
-        keyboardInfo = createLabel("Nombre de teclats carregats: " + data[2], labelFont, labelColor);
-        gridInfo = createLabel("Nombre de graelles carregades: " + data[3], labelFont, labelColor);
-        saveInfo = createLabel("Últim cop guardat: " + data[4], labelFont, labelColor);
+        alphabetInfo = createLabel("Number of loaded alphabets: " + data[0], labelFont, labelColor);
+        frequencyInfo = createLabel("Number of loaded frequencies: " + data[1], labelFont, labelColor);
+        keyboardInfo = createLabel("Number of loaded keyboards: " + data[2], labelFont, labelColor);
+        gridInfo = createLabel("Number of loaded grids: " + data[3], labelFont, labelColor);
+        saveInfo = createLabel("Last saved: " + data[4], labelFont, labelColor);
 
         infoPanel.add(alphabetInfo);
         infoPanel.add(frequencyInfo);
@@ -110,11 +110,11 @@ public class InformationPanel extends JPanel {
     public void refreshLabels() {
         String[] data = CtrlPresentacio.Obtenir_Informacio();
 
-        alphabetInfo.setText("Nombre d'alfabets carregats: " + data[0]);
-        frequencyInfo.setText("Nombre de freqüències carregades: " + data[1]);
-        keyboardInfo.setText("Nombre de teclats carregats: " + data[2]);
-        gridInfo.setText("Nombre de graelles carregades: " + data[3]);
-        saveInfo.setText("Últim cop guardat: " + data[4]);
+        alphabetInfo.setText("Number of loaded alphabets: " + data[0]);
+        frequencyInfo.setText("Number of loaded frequencies: " + data[1]);
+        keyboardInfo.setText("Number of loaded keyboards: " + data[2]);
+        gridInfo.setText("Number of loaded grids: " + data[3]);
+        saveInfo.setText("Last saved: " + data[4]);
     }
 
 }

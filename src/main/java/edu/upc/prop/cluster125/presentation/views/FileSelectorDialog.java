@@ -28,10 +28,10 @@ public class FileSelectorDialog extends JFrame {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(this, "Fitxer seleccionat: " + selectedFile.getAbsolutePath());
+            JOptionPane.showMessageDialog(this, "Selected File: " + selectedFile.getAbsolutePath());
             return selectedFile.getAbsolutePath();
         } else {
-            JOptionPane.showMessageDialog(this, "Selecció cancel·lada");
+            JOptionPane.showMessageDialog(this,  "Selection canceled");
             return null;
         }
     }

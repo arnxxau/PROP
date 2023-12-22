@@ -46,7 +46,7 @@ public class MainView extends JFrame {
         setFont(new Font("Arial", Font.PLAIN, 14));
 
         // Configura el marc principal
-        setTitle("Menú Principal");
+        setTitle("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
 
@@ -56,11 +56,11 @@ public class MainView extends JFrame {
         JPanel bottomPanel = createBottomPanel();
 
         JTabbedPane tp = new JTabbedPane();
-        tp.addTab("teclats", null, mk, "gestiona els teclats aquí");
-        tp.addTab("grafs", null, mg, "gestiona els grafs aquí");
-        tp.addTab("alfabets", null, ma, "gestiona els alfabets aquí");
-        tp.addTab("freqüències", null, mf, "gestiona les freqüències aquí");
-        tp.addTab("informació", null, mm, "carrega i desa el programa i obté informació");
+        tp.addTab("keyboards", null, mk, "manage your keyboards here");
+        tp.addTab("grids", null, mg, "manage your grids here");
+        tp.addTab("alphabets", null, ma,  "manage your alphabets here");
+        tp.addTab("frequencies", null, mf,  "manage your frequencies here");
+        tp.addTab("information", null, mm,  "load and save your program and get info");
         topPanel.add(tp);
 
         tp.setSelectedIndex(4);
@@ -124,13 +124,13 @@ public class MainView extends JFrame {
 
         // Panell d'etiquetes
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        labelPanel.add(new JLabel("Objectes actuals carregats: "));
+        labelPanel.add(new JLabel("Current loaded objects: "));
         bottomPanel.add(labelPanel, BorderLayout.WEST);
         bottomPanel.add(labelPanel, BorderLayout.WEST);
 
         // Panell de botons de desar i carregar
-        JButton saveButton = createLoadSaveButton("Desar");
-        JButton loadButton = createLoadSaveButton("Carregar");
+        JButton saveButton = createLoadSaveButton("Save");
+        JButton loadButton = createLoadSaveButton("Load");
 
         saveButton.addActionListener(new SaveButtonListener());
         loadButton.addActionListener(new LoadButtonListener());
@@ -160,7 +160,7 @@ public class MainView extends JFrame {
     private class ManageFrequencyListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Botó Gestionar Frequència Clicat");
+            System.out.println("Manage Frequency Button Clicked");
             //ManageFrequency mf = new ManageFrequency();
             //setVisible(false);
         }
@@ -169,7 +169,7 @@ public class MainView extends JFrame {
     private class ManageAlphabetsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Botó Gestionar Alfabets Clicat");
+            System.out.println("Manage Alphabets Button Clicked");
             ManageAlphabets ma = new ManageAlphabets();
             setVisible(false);
 
@@ -180,7 +180,7 @@ public class MainView extends JFrame {
     private class ManageKeyboardsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Botó Gestionar Teclats Clicat");
+            System.out.println("Manage Keyboards Button Clicked");
             // Afegiu accions específiques per al botó Gestionar Teclats
         }
     }
@@ -188,7 +188,7 @@ public class MainView extends JFrame {
     private class ManageGridsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Botó Gestionar Grafs Clicat");
+            System.out.println("Manage Grids Button Clicked");
             // Afegiu accions específiques per al botó Gestionar Grafs
         }
     }
@@ -196,7 +196,7 @@ public class MainView extends JFrame {
     private class SaveButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Botó Desar Clicat");
+            System.out.println("Save Button Clicked");
             // Afegiu accions específiques per al botó Desar
         }
     }
@@ -204,7 +204,7 @@ public class MainView extends JFrame {
     private class LoadButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Botó Carregar Clicat");
+            System.out.println("Load Button Clicked");
             FileSelectorDialog ds = new FileSelectorDialog();
             ds.selectDirectory();
         }
