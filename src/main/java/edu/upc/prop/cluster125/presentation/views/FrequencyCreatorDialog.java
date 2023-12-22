@@ -23,7 +23,7 @@ public class FrequencyCreatorDialog extends JDialog {
      * @param parent El marc pare en el qual es mostra el diàleg.
      */
     public FrequencyCreatorDialog(JFrame parent) {
-        super(parent, "Frequency creator", true);
+        super(parent, "Frequency Creator", true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(330, 280);
         setLocationRelativeTo(parent);

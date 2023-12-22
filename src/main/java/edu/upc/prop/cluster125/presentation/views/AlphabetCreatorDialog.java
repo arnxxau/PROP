@@ -21,7 +21,7 @@ public class AlphabetCreatorDialog extends JDialog {
      * @param parent El marc pare en el qual es mostra el diàleg.
      */
     public AlphabetCreatorDialog(Frame parent) {
-        super(parent, "Alphabet creator", true);
+        super(parent, "Alphabet Creator", true);
         setSize(200, 200);
         setLocationRelativeTo(parent);
 
