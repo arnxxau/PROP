@@ -10,10 +10,18 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ * La classe FrequencyCreatorDialog és una finestra de diàleg que permet als usuaris crear una freqüència especificant el nom, l'alfabet associat i el mode d'extracció de dades.
+ */
 public class FrequencyCreatorDialog extends JDialog {
 
     private String content;
 
+    /**
+     * Crea una nova finestra de diàleg FrequencyCreatorDialog.
+     *
+     * @param parent El marc pare en el qual es mostra el diàleg.
+     */
     public FrequencyCreatorDialog(JFrame parent) {
         super(parent, "Frequency creator", true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -50,12 +58,10 @@ public class FrequencyCreatorDialog extends JDialog {
         radioButtonGroup.add(fileFreqRadioButton);
         radioButtonGroup.add(fileTextRadioButton);
 
-
         radioBtnPanel.add(liveTextRadioButton);
         radioBtnPanel.add(liveFreqRadioButton);
         radioBtnPanel.add(fileTextRadioButton);
         radioBtnPanel.add(fileFreqRadioButton);
-
 
         mainPanel.add(formPanel, BorderLayout.NORTH);
         mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
@@ -63,36 +69,28 @@ public class FrequencyCreatorDialog extends JDialog {
         // Button Panel
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
-
             try {
-
-                if (nameField.getText().isEmpty()) JOptionPane.showMessageDialog(parent, "Type a name!");
-                else if (liveTextRadioButton.isSelected() || liveFreqRadioButton.isSelected()) {
+                if (nameField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(parent, "Type a name!");
+                } else if (liveTextRadioButton.isSelected() || liveFreqRadioButton.isSelected()) {
                     LiveEditorDialog led = new LiveEditorDialog(parent, content);
                     content = led.showDialogAndGetContent();
                     if (liveTextRadioButton.isSelected())
                         CtrlPresentacio.AfegirTextFreqMa(alphabetComboBox.getSelectedItem().toString(), nameField.getText(), content);
                     else
                         CtrlPresentacio.AfegirListFreqMa(alphabetComboBox.getSelectedItem().toString(), nameField.getText(), content);
-
                     dispose();
                 } else if (fileTextRadioButton.isSelected() || fileFreqRadioButton.isSelected()) {
-
                     FileSelectorDialog ds = new FileSelectorDialog();
                     String url = ds.selectDirectory();
-
                     if (fileTextRadioButton.isSelected())
                         CtrlPresentacio.AfegirTextFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(), url);
                     else
-                        CtrlPresentacio.AfegirListFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(),url);
-
+                        CtrlPresentacio.AfegirListFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(), url);
                     dispose();
-
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select an extraction mode!");
                 }
-
-
             } catch (CaractersfromFreq_notInAlph_Exception ex) {
                 JOptionPane.showMessageDialog(parent, "The frequency contains incompatible characters with the selected alphabet", "Character error", JOptionPane.ERROR_MESSAGE);
             } catch (ExisteixID_Exception ex) {
@@ -103,9 +101,6 @@ public class FrequencyCreatorDialog extends JDialog {
                 JOptionPane.showMessageDialog(parent, "There was an error while trying to extract the frequency", "Bad extraction", JOptionPane.ERROR_MESSAGE);
             }
             System.out.println(content);
-
-
-
         });
 
         buttonPanel.add(createButton);
@@ -125,11 +120,4 @@ public class FrequencyCreatorDialog extends JDialog {
         return new JButton(text);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            new FrequencyCreatorDialog(frame);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        });
-    }
 }

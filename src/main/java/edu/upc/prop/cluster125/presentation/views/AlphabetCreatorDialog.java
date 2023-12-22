@@ -7,11 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 
+/**
+ * La classe AlphabetCreatorDialog és una finestra de diàleg que permet als usuaris crear un alfabet especificant el nom i els caràcters associats.
+ */
 public class AlphabetCreatorDialog extends JDialog {
 
     private HashSet<Character> c;
     private String content = "";
 
+    /**
+     * Crea una nova finestra de diàleg AlphabetCreatorDialog.
+     *
+     * @param parent El marc pare en el qual es mostra el diàleg.
+     */
     public AlphabetCreatorDialog(Frame parent) {
         super(parent, "Alphabet creator", true);
         setSize(200, 200);
@@ -32,8 +40,10 @@ public class AlphabetCreatorDialog extends JDialog {
         mainPanel.add(formPanel, BorderLayout.NORTH);
         mainPanel.add(radioBtnPanel, BorderLayout.CENTER);
 
+        /**
+         * Crea un botó per obrir l'editor de caràcters en viu.
+         */
         JButton selectGridButton = loadSaveButton("Type the characters");
-
         selectGridButton.addActionListener(e -> {
             LiveEditorDialog led = new LiveEditorDialog(parent, content);
             content = led.showDialogAndGetContent();
@@ -48,9 +58,12 @@ public class AlphabetCreatorDialog extends JDialog {
         });
 
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+        /**
+         * Crea un botó per crear l'alfabet.
+         */
         JButton createButton = loadSaveButton("Create");
         createButton.addActionListener(e -> {
-
             if (nameField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Name missing!");
             } else if (c.isEmpty()) {
@@ -62,7 +75,7 @@ public class AlphabetCreatorDialog extends JDialog {
                 } catch (ExisteixID_Exception ex) {
                     JOptionPane.showMessageDialog(parent, "The name already exists!","Name error",JOptionPane.ERROR_MESSAGE);
                 }
-                 // Close the dialog after successful creation
+                // Tanca el diàleg després de la creació reeixida
             }
         });
 
@@ -80,18 +93,25 @@ public class AlphabetCreatorDialog extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * Crea i retorna un botó amb el text especificat.
+     *
+     * @param text Text del botó.
+     * @return Un JButton amb el text especificat.
+     */
     private JButton loadSaveButton(String text) {
         return new JButton(text);
     }
 
+    /**
+     * Mostra un missatge d'alerta.
+     *
+     * @param message      El missatge a mostrar.
+     * @param title        El títol del missatge.
+     * @param messageType  El tipus de missatge (e.g., JOptionPane.WARNING_MESSAGE).
+     */
     private void showMessage(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(this, message, title, messageType);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            new AlphabetCreatorDialog(frame);
-        });
-    }
 }

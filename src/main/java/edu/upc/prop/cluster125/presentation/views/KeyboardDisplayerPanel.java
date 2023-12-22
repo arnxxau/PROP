@@ -1,4 +1,3 @@
-
 package edu.upc.prop.cluster125.presentation.views;
 
 import edu.upc.prop.cluster125.domain.Grid;
@@ -8,105 +7,96 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Aquesta classe representa un panell per a la visualització d'un teclat.
+ */
 public class KeyboardDisplayerPanel extends JPanel {
 
     private ArrayList<Pair> positions;
     private Pair gridSize;
-    private char[] characters; // Array to hold the characters
+    private char[] characters; // Array per emmagatzemar els caràcters
 
-    public KeyboardDisplayerPanel(Frame owner, ArrayList<Pair> positions, Pair gridSize, char[] characters) {
-        // super(owner, "Keyboard Representation", true);
+    /**
+     * Crea una instància de KeyboardDisplayerPanel amb les dades del teclat.
+     *
+     * @param positions  Llista de posicions dels caràcters.
+     * @param gridSize   Mida de la graella.
+     * @param characters Llista de caràcters a mostrar.
+     */
+    public KeyboardDisplayerPanel(ArrayList<Pair> positions, Pair gridSize, char[] characters) {
         this.positions = positions;
         this.gridSize = gridSize;
-        this.characters = characters; // Initialize the characters array
+        this.characters = characters; // Inicialitza l'array de caràcters
 
         setPreferredSize(calculatePreferredSize());
     }
 
+    /**
+     * Crea una instància de KeyboardDisplayerPanel sense dades.
+     */
     public KeyboardDisplayerPanel() {
-        this(null, null, null, null);
+        this(null, null, null);
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (gridSize == null || positions == null) {
-            return; // Do not draw anything if parameters are not set
+            return; // No dibuixis res si els paràmetres no estan definits
         }
 
+        int cellSize = 10; // Mida més gran de la cel·la
 
-        int cellSize = 10; // Larger cell size
-
-        // Calculate starting point to center the grid
+        // Calcula el punt d'inici per centrar la graella
         int startX = (getWidth() - gridSize.getY() * cellSize) / 2;
         int startY = (getHeight() - gridSize.getX() * cellSize) / 2;
 
-        // Draw grid and characters
+        // Dibuixa la graella i els caràcters
 
         FontMetrics fm = g.getFontMetrics();
-        for (int j = 0; j < getWidth(); j +=  gridSize.getX()  * cellSize) {
+        for (int j = 0; j < getWidth(); j += gridSize.getY() * cellSize) {
             for (int i = 0; i < positions.size(); i++) {
-                g.setColor(UIManager.getColor("textHighlight")); // Set grid color
+                g.setColor(UIManager.getColor("textHighlight")); // Defineix el color de la graella
                 Pair pair = positions.get(i);
                 int x = j + pair.getY() * cellSize;
                 int y = startY + pair.getX() * cellSize;
-                g.fillRect(x, y, cellSize, cellSize); // Draw a filled square at each pair position
+                g.fillRect(x, y, cellSize, cellSize); // Dibuixa un quadrat ple a cada posició del par
 
-                // Draw the character
+                // Dibuixa el caràcter
                 char ch = characters[i];
                 String s = String.valueOf(ch);
                 int stringWidth = fm.stringWidth(s);
                 int stringAscent = fm.getAscent();
                 int xCenter = x + (cellSize - stringWidth) / 2;
                 int yCenter = y + (cellSize + stringAscent) / 2 - fm.getDescent();
-                g.setColor(Color.BLACK); // Set text color
+                g.setColor(Color.BLACK); // Defineix el color del text
                 g.drawString(s, xCenter, yCenter);
             }
         }
-
     }
 
-
-    public void updateView(ArrayList<Pair> newPositions, Pair newGridSize, char[] characters) {
+    /**
+     * Actualitza la visualització del panell amb de noves dades.
+     *
+     * @param newPositions  Les noves posicions dels caràcters.
+     * @param newGridSize   La nova mida de la graella.
+     * @param newCharacters Els nous caràcters a mostrar.
+     */
+    public void updateView(ArrayList<Pair> newPositions, Pair newGridSize, char[] newCharacters) {
         this.positions = newPositions;
         this.gridSize = newGridSize;
-        this.characters = characters;
+        this.characters = newCharacters;
         setPreferredSize(calculatePreferredSize());
-        repaint(); // Redraw the panel with new data
+        repaint(); // Redibuixa el panell amb les noves dades
     }
-
 
     private Dimension calculatePreferredSize() {
         if (gridSize == null) {
-            return new Dimension(300, 100); // Default size
+            return new Dimension(300, 100); // Mida per defecte
         }
         int cellSize = 10;
         int width = gridSize.getY() * cellSize + 50;
         int height = gridSize.getX() * cellSize + 50;
         return new Dimension(width, height);
-    }
-
-
-    public static void main(String[] args) {
-        // Sample usage
-        SwingUtilities.invokeLater(() -> {
-            // Create a sample grid and characters
-            boolean[][] mat = new boolean[][]{
-                    {true, false, true, false, true},
-                    {false, true, false, false, true},
-                    {true, false, true, false, true}
-            };
-            Grid grid = new Grid(1, mat);
-            ArrayList<Pair> positions = grid.getPositions();
-            Pair gridSize = grid.getMaxSize();
-            char[] characters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'}; // Sample characters
-
-            // Create and display the dialog
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            KeyboardDisplayerPanel dialog = new KeyboardDisplayerPanel(frame, positions, gridSize, characters);
-            dialog.setVisible(true);
-        });
     }
 }

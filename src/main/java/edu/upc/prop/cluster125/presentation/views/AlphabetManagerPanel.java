@@ -6,10 +6,18 @@ import edu.upc.prop.cluster125.exceptions.ExisteixID_Exception;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe AlphabetManagerPanel és un panell de gestió d'alfabets que permet als usuaris crear, modificar, esborrar i consultar alfabets.
+ */
 public class AlphabetManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
 
+    /**
+     * Crea un nou panell de gestió d'alfabets.
+     *
+     * @param parent El marc pare en el qual es mostra el panell.
+     */
     public AlphabetManagerPanel(JFrame parent) {
         setLayout(new BorderLayout());
         updateTab();
@@ -102,6 +110,9 @@ public class AlphabetManagerPanel extends JPanel {
         button.setPreferredSize(size);
     }
 
+    /**
+     * Actualitza la llista d'alfabets amb els noms dels alfabets disponibles.
+     */
     public void updateTab() {
         listModel.clear();
         for (String alphabet : CtrlPresentacio.Noms_Alfabet()) {
@@ -109,14 +120,4 @@ public class AlphabetManagerPanel extends JPanel {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Alphabet Manager");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new AlphabetManagerPanel(frame));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

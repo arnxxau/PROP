@@ -1,41 +1,55 @@
-
 package edu.upc.prop.cluster125.presentation.views;
 
-import edu.upc.prop.cluster125.domain.Grid;
 import edu.upc.prop.cluster125.domain.Pair;
+import edu.upc.prop.cluster125.domain.Grid;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Aquesta classe representa un panell per a la visualització d'una graella.
+ */
 public class GridDisplayerPanel extends JPanel {
 
     private ArrayList<Pair> positions;
     private Pair gridSize;
 
-    // Constructor with parameters
+    /**
+     * Crea una nova instància de GridDisplayerPanel amb les posicions i la mida de la graella especificades.
+     *
+     * @param positions Les posicions de les cel·les de la graella a mostrar.
+     * @param gridSize  La mida de la graella.
+     */
     public GridDisplayerPanel(ArrayList<Pair> positions, Pair gridSize) {
         this.positions = positions;
         this.gridSize = gridSize;
         setPreferredSize(calculatePreferredSize());
     }
 
-    // Constructor that allows null parameters
+    /**
+     * Crea una nova instància de GridDisplayerPanel amb paràmetres nuls.
+     */
     public GridDisplayerPanel() {
         this(null, null);
     }
 
-    // Method to update view with new parameters
+    /**
+     * Actualitza la vista amb les noves posicions i la nova mida de la graella especificades.
+     *
+     * @param newPositions Les noves posicions de les cel·les de la graella.
+     * @param newGridSize  La nova mida de la graella.
+     */
     public void updateView(ArrayList<Pair> newPositions, Pair newGridSize) {
         this.positions = newPositions;
         this.gridSize = newGridSize;
         setPreferredSize(calculatePreferredSize());
-        repaint(); // Redraw the panel with new data
+        repaint(); // Torna a dibuixar el panell amb les noves dades
     }
 
     private Dimension calculatePreferredSize() {
         if (gridSize == null) {
-            return new Dimension(300, 100); // Default size
+            return new Dimension(300, 100); // Mida per defecte
         }
         int cellSize = 10;
         int width = gridSize.getY() * cellSize + 50;
@@ -47,7 +61,7 @@ public class GridDisplayerPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (gridSize == null || positions == null) {
-            return; // Do not draw anything if parameters are not set
+            return; // No dibuixis res si els paràmetres no estan definits
         }
 
         int cellSize = 10;
@@ -55,43 +69,13 @@ public class GridDisplayerPanel extends JPanel {
 
         g.setColor(UIManager.getColor("textHighlight"));
 
-        for (int i = 0; i < getWidth(); i +=  gridSize.getX()  * cellSize) {
+        for (int i = 0; i < getWidth(); i += gridSize.getX() * cellSize) {
             for (Pair pair : positions) {
                 int x = i + pair.getY() * cellSize;
                 int y = startY + pair.getX() * cellSize;
                 g.fillRect(x, y, cellSize, cellSize);
             }
         }
-
-
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // Sample usage with the new JPanel
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            GridDisplayerPanel panel = new GridDisplayerPanel(); // Initially with null parameters
-            frame.add(panel);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-
-            // Create a sample grid
-            boolean[][] mat = new boolean[][]{
-                    {true, false, true,  false, true},
-                    {false, true, false, false, true},
-                    {true, false, true,  false, true}
-            };
-            Grid grid = new Grid(1, mat);
-
-            // Extract positions and size from the grid
-            ArrayList<Pair> positions = grid.getPositions();
-            Pair gridSize = grid.getMaxSize();
-
-            // Update the panel with grid data
-            panel.updateView(positions, gridSize);
-        });
-    }
 }

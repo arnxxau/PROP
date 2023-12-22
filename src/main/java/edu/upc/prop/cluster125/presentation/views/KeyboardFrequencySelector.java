@@ -7,27 +7,36 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * Aquesta classe representa un diàleg per a seleccionar cadenes de text.
+ */
 public class KeyboardFrequencySelector extends JDialog {
 
     private ArrayList<String> selectedStrings;
 
+    /**
+     * Crea una instància de KeyboardFrequencySelector amb el vector de cadenes de text.
+     *
+     * @param parent       El frame pare del diàleg.
+     * @param stringVector Vector de cadenes de text a seleccionar.
+     */
     public KeyboardFrequencySelector(JFrame parent, Vector<String> stringVector) {
         super(parent, "String Selection", true);
         this.selectedStrings = new ArrayList<>();
 
-        // Create the main panel with GridBagLayout
+        // Crea el panell principal amb GridBagLayout
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Create a panel for checkboxes
+        // Crea un panell per als checkboxes
         JPanel checkboxPanel = new JPanel(new GridLayout(0, 1));
         for (String str : stringVector) {
             JCheckBox checkBox = new JCheckBox(str);
             checkboxPanel.add(checkBox);
         }
 
-        // Add the checkbox panel to the main panel
+        // Afegeix el panell de checkboxes al panell principal
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -37,7 +46,7 @@ public class KeyboardFrequencySelector extends JDialog {
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(new JScrollPane(checkboxPanel), gbc);
 
-        // Create a button to confirm selection
+        // Crea un botó per confirmar la selecció
         JButton selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
             @Override
@@ -50,16 +59,16 @@ public class KeyboardFrequencySelector extends JDialog {
                         }
                     }
                 }
-                dispose(); // Close the dialog
+                dispose(); // Tanca el diàleg
             }
         });
 
-        // Add the select button to the main panel
+        // Afegeix el botó de selecció al panell principal
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.NONE;
         mainPanel.add(selectButton, gbc);
 
-        // Add the main panel to the dialog
+        // Afegeix el panell principal al diàleg
         add(mainPanel);
 
         pack();
@@ -67,29 +76,13 @@ public class KeyboardFrequencySelector extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * Obté les cadenes de text seleccionades.
+     *
+     * @return Una llista d'strings seleccionats.
+     */
     public ArrayList<String> getSelectedStrings() {
         return selectedStrings;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame parentFrame = new JFrame();
-            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            parentFrame.setSize(400, 300);
-            parentFrame.setVisible(true);
-
-            Vector<String> stringVector = new Vector<>();
-            stringVector.add("Option 1");
-            stringVector.add("Option 2");
-            stringVector.add("Option 3");
-
-            KeyboardFrequencySelector dialog = new KeyboardFrequencySelector(parentFrame, stringVector);
-            ArrayList<String> selectedStrings = dialog.getSelectedStrings();
-
-            System.out.println("Selected Strings:");
-            for (String str : selectedStrings) {
-                System.out.println(str);
-            }
-        });
-    }
 }

@@ -8,34 +8,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Aquesta classe representa un panell de gestió de teclats.
+ */
 public class KeyboardManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
 
     KeyboardDisplayerPanel keyboardRepresentation = new KeyboardDisplayerPanel();
-    public KeyboardManagerPanel(JFrame parent) {
 
+    /**
+     * Crea una instància de KeyboardManagerPanel amb un frame pare.
+     *
+     * @param parent El frame pare del panell de gestió de teclats.
+     */
+    public KeyboardManagerPanel(JFrame parent) {
 
         setLayout(new BorderLayout());
 
         updateTab();
 
-        // Create panels for better organization
+        // Crea panells per a una millor organització
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel buttonPanel = new JPanel();
         JPanel saveLoadPanel = new JPanel();
 
-        // Use BoxLayout to stack buttons vertically in the buttonPanel
+        // Utilitza BoxLayout per apilar botons verticalment a buttonPanel
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
 
         JScrollPane scrollPane = new JScrollPane(list);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
         mainPanel.add(keyboardRepresentation, BorderLayout.SOUTH);
 
-
-
-        Dimension buttonSize = new Dimension(100, 30); // Adjust width and height as needed
+        Dimension buttonSize = new Dimension(100, 30); // Ajusta l'amplada i l'altura segons sigui necessari
 
         JButton createButton = new JButton("Create");
         JButton modifyButton = new JButton("Modify");
@@ -51,23 +56,22 @@ public class KeyboardManagerPanel extends JPanel {
         setButtonSize(deleteButton, buttonSize);
         setButtonSize(displayButton, buttonSize);
 
-        // Add buttons to the buttonPanel
+        // Afegeix botons a buttonPanel
         buttonPanel.add(createButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Afegeix espai
         buttonPanel.add(modifyButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Afegeix espai
         buttonPanel.add(deleteButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Afegeix espai
         buttonPanel.add(propertiesButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Afegeix espai
         buttonPanel.add(displayButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add separation
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Afegeix espai
         buttonPanel.add(updateButton);
-
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Add rigid vertical struts before and after buttonPanel
+        // Afegeix rigides verticals abans i després de buttonPanel
         saveLoadPanel.setLayout(new BoxLayout(saveLoadPanel, BoxLayout.Y_AXIS));
         saveLoadPanel.add(Box.createVerticalGlue());
         saveLoadPanel.add(buttonPanel);
@@ -75,15 +79,15 @@ public class KeyboardManagerPanel extends JPanel {
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 0));
 
-        // Add panels to the main panel
-        mainPanel.add(saveLoadPanel, BorderLayout.EAST); // Add saveLoadPanel directly to the mainPanel
+        // Afegeix panells al panell principal
+        mainPanel.add(saveLoadPanel, BorderLayout.EAST); // Afegeix saveLoadPanel directament al mainPanel
 
-        // Add the main panel to this JPanel (ManageFrequency)
+        // Afegeix el panell principal a aquest JPanel (ManageFrequency)
         add(mainPanel);
 
-        // Add ActionListeners to buttons
+        // Afegeix ActionListeners als botons
         list.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) { // This line prevents double events
+            if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) { // Aquesta línia evita esdeveniments dobles
                 String selectedKeyboardName = list.getSelectedValue();
                 int gridId = CtrlPresentacio.Obtenir_Nom_Grid_Teclat(selectedKeyboardName);
                 ArrayList<Pair> positions = CtrlPresentacio.Obtenir_Reprentacio_Grid(gridId);
@@ -104,7 +108,7 @@ public class KeyboardManagerPanel extends JPanel {
                     try {
                         CtrlPresentacio.Canviar_Nom_Teclat(list.getSelectedValue(), name);
                     } catch (ExisteixID_Exception ex) {
-                        JOptionPane.showMessageDialog(parent, "The name already exists!","Name error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 updateTab();
@@ -117,7 +121,6 @@ public class KeyboardManagerPanel extends JPanel {
         });
 
         deleteButton.addActionListener(e -> {
-
             if (list.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Select an alphabet!");
             } else {
@@ -127,7 +130,6 @@ public class KeyboardManagerPanel extends JPanel {
                     updateTab();
                 }
             }
-
         });
 
         propertiesButton.addActionListener(e -> {
@@ -136,7 +138,6 @@ public class KeyboardManagerPanel extends JPanel {
                 KeyboardPropertiesDialog fid = new KeyboardPropertiesDialog(parent, CtrlPresentacio.Consultar_Teclat(list.getSelectedValue()));
                 fid.setVisible(true);
             }
-
         });
 
         displayButton.addActionListener(e -> {
@@ -157,15 +158,11 @@ public class KeyboardManagerPanel extends JPanel {
             if (list.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Select a keyboard!");
             } else {
-
-
                 String selectedKeyboardName = list.getSelectedValue();
-
                 CtrlPresentacio.Actualitzar_Teclat(selectedKeyboardName);
             }
         });
     }
-
 
     private void setButtonSize(JButton button, Dimension size) {
         button.setMaximumSize(size);
@@ -173,21 +170,11 @@ public class KeyboardManagerPanel extends JPanel {
     }
 
     public void updateTab() {
-        // Update the list model with the new data
+        // Actualitza el model de la llista amb les noves dades
         listModel.clear();
         for (String freq : CtrlPresentacio.Noms_Teclats()) {
             listModel.addElement(freq);
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Frequency manager");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new KeyboardManagerPanel(frame));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

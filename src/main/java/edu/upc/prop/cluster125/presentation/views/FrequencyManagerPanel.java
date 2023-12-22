@@ -8,10 +8,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * La classe FrequencyManagerPanel és un panell que permet als usuaris gestionar les freqüències.
+ */
 public class FrequencyManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
 
+    /**
+     * Crea un nou panell FrequencyManagerPanel.
+     *
+     * @param parent El marc pare en el qual es mostra el panell.
+     */
     public FrequencyManagerPanel(JFrame parent) {
         setLayout(new BorderLayout());
         updateTab();
@@ -146,6 +154,9 @@ public class FrequencyManagerPanel extends JPanel {
         button.setPreferredSize(size);
     }
 
+    /**
+     * Actualitza el contingut del panell amb les freqüències disponibles.
+     */
     public void updateTab() {
         listModel.clear();
         for (String freq : CtrlPresentacio.Noms_Freqs()) {
@@ -153,14 +164,4 @@ public class FrequencyManagerPanel extends JPanel {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Frequency Manager");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new FrequencyManagerPanel(frame));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

@@ -5,6 +5,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
+/**
+ * Aquesta classe representa la vista principal de l'aplicació que conté les pestanyes per gestionar teclats, grafs, alfabets, freqüències i informació.
+ */
 public class MainView extends JFrame {
 
     FrequencyManagerPanel mf;
@@ -13,12 +16,13 @@ public class MainView extends JFrame {
     GridManagerPanel mg;
     InformationPanel mm;
 
+    /**
+     * Crea una nova instància de la vista principal.
+     */
     public MainView() {
         // Set to the system look and feel
         try {
-            //
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             System.out.println(e);
             // If system look and feel is not available, fall back to the default look and feel.
@@ -53,14 +57,13 @@ public class MainView extends JFrame {
         // Create panels for better organization
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topPanel = new JPanel();
-        JPanel bottomPanel = createBottomPanel();
 
         JTabbedPane tp = new JTabbedPane();
         tp.addTab("keyboards", null, mk, "manage your keyboards here");
         tp.addTab("grids", null, mg, "manage your grids here");
-        tp.addTab("alphabets", null, ma, "manage your alphabets here");
-        tp.addTab("frequencies", null, mf, "manage your frequencies here");
-        tp.addTab("info", null, mm, "load and save your program and get info");
+        tp.addTab("alphabets", null, ma,  "manage your alphabets here");
+        tp.addTab("frequencies", null, mf,  "manage your frequencies here");
+        tp.addTab("information", null, mm,  "load and save your program and get info");
         topPanel.add(tp);
 
         tp.setSelectedIndex(4);
@@ -76,21 +79,21 @@ public class MainView extends JFrame {
 
         // Add panels to the main panel
         mainPanel.add(tp, BorderLayout.CENTER);
-        //mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // Add the main panel to the frame
         add(mainPanel);
 
         // Make the frame visible
         setVisible(true);
-        //setVisible(true);
-
 
         setLocationRelativeTo(null);
-
     }
 
-    // Method to update the selected tab
+    /**
+     * Mètode per actualitzar la pestanya seleccionada.
+     *
+     * @param tabIndex L'índex de la pestanya seleccionada.
+     */
     private void updateTab(int tabIndex) {
         switch (tabIndex) {
             case 0: // keyboard
@@ -108,44 +111,9 @@ public class MainView extends JFrame {
             case 4:
                 mm.refreshLabels();
                 break;
-
             default:
                 break;
         }
     }
 
-
-    private JPanel createBottomPanel() {
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 20, 20));
-
-        // Label Panel
-        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        labelPanel.add(new JLabel("Current loaded objects: "));
-        bottomPanel.add(labelPanel, BorderLayout.WEST);
-        bottomPanel.add(labelPanel, BorderLayout.WEST);
-
-        // Save and Load Panel
-        JButton saveButton = createLoadSaveButton("Save");
-        JButton loadButton = createLoadSaveButton("Load");
-
-        JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        saveLoadPanel.add(saveButton);
-        saveLoadPanel.add(loadButton);
-        bottomPanel.add(saveLoadPanel, BorderLayout.EAST);
-
-        return bottomPanel;
-    }
-
-    private JButton createButton(String text) {
-        JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(150, 30));
-        return button;
-    }
-
-    private JButton createLoadSaveButton(String text) {
-        JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(70, 30));
-        return button;
-    }
 }

@@ -10,11 +10,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
+/**
+ * Aquesta classe representa un diàleg per a la creació de teclats.
+ */
 public class KeyboardCreatorDialog extends JDialog {
     String fName = null;
 
+    /**
+     * Crea una instància de KeyboardCreatorDialog.
+     *
+     * @param parent El frame pare.
+     */
     public KeyboardCreatorDialog(JFrame parent) {
-        super(parent, "Keyboard creator", true);
+        super(parent, "Keyboard Creator", true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 280);
 
@@ -69,12 +77,12 @@ public class KeyboardCreatorDialog extends JDialog {
             else {
                 String name = alphabetComboBox.getSelectedItem().toString();
                 KeyboardFrequencySelector fs = new KeyboardFrequencySelector(parent, CtrlPresentacio.NomsFreqs_alfabet(name));
-                if (fs.getSelectedStrings().isEmpty()) JOptionPane.showMessageDialog(null, "You provided 0 frequencies so no fusion frequency was created.");
+                if (fs.getSelectedStrings().isEmpty()) JOptionPane.showMessageDialog(null, "You provided no frequencies so no fusion frequency was created.");
                 else {
                     try {
                         fName = CtrlPresentacio.FusionarFreqa(fs.getSelectedStrings());
                     } catch (alphNotCompatible_Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Alphabets not compatible");
+                        JOptionPane.showMessageDialog(null, "Alphabets not compatible!");
                     }
                 }
 
@@ -99,10 +107,10 @@ public class KeyboardCreatorDialog extends JDialog {
 
                     dispose();
                 } catch (ExisteixID_Exception ex) {
-                    JOptionPane.showMessageDialog(parent, "The name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent, "Name already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
                 } catch (gridAndAlphabetNotSameSize_Exception ex) {
                     fName = null;
-                    JOptionPane.showMessageDialog(parent, "Grid selected positions and alphabet size have to be the same!", "Size error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent, "The number of selected positions on the grid and the size of the alphabet must be the same!", "Size error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -126,14 +134,4 @@ public class KeyboardCreatorDialog extends JDialog {
         return button;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame parentFrame = new JFrame();
-            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            parentFrame.setSize(500, 300); // Increased the width to accommodate new components
-            parentFrame.setVisible(true);
-
-            KeyboardCreatorDialog dialog = new KeyboardCreatorDialog(parentFrame);
-        });
-    }
 }

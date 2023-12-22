@@ -8,10 +8,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Aquesta classe representa la vista per gestionar els alfabets.
+ */
 public class ManageAlphabets extends JFrame {
 
     private JTable table;
 
+    /**
+     * Crea una nova instància de la vista de gestió d'alfabets.
+     */
     public ManageAlphabets() {
         // Set up the main frame
         setTitle("Alphabet manager");
@@ -104,15 +110,4 @@ public class ManageAlphabets extends JFrame {
         setLocationRelativeTo(null);
     }
 
-
-    private String[][] getAlphabetNames() {
-
-        return new String[][]{{"101"},};
-    }
-
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(ManageAlphabets::new);
-    }
 }

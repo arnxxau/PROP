@@ -3,7 +3,15 @@ package edu.upc.prop.cluster125.presentation.views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe FrequencyInfo és una finestra de diàleg que mostra informació sobre una freqüència.
+ */
 public class FrequencyInfo extends JDialog {
+    /**
+     * Crea una nova finestra de diàleg FrequencyInfo.
+     *
+     * @param parent El marc pare en el qual es mostra el diàleg.
+     */
     public FrequencyInfo(JFrame parent) {
         super(parent, "Frequency Information", true);
         setSize(300, 200);
@@ -53,19 +61,4 @@ public class FrequencyInfo extends JDialog {
         add(infoPanel);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Frequency Manager");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-        JButton showInfoButton = new JButton("Show Frequency Info");
-        showInfoButton.addActionListener(e -> {
-            FrequencyInfo dialog = new FrequencyInfo(frame);
-            dialog.setVisible(true);
-        });
-
-        frame.add(showInfoButton);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }
