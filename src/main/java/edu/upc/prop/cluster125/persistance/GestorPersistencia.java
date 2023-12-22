@@ -15,6 +15,9 @@ import java.util.HashMap;
 
 public class GestorPersistencia<U, T> {
     public void saveElements(HashMap<U,T> map, String filePath) {
+        // create folder if it does not exist
+        new File("./data/").mkdirs();
+
         JsonArray ja = new JsonArray();
         for (T e : map.values()) {
             Gson g = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

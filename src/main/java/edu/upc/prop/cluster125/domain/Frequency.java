@@ -98,7 +98,6 @@ public class Frequency {
      *
      * <p>La estructura del fitxer esperada és:</p>
      * <pre>
-     *     600
      *     a c 11
      *     a v 15
      *     a x 99
@@ -109,15 +108,16 @@ public class Frequency {
      */
     private void extractRawFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         try {
-            frequencyWeight = Integer.parseInt(lines[0]);
-            for (int i = 1; i < lines.length; ++i) {
+            for (int i = 0; i < lines.length; ++i) {
                 String[] line = lines[i].split(" ");
                 Character first = line[0].charAt(0);
                 Character second = line[1].charAt(0);
                 checkFreqIntegrity(first);
                 checkFreqIntegrity(second);
 
-                Integer d_freq = Integer.parseInt(line[2]);
+                int d_freq = Integer.parseInt(line[2]);
+
+                frequencyWeight += d_freq;
 
                 insertNewFreq(first, second, d_freq, REPLACE);
             }
@@ -217,7 +217,7 @@ public class Frequency {
      * Fusiona la freqüència actual amb una altra freqüència, actualitzant la informació de freqüència.
      *
      * @param f L'objecte Frequency amb el qual fusionar.
-     * @throws Exception Si els alfabets de les freqüències no coincideixen.
+     * @throws alphNotCompatible_Exception Si els alfabets de les freqüències no coincideixen.
      */
     public void fusion(Frequency f) throws alphNotCompatible_Exception {
         if (f.alphabet != this.alphabet)

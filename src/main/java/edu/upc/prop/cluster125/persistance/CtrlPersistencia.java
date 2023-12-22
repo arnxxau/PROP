@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CtrlPersistencia {
-    private final static String GeneralPath = "src/data/";
+    private final static String GeneralPath = "data/";
+
     private final static String AlphPath = GeneralPath + "alphabets.json";
     private final static String FreqPath = GeneralPath + "frequencies.json";
     private final static String GridPath = GeneralPath + "grids.json";

@@ -25,14 +25,14 @@ public class CtrlDomini {
     public CtrlDomini(){}
 
     public void Afegir_Teclat(String nomT, String nomA, String nomF, int idG, int mode) throws ExisteixID_Exception, gridAndAlphabetNotSameSize_Exception {
-        if (KB.containsKey(nomT)){
-            throw new ExisteixID_Exception();
-            //return -1;
-        }
+        if (KB.containsKey(nomT)) throw new ExisteixID_Exception();
+
         Alphabet a = AP.get(nomA);
         Frequency f = a.getFrequencies().get(nomF);
         Grid g = GD.get(idG);
+
         if (g.getSize() != a.size()) throw new gridAndAlphabetNotSameSize_Exception();
+
         Keyboard k = new Keyboard(nomT,a,f,g,mode);
         KB.put(nomT,k);
     }
