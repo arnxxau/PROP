@@ -6,6 +6,7 @@ import edu.upc.prop.cluster125.exceptions.*;
 import edu.upc.prop.cluster125.presentation.views.FileSelectorDialog;
 import edu.upc.prop.cluster125.presentation.views.MainView;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +18,10 @@ public class CtrlPresentacio {
 
     static {
         cd = new CtrlDomini();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MainView::new);
     }
 
     // CRIDA A VISTES
