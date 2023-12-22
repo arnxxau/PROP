@@ -81,6 +81,11 @@ public class Frequency {
         lastModifiedTime = formatter.format(Instant.now());
     }
 
+    /**
+     * Crea una nova instància de freqüència a partir d'una freqüència existent, realitzant una còpia de les seves dades.
+     *
+     * @param f L'objecte Frequency existent del qual es realitzarà una còpia.
+     */
     public Frequency(Frequency f) {
         this.mode = f.mode;
         this.name = f.name;
@@ -194,6 +199,14 @@ public class Frequency {
         }
     }
 
+    /**
+     * Modifica la freqüència amb les dades proporcionades en les línies especificades i l'estableix en el mode especificat.
+     *
+     * @param lines Un array de cadenes de caràcters que conté les dades de la freqüència a modificar.
+     * @param mode El mode en què es vol establir la freqüència (FREQ_MODE o TEXT_MODE).
+     * @throws CaractersfromFreq_notInAlph_Exception Si es troben caràcters a les dades de freqüència que no pertanyen a l'alfabet associat.
+     * @throws badExtraction_Exception Si hi ha un problema en l'extracció de les dades de freqüència.
+     */
     public void modifyFrequency(String[] lines, int mode) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         frequencyWeight = 0;
         freq = new HashMap<>();
@@ -238,6 +251,13 @@ public class Frequency {
 
 
     // integrity checkers
+
+    /**
+     * Verifica la integritat de la freqüència assegurant-se que tots els caràcters pertanyen a l'alfabet associat.
+     *
+     * @param c El caràcter a verificar.
+     * @throws CaractersfromFreq_notInAlph_Exception Si el caràcter no pertany a l'alfabet associat a la freqüència.
+     */
     private void checkFreqIntegrity(Character c) throws CaractersfromFreq_notInAlph_Exception {
         if (!alphabet.existsCharacter(c))
             throw new CaractersfromFreq_notInAlph_Exception();
