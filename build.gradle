@@ -8,7 +8,7 @@ group = 'edu.upc.prop.cluster125'
 version = '1.0-SNAPSHOT'
 
 ext {
-    javaMainClass = 'edu.upc.prop.cluster125.presentation.views.MainView'
+    javaMainClass = 'edu.upc.prop.cluster125.presentation.CtrlPresentacio'
 }
 
 application {
