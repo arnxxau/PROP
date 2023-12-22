@@ -244,7 +244,7 @@ public class CtrlDomini {
 
         s[2] = p.getX() + " " + p.getY();
 
-        s[3] = f.getLastModifiedTime();
+        s[3] = "";
         s[4] = f.getCreationDate();
 
         return s;

@@ -124,10 +124,6 @@ public class Grid {
         return creationDate;
     }
 
-    public String getLastModifiedTime() {
-        return lastModifiedTime;
-    }
-
     /**
      * Obté l'identificador de la graella.
      *

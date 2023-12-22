@@ -29,7 +29,6 @@ public class GridPropertiesDialog extends JDialog {
         JLabel etiquetaNom = new JLabel("Name: " + propietats[0]);
         JLabel etiquetaSlots = new JLabel("Number of slots: " + propietats[1]);
         JLabel etiquetaMida = new JLabel("Size: " + propietats[2]);
-        JLabel etiquetaDarreraModificacio = new JLabel("Last Modification: " + propietats[3]);
         JLabel etiquetaCreacio = new JLabel("Creation: " + propietats[4]);
 
         etiquetaNom.setFont(fontEtiqueta);
@@ -38,8 +37,6 @@ public class GridPropertiesDialog extends JDialog {
         etiquetaSlots.setForeground(colorEtiqueta);
         etiquetaMida.setFont(fontEtiqueta);
         etiquetaMida.setForeground(colorEtiqueta);
-        etiquetaDarreraModificacio.setFont(fontEtiqueta);
-        etiquetaDarreraModificacio.setForeground(colorEtiqueta);
         etiquetaCreacio.setFont(fontEtiqueta);
         etiquetaCreacio.setForeground(colorEtiqueta);
 
@@ -52,11 +49,7 @@ public class GridPropertiesDialog extends JDialog {
 
         gbc.gridy = 2;
         panellInformacio.add(etiquetaMida, gbc);
-
         gbc.gridy = 3;
-        panellInformacio.add(etiquetaDarreraModificacio, gbc);
-
-        gbc.gridy = 4;
         panellInformacio.add(etiquetaCreacio, gbc);
 
         add(panellInformacio);
