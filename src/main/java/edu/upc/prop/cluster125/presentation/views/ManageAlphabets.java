@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Aquesta classe representa la vista per gestionar els alfabets.
+ */
 public class ManageAlphabets extends JFrame {
 
     private JTable table;
@@ -20,18 +23,21 @@ public class ManageAlphabets extends JFrame {
     private JPanel buttonPanel;
     private JScrollPane scrollPane;
 
+    /**
+     * Crea una nova instància de la vista de gestió d'alfabets.
+     */
     public ManageAlphabets() {
-        // Set up the main frame
-        setTitle("Alphabet manager");
+        // Configura el marc principal
+        setTitle("Gestor d'Alfabets");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
 
-        // Create panels for better organization
+        // Crea panells per a una millor organització
         mainPanel = new JPanel(new BorderLayout());
         tablePanel = new JPanel(new BorderLayout());
 
-        String[] column = {"NAME", "CHARS", "SIZE"};
+        String[] column = {"NOM", "CARÀCTERS", "MIDA"};
 
         table = new JTable(CtrlPresentacio.Demanar_full_Alfabet(), column);
 
@@ -41,56 +47,56 @@ public class ManageAlphabets extends JFrame {
 
         buttonPanel = new JPanel(new BorderLayout());
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        modifyButton = new JButton("Modify");
-        createButton = new JButton("Create");
-        deleteButton = new JButton("Delete");
-        backButton = new JButton("Back");
+        modifyButton = new JButton("Modificar");
+        createButton = new JButton("Crear");
+        deleteButton = new JButton("Eliminar");
+        backButton = new JButton("Enrere");
 
         modifyButton.setPreferredSize(new Dimension(80, 30));
         createButton.setPreferredSize(new Dimension(80, 30));
         deleteButton.setPreferredSize(new Dimension(80, 30));
         backButton.setPreferredSize(new Dimension(80, 30));
 
-        // Add ActionListeners to buttons
+        // Afegeix ActionListeners als botons
         modifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Replace this with the actual logic for the button
-                JOptionPane.showMessageDialog(null, "Modify button clicked");
+                // Substitueix això amb la lògica real per al botó
+                JOptionPane.showMessageDialog(null, "Botó Modificar clicat");
             }
         });
 
         createButton.addActionListener(e -> {
-            // Replace this with the actual logic for the button
+            // Substitueix això amb la lògica real per al botó
             AlphabetCreatorDialog ca = new AlphabetCreatorDialog(this);
 
-            // Update the table model with the new data
+            // Actualitza el model de la taula amb les noves dades
             DefaultTableModel model = new DefaultTableModel(CtrlPresentacio.Demanar_full_Alfabet(), column);
             table.setModel(model);
 
-            // Notify the table that the data has changed
+            // Notifica a la taula que les dades han canviat
             model.fireTableDataChanged();
         });
 
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Replace this with the actual logic for the button
-                JOptionPane.showMessageDialog(null, "Delete button clicked");
+                // Substitueix això amb la lògica real per al botó
+                JOptionPane.showMessageDialog(null, "Botó Eliminar clicat");
             }
         });
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Close the current frame
+                // Tanca el marc actual
                 setVisible(false);
-                // Open the main view
+                // Obre la vista principal
                 new MainView().setVisible(true);
             }
         });
 
-        // Add buttons to the panel
+        // Afegeix els botons al panell
         saveLoadPanel.add(modifyButton);
         saveLoadPanel.add(createButton);
         saveLoadPanel.add(deleteButton);
@@ -100,28 +106,24 @@ public class ManageAlphabets extends JFrame {
 
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Add panels to the main panel
+        // Afegeix panells al panell principal
         mainPanel.add(tablePanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add the main panel to the frame
+        // Afegeix el panell principal al marc
         add(mainPanel);
 
-        // Make the frame visible
+        // Fes visible el marc
         setVisible(true);
         setLocationRelativeTo(null);
     }
 
 
-    private String[][] getAlphabetNames() {
-
-        String[][] data = {{"101"},};
-
-        return data;
-    }
-
-
-
+    /**
+     * Mètode principal per iniciar l'aplicació.
+     *
+     * @param args Els arguments de la línia de comandes.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ManageAlphabets::new);
     }

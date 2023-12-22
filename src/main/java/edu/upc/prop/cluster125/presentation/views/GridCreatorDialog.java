@@ -8,12 +8,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * La classe GridCreatorDialog és un diàleg que permet crear una graella amb identificadors únics per a les caselles.
+ */
 public class GridCreatorDialog extends JDialog {
 
     JFrame parent;
+    boolean[][] pos = null;
 
-    boolean [][] pos = null;
-
+    /**
+     * Crea un nou diàleg GridCreatorDialog.
+     *
+     * @param parent El marc pare en el qual es mostra el diàleg.
+     */
     public GridCreatorDialog(JFrame parent) {
         super(parent, "Grid Creator", true);
         this.parent = parent;
@@ -66,7 +73,7 @@ public class GridCreatorDialog extends JDialog {
                     CtrlPresentacio.Afegir_Grid((Integer) idSpinner.getValue(), pos);
                     dispose();
                 } catch (ExisteixID_Exception ex) {
-                    JOptionPane.showMessageDialog(parent, "The ID already exists!","Name error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent, "The ID already exists!", "Name error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

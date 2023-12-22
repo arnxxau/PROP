@@ -6,15 +6,23 @@ import edu.upc.prop.cluster125.exceptions.ExisteixID_Exception;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe AlphabetManagerPanel és un panell de gestió d'alfabets que permet als usuaris crear, modificar, esborrar i consultar alfabets.
+ */
 public class AlphabetManagerPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     JList<String> list = new JList<>(listModel);
 
+    /**
+     * Crea un nou panell de gestió d'alfabets.
+     *
+     * @param parent El marc pare en el qual es mostra el panell.
+     */
     public AlphabetManagerPanel(JFrame parent) {
         setLayout(new BorderLayout());
         updateTab();
 
-        // Create panels for better organization
+        // Crear panells per a una millor organització
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel buttonPanel = new JPanel();
         JPanel saveLoadPanel = new JPanel();
@@ -71,12 +79,11 @@ public class AlphabetManagerPanel extends JPanel {
         });
 
         createButton.addActionListener(e -> {
-
             AlphabetCreatorDialog cf = new AlphabetCreatorDialog(parent);
             updateTab();
         });
-        deleteButton.addActionListener(e -> {
 
+        deleteButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Select an alphabet!");
             } else {
@@ -86,8 +93,8 @@ public class AlphabetManagerPanel extends JPanel {
                     updateTab();
                 }
             }
-
         });
+
         propertiesButton.addActionListener(e -> {
             if (list.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Select an alphabet!");
@@ -103,6 +110,9 @@ public class AlphabetManagerPanel extends JPanel {
         button.setPreferredSize(size);
     }
 
+    /**
+     * Actualitza la llista d'alfabets amb els noms dels alfabets disponibles.
+     */
     public void updateTab() {
         listModel.clear();
         for (String alphabet : CtrlPresentacio.Noms_Alfabet()) {
@@ -110,6 +120,11 @@ public class AlphabetManagerPanel extends JPanel {
         }
     }
 
+    /**
+     * Mètode principal per provar la classe AlphabetManagerPanel.
+     *
+     * @param args Arguments de línia de comandament (no s'utilitzen aquí).
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Alphabet Manager");

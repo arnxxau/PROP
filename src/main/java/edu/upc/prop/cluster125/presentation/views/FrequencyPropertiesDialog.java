@@ -3,9 +3,18 @@ package edu.upc.prop.cluster125.presentation.views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe FrequencyPropertiesDialog és un diàleg que mostra informació sobre una freqüència.
+ */
 public class FrequencyPropertiesDialog extends JDialog {
-    public FrequencyPropertiesDialog(JFrame parent, String [] propierties) {
-        super(parent, "Alphabet Information", true);
+    /**
+     * Crea un nou diàleg FrequencyPropertiesDialog.
+     *
+     * @param parent      El marc pare en el qual es mostra el diàleg.
+     * @param properties  Un array de cadenes que conté les propietats de la freqüència a mostrar.
+     */
+    public FrequencyPropertiesDialog(JFrame parent, String[] properties) {
+        super(parent, "Frequency Information", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);
 
@@ -17,11 +26,11 @@ public class FrequencyPropertiesDialog extends JDialog {
         Font labelFont = new Font("Arial", Font.PLAIN, 14);
         Color labelColor = UIManager.getColor("textText");
 
-        JLabel nameLabel = new JLabel("Name: " + propierties[0]);
-        JLabel alphabetLabel = new JLabel("Alphabet: " + propierties[1]);
-        JLabel modeLabel = new JLabel("Mode: " + propierties[2]);
-        JLabel lastModificationLabel = new JLabel("Last Modification: " + propierties[3]);
-        JLabel creationLabel = new JLabel("Creation: " + propierties[4]);
+        JLabel nameLabel = new JLabel("Name: " + properties[0]);
+        JLabel alphabetLabel = new JLabel("Alphabet: " + properties[1]);
+        JLabel modeLabel = new JLabel("Mode: " + properties[2]);
+        JLabel lastModificationLabel = new JLabel("Last Modification: " + properties[3]);
+        JLabel creationLabel = new JLabel("Creation: " + properties[4]);
 
         nameLabel.setFont(labelFont);
         nameLabel.setForeground(labelColor);
@@ -60,7 +69,7 @@ public class FrequencyPropertiesDialog extends JDialog {
 
         JButton showInfoButton = new JButton("Show Frequency Info");
         showInfoButton.addActionListener(e -> {
-            String [] s = {"test", "test", "test", "test", "test"};
+            String[] s = {"test", "test", "test", "test", "test"};
             FrequencyPropertiesDialog dialog = new FrequencyPropertiesDialog(frame, s);
             dialog.setVisible(true);
         });

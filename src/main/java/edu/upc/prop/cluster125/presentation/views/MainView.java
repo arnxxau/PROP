@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Aquesta classe representa la vista principal de l'aplicació que conté les pestanyes per gestionar teclats, grafs, alfabets, freqüències i informació.
+ */
 public class MainView extends JFrame {
 
     FrequencyManagerPanel mf;
@@ -15,54 +18,49 @@ public class MainView extends JFrame {
     GridManagerPanel mg;
     InformationPanel mm;
 
+    /**
+     * Crea una nova instància de la vista principal.
+     */
     public MainView() {
-        // Set to the system look and feel
+        // Estableix l'aparença del sistema
         try {
-            //
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             System.out.println(e);
-            // If system look and feel is not available, fall back to the default look and feel.
+            // Si l'aparença del sistema no està disponible, utilitza l'aparença per defecte.
         }
 
+        // Inicialitza les pestanyes de la vista
         mf = new FrequencyManagerPanel(this);
         ma = new AlphabetManagerPanel(this);
         mk = new KeyboardManagerPanel(this);
         mg = new GridManagerPanel(this);
         mm = new InformationPanel();
 
-
-
+        // Icona de l'aplicació
         ImageIcon imgicon = new ImageIcon("/home/akira/IdeaProjects/subgrup-prop12.5/src/main/java/edu/upc/prop/clusterxx/views/logo.png");
         setIconImage(imgicon.getImage());
         setName("Distributor");
 
-
-
-
-
-
-        // Use modern fonts
+        // Utilitza fonts modernes
         setFont(new Font("Arial", Font.PLAIN, 14));
 
-
-        // Set up the main frame
-        setTitle("Main menu");
+        // Configura el marc principal
+        setTitle("Menú Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
 
-        // Create panels for better organization
+        // Crea panells per a una millor organització
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = createBottomPanel();
 
         JTabbedPane tp = new JTabbedPane();
-        tp.addTab("keyboards", null, mk, "manage your keyboards here");
-        tp.addTab("grids", null, mg, "manage your grids here");
-        tp.addTab("alphabets", null, ma, "manage your alphabets here");
-        tp.addTab("frequencies", null, mf, "manage your frequencies here");
-        tp.addTab("info", null, mm, "load and save your program and get info");
+        tp.addTab("teclats", null, mk, "gestiona els teclats aquí");
+        tp.addTab("grafs", null, mg, "gestiona els grafs aquí");
+        tp.addTab("alfabets", null, ma, "gestiona els alfabets aquí");
+        tp.addTab("freqüències", null, mf, "gestiona les freqüències aquí");
+        tp.addTab("informació", null, mm, "carrega i desa el programa i obté informació");
         topPanel.add(tp);
 
         tp.setSelectedIndex(4);
@@ -76,60 +74,63 @@ public class MainView extends JFrame {
             }
         });
 
-        // Add panels to the main panel
+        // Afegeix els panells al panell principal
         mainPanel.add(tp, BorderLayout.CENTER);
-        //mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
-        // Add the main panel to the frame
+        // Afegeix el panell principal al marc
         add(mainPanel);
 
-        // Make the frame visible
+        // Fes visible el marc
         setVisible(true);
-        //setVisible(true);
-
 
         setLocationRelativeTo(null);
-
     }
 
-    // Method to update the selected tab
+    /**
+     * Mètode per actualitzar la pestanya seleccionada.
+     *
+     * @param tabIndex L'índex de la pestanya seleccionada.
+     */
     private void updateTab(int tabIndex) {
         switch (tabIndex) {
-            case 0: // keyboard
+            case 0: // teclats
                 mk.updateTab();
                 break;
-            case 1: // grids
+            case 1: // grafs
                 mg.updateTab();
                 break;
-            case 2: // alphabet
+            case 2: // alfabets
                 ma.updateTab();
                 break;
-            case 3: // frequency
+            case 3: // freqüències
                 mf.updateTab();
                 break;
             case 4:
                 mm.refreshLabels();
                 break;
-
             default:
                 break;
         }
     }
 
-
+    /**
+     * Crea un panell inferior amb etiquetes i botons.
+     *
+     * @return El panell inferior creat.
+     */
     private JPanel createBottomPanel() {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 20, 20));
 
-        // Label Panel
+        // Panell d'etiquetes
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        labelPanel.add(new JLabel("Current loaded objects: "));
+        labelPanel.add(new JLabel("Objectes actuals carregats: "));
         bottomPanel.add(labelPanel, BorderLayout.WEST);
         bottomPanel.add(labelPanel, BorderLayout.WEST);
 
-        // Save and Load Panel
-        JButton saveButton = createLoadSaveButton("Save");
-        JButton loadButton = createLoadSaveButton("Load");
+        // Panell de botons de desar i carregar
+        JButton saveButton = createLoadSaveButton("Desar");
+        JButton loadButton = createLoadSaveButton("Carregar");
 
         saveButton.addActionListener(new SaveButtonListener());
         loadButton.addActionListener(new LoadButtonListener());
@@ -159,7 +160,7 @@ public class MainView extends JFrame {
     private class ManageFrequencyListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Manage Frequency Button Clicked");
+            System.out.println("Botó Gestionar Frequència Clicat");
             //ManageFrequency mf = new ManageFrequency();
             //setVisible(false);
         }
@@ -168,46 +169,44 @@ public class MainView extends JFrame {
     private class ManageAlphabetsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Manage Alphabets Button Clicked");
+            System.out.println("Botó Gestionar Alfabets Clicat");
             ManageAlphabets ma = new ManageAlphabets();
             setVisible(false);
 
-            // Add specific action for Manage Alphabets button
+            // Afegiu accions específiques per al botó Gestionar Alfabets
         }
     }
 
     private class ManageKeyboardsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Manage Keyboards Button Clicked");
-            // Add specific action for Manage Keyboards button
+            System.out.println("Botó Gestionar Teclats Clicat");
+            // Afegiu accions específiques per al botó Gestionar Teclats
         }
     }
 
     private class ManageGridsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Manage Grids Button Clicked");
-            // Add specific action for Manage Grids button
+            System.out.println("Botó Gestionar Grafs Clicat");
+            // Afegiu accions específiques per al botó Gestionar Grafs
         }
     }
 
     private class SaveButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Save Button Clicked");
-            // Add specific action for Save button
+            System.out.println("Botó Desar Clicat");
+            // Afegiu accions específiques per al botó Desar
         }
     }
 
     private class LoadButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Load Button Clicked");
+            System.out.println("Botó Carregar Clicat");
             FileSelectorDialog ds = new FileSelectorDialog();
             ds.selectDirectory();
         }
     }
-
-
 }

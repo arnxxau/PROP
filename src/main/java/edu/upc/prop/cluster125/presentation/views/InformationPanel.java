@@ -1,4 +1,3 @@
-
 package edu.upc.prop.cluster125.presentation.views;
 
 import edu.upc.prop.cluster125.presentation.CtrlPresentacio;
@@ -6,6 +5,9 @@ import edu.upc.prop.cluster125.presentation.CtrlPresentacio;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Aquesta classe representa un panell d'informació de l'aplicació.
+ */
 public class InformationPanel extends JPanel {
 
     private JButton loadButton;
@@ -16,6 +18,9 @@ public class InformationPanel extends JPanel {
     private JLabel gridInfo;
     private JLabel saveInfo;
 
+    /**
+     * Crea una instància de InformationPanel.
+     */
     public InformationPanel() {
         setLayout(new BorderLayout());
 
@@ -31,8 +36,8 @@ public class InformationPanel extends JPanel {
 
         Dimension buttonSize = new Dimension(100, 30);
 
-        loadButton = new JButton("Load");
-        saveButton = new JButton("Save");
+        loadButton = new JButton("Carregar");
+        saveButton = new JButton("Guardar");
 
         loadButton.setMaximumSize(buttonSize);
         loadButton.setPreferredSize(buttonSize);
@@ -44,11 +49,11 @@ public class InformationPanel extends JPanel {
 
         String[] data = CtrlPresentacio.Obtenir_Informacio();
 
-        alphabetInfo = createLabel("Number of alphabets loaded: " + data[0], labelFont, labelColor);
-        frequencyInfo = createLabel("Number of frequencies loaded: " + data[1], labelFont, labelColor);
-        keyboardInfo = createLabel("Number of keyboards loaded: " + data[2], labelFont, labelColor);
-        gridInfo = createLabel("Number of grids loaded: " + data[3], labelFont, labelColor);
-        saveInfo = createLabel("Last time saved: " + data[4], labelFont, labelColor);
+        alphabetInfo = createLabel("Nombre d'alfabets carregats: " + data[0], labelFont, labelColor);
+        frequencyInfo = createLabel("Nombre de freqüències carregades: " + data[1], labelFont, labelColor);
+        keyboardInfo = createLabel("Nombre de teclats carregats: " + data[2], labelFont, labelColor);
+        gridInfo = createLabel("Nombre de graelles carregades: " + data[3], labelFont, labelColor);
+        saveInfo = createLabel("Últim cop guardat: " + data[4], labelFont, labelColor);
 
         infoPanel.add(alphabetInfo);
         infoPanel.add(frequencyInfo);
@@ -59,7 +64,7 @@ public class InformationPanel extends JPanel {
         refreshLabels();
 
         loadButton.addActionListener(e -> {
-            int confirmLoad = JOptionPane.showConfirmDialog(null, "Memory data will be overwritten. Are you sure you want to load?", "Load Confirmation", JOptionPane.YES_NO_OPTION);
+            int confirmLoad = JOptionPane.showConfirmDialog(null, "Les dades de memòria seran sobrescrites. Esteu segur que voleu carregar?", "Confirmació de càrrega", JOptionPane.YES_NO_OPTION);
             if (confirmLoad == JOptionPane.YES_OPTION) {
                 CtrlPresentacio.Carregar_Dades();
                 refreshLabels();
@@ -67,7 +72,7 @@ public class InformationPanel extends JPanel {
         });
 
         saveButton.addActionListener(e -> {
-            int confirmSave = JOptionPane.showConfirmDialog(null, "Disk data will be overwritten. Are you sure you want to save?", "Save Confirmation", JOptionPane.YES_NO_OPTION);
+            int confirmSave = JOptionPane.showConfirmDialog(null, "Les dades de disc seran sobrescrites. Esteu segur que voleu desar?", "Confirmació de desament", JOptionPane.YES_NO_OPTION);
             if (confirmSave == JOptionPane.YES_OPTION) {
                 CtrlPresentacio.Guardar_Dades();
                 refreshLabels();
@@ -99,18 +104,26 @@ public class InformationPanel extends JPanel {
         return label;
     }
 
+    /**
+     * Actualitza les etiquetes d'informació amb les dades actuals.
+     */
     public void refreshLabels() {
         String[] data = CtrlPresentacio.Obtenir_Informacio();
 
-        alphabetInfo.setText("Number of alphabets loaded: " + data[0]);
-        frequencyInfo.setText("Number of frequencies loaded: " + data[1]);
-        keyboardInfo.setText("Number of keyboards loaded: " + data[2]);
-        gridInfo.setText("Number of grids loaded: " + data[3]);
-        saveInfo.setText("Last time saved: " + data[4]);
+        alphabetInfo.setText("Nombre d'alfabets carregats: " + data[0]);
+        frequencyInfo.setText("Nombre de freqüències carregades: " + data[1]);
+        keyboardInfo.setText("Nombre de teclats carregats: " + data[2]);
+        gridInfo.setText("Nombre de graelles carregades: " + data[3]);
+        saveInfo.setText("Últim cop guardat: " + data[4]);
     }
 
+    /**
+     * El mètode principal per provar InformationPanel.
+     *
+     * @param args Els arguments de la línia de comandes.
+     */
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Information Panel");
+        JFrame frame = new JFrame("Panell d'Informació");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
         frame.add(new InformationPanel());
