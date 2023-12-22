@@ -64,44 +64,6 @@ public class Alphabet {
     }
 
     /**
-     * Afegeix un caràcter a l'alfabet.
-     *
-     * @param caracter El caràcter a afegir.
-     * @return Cert si el caràcter s'ha afegit amb èxit, fals si ja existeix.
-     */
-    public boolean addCharacter(char caracter) {
-        if (caracters.add(caracter)) {
-            ultMod = formatter.format(Instant.now());
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Elimina un caràcter de l'alfabet.
-     *
-     * @param caracter El caràcter a eliminar.
-     * @return Cert si el caràcter s'ha eliminat amb èxit, fals si no existeix.
-     */
-    public boolean deleteCharacter(char caracter) {
-        if (caracters.remove(caracter)) {
-            ultMod = formatter.format(Instant.now());
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Comprova si una freqüència existeix a l'alfabet.
-     *
-     * @param nomF El nom de la freqüència a comprovar.
-     * @return Cert si la freqüència existeix, fals altrament.
-     */
-    public boolean hasFrequency(String nomF) { return frequencies.containsKey(nomF);}
-
-    /**
      * Afegeix una freqüència a l'alfabet.
      *
      * @param frequencia La freqüència a afegir.

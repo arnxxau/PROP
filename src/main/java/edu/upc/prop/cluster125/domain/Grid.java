@@ -161,16 +161,6 @@ public class Grid {
     }
 
     /**
-     * Estableix la llista de posicions de la graella.
-     *
-     * @param pares La nova llista de posicions.
-     */
-    public void setGrid(ArrayList<Pair> pares) {
-        this.grid = pares;
-        lastModifiedTime = formatter.format(Instant.now());
-    }
-
-    /**
      * Obté la mida de la graella, és a dir, el nombre de posicions.
      *
      * @return La mida de la graella.

@@ -228,9 +228,6 @@ public class CtrlDomini {
             s[2] += f + " ";
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
-
 
         s[3] = a.getLastMod();
         s[4] = a.getCrDate();
@@ -252,9 +249,6 @@ public class CtrlDomini {
         else if (mode == 1) s[2] = "text";
 
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
-
         s[3] = f.getLastModifiedTime();
         s[4] = f.getCreationDate();
 
@@ -272,9 +266,6 @@ public class CtrlDomini {
 
         s[2] = k.getFrequency().getName();
 
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
 
         s[3] = k.getLastMod();
         s[4] = k.getCrDate();
@@ -294,11 +285,8 @@ public class CtrlDomini {
 
         s[2] = p.getX() + " " + p.getY();
 
-       /* DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());*/
-
-        s[3] = f.getLastModifiedTime();//"formatter.format(f.getLastModifiedTime())";
-        s[4] = f.getCreationDate();//"formatter.format(f.getCreationDate())";
+        s[3] = f.getLastModifiedTime();
+        s[4] = f.getCreationDate();
 
         return s;
     }
@@ -355,7 +343,6 @@ public class CtrlDomini {
 
     public Vector<String> NomsFreqs_Alfabet(String nomA){
         Vector<String> vs = new Vector<>();
-        String nom;
         for(String s : AP.get(nomA).getFrequencies().keySet()){
             vs.add(s);
         }
@@ -364,7 +351,6 @@ public class CtrlDomini {
 
     public Vector<String> Noms_Freq(){
         Vector<String> vs = new Vector<>();
-        String nom;
         for(String s : FQ.keySet()){
             vs.add(s);
         }
@@ -375,9 +361,6 @@ public class CtrlDomini {
         Frequency f = FQ.get(nomF);
         f.getAlphabet().deleteFrequency(f);//quito del HashMap del alfabeto la freq.
         FQ.remove(nomF);
-    }
-    public boolean ExisteixFreq(String nomf){
-        return FQ.containsKey(nomf);
     }
 
 
@@ -403,14 +386,6 @@ public class CtrlDomini {
         f.modifyFrequency(text,mode);
     }
 
-    public boolean ExisteixAlf(String noma){
-        return AP.containsKey(noma);
-    }
-
-    public boolean ExisteixFitxer(String path){
-        File f = new File(path);
-        return f.exists();
-    }
     public void Afegir_Grid (int x, boolean[][] pos)throws ExisteixID_Exception{
         if (GD.containsKey(x))throw new ExisteixID_Exception(); //return -1;
         Grid g = new Grid(x,pos);

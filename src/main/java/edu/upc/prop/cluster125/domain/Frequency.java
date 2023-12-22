@@ -193,19 +193,6 @@ public class Frequency {
         }
     }
 
-    /**
-     * Actualitza la freqüència basant-se en noves línies de dades.
-     *
-     * @param lines Les línies de dades que contenen informació de freqüència.
-     * @throws Exception Si hi ha un error durant el procés d'actualització.
-     */
-    public void updateFrequency(String[] lines) throws Exception {
-        frequencyWeight = 0;
-        freq = new HashMap<>();
-        if (mode == FREQ_MODE) extractRawFrequencies(lines);
-        else if (mode == TEXT_MODE) extractTextFrequencies(lines);
-        lastModifiedTime = formatter.format(Instant.now());
-    }
     public void modifyFrequency(String[] lines, int mode) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         frequencyWeight = 0;
         freq = new HashMap<>();
@@ -249,31 +236,6 @@ public class Frequency {
     }
 
 
-    /**
-     * Imprimeix la informació de freqüència a la consola.
-     */
-    public void printFrequencies() {
-        System.out.println("Freq weight = " + frequencyWeight);
-        for (Map.Entry<Character, HashMap<Character, Integer>> outerEntry : freq.entrySet()) {
-            char outerKey = outerEntry.getKey();
-            System.out.print(outerKey + ": {");
-
-            HashMap<Character, Integer> innerMap = outerEntry.getValue();
-            for (Map.Entry<Character, Integer> innerEntry : innerMap.entrySet()) {
-                char innerKey = innerEntry.getKey();
-                double innerValue = innerEntry.getValue();
-                System.out.print(innerKey + "=" + innerValue + ", ");
-            }
-
-            if (!innerMap.isEmpty()) {
-                System.out.print("\b\b");
-            }
-
-            System.out.println("}");
-        }
-    }
-
-
     // integrity checkers
     private void checkFreqIntegrity(Character c) throws CaractersfromFreq_notInAlph_Exception {
         if (!alphabet.existsCharacter(c))
@@ -289,15 +251,6 @@ public class Frequency {
      */
     public Integer getFrequencyWeight() {
         return frequencyWeight;
-    }
-
-    /**
-     * Obté les dades de freqüència, un mapa de combinacions de caràcters i les seves freqüències respectives.
-     *
-     * @return Les dades de freqüència.
-     */
-    public HashMap<Character, HashMap<Character, Integer>> getFreq() {
-        return freq;
     }
 
     /**
@@ -363,46 +316,8 @@ public class Frequency {
         return 0;
     }
 
-    /**
-     * Obté la freqüència d'una combinació de caràcters a les dades de freqüència.
-     *
-     * @param first  El primer caràcter de la combinació.
-     * @param second El segon caràcter de la combinació.
-     * @return La freqüència de la combinació de caràcters.
-     */
-    public double getFrequency(Character first, Character second) {
-        return getNumberOfAppearances(first, second) / frequencyWeight;
-    }
-
 
     // public setters
-
-    /**
-     * Estableix el pes de la freqüència al valor especificat.
-     *
-     * @param frequencyWeight El nou pes de la freqüència.
-     */
-    public void setFrequencyWeight(Integer frequencyWeight) {
-        this.frequencyWeight = frequencyWeight;
-    }
-
-    /**
-     * Estableix les dades de freqüència al mapa especificat.
-     *
-     * @param freq Les noves dades de freqüència.
-     */
-    public void setFreq(HashMap<Character, HashMap<Character, Integer>> freq) {
-        this.freq = freq;
-    }
-
-    /**
-     * Estableix el mode de la freqüència al valor especificat.
-     *
-     * @param mode El nou mode de la freqüència.
-     */
-    public void setMode(int mode) {
-        this.mode = mode;
-    }
 
     /**
      * Estableix el nom de la freqüència al valor especificat.
@@ -411,15 +326,6 @@ public class Frequency {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Estableix el temps de l'última modificació a l'Instant especificat.
-     *
-     * @param lastModifiedTime El nou temps de l'última modificació.
-     */
-    public void setLastModifiedTime(Instant lastModifiedTime) {
-        this.lastModifiedTime = formatter.format(lastModifiedTime);;
     }
 
     /**
