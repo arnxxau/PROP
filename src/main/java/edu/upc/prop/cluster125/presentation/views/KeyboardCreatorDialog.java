@@ -11,10 +11,6 @@ import java.awt.*;
 import java.util.Vector;
 
 public class KeyboardCreatorDialog extends JDialog {
-
-    String content;
-    String aName = null;
-
     String fName = null;
 
     public KeyboardCreatorDialog(JFrame parent) {
@@ -87,8 +83,6 @@ public class KeyboardCreatorDialog extends JDialog {
         });
 
         createButton.addActionListener(e -> {
-            String aName = alphabetComboBox.getSelectedItem().toString();
-            String gName = gridComboBox.getSelectedItem().toString();
             if (nameField.getText().isEmpty()) JOptionPane.showMessageDialog(null, "Give it a name!");
             else if (!algorithm1RadioButton.isSelected() && !algorithm2RadioButton.isSelected()) JOptionPane.showMessageDialog(null, "Select an algorithm!");
             else if (alphabetComboBox.getSelectedItem() == null) JOptionPane.showMessageDialog(null, "Create an alphabet!");
@@ -96,6 +90,10 @@ public class KeyboardCreatorDialog extends JDialog {
             else if (fName == null) JOptionPane.showMessageDialog(null, "Select some frequencies!");
             else {
                 try {
+                    String aName = alphabetComboBox.getSelectedItem().toString();
+                    String gName = gridComboBox.getSelectedItem().toString();
+
+
                     if (algorithm1RadioButton.isSelected()) CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName), Keyboard.QAPAlgorithm);
                     else CtrlPresentacio.Afegir_Teclat(nameField.getText(), aName, fName, Integer.parseInt(gName), Keyboard.LocalSearchAlgorithm);
 

@@ -8,6 +8,7 @@
 
 package edu.upc.prop.cluster125.domain;
 
+
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
