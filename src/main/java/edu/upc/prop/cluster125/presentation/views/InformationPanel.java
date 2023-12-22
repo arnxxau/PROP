@@ -62,7 +62,7 @@ public class InformationPanel extends JPanel {
         refreshLabels();
 
         loadButton.addActionListener(e -> {
-            int confirmLoad = JOptionPane.showConfirmDialog(null, "Les dades de memòria seran sobrescrites. Esteu segur que voleu carregar?", "Confirmació de càrrega", JOptionPane.YES_NO_OPTION);
+            int confirmLoad = JOptionPane.showConfirmDialog(null, "Memory data will be overwritten. Are you sure you want to load?", "Load Confirmation", JOptionPane.YES_NO_OPTION);
             if (confirmLoad == JOptionPane.YES_OPTION) {
                 CtrlPresentacio.Carregar_Dades();
                 refreshLabels();
@@ -70,7 +70,7 @@ public class InformationPanel extends JPanel {
         });
 
         saveButton.addActionListener(e -> {
-            int confirmSave = JOptionPane.showConfirmDialog(null, "Les dades de disc seran sobrescrites. Esteu segur que voleu desar?", "Confirmació de desament", JOptionPane.YES_NO_OPTION);
+            int confirmSave = JOptionPane.showConfirmDialog(null, "Disk data will be overwritten. Are you sure you want to save?", "Save Confirmation", JOptionPane.YES_NO_OPTION);
             if (confirmSave == JOptionPane.YES_OPTION) {
                 CtrlPresentacio.Guardar_Dades();
                 refreshLabels();

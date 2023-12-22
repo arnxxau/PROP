@@ -76,19 +76,7 @@ public class CtrlDomini {
         Keyboard k = KB.get(nomT);
         k.update();
     }
-    public Vector<Vector<String>> Consultar_Teclats(){
-        Vector<Vector<String>> vvs = new Vector<>();
-        for (Keyboard valor : KB.values()) {
-            Vector<String> vs = new Vector<>();
-            vs.add(valor.getName());
-            vs.add(valor.getAlphabet().getName());
-            vs.add(valor.getFrequency().getName());
-            vs.add(((Integer)valor.getGrid().getID()).toString());
-            vs.add(valor.getLayout());
-            vvs.add(vs);
-        }
-        return vvs;
-    }
+
     public Vector<String> Noms_Teclats(){
        return new Vector<>(KB.keySet());
     }
@@ -122,35 +110,7 @@ public class CtrlDomini {
             a.addFrequency(f);  //a l'alfabet li afegim la freq.
             FQ.put(nomF,f); //afegim la frequencia
     }
-    public String[][] datosFreqs(){
-        String[][] ss = new String[FQ.size()][3];
-        int i=0;
-        for(Frequency f : FQ.values()){
-            ss[i][0] = f.getName();
-            ss[i][1] = f.getAlphabet().getName();
-            if(f.getMode()==1)ss[i][2] = "text mode";//escrito a man
-            else if(f.getMode() == 0) ss[i][2]= "raw mode";
-            i++;
-        }
-        return ss;
-    }
 
-    public String[][] Consultar_Freq(){
-        String[][] res = new String[FQ.size()][3];
-        int idx=0;
-        for (Map.Entry<String, Frequency> entry : FQ.entrySet()) {
-            String clave = entry.getKey();
-            Frequency valor = entry.getValue();
-            String[] a = new String[3];
-            a[0]=clave;
-            a[1]=valor.getAlphabet().getName();
-            a[2]= String.valueOf(valor.getMode());
-
-            res[idx] = a;
-            idx += 1;
-        }
-        return res;
-    }
 
     private String[] llegir_archiu_path(String path) throws IOException {
         List<String> lines;
@@ -308,38 +268,6 @@ public class CtrlDomini {
     }
 
 
-    public Vector<Vector<String>> Consultar_Freqs(String nomA){
-        Vector<Vector<String>> vvs = new Vector<>();
-        for (Frequency valor : FQ.values()) {
-
-            Vector<String> vs = new Vector<>();
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.setLength(0);
-            if(valor.getAlphabet().getName().equals(nomA)){
-                vs.add(valor.getName()); //vs[0] == nom
-
-                stringBuilder.append(valor.getCreationDate());
-                vs.add(stringBuilder.toString());//vs[1] == creationdate.
-                stringBuilder.setLength(0);
-
-                stringBuilder.append(valor.getLastModifiedTime());//
-                vs.add(stringBuilder.toString());//vs[2] == lastmodifieddate
-                stringBuilder.setLength(0);
-
-                stringBuilder.append(valor.getFrequencyWeight());
-                vs.add(stringBuilder.toString());//vs[3] == frequencyweight
-                stringBuilder.setLength(0);
-
-            }
-
-            vvs.add(vs);
-        }
-        return vvs;
-    }
-
-
-
     public Vector<String> NomsFreqs_Alfabet(String nomA){
         Vector<String> vs = new Vector<>();
         for(String s : AP.get(nomA).getFrequencies().keySet()){
@@ -393,16 +321,6 @@ public class CtrlDomini {
 
     public void Esborrar_Grid (Integer idG) {
         GD.remove(idG);
-    }
-    public Vector<Vector<String>> Consultar_Grids() {
-        Vector<Vector<String>> vvs = new Vector<>();
-        for (Grid valor : GD.values()) {
-            Vector<String> vs = new Vector<>();
-            vs.add(((Integer)valor.getID()).toString());
-            vs.add(valor.toString());
-            vvs.add(vs);
-        }
-        return vvs;
     }
 
     public ArrayList<Pair> Obtenir_Reprentacio_Grid(int ID) {

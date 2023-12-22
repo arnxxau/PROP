@@ -130,8 +130,7 @@ public class KeyboardCreatorDialog extends JDialog {
     }
 
     private JButton loadSaveButton(String text) {
-        JButton button = new JButton(text);
-        return button;
+        return new JButton(text);
     }
 
 }
