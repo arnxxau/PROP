@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 /**
- * Controlador de presentació per al sistema Cluster 125.
+ * Controlador de presentació.
  * Gestiona la comunicació entre la capa de domini i la interfície gràfica d'usuari.
  */
 public class CtrlPresentacio {
