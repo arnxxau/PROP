@@ -116,7 +116,7 @@ public class KeyboardManagerPanel extends JPanel {
         });
 
         createButton.addActionListener(e -> {
-            KeyboardCreatorDialog cf = new KeyboardCreatorDialog(parent);
+            new KeyboardCreatorDialog(parent);
             updateTab();
         });
 

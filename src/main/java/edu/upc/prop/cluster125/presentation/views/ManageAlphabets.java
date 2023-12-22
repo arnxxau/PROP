@@ -60,7 +60,7 @@ public class ManageAlphabets extends JFrame {
 
         createButton.addActionListener(e -> {
             // Replace this with the actual logic for the button
-            AlphabetCreatorDialog ca = new AlphabetCreatorDialog(this);
+            new AlphabetCreatorDialog(this);
 
             // Update the table model with the new data
             DefaultTableModel model = new DefaultTableModel(CtrlPresentacio.Demanar_full_Alfabet(), column);
