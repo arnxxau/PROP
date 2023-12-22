@@ -71,8 +71,7 @@ public class AlphabetManagerPanel extends JPanel {
         });
 
         createButton.addActionListener(e -> {
-
-            AlphabetCreatorDialog cf = new AlphabetCreatorDialog(parent);
+            new AlphabetCreatorDialog(parent);
             updateTab();
         });
         deleteButton.addActionListener(e -> {

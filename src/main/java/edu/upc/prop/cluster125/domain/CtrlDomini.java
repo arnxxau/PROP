@@ -3,7 +3,6 @@ package edu.upc.prop.cluster125.domain;
 import edu.upc.prop.cluster125.exceptions.*;
 import edu.upc.prop.cluster125.persistance.CtrlPersistencia;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

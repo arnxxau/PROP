@@ -11,14 +11,6 @@ import java.awt.event.ActionListener;
 public class ManageAlphabets extends JFrame {
 
     private JTable table;
-    private JButton modifyButton;
-    private JButton createButton;
-    private JButton deleteButton;
-    private JButton backButton;
-    private JPanel mainPanel;
-    private JPanel tablePanel;
-    private JPanel buttonPanel;
-    private JScrollPane scrollPane;
 
     public ManageAlphabets() {
         // Set up the main frame
@@ -28,23 +20,23 @@ public class ManageAlphabets extends JFrame {
         setLocationRelativeTo(null);
 
         // Create panels for better organization
-        mainPanel = new JPanel(new BorderLayout());
-        tablePanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel tablePanel = new JPanel(new BorderLayout());
 
         String[] column = {"NAME", "CHARS", "SIZE"};
 
         table = new JTable(CtrlPresentacio.Demanar_full_Alfabet(), column);
 
-        scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table);
 
         tablePanel.add(scrollPane);
 
-        buttonPanel = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new BorderLayout());
         JPanel saveLoadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        modifyButton = new JButton("Modify");
-        createButton = new JButton("Create");
-        deleteButton = new JButton("Delete");
-        backButton = new JButton("Back");
+        JButton modifyButton = new JButton("Modify");
+        JButton createButton = new JButton("Create");
+        JButton deleteButton = new JButton("Delete");
+        JButton backButton = new JButton("Back");
 
         modifyButton.setPreferredSize(new Dimension(80, 30));
         createButton.setPreferredSize(new Dimension(80, 30));
@@ -115,9 +107,7 @@ public class ManageAlphabets extends JFrame {
 
     private String[][] getAlphabetNames() {
 
-        String[][] data = {{"101"},};
-
-        return data;
+        return new String[][]{{"101"},};
     }
 
 

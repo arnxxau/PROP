@@ -51,7 +51,6 @@ public class GridDisplayerPanel extends JPanel {
         }
 
         int cellSize = 10;
-        int startX = (getWidth() - gridSize.getY() * cellSize) / 2;
         int startY = (getHeight() - gridSize.getX() * cellSize) / 2;
 
         g.setColor(UIManager.getColor("textHighlight"));

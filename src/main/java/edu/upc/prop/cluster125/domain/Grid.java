@@ -108,7 +108,6 @@ public class Grid {
         return size;
     }
 
-    ;
 
     /**
      * Obté la mida de la graella, és a dir, el nombre de posicions.

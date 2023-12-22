@@ -76,7 +76,7 @@ public class GridManagerPanel extends JPanel {
 
 
         createButton.addActionListener(e -> {
-            GridCreatorDialog cf = new GridCreatorDialog(parent);
+            new GridCreatorDialog(parent);
             updateTab();
         });
 

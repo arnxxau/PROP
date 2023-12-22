@@ -8,8 +8,6 @@ import java.awt.*;
 
 public class InformationPanel extends JPanel {
 
-    private JButton loadButton;
-    private JButton saveButton;
     private JLabel alphabetInfo;
     private JLabel frequencyInfo;
     private JLabel keyboardInfo;
@@ -31,8 +29,8 @@ public class InformationPanel extends JPanel {
 
         Dimension buttonSize = new Dimension(100, 30);
 
-        loadButton = new JButton("Load");
-        saveButton = new JButton("Save");
+        JButton loadButton = new JButton("Load");
+        JButton saveButton = new JButton("Save");
 
         loadButton.setMaximumSize(buttonSize);
         loadButton.setPreferredSize(buttonSize);

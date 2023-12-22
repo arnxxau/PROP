@@ -67,30 +67,25 @@ public class Alphabet {
      * Afegeix una freqüència a l'alfabet.
      *
      * @param frequencia La freqüència a afegir.
-     * @return Cert si la freqüència s'ha afegit amb èxit, fals si ja existeix.
      */
-    public boolean addFrequency(Frequency frequencia) {
+    public void addFrequency(Frequency frequencia) {
         if (frequencies == null) frequencies = new HashMap<>();
-        if (frequencies.containsKey(frequencia.getName())) return false;
+        if (frequencies.containsKey(frequencia.getName())) return;
         frequencies.put(frequencia.getName(), frequencia);
         ultMod = formatter.format(Instant.now());
-        return true;
     }
 
     /**
      * Elimina una freqüència de l'alfabet.
      *
      * @param frequencia La freqüència a eliminar.
-     * @return Cert si la freqüència s'ha eliminat amb èxit, fals si no existeix.
      */
-    public boolean deleteFrequency(Frequency frequencia) {
+    public void deleteFrequency(Frequency frequencia) {
         if (frequencies != null) {
-            if (!frequencies.containsKey(frequencia.getName())) return false;
+            if (!frequencies.containsKey(frequencia.getName())) return;
             frequencies.remove(frequencia.getName());
             ultMod = formatter.format(Instant.now());
-            return true;
         }
-        return false;
     }
 
     // Getters

@@ -9,12 +9,10 @@ import java.util.Vector;
 
 public class KeyboardFrequencySelector extends JDialog {
 
-    private Vector<String> stringVector;
     private ArrayList<String> selectedStrings;
 
     public KeyboardFrequencySelector(JFrame parent, Vector<String> stringVector) {
         super(parent, "String Selection", true);
-        this.stringVector = stringVector;
         this.selectedStrings = new ArrayList<>();
 
         // Create the main panel with GridBagLayout

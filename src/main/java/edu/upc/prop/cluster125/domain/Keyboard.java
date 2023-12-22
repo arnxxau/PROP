@@ -173,16 +173,6 @@ public class Keyboard {
     }
 
     /**
-     * Estableix una nova distribució de lletres per al teclat.
-     *
-     * @param distribucio La nova distribució de lletres.
-     */
-    public void setDistribucio(char[] distribucio) {
-        this.distribucio = distribucio;
-        this.ultimaModificacio = formatter.format(Instant.now());
-    }
-
-    /**
      * Estableix un nou alfabet per al teclat.
      *
      * @param alph El nou alfabet del teclat.

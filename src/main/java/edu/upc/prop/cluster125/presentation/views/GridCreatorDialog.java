@@ -100,8 +100,7 @@ public class GridCreatorDialog extends JDialog {
     }
 
     private JButton loadSaveButton(String text) {
-        JButton button = new JButton(text);
-        return button;
+        return new JButton(text);
     }
 
     public static void main(String[] args) {

@@ -3,7 +3,6 @@ package edu.upc.prop.cluster125.presentation;
 import edu.upc.prop.cluster125.domain.Pair;
 import edu.upc.prop.cluster125.domain.CtrlDomini;
 import edu.upc.prop.cluster125.exceptions.*;
-import edu.upc.prop.cluster125.presentation.views.FileSelectorDialog;
 import edu.upc.prop.cluster125.presentation.views.MainView;
 
 import javax.swing.*;
@@ -24,14 +23,6 @@ public class CtrlPresentacio {
     }
 
     // CRIDA A VISTES
-
-    public static void DirectorySelector() throws IOException {
-        FileSelectorDialog ds = new FileSelectorDialog();
-    }
-
-    public static void MainView() {
-        MainView mv = new MainView();
-    }
 
     // ALFABETS
 
@@ -55,16 +46,8 @@ public class CtrlPresentacio {
         cd.CanviarNom_Alfabet(nomA, nomAnou);
     }
 
-    public static Vector<Vector<String>> llistar_Alfabets() {
-        return cd.Consultar_Alfabets();
-    }
-
     public static Vector<String> getAlphabets() {
         return cd.Noms_Alfabets();
-    }
-
-    public static Vector<String> getGrid() {
-        return cd.Noms_Grids();
     }
 
     public static String[][] Demanar_full_Alfabet() {
@@ -111,10 +94,6 @@ public class CtrlPresentacio {
 
     public static void Esborrar_Grid(int ID) {
         cd.Esborrar_Grid(ID);
-    }
-
-    public static Vector<Vector<String>> llistar_Grids() {
-        return cd.Consultar_Grids();
     }
 
     // FREQUENCIES
@@ -197,10 +176,6 @@ public class CtrlPresentacio {
         cd.Modificar_FreqMa(nomF, text, 0);
     }
 
-    public static Vector<Vector<String>> Llistar_Freqs_from_Alph(String nomA) {
-        return cd.Consultar_Freqs(nomA);
-    }
-
     public static Vector<String> NomsFreqs_alfabet(String nomA) {
         return cd.NomsFreqs_Alfabet(nomA);
     }
@@ -218,16 +193,8 @@ public class CtrlPresentacio {
     }
 
 
-    public static String[][] Dades_Freqs(){
-        return cd.datosFreqs();
-    }
-
     public static String FusionarFreqa(ArrayList<String> vs) throws alphNotCompatible_Exception {
         return cd.fusionarFreqs(vs);
-    }
-
-    public static String[][] Demanar_full_Freq(){
-        return cd.Consultar_Freq();
     }
 
     // TECLATS
@@ -247,10 +214,6 @@ public class CtrlPresentacio {
 
     public static void Actualitzar_Teclat(String nomT) {
         cd.Actualitzar_Teclat(nomT);
-    }
-
-    public static void Llistar_Teclats() {
-        cd.Consultar_Teclats();
     }
 
     public static Vector<String> Noms_Teclats() {

@@ -115,8 +115,7 @@ public class FrequencyManagerPanel extends JPanel {
         });
 
         createButton.addActionListener(e -> {
-
-            FrequencyCreatorDialog cf = new FrequencyCreatorDialog(parent);
+            new FrequencyCreatorDialog(parent);
             updateTab();
         });
 
