@@ -11,6 +11,7 @@ package edu.upc.prop.cluster125.domain;
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -21,11 +22,12 @@ public class Grid {
     private Pair size;
     @Expose
     private ArrayList<Pair> grid = new ArrayList<Pair>();
-
     @Expose
     private String creationDate;
     @Expose
     private String lastModifiedTime;
+    @Expose
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
 
     /**
      * Constructor de la classe Grid que crea una graella buida basada en una matriu booleana.
@@ -45,8 +47,8 @@ public class Grid {
             }
         }
 
-        creationDate = Instant.now().toString();
-        lastModifiedTime = Instant.now().toString();
+        creationDate = formatter.format(Instant.now());
+        lastModifiedTime = formatter.format(Instant.now());
     }
 
 
@@ -63,16 +65,16 @@ public class Grid {
             grid.add(pair);
         }
         size = new Pair(max.getX() + 1, max.getY() + 1);
-        creationDate = Instant.now().toString();
-        lastModifiedTime = Instant.now().toString();
+        creationDate = formatter.format(Instant.now());
+        lastModifiedTime = formatter.format(Instant.now());
     }
 
     /**
      * Constructor sense paràmetres de la classe Grid.
      */
     public Grid() {
-        creationDate = Instant.now().toString();
-        lastModifiedTime = Instant.now().toString();
+        creationDate = formatter.format(Instant.now());
+        lastModifiedTime = formatter.format(Instant.now());
     }
 
     /**
@@ -165,6 +167,7 @@ public class Grid {
      */
     public void setGrid(ArrayList<Pair> pares) {
         this.grid = pares;
+        lastModifiedTime = formatter.format(Instant.now());
     }
 
     /**

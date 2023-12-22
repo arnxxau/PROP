@@ -12,6 +12,7 @@ package edu.upc.prop.cluster125.domain;
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -26,6 +27,8 @@ public class Alphabet {
     private HashSet<Character> caracters;
     @Expose(serialize = false)
     private HashMap<String, Frequency> frequencies;
+    @Expose
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
 
     // Constructor
 
@@ -38,9 +41,9 @@ public class Alphabet {
     public Alphabet(String nom, HashSet<Character> cars) {
         this.nom = nom;
         this.caracters = cars;
-        this.crDate = Instant.now().toString();
-        this.ultMod = Instant.now().toString();
-        this.frequencies = new HashMap<String,Frequency>();
+        this.crDate = formatter.format(Instant.now());
+        this.ultMod = formatter.format(Instant.now());
+        this.frequencies = new HashMap<>();
     }
 
     /**
@@ -68,7 +71,7 @@ public class Alphabet {
      */
     public boolean addCharacter(char caracter) {
         if (caracters.add(caracter)) {
-            ultMod = Instant.now().toString();
+            ultMod = formatter.format(Instant.now());
             return true;
         } else {
             return false;
@@ -83,7 +86,7 @@ public class Alphabet {
      */
     public boolean deleteCharacter(char caracter) {
         if (caracters.remove(caracter)) {
-            ultMod = Instant.now().toString();
+            ultMod = formatter.format(Instant.now());
             return true;
         } else {
             return false;
@@ -108,6 +111,7 @@ public class Alphabet {
         if (frequencies == null) frequencies = new HashMap<>();
         if (frequencies.containsKey(frequencia.getName())) return false;
         frequencies.put(frequencia.getName(), frequencia);
+        ultMod = formatter.format(Instant.now());
         return true;
     }
 
@@ -121,6 +125,7 @@ public class Alphabet {
         if (frequencies != null) {
             if (!frequencies.containsKey(frequencia.getName())) return false;
             frequencies.remove(frequencia.getName());
+            ultMod = formatter.format(Instant.now());
             return true;
         }
         return false;
@@ -181,6 +186,7 @@ public class Alphabet {
     // Setters
     public void setName(String nom) {
         this.nom = nom;
+        ultMod = formatter.format(Instant.now());
     }
 }
 

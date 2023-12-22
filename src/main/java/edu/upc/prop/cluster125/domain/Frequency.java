@@ -15,6 +15,7 @@ import edu.upc.prop.cluster125.exceptions.alphNotCompatible_Exception;
 import edu.upc.prop.cluster125.exceptions.badExtraction_Exception;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -26,10 +27,11 @@ public class Frequency {
     private Integer frequencyWeight;
     @Expose
     private HashMap<Character, HashMap<Character, Integer>> freq;
-
     // Read modes
     @Expose
     private int mode;
+    @Expose
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
     /**
      * Constant que representa el mode d'extracció de freqüències, utilitzat
      * quan es construeix la instància de la classe Frequency amb dades de freqüències en brut.
@@ -75,8 +77,8 @@ public class Frequency {
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
 
-        creationDate = Instant.now().toString();
-        lastModifiedTime = Instant.now().toString();
+        creationDate = formatter.format(Instant.now());
+        lastModifiedTime = formatter.format(Instant.now());
     }
 
     public Frequency(Frequency f) {
@@ -202,7 +204,7 @@ public class Frequency {
         freq = new HashMap<>();
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
-        lastModifiedTime = Instant.now().toString();
+        lastModifiedTime = formatter.format(Instant.now());
     }
     public void modifyFrequency(String[] lines, int mode) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         frequencyWeight = 0;
@@ -210,7 +212,7 @@ public class Frequency {
         this.mode = mode;
         if (mode == FREQ_MODE) extractRawFrequencies(lines);
         else if (mode == TEXT_MODE) extractTextFrequencies(lines);
-        lastModifiedTime = Instant.now().toString();
+        lastModifiedTime = formatter.format(Instant.now());
     }
 
     /**
@@ -417,7 +419,7 @@ public class Frequency {
      * @param lastModifiedTime El nou temps de l'última modificació.
      */
     public void setLastModifiedTime(Instant lastModifiedTime) {
-        this.lastModifiedTime = lastModifiedTime.toString();
+        this.lastModifiedTime = formatter.format(lastModifiedTime);;
     }
 
     /**

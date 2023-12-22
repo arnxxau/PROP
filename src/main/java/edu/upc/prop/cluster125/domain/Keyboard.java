@@ -11,6 +11,7 @@ package edu.upc.prop.cluster125.domain;
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Keyboard {
@@ -28,6 +29,8 @@ public class Keyboard {
     private Frequency Freq;
     @Expose
     private Grid Grid;
+    @Expose
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
 
     private int modeA;
 
@@ -46,8 +49,8 @@ public class Keyboard {
      */
     public Keyboard(String nom, Alphabet alphabet, Frequency frequency, Grid grid, int mode){
         this.nom = nom;
-        this.dataCreacio = Instant.now().toString();
-        this.ultimaModificacio = Instant.now().toString();
+        this.dataCreacio = formatter.format(Instant.now());
+        this.ultimaModificacio = formatter.format(Instant.now());
         this.Alph = alphabet;
         this.Freq = frequency;
         this.Grid = grid;
@@ -62,7 +65,7 @@ public class Keyboard {
     public void update() {
         if(modeA == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
         else{this.distribucio = LocalSearch.HillClimbing(Alph,Freq,Grid);}
-        this.ultimaModificacio = Instant.now().toString();
+        this.ultimaModificacio = formatter.format(Instant.now());
     }
 
 
@@ -165,9 +168,8 @@ public class Keyboard {
      * @param nom El nou nom del teclat.
      */
     public void setNom(String nom) {
-
         this.nom = nom;
-        this.ultimaModificacio = Instant.now().toString();
+        this.ultimaModificacio = formatter.format(Instant.now());
     }
 
     /**
@@ -176,9 +178,8 @@ public class Keyboard {
      * @param distribucio La nova distribució de lletres.
      */
     public void setDistribucio(char[] distribucio) {
-
         this.distribucio = distribucio;
-        this.ultimaModificacio = Instant.now().toString();
+        this.ultimaModificacio = formatter.format(Instant.now());
     }
 
     /**
@@ -187,9 +188,8 @@ public class Keyboard {
      * @param alph El nou alfabet del teclat.
      */
     public void setAlph(Alphabet alph) {
-
         this.Alph = alph;
-        this.ultimaModificacio = Instant.now().toString();
+        this.ultimaModificacio = formatter.format(Instant.now());
     }
 
     /**
@@ -198,9 +198,8 @@ public class Keyboard {
      * @param freq La nova freqüència del teclat.
      */
     public void setFreq(Frequency freq) {
-
         this.Freq = freq;
-        this.ultimaModificacio = Instant.now().toString();
+        this.ultimaModificacio = formatter.format(Instant.now());
     }
 
     /**
@@ -209,9 +208,8 @@ public class Keyboard {
      * @param grid La nova graella del teclat.
      */
     public void setGrid(Grid grid) {
-
         this.Grid = grid;
-        this.ultimaModificacio = Instant.now().toString();
+        this.ultimaModificacio = formatter.format(Instant.now());
     }
 }
 
