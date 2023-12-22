@@ -15,6 +15,7 @@ import edu.upc.prop.cluster125.exceptions.alphNotCompatible_Exception;
 import edu.upc.prop.cluster125.exceptions.badExtraction_Exception;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,7 +30,8 @@ public class Frequency {
     @Expose
     private int mode;
     @Expose
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            .withZone(ZoneId.systemDefault());
     /**
      * Constant que representa el mode d'extracció de freqüències, utilitzat
      * quan es construeix la instància de la classe Frequency amb dades de freqüències en brut.

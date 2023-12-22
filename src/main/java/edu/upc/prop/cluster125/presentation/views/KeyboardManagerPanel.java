@@ -160,6 +160,13 @@ public class KeyboardManagerPanel extends JPanel {
             } else {
                 String selectedKeyboardName = list.getSelectedValue();
                 CtrlPresentacio.Actualitzar_Teclat(selectedKeyboardName);
+
+                int gridId = CtrlPresentacio.Obtenir_Nom_Grid_Teclat(selectedKeyboardName);
+                ArrayList<Pair> positions = CtrlPresentacio.Obtenir_Reprentacio_Grid(gridId);
+                Pair gridSize = CtrlPresentacio.Max_Grid(gridId);
+                char[] characters = CtrlPresentacio.Obtenir_Distribucio_Teclat(selectedKeyboardName);
+
+                keyboardRepresentation.updateView(positions, gridSize, characters);
             }
         });
     }

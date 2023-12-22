@@ -11,6 +11,7 @@ package edu.upc.prop.cluster125.domain;
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -30,7 +31,8 @@ public class Keyboard {
     @Expose
     private Grid Grid;
     @Expose
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            .withZone(ZoneId.systemDefault());
 
     private int modeA;
 

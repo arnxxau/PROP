@@ -11,6 +11,7 @@ package edu.upc.prop.cluster125.domain;
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -27,7 +28,8 @@ public class Grid {
     @Expose
     private String lastModifiedTime;
     @Expose
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            .withZone(ZoneId.systemDefault());
 
     /**
      * Constructor de la classe Grid que crea una graella buida basada en una matriu booleana.

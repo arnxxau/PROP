@@ -12,6 +12,7 @@ package edu.upc.prop.cluster125.domain;
 import com.google.gson.annotations.Expose;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,7 +29,8 @@ public class Alphabet {
     @Expose(serialize = false)
     private HashMap<String, Frequency> frequencies;
     @Expose
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            .withZone(ZoneId.systemDefault());
 
     // Constructor
 
