@@ -87,30 +87,4 @@ public class KeyboardFrequencySelector extends JDialog {
         return selectedStrings;
     }
 
-    /**
-     * El mètode principal per provar KeyboardFrequencySelector.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame parentFrame = new JFrame();
-            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            parentFrame.setSize(400, 300);
-            parentFrame.setVisible(true);
-
-            Vector<String> stringVector = new Vector<>();
-            stringVector.add("Opció 1");
-            stringVector.add("Opció 2");
-            stringVector.add("Opció 3");
-
-            KeyboardFrequencySelector dialog = new KeyboardFrequencySelector(parentFrame, stringVector);
-            ArrayList<String> selectedStrings = dialog.getSelectedStrings();
-
-            System.out.println("Cadenes Seleccionades:");
-            for (String str : selectedStrings) {
-                System.out.println(str);
-            }
-        });
-    }
 }

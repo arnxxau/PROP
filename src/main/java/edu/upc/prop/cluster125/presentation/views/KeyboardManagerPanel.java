@@ -177,19 +177,4 @@ public class KeyboardManagerPanel extends JPanel {
         }
     }
 
-    /**
-     * El mètode principal per provar KeyboardManagerPanel.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Gestor de Teclats");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new KeyboardManagerPanel(frame));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

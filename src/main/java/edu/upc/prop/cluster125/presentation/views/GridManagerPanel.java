@@ -130,19 +130,4 @@ public class GridManagerPanel extends JPanel {
         }
     }
 
-    /**
-     * El mètode principal per provar el GridManagerPanel.
-     *
-     * @param args Els arguments de línia de comandes.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Gestor de Graella");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new GridManagerPanel(frame));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

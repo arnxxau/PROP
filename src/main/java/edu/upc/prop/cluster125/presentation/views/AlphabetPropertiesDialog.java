@@ -67,27 +67,4 @@ public class AlphabetPropertiesDialog extends JDialog {
         add(infoPanel);
     }
 
-    /**
-     * Mètode principal que s'utilitza per a provar la finestra de diàleg d'informació de l'alfabet.
-     *
-     * @param args Els arguments de la línia de comandes (no s'utilitzen en aquest cas).
-     */
-    public static void main(String[] args) {
-        // Exemple d'ús de la finestra de diàleg en una aplicació
-        JFrame frame = new JFrame("Gestor de Freqüències");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-        JButton showInfoButton = new JButton("Mostrar Informació de l'Alfabet");
-        showInfoButton.addActionListener(e -> {
-            // Exemple de com mostrar la finestra d'informació de l'alfabet
-            String[] s = {"Nom de l'Alfabet", "Freqüències Associades", "Caràcters de l'Alfabet", "Data de Modificació", "Data de Creació"};
-            AlphabetPropertiesDialog dialog = new AlphabetPropertiesDialog(frame, s);
-            dialog.setVisible(true);
-        });
-
-        frame.add(showInfoButton);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }

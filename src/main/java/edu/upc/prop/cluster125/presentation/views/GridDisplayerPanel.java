@@ -79,37 +79,4 @@ public class GridDisplayerPanel extends JPanel {
         }
     }
 
-    /**
-     * Mètode principal per a una mostra d'ús.
-     *
-     * @param args Arguments de la línia de comandament (no s'utilitzen en aquest cas).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // Exemple d'ús amb el nou JPanel
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            GridDisplayerPanel panel = new GridDisplayerPanel(); // Inicialment amb paràmetres nuls
-            frame.add(panel);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-
-            // Crear una graella d'exemple
-            boolean[][] mat = new boolean[][]{
-                    {true, false, true, false, true},
-                    {false, true, false, false, true},
-                    {true, false, true, false, true}
-            };
-            Grid grid = new Grid(1, mat);
-
-            // Extreure les posicions i la mida de la graella
-            ArrayList<Pair> positions = grid.getPositions();
-            Pair gridSize = grid.getMaxSize();
-
-            // Actualitzar el panell amb les dades de la graella
-            panel.updateView(positions, gridSize);
-        });
-    }
 }

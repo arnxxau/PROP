@@ -117,17 +117,4 @@ public class InformationPanel extends JPanel {
         saveInfo.setText("Últim cop guardat: " + data[4]);
     }
 
-    /**
-     * El mètode principal per provar InformationPanel.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Panell d'Informació");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.add(new InformationPanel());
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }

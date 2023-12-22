@@ -58,27 +58,4 @@ public class GridDisplayerDialog extends JDialog {
         }
     }
 
-    /**
-     * Mètode principal per a una mostra d'ús.
-     *
-     * @param args Arguments de la línia de comandament (no s'utilitzen en aquest cas).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // Crear una graella de mostra
-            ArrayList<Pair> positions = new ArrayList<>();
-            positions.add(new Pair(0, 0));
-            positions.add(new Pair(0, 2));
-            positions.add(new Pair(1, 1));
-            positions.add(new Pair(2, 0));
-            positions.add(new Pair(2, 2));
-            Pair gridSize = new Pair(3, 3);
-
-            // Crear i mostrar el diàleg
-            JFrame frame = new JFrame(); // Reemplaça aquest frame principal amb el teu frame d'aplicació
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            GridDisplayerDialog dialog = new GridDisplayerDialog(frame, positions, gridSize);
-            dialog.setVisible(true);
-        });
-    }
 }

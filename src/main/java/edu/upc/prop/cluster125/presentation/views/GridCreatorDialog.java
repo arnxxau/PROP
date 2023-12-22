@@ -111,14 +111,4 @@ public class GridCreatorDialog extends JDialog {
         return button;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame parentFrame = new JFrame();
-            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            parentFrame.setSize(500, 320);
-            parentFrame.setVisible(true);
-
-            GridCreatorDialog dialog = new GridCreatorDialog(parentFrame);
-        });
-    }
 }

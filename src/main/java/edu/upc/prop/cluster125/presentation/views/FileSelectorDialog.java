@@ -36,12 +36,4 @@ public class FileSelectorDialog extends JFrame {
         }
     }
 
-    /**
-     * Mètode principal per provar la finestra de selecció de fitxers.
-     *
-     * @param args Els arguments de la línia de comandes (no s'utilitzen en aquest cas).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new FileSelectorDialog().selectDirectory());
-    }
 }

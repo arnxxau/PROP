@@ -85,29 +85,4 @@ public class GridSelectorDialog extends JDialog {
         return selectedPositions;
     }
 
-    /**
-     * El mètode principal per provar el GridSelectorDialog.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame mainFrame = new JFrame();
-            mainFrame.setSize(500, 500);
-            mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainFrame.setVisible(true);
-
-            GridSelectorDialog dialog = new GridSelectorDialog(mainFrame, 5, 5);
-            dialog.setVisible(true);
-
-            boolean[][] selectedPositions = dialog.getSelectedPositions();
-            System.out.println("Posicions Seleccionades:");
-            for (int y = 0; y < selectedPositions.length; y++) {
-                for (int x = 0; x < selectedPositions[y].length; x++) {
-                    System.out.print(selectedPositions[y][x] + " ");
-                }
-                System.out.println();
-            }
-        });
-    }
 }

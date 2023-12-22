@@ -120,19 +120,4 @@ public class AlphabetManagerPanel extends JPanel {
         }
     }
 
-    /**
-     * Mètode principal per provar la classe AlphabetManagerPanel.
-     *
-     * @param args Arguments de línia de comandament (no s'utilitzen aquí).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Alphabet Manager");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new AlphabetManagerPanel(frame));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

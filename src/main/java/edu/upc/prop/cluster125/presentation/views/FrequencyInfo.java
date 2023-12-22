@@ -61,19 +61,4 @@ public class FrequencyInfo extends JDialog {
         add(infoPanel);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Frequency Manager");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-        JButton showInfoButton = new JButton("Show Frequency Info");
-        showInfoButton.addActionListener(e -> {
-            FrequencyInfo dialog = new FrequencyInfo(frame);
-            dialog.setVisible(true);
-        });
-
-        frame.add(showInfoButton);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }

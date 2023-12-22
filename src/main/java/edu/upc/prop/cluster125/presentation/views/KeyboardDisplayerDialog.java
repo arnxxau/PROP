@@ -69,30 +69,4 @@ public class KeyboardDisplayerDialog extends JDialog {
         }
     }
 
-    /**
-     * El mètode principal per provar KeyboardDisplayerDialog.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        // Ús d'exemple
-        SwingUtilities.invokeLater(() -> {
-            // Crea una graella d'exemple i caràcters
-            boolean[][] mat = new boolean[][]{
-                    {true, false, true, false, true},
-                    {false, true, false, false, true},
-                    {true, false, true, false, true}
-            };
-            Grid grid = new Grid(1, mat);
-            ArrayList<Pair> positions = grid.getPositions();
-            Pair gridSize = grid.getMaxSize();
-            char[] characters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'}; // Caràcters d'exemple
-
-            // Crea i mostra el diàleg
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            KeyboardDisplayerDialog dialog = new KeyboardDisplayerDialog(frame, positions, gridSize, characters);
-            dialog.setVisible(true);
-        });
-    }
 }

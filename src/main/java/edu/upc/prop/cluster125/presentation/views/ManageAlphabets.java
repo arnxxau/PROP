@@ -118,13 +118,4 @@ public class ManageAlphabets extends JFrame {
         setLocationRelativeTo(null);
     }
 
-
-    /**
-     * Mètode principal per iniciar l'aplicació.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(ManageAlphabets::new);
-    }
 }

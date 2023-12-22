@@ -62,25 +62,5 @@ public class KeyboardPropertiesDialog extends JDialog {
         add(infoPanel);
     }
 
-    /**
-     * El mètode principal per provar KeyboardPropertiesDialog.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Gestor de Freqüència");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
 
-        JButton showInfoButton = new JButton("Mostrar informació de freqüència");
-        showInfoButton.addActionListener(e -> {
-            String[] s = {"test", "test", "test", "test", "test"};
-            KeyboardPropertiesDialog dialog = new KeyboardPropertiesDialog(frame, s);
-            dialog.setVisible(true);
-        });
-
-        frame.add(showInfoButton);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }

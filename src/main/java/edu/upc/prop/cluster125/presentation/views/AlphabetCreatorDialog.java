@@ -114,15 +114,4 @@ public class AlphabetCreatorDialog extends JDialog {
         JOptionPane.showMessageDialog(this, message, title, messageType);
     }
 
-    /**
-     * Mètode principal per a provar la classe AlphabetCreatorDialog.
-     *
-     * @param args Arguments de línia de comandament (no s'utilitzen aquí).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            new AlphabetCreatorDialog(frame);
-        });
-    }
 }

@@ -136,19 +136,4 @@ public class KeyboardCreatorDialog extends JDialog {
         return button;
     }
 
-    /**
-     * El mètode principal per provar KeyboardCreatorDialog.
-     *
-     * @param args Els arguments de la línia de comandes.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame parentFrame = new JFrame();
-            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            parentFrame.setSize(500, 300); // Increased the width to accommodate new components
-            parentFrame.setVisible(true);
-
-            KeyboardCreatorDialog dialog = new KeyboardCreatorDialog(parentFrame);
-        });
-    }
 }

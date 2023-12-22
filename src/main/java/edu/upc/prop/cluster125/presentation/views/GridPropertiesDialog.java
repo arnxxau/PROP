@@ -61,26 +61,4 @@ public class GridPropertiesDialog extends JDialog {
 
         add(panellInformacio);
     }
-
-    /**
-     * El mètode principal per provar el GridPropertiesDialog.
-     *
-     * @param args Els arguments de línia de comandes.
-     */
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Gestor de Graella");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-        JButton mostraInformacioButton = new JButton("Mostra Informació de la Graella");
-        mostraInformacioButton.addActionListener(e -> {
-            String[] s = {"test", "test", "test", "test", "test"};
-            GridPropertiesDialog dialeg = new GridPropertiesDialog(frame, s);
-            dialeg.setVisible(true);
-        });
-
-        frame.add(mostraInformacioButton);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }

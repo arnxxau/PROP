@@ -120,11 +120,4 @@ public class FrequencyCreatorDialog extends JDialog {
         return new JButton(text);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            new FrequencyCreatorDialog(frame);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        });
-    }
 }
