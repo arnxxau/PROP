@@ -53,16 +53,15 @@ EOF
 
 # Create directories and index files
 mkdir -p ./FONTS ./DOCS ./EXE
-create_index FONTS "Classes de model i Controlador de Domini i Driver de Funcionalitat"
-create_index DOCS "DOCS:
+create_index FONTS "Classes de model, vistes, gestor de persistència i els controladors de cada classe."
 
+create_index DOCS "
                   Conté tota la documentació del projecte:
-                   - diagrama de casos d'us
-                   - diagrama de classes de model
-                   - doc amb: descripcio dels casos d'us, breu descripcio dels atributs i metodes de les classes de model, relacio de les classes implementades per cada membre de l'equip, descripcio de les estructures de dades i algorismes emprats per implementar les funcionalitats de l'entrega.
+                   - jocs de prova
+                   - manual d'usuari
                    - javadoc
                   "
-create_index EXE "Directori de sortida pels .jar (driver ja compilat) i els .class . Tots els arxius sortiran un cop s'hagi compilat amb el Makefile contingut al directori /FONTS
+create_index EXE "Directori de sortida pels .jar i els .class . Tots els arxius sortiran un cop s'hagi compilat amb el Makefile contingut al directori /FONTS
                  "
 
 # Copy source to FONTS and create symlink
@@ -70,6 +69,7 @@ cp -r "${ORIGIN:?}/src" ./FONTS
 cd FONTS && ln -s src/main/java/edu/upc/prop/cluster125 CODE_HERE
 
 mkdir libs
+create_index libs "Llibreria per convertir les dades i guardar-les a persistència"
 cp "${ORIGIN:?}"/GradlePOC-1.0-SNAPSHOT/lib/gson-2.8.9.jar libs/
 
 # Add Makefile to FONTS directory
