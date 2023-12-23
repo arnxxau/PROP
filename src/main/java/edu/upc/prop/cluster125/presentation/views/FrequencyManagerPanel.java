@@ -97,13 +97,13 @@ public class FrequencyManagerPanel extends JPanel {
                         case 2: // File text logic
                             FileSelectorDialog dsFileText = new FileSelectorDialog();
                             String urlFileText = dsFileText.selectDirectory();
-                            CtrlPresentacio.ModificarTextFreqFromPath(selectedFreq, urlFileText);
+                            if (urlFileText != null) CtrlPresentacio.ModificarTextFreqFromPath(selectedFreq, urlFileText);
                             break;
 
                         case 3: // File freq logic
                             FileSelectorDialog dsFileFreq = new FileSelectorDialog();
                             String urlFileFreq = dsFileFreq.selectDirectory();
-                            CtrlPresentacio.ModificarListFreqFromPath(selectedFreq, urlFileFreq);
+                            if (urlFileFreq != null) CtrlPresentacio.ModificarListFreqFromPath(selectedFreq, urlFileFreq);
                             break;
 
                         default: // Dialog closed or canceled

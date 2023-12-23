@@ -1,8 +1,6 @@
 package edu.upc.prop.cluster125.domain;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * La classe LocalSearch conté una implementació de l'algorisme Hill Climbing per a la resolució

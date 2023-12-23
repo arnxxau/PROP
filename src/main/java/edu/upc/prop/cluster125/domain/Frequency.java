@@ -112,7 +112,8 @@ public class Frequency {
      * </pre>
      *
      * @param lines Les línies que contenen la informació de freqüències.
-     * @throws Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
+     * @throws CaractersfromFreq_notInAlph_Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
+     * @throws badExtraction_Exception Si el format del fitxer no és correcte.
      */
     private void extractRawFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         try {
@@ -143,18 +144,17 @@ public class Frequency {
      * Extreu les freqüències de text de les línies proporcionades.
      *
      * @param lines Línies de text amb el mateix alfabet.
-     * @throws Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
+     * @throws CaractersfromFreq_notInAlph_Exception Si el fitxer conté caràcters que no estan presents a l'alfabet de la freqüència.
      */
     private void extractTextFrequencies(String[] lines) throws CaractersfromFreq_notInAlph_Exception {
         for (String s1 : lines) {
-            String[] line = s1.split(" ");
+            String[] line = s1.replaceAll("\\p{C}", " ").split(" ");
 
             for (String s2 : line) {
                 processWord(s2);
                 frequencyWeight += s2.length();
             }
         }
-
     }
 
     // utils
@@ -163,7 +163,7 @@ public class Frequency {
      * Processa una paraula per actualitzar les freqüències de caràcters adjacents.
      *
      * @param w La paraula a processar.
-     * @throws Exception Si la paraula caràcters que no estan presents a l'alfabet de la freqüència.
+     * @throws CaractersfromFreq_notInAlph_Exception Si la paraula caràcters que no estan presents a l'alfabet de la freqüència.
      */
     private void processWord(String w) throws CaractersfromFreq_notInAlph_Exception {
         for (int i = 0; i < w.length() - 1; ++i) {

@@ -419,8 +419,10 @@ public class CtrlDomini {
      */
     public Vector<String> NomsFreqs_Alfabet(String nomA){
         Vector<String> vs = new Vector<>();
-        for(String s : AP.get(nomA).getFrequencies().keySet()){
-            vs.add(s);
+        if (AP.get(nomA).getFrequencies() != null) {
+            for(String s : AP.get(nomA).getFrequencies().keySet()){
+                vs.add(s);
+            }
         }
         return vs;
     }

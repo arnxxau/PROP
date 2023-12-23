@@ -72,7 +72,9 @@ public class FrequencyCreatorDialog extends JDialog {
             try {
                 if (nameField.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(parent, "Type a name!");
-                } else if (liveTextRadioButton.isSelected() || liveFreqRadioButton.isSelected()) {
+                }
+                else if (alphabetComboBox.getSelectedIndex() == -1) JOptionPane.showMessageDialog(parent, "Create an alphabet!");
+                else if (liveTextRadioButton.isSelected() || liveFreqRadioButton.isSelected()) {
                     LiveEditorDialog led = new LiveEditorDialog(parent, content);
                     content = led.showDialogAndGetContent();
                     if (liveTextRadioButton.isSelected())
@@ -83,9 +85,9 @@ public class FrequencyCreatorDialog extends JDialog {
                 } else if (fileTextRadioButton.isSelected() || fileFreqRadioButton.isSelected()) {
                     FileSelectorDialog ds = new FileSelectorDialog();
                     String url = ds.selectDirectory();
-                    if (fileTextRadioButton.isSelected())
+                    if (fileTextRadioButton.isSelected() && url != null)
                         CtrlPresentacio.AfegirTextFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(), url);
-                    else
+                    else if (url != null)
                         CtrlPresentacio.AfegirListFreqFromPath(nameField.getText(), alphabetComboBox.getSelectedItem().toString(), url);
                     dispose();
                 } else {
