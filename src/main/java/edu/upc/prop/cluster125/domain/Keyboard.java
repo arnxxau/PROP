@@ -32,8 +32,8 @@ public class Keyboard {
     @Expose
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             .withZone(ZoneId.systemDefault());
-
-    private final int modeA;
+    @Expose
+    private final int mode;
 
     public final static int QAPAlgorithm = 0;
     public final static int LocalSearchAlgorithm = 1;
@@ -57,14 +57,14 @@ public class Keyboard {
         this.Grid = grid;
         if(mode == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(alphabet,frequency,grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
         else{this.distribucio = LocalSearch.HillClimbing(alphabet,frequency,grid);}
-        this.modeA = mode;
+        this.mode = mode;
     }
 
     /**
      * Actualitza la distribució de lletres del teclat.
      */
     public void update() {
-        if(modeA == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
+        if(mode == QAPAlgorithm){this.distribucio = QAP.QAPAlgorithm(Alph,Freq,Grid);} // CALCULAR DISTRIBUCIÓ AMB QAP
         else{this.distribucio = LocalSearch.HillClimbing(Alph,Freq,Grid);}
         this.ultimaModificacio = formatter.format(Instant.now());
     }
