@@ -12,10 +12,10 @@ import java.util.ArrayList;
  * Aquesta classe representa un panell de gestió de teclats.
  */
 public class KeyboardManagerPanel extends JPanel {
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-    JList<String> list = new JList<>(listModel);
+    final DefaultListModel<String> listModel = new DefaultListModel<>();
+    final JList<String> list = new JList<>(listModel);
 
-    KeyboardDisplayerPanel keyboardRepresentation = new KeyboardDisplayerPanel();
+    final KeyboardDisplayerPanel keyboardRepresentation = new KeyboardDisplayerPanel();
 
     /**
      * Crea una instància de KeyboardManagerPanel amb un frame pare.

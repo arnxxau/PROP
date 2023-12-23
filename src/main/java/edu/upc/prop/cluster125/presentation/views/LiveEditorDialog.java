@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class LiveEditorDialog extends JDialog {
 
-    private JEditorPane editorPane;
+    private final JEditorPane editorPane;
     private String content;
 
     /**

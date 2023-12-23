@@ -9,9 +9,9 @@ import java.util.Map;
  * un conjunt de caràcters i una cota associada que ajuda a determinar la qualitat de la solució.
  */
 public class Nodo implements Comparable<Nodo> {
-    private Map<Character, Integer> solucio;
-    private HashSet<Integer> posicions;
-    private HashSet<Character> simbols;
+    private final Map<Character, Integer> solucio;
+    private final HashSet<Integer> posicions;
+    private final HashSet<Character> simbols;
     private final int cota;
 
     /**

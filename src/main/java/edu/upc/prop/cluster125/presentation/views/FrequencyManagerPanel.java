@@ -12,8 +12,8 @@ import java.io.IOException;
  * La classe FrequencyManagerPanel és un panell que permet als usuaris gestionar les freqüències.
  */
 public class FrequencyManagerPanel extends JPanel {
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-    JList<String> list = new JList<>(listModel);
+    final DefaultListModel<String> listModel = new DefaultListModel<>();
+    final JList<String> list = new JList<>(listModel);
 
     /**
      * Crea un nou panell FrequencyManagerPanel.

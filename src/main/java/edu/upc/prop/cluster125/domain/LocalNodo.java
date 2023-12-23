@@ -6,7 +6,7 @@ package edu.upc.prop.cluster125.domain;
  * i una cota associada que ajuda a determinar la qualitat de la solució.
  */
 public class LocalNodo {
-    private char[] solucio;
+    private final char[] solucio;
     private int cota;
 
     /**

@@ -9,10 +9,10 @@ import java.awt.*;
  * Aquesta classe representa el panell de gestió de graelles de l'aplicació.
  */
 public class GridManagerPanel extends JPanel {
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-    JList<String> list = new JList<>(listModel);
+    final DefaultListModel<String> listModel = new DefaultListModel<>();
+    final JList<String> list = new JList<>(listModel);
 
-    GridDisplayerPanel gridRepresentation = new GridDisplayerPanel();
+    final GridDisplayerPanel gridRepresentation = new GridDisplayerPanel();
 
     /**
      * Crea un nou GridManagerPanel.

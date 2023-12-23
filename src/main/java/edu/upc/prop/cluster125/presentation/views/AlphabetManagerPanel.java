@@ -10,8 +10,8 @@ import java.awt.*;
  * La classe AlphabetManagerPanel és un panell de gestió d'alfabets que permet als usuaris crear, modificar, esborrar i consultar alfabets.
  */
 public class AlphabetManagerPanel extends JPanel {
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-    JList<String> list = new JList<>(listModel);
+    final DefaultListModel<String> listModel = new DefaultListModel<>();
+    final JList<String> list = new JList<>(listModel);
 
     /**
      * Crea un nou panell de gestió d'alfabets.

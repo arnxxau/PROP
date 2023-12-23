@@ -21,11 +21,11 @@ public class Alphabet {
     @Expose
     private String nom;
     @Expose
-    private String crDate;
+    private final String crDate;
     @Expose
     private String ultMod;
     @Expose
-    private HashSet<Character> caracters;
+    private final HashSet<Character> caracters;
     @Expose(serialize = false)
     private HashMap<String, Frequency> frequencies;
     @Expose
