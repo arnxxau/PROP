@@ -42,11 +42,11 @@ public class Keyboard {
     /**
      * Constructor de la classe Keyboard.
      *
-     * @param nom       El nom del teclat.
-     * @param alphabet  L'alfabet associat al teclat.
+     * @param nom El nom del teclat.
+     * @param alphabet L'alfabet associat al teclat.
      * @param frequency La freqüència associada al teclat.
-     * @param grid      La graella que defineix les posicions vàlides per al teclat.
-     * @throws IllegalArgumentException Si la freqüència no pertany a l'alfabet o si el grid no té prou posicions vàlides.
+     * @param grid La graella que defineix les posicions vàlides per al teclat.
+     * @param mode El mode de distribució de teclat a utilitzar (p.ex., QAPAlgorithm o HillClimbing).
      */
     public Keyboard(String nom, Alphabet alphabet, Frequency frequency, Grid grid, int mode){
         this.nom = nom;

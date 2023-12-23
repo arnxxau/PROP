@@ -48,19 +48,17 @@ public class KeyboardFrequencySelector extends JDialog {
 
         // Crea un botó per confirmar la selecció
         JButton selectButton = new JButton("Select");
-        selectButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (Component component : checkboxPanel.getComponents()) {
-                    if (component instanceof JCheckBox) {
-                        JCheckBox checkBox = (JCheckBox) component;
-                        if (checkBox.isSelected()) {
-                            selectedStrings.add(checkBox.getText());
-                        }
+
+        selectButton.addActionListener(e -> {
+            for (Component component : checkboxPanel.getComponents()) {
+                if (component instanceof JCheckBox) {
+                    JCheckBox checkBox = (JCheckBox) component;
+                    if (checkBox.isSelected()) {
+                        selectedStrings.add(checkBox.getText());
                     }
                 }
-                dispose(); // Tanca el diàleg
             }
+            dispose(); // Tanca el diàleg
         });
 
         // Afegeix el botó de selecció al panell principal
