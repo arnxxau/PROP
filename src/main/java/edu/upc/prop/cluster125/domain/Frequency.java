@@ -62,11 +62,12 @@ public class Frequency {
     /**
      * Construeix un objecte Frequency basat en els paràmetres proporcionats.
      *
-     * @param name     El nom de la freqüència.
-     * @param lines    Les línies de dades que contenen informació de freqüència.
-     * @param mode     El mode que indica si les dades estan en forma de freqüència o text. (FREQ_MODE o TEXT_MODE)
+     * @param name El nom de la freqüència.
+     * @param lines Les línies de dades que contenen informació sobre la freqüència.
+     * @param mode El mode que indica si les dades estan en forma de freqüències o de text. (FREQ_MODE o TEXT_MODE)
      * @param alphabet L'alfabet associat amb la freqüència.
-     * @throws Exception Si hi ha un error durant la construcció.
+     * @throws CaractersfromFreq_notInAlph_Exception Si els caràcters de freqüència no estan en l'alfabet.
+     * @throws badExtraction_Exception Si hi ha un error durant l'extracció de les freqüències.
      */
     public Frequency(String name, String[] lines, int mode, Alphabet alphabet) throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         this.mode = mode;

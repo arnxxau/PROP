@@ -112,7 +112,7 @@ check_java_home
 cd "${ORIGIN:?}"
 # Compile and move the Java program
 "${ORIGIN:?}/gradlew" shadowJar -Dorg.gradle.java.home="$JAVA_CMD"
-#"${ORIGIN:?}/gradlew" javadoc -Dorg.gradle.java.home="$JAVA_CMD"
+"${ORIGIN:?}/gradlew" javadoc -Dorg.gradle.java.home="$JAVA_CMD"
 mv "${ORIGIN:?}/build/libs/gradlepoc-1.0-SNAPSHOT-all.jar" "${DESTINATION:?}/${FOLDER_NAME:?}/EXE/${PROGRAM_NAME:?}.jar"
 cp -r "${ORIGIN:?}/build/docs/javadoc" "${DESTINATION:?}/${FOLDER_NAME:?}/DOCS/"
 
