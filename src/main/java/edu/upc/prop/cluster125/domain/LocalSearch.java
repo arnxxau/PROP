@@ -19,8 +19,10 @@ public class LocalSearch {
      * @return La solució òptima trobada mitjançant Hill Climbing.
      */
     public static char[] HillClimbing(Alphabet alphabet, Frequency freq, Grid grid){
-        char[] Sol_ini = SolIni_Basic(alphabet.getCharacters());
-        LocalNodo Solucio = new LocalNodo(Sol_ini, Heuristic(Sol_ini, freq, grid));
+        HashSet<Integer> posicions = new HashSet<>();
+        for(int i=0;i<grid.size();i++)posicions.add(i);
+        char[] Sol_ini = convert(greedysol_cota(alphabet.getCharacters(),posicions,freq, grid));
+        LocalNodo Solucio = new LocalNodo(Sol_ini,Heuristic(Sol_ini,freq,grid));
 
         boolean end = true;
         while(end){
@@ -60,22 +62,6 @@ public class LocalSearch {
     }
 
     /**
-     * Genera una solució inicial bàsica a partir d'un conjunt de caràcters.
-     *
-     * @param car El conjunt de caràcters disponibles.
-     * @return Una solució inicial bàsica.
-     */
-    private static char[] SolIni_Basic(HashSet<Character> car){
-        char[] Sol_ini = new char[car.size()];
-        int idx=0;
-        for (Character caracter : car) {
-            Sol_ini[idx]=caracter;
-            idx +=1;
-        }
-        return Sol_ini;
-    }
-
-    /**
      * Calcula la heurística d'una solució donada.
      *
      * @param Sol La solució de la qual es calcula la heurística.
@@ -91,5 +77,70 @@ public class LocalSearch {
             }
         }
         return res;
+    }
+
+    private static char[] convert(Map<Character, Integer> Solucio){
+        char[] sol = new char[Solucio.size()];
+        List<Map.Entry<Character, Integer>> listaOrdenada = new ArrayList<>(Solucio.entrySet());
+        listaOrdenada.sort(Map.Entry.comparingByValue());
+        for (int i = 0; i < listaOrdenada.size(); i++) {
+            sol[i] = listaOrdenada.get(i).getKey();
+        }
+        return sol;
+    }
+
+    private static Map<Character, Integer> greedysol_cota(HashSet<Character> simbols, HashSet<Integer> Posicions, Frequency freq, Grid grid) {
+        Map<Character, Integer> frecuencias = new HashMap<>();
+
+        Iterator<Character> iterator = simbols.iterator();
+        while (iterator.hasNext()) {
+            char sim1 = iterator.next();
+            Iterator<Character> iterator2 = simbols.iterator();
+            int total=0;
+            char sim2;
+            while (iterator2.hasNext()) {
+                sim2 = iterator2.next();
+
+                if(sim1!=sim2){
+                    total += (int) freq.getNumberOfAppearances(sim1,sim2);
+                }
+
+            }
+            frecuencias.put(sim1,total);
+        }
+        List<Map.Entry<Character, Integer>> listaOrdenada = new ArrayList<>(frecuencias.entrySet());
+        listaOrdenada.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+
+        Map<Integer, Integer> num_dist = new TreeMap<>();
+        Iterator<Integer> iteratorPos = Posicions.iterator();
+        while (iteratorPos.hasNext()) {
+            int pos1 = iteratorPos.next();
+            Iterator<Integer> iteratorPos2 = Posicions.iterator();
+            int totalDist=0;
+            int pos2;
+
+            while(iteratorPos2.hasNext()) {
+                pos2 = iteratorPos2.next();
+
+                if(pos1!=pos2){
+                    totalDist += grid.distance(pos1,pos2);
+                }
+            }
+            num_dist.put(pos1,totalDist);
+        }
+
+        List<Map.Entry<Integer, Integer>> listaOrdenada1 = new ArrayList<>(num_dist.entrySet());
+        listaOrdenada1.sort(Map.Entry.comparingByValue());
+
+
+
+        Map<Character, Integer> assig_greedy = new HashMap<>();
+
+        for(int i=0; i<listaOrdenada.size();i++){
+            assig_greedy.put(listaOrdenada.get(i).getKey(),listaOrdenada1.get(i).getKey());
+        }
+
+        return assig_greedy;
     }
 }
