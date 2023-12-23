@@ -305,7 +305,7 @@ public class CtrlPresentacio {
     public static void ModificarListFreqMa(String nomF, String liveText)
             throws CaractersfromFreq_notInAlph_Exception, badExtraction_Exception {
         Vector<String> text = new Vector<>();
-        StringTokenizer tokenizer = new StringTokenizer(liveText, " ");
+        StringTokenizer tokenizer = new StringTokenizer(liveText, "\n");
 
         while (tokenizer.hasMoreTokens()) {
             text.add(tokenizer.nextToken());

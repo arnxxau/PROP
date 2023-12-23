@@ -82,6 +82,7 @@ public class AlphabetManagerPanel extends JPanel {
             new AlphabetCreatorDialog(parent);
             updateTab();
         });
+
         deleteButton.addActionListener(e -> {
 
             if (list.getSelectedIndex() == -1) {
