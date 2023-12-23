@@ -10,11 +10,11 @@ import java.awt.*;
  */
 public class MainView extends JFrame {
 
-    FrequencyManagerPanel mf;
-    AlphabetManagerPanel ma;
-    KeyboardManagerPanel mk;
-    GridManagerPanel mg;
-    InformationPanel mm;
+    final FrequencyManagerPanel mf;
+    final AlphabetManagerPanel ma;
+    final KeyboardManagerPanel mk;
+    final GridManagerPanel mg;
+    final InformationPanel mm;
 
     /**
      * Crea una nova instància de la vista principal.
@@ -24,7 +24,7 @@ public class MainView extends JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             // If system look and feel is not available, fall back to the default look and feel.
         }
 

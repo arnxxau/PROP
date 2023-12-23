@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class GridCreatorDialog extends JDialog {
 
-    JFrame parent;
+    final JFrame parent;
     boolean[][] pos = null;
 
     /**

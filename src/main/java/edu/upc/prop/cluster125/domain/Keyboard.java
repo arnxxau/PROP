@@ -13,13 +13,12 @@ import com.google.gson.annotations.Expose;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class Keyboard {
     @Expose
     private String nom;
     @Expose
-    private String dataCreacio;
+    private final String dataCreacio;
     @Expose
     private String ultimaModificacio;
     @Expose
@@ -34,7 +33,7 @@ public class Keyboard {
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             .withZone(ZoneId.systemDefault());
 
-    private int modeA;
+    private final int modeA;
 
     public final static int QAPAlgorithm = 0;
     public final static int LocalSearchAlgorithm = 1;

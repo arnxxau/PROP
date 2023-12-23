@@ -17,7 +17,7 @@ import java.util.Vector;
  * Gestiona la comunicació entre la capa de domini i la interfície gràfica d'usuari.
  */
 public class CtrlPresentacio {
-    static CtrlDomini cd;
+    static final CtrlDomini cd;
 
     static {
         cd = new CtrlDomini();
@@ -91,38 +91,6 @@ public class CtrlPresentacio {
      */
     public static Vector<String> getAlphabets() {
         return cd.Noms_Alfabets();
-    }
-
-    /**
-     * Demana una representació completa d'un alfabet específic.
-     * @return Matriu de Strings amb la informació de l'alfabet.
-     */
-    public static String[][] Demanar_full_Alfabet() {
-        Vector<Vector<String>> inp = cd.Consultar_Alfabets();
-        String[][] res = new String[inp.size()][3];
-        for(int i=0; i<inp.size(); i++) {
-            String[] a = new String[3];
-            a[0] = inp.get(i).get(0);
-
-            StringBuilder resultant = new StringBuilder();
-
-            String entrant = inp.get(i).get(1);
-
-            for (int l = 0; l < entrant.length(); l++) {
-                resultant.append(entrant.charAt(l)).append(" ");
-            }
-
-            // Eliminar el espacio adicional al final, si es necesario
-            if (resultant.length() > 0) {
-                resultant.deleteCharAt(resultant.length() - 1);
-            }
-
-            a[1] = resultant.toString();
-            a[2] = String.valueOf(entrant.length());
-
-            res[i] = a;
-        }
-        return res;
     }
 
     /**

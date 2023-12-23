@@ -10,11 +10,11 @@ import java.awt.*;
  */
 public class InformationPanel extends JPanel {
 
-    private JLabel alphabetInfo;
-    private JLabel frequencyInfo;
-    private JLabel keyboardInfo;
-    private JLabel gridInfo;
-    private JLabel saveInfo;
+    private final JLabel alphabetInfo;
+    private final JLabel frequencyInfo;
+    private final JLabel keyboardInfo;
+    private final JLabel gridInfo;
+    private final JLabel saveInfo;
 
     /**
      * Crea una instància de InformationPanel.

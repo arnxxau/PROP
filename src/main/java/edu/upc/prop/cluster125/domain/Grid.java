@@ -22,11 +22,9 @@ public class Grid {
     @Expose
     private Pair size;
     @Expose
-    private ArrayList<Pair> grid = new ArrayList<Pair>();
+    private final ArrayList<Pair> grid = new ArrayList<Pair>();
     @Expose
-    private String creationDate;
-    @Expose
-    private String lastModifiedTime;
+    private final String creationDate;
     @Expose
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             .withZone(ZoneId.systemDefault());
@@ -50,7 +48,6 @@ public class Grid {
         }
 
         creationDate = formatter.format(Instant.now());
-        lastModifiedTime = formatter.format(Instant.now());
     }
 
 
@@ -68,7 +65,6 @@ public class Grid {
         }
         size = new Pair(max.getX() + 1, max.getY() + 1);
         creationDate = formatter.format(Instant.now());
-        lastModifiedTime = formatter.format(Instant.now());
     }
 
     /**
@@ -76,7 +72,6 @@ public class Grid {
      */
     public Grid() {
         creationDate = formatter.format(Instant.now());
-        lastModifiedTime = formatter.format(Instant.now());
     }
 
     /**

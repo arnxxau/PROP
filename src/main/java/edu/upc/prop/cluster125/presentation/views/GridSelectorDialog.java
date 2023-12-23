@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class GridSelectorDialog extends JDialog {
 
-    private boolean[][] selectedPositions;
+    private final boolean[][] selectedPositions;
 
     /**
      * Crea una instància de GridSelectorDialog.

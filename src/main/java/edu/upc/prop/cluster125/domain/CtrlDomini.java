@@ -21,7 +21,7 @@ public class CtrlDomini {
     HashMap<String, Frequency> FQ = new HashMap<>();
     HashMap<String, Keyboard> KB = new HashMap<>();
     HashMap<Integer, Grid> GD = new HashMap<>();
-    CtrlPersistencia persistencia = new CtrlPersistencia();
+    final CtrlPersistencia persistencia = new CtrlPersistencia();
 
     Instant lastSaved = null;
 

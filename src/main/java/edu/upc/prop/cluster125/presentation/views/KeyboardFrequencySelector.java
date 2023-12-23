@@ -12,7 +12,7 @@ import java.util.Vector;
  */
 public class KeyboardFrequencySelector extends JDialog {
 
-    private ArrayList<String> selectedStrings;
+    private final ArrayList<String> selectedStrings;
 
     /**
      * Crea una instància de KeyboardFrequencySelector amb el vector de cadenes de text.
